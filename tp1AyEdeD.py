@@ -1,10 +1,10 @@
 # Constantes con los datos de los estudiantes
-ESTUDIANTE_1_EMAIL = "estudiante1@ayed.com"
-ESTUDIANTE_1_CONTRASEÑA = "111222"
-ESTUDIANTE_2_EMAIL = "estudiante2@ayed.com"
-ESTUDIANTE_2_CONTRASEÑA = "333444"
-ESTUDIANTE_3_EMAIL = "estudiante3@ayed.com"
-ESTUDIANTE_3_CONTRASEÑA = "555666"
+usuario1_email = "estudiante1@ayed.com"
+usuario1_contraseña = "111222"
+usuario2_email = "estudiante2@ayed.com"
+usuario2_contraseña = "333444"
+usuario3_email = "estudiante3@ayed.com"
+usuario3_contraseña = "555666"
 
 # Función para ocultar la contraseña mientras se escribe
 def ocultar_contraseña():
@@ -74,12 +74,12 @@ import random
 intentos = 3
 
 while intentos > 0:
-    print("Bienvenido al sistema. Por favor, ingrese su email y contraseña.")
+    print("Ingrese su email y contraseña.")
     email = input("Email: ")
     contraseña = ocultar_contraseña()
 
-    if email == ESTUDIANTE_1_EMAIL and contraseña == ESTUDIANTE_1_CONTRASEÑA:
-        print("Acceso concedido como Estudiante 1.")
+    if email == usuario1_email and contraseña == usuario1_contraseña:
+        print("Bienvenido Usuario 1.")
         gestionar_mi_perfil()
         opcion = input("Ingrese su opción: ")
         if opcion == "a":
@@ -90,8 +90,8 @@ while intentos > 0:
             break
         else:
             print("Opción inválida.")
-    elif email == ESTUDIANTE_2_EMAIL and contraseña == ESTUDIANTE_2_CONTRASEÑA:
-        print("Acceso concedido como Estudiante 2.")
+    elif email == usuario2_email and contraseña == usuario2_contraseña:
+        print("Bienvenido Usuario 2.")
         gestionar_mi_perfil()
         opcion = input("Ingrese su opción: ")
         if opcion == "a":
@@ -102,8 +102,8 @@ while intentos > 0:
             break
         else:
             print("Opción inválida.")
-    elif email == ESTUDIANTE_3_EMAIL and contraseña == ESTUDIANTE_3_CONTRASEÑA:
-        print("Acceso concedido como Estudiante 3.")
+    elif email == usuario3_email and contraseña == usuario3_contraseña:
+        print("Bienvenido Usuario 3.")
         gestionar_mi_perfil()
         opcion = input("Ingrese su opción: ")
         if opcion == "a":
@@ -116,8 +116,7 @@ while intentos > 0:
             print("Opción inválida.")
     else:
         intentos -= 1
-        print("Email o contraseña incorrectos. Intentos restantes:", intentos)
+        print("Email o contraseña incorrectos.")
 
 if intentos == 0:
     print("Ha excedido el número de intentos permitidos. Cerrando el programa.")
-  print ("hola fin")
