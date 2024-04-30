@@ -120,3 +120,4 @@ while intentos > 0:
 
 if intentos == 0:
     print("Ha excedido el número de intentos permitidos. Cerrando el programa.")
+  print ("hola fin")
