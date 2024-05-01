@@ -21,14 +21,31 @@ def ocultar_contraseña():
             contraseña += caracter
             print("*", end="", flush=True)
 
-# Función para gestionar el perfil
-def gestionar_mi_perfil():
+# Función para menu completo
+def menu_completo():
     print("1. Gestionar mi perfil")
-    print("a. Editar mis datos personales")
     print("2. Gestionar candidatos")
-    print("a. Ver candidatos")
-    print("En Construcción")
+    print("3. Matcheos")
+    print("4. Reportes estadisticos")
     print("0. Salir")
+
+# Función para gestionar mi perfil
+def gestionar_mi_perfil():
+    print("a. Editar mis datos personales")
+    print("b. Eliminar mi perfil")
+    print("c. Volver")
+
+# Función para gestionar candidatos
+def gestionar_candidatos():
+    print("a. Ver candidatos")
+    print("b. Reportar un candidato")
+    print("c. Volver")
+
+# Función para matcheos
+def matcheos():
+    print("a. Ver matcheos")
+    print("B. Eliminar un matcheo")
+    print("c. Volver")
 
 # Función para editar datos personales
 def editar_datos_personales():
@@ -39,6 +56,19 @@ def editar_datos_personales():
 def ver_candidatos():
     # Implementar la visualización de candidatos
     print("Ver candidatos")
+
+# Funciones para "En Construcción"
+def cons_1b():
+    print("En Construcción")
+
+def cons_2b():
+    print("En Construcción")
+
+def cons_3_entero():
+    print("En Construcción")
+
+def cons_4():
+    print("En Construcción")
 
 # Función para la ruleta
 def ruleta():
@@ -80,36 +110,48 @@ while intentos > 0:
 
     if email == usuario1_email and contraseña == usuario1_contraseña:
         print("Bienvenido Usuario 1.")
-        gestionar_mi_perfil()
+        menu_completo()
         opcion = input("Ingrese su opción: ")
-        if opcion == "a":
-            editar_datos_personales()
+        if opcion == "1":
+            gestionar_mi_perfil()
         elif opcion == "2":
-            ver_candidatos()
+            gestionar_candidatos()
+        elif opcion == "3":
+            matcheos()
+        elif opcion == "4":
+            cons_4()
         elif opcion == "0":
             break
         else:
             print("Opción inválida.")
     elif email == usuario2_email and contraseña == usuario2_contraseña:
         print("Bienvenido Usuario 2.")
-        gestionar_mi_perfil()
+        menu_completo()
         opcion = input("Ingrese su opción: ")
-        if opcion == "a":
-            editar_datos_personales()
+        if opcion == "1":
+            gestionar_mi_perfil()
         elif opcion == "2":
-            ver_candidatos()
+            gestionar_candidatos()
+        elif opcion == "3":
+            matcheos()
+        elif opcion == "4":
+            cons_4()
         elif opcion == "0":
             break
         else:
             print("Opción inválida.")
     elif email == usuario3_email and contraseña == usuario3_contraseña:
         print("Bienvenido Usuario 3.")
-        gestionar_mi_perfil()
+        menu_completo()
         opcion = input("Ingrese su opción: ")
-        if opcion == "a":
-            editar_datos_personales()
+        if opcion == "1":
+            gestionar_mi_perfil()
         elif opcion == "2":
-            ver_candidatos()
+            gestionar_candidatos()
+        elif opcion == "3":
+            matcheos()
+        elif opcion == "4":
+            cons_4()
         elif opcion == "0":
             break
         else:
