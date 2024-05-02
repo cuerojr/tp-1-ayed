@@ -52,10 +52,30 @@ def editar_datos_personales():
     # Implementar la edición de datos personales
     print("Editar datos personales")
 
+# Base de datos de estudiantes
+estudiantes = [
+    {"nombre": "Estudiante 1", "fecha_nacimiento": "2000-01-01", "biografia": "Soy el Estudiante 1", "hobbies": ["Fútbol", "Música"]},
+    {"nombre": "Estudiante 2", "fecha_nacimiento": "2001-02-02", "biografia": "Soy el Estudiante 2", "hobbies": ["Pintura", "Videojuegos"]},
+    {"nombre": "Estudiante 3", "fecha_nacimiento": "2002-03-03", "biografia": "Soy el Estudiante 3", "hobbies": ["Lectura", "Cine"]}
+]
+
+# Función para calcular la edad a partir de la fecha de nacimiento
+def calcular_edad(fecha_nacimiento):
+    from datetime import datetime
+    fecha_nacimiento = datetime.strptime(fecha_nacimiento, "%Y-%m-%d")
+    hoy = datetime.now()
+    edad = hoy.year - fecha_nacimiento.year - ((hoy.month, hoy.day) < (fecha_nacimiento.month, fecha_nacimiento.day))
+    return edad
+
 # Función para ver candidatos
-def ver_candidatos():
-    # Implementar la visualización de candidatos
+def ver_candidatos(estudiantes):
     print("Candidatos:")
+    for estudiante in estudiantes:
+        edad = calcular_edad(estudiante["fecha_nacimiento"])
+        print("\nNombre:", estudiante["nombre"])
+        print("Edad:", edad)
+        print("Biografía:", estudiante["biografia"])
+        print("Hobbies:", ", ".join(estudiante["hobbies"]))
 
 # Funciones para "En Construcción"
 def cons():
