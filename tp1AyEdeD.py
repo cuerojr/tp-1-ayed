@@ -44,7 +44,7 @@ def gestionar_candidatos():
 # Función para matcheos
 def matcheos():
     print("a. Ver matcheos")
-    print("B. Eliminar un matcheo")
+    print("b. Eliminar un matcheo")
     print("c. Volver")
 
 # Función para editar datos personales
@@ -55,20 +55,11 @@ def editar_datos_personales():
 # Función para ver candidatos
 def ver_candidatos():
     # Implementar la visualización de candidatos
-    print("Ver candidatos")
+    print("Candidatos:")
 
 # Funciones para "En Construcción"
-def cons_1b():
-    print("En Construcción")
-
-def cons_2b():
-    print("En Construcción")
-
-def cons_3_entero():
-    print("En Construcción")
-
-def cons_4():
-    print("En Construcción")
+def cons():
+    print("En Construcción.")
 
 # Función para la ruleta
 def ruleta():
@@ -97,13 +88,14 @@ def ruleta():
     else:
         print("Persona seleccionada: C")
 
-# Programa principal
+# Programa principal---------------------------------------------------------------------------------------------------------------------------------------------
 import msvcrt
 import random
 
 intentos = 3
+salir = True
 
-while intentos > 0:
+while intentos > 0 and salir:
     print("Ingrese su email y contraseña.")
     email = input("Email: ")
     contraseña = ocultar_contraseña()
@@ -114,46 +106,76 @@ while intentos > 0:
         opcion = input("Ingrese su opción: ")
         if opcion == "1":
             gestionar_mi_perfil()
+            opcion == input("Ingrese su opción:")
+            if opcion == "a":
+                editar_datos_personales()
+            else:
+                cons()
         elif opcion == "2":
             gestionar_candidatos()
+            opcion == input("Ingrese su opción:")
+            if opcion == "a":
+                ver_candidatos()
+            else:
+                cons()        
         elif opcion == "3":
-            matcheos()
+            cons()
         elif opcion == "4":
-            cons_4()
+            cons()
         elif opcion == "0":
-            break
+            salir = False
         else:
             print("Opción inválida.")
     elif email == usuario2_email and contraseña == usuario2_contraseña:
-        print("Bienvenido Usuario 2.")
+        print("Bienvenido Usuario 1.")
         menu_completo()
         opcion = input("Ingrese su opción: ")
         if opcion == "1":
             gestionar_mi_perfil()
+            opcion == input("Ingrese su opción:")
+            if opcion == "a":
+                editar_datos_personales()
+            else:
+                cons()
         elif opcion == "2":
             gestionar_candidatos()
+            opcion == input("Ingrese su opción:")
+            if opcion == "a":
+                ver_candidatos()
+            else:
+                cons()        
         elif opcion == "3":
-            matcheos()
+            cons()
         elif opcion == "4":
-            cons_4()
+            cons()
         elif opcion == "0":
-            break
+            salir = False
         else:
             print("Opción inválida.")
     elif email == usuario3_email and contraseña == usuario3_contraseña:
-        print("Bienvenido Usuario 3.")
+        print("Bienvenido Usuario 1.")
         menu_completo()
         opcion = input("Ingrese su opción: ")
         if opcion == "1":
             gestionar_mi_perfil()
+            opcion == input("Ingrese su opción:")
+            if opcion == "a":
+                editar_datos_personales()
+            else:
+                cons()
         elif opcion == "2":
             gestionar_candidatos()
+            opcion == input("Ingrese su opción:")
+            if opcion == "a":
+                ver_candidatos()
+            else:
+                cons()        
         elif opcion == "3":
-            matcheos()
+            cons()
         elif opcion == "4":
-            cons_4()
+            cons()
         elif opcion == "0":
-            break
+            salir = False
         else:
             print("Opción inválida.")
     else:
