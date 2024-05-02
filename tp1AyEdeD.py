@@ -1,10 +1,4 @@
-# Constantes con los datos de los estudiantes
-usuario1_email = "estudiante1@ayed.com"
-usuario1_contraseña = "111222"
-usuario2_email = "estudiante2@ayed.com"
-usuario2_contraseña = "333444"
-usuario3_email = "estudiante3@ayed.com"
-usuario3_contraseña = "555666"
+
 
 # Función para ocultar la contraseña mientras se escribe
 def ocultar_contraseña():
@@ -100,65 +94,63 @@ def ruleta():
 # Programa principal
 import msvcrt
 import random
+import os
 
 intentos = 3
 
-while intentos > 0:
-    print("Ingrese su email y contraseña.")
-    email = input("Email: ")
-    contraseña = ocultar_contraseña()
+def iniciar_sesion():
+    # Constantes con los datos de los estudiantes
+    # Constantes con los datos de los estudiantes
+    usuario1_email = "111"
+    usuario1_contraseña = "222"
+    usuario2_email = "estudiante2@ayed.com"
+    usuario2_contraseña = "333444"
+    usuario3_email = "estudiante3@ayed.com"
+    usuario3_contraseña = "555666"
+    
+    intentos_restantes = 3
+    usuario_autenticado = False
+    
+    while intentos_restantes > 0 and not usuario_autenticado:
+        email = input("Ingrese su email: ")
+        contraseña = input("Ingrese su contraseña: ")
+        
+        if email == usuario1_email and contraseña == usuario1_contraseña:
+            print("Inicio de sesión exitoso!")
+            usuario_autenticado = True
+        else:
+            intentos_restantes -= 1
+            print(f"Credenciales incorrectas. Intentos restantes: {intentos_restantes}")
+    
+    return usuario_autenticado
 
-    if email == usuario1_email and contraseña == usuario1_contraseña:
-        print("Bienvenido Usuario 1.")
-        menu_completo()
-        opcion = input("Ingrese su opción: ")
-        if opcion == "1":
-            gestionar_mi_perfil()
-        elif opcion == "2":
-            gestionar_candidatos()
-        elif opcion == "3":
-            matcheos()
-        elif opcion == "4":
-            cons_4()
-        elif opcion == "0":
-            break
-        else:
-            print("Opción inválida.")
-    elif email == usuario2_email and contraseña == usuario2_contraseña:
-        print("Bienvenido Usuario 2.")
-        menu_completo()
-        opcion = input("Ingrese su opción: ")
-        if opcion == "1":
-            gestionar_mi_perfil()
-        elif opcion == "2":
-            gestionar_candidatos()
-        elif opcion == "3":
-            matcheos()
-        elif opcion == "4":
-            cons_4()
-        elif opcion == "0":
-            break
-        else:
-            print("Opción inválida.")
-    elif email == usuario3_email and contraseña == usuario3_contraseña:
-        print("Bienvenido Usuario 3.")
-        menu_completo()
-        opcion = input("Ingrese su opción: ")
-        if opcion == "1":
-            gestionar_mi_perfil()
-        elif opcion == "2":
-            gestionar_candidatos()
-        elif opcion == "3":
-            matcheos()
-        elif opcion == "4":
-            cons_4()
-        elif opcion == "0":
-            break
-        else:
-            print("Opción inválida.")
-    else:
-        intentos -= 1
-        print("Email o contraseña incorrectos.")
+def main():
+    sesion_activa = True  # Cambiado a True para iniciar la sesión
 
-if intentos == 0:
-    print("Ha excedido el número de intentos permitidos. Cerrando el programa.")
+    while sesion_activa:  # Modificado para que la sesión continúe mientras sea True
+        if iniciar_sesion():
+            # Aquí puedes agregar lógica adicional una vez que el usuario haya iniciado sesión
+            os.system("cls")
+            print("Bienvenido!")
+            menu_completo()
+            opcion = input("Ingrese su opción: ")
+            if opcion == "1":
+                gestionar_mi_perfil()
+            elif opcion == "2":
+                gestionar_candidatos()
+            elif opcion == "3":
+                matcheos()
+            elif opcion == "4":
+                cons_4()
+            elif opcion == "0":
+                print("Sesión cerrada. ¡Hasta luego!")
+                sesion_activa = False  # Cambiado a False para finalizar la sesión y salir del bucle
+            else:
+                print("Opción inválida.")
+        else:
+            respuesta = input("¿Desea intentar iniciar sesión nuevamente? (s/n): ")
+            if respuesta.lower() != 's':
+                print("Adiós.")
+
+if __name__ == "__main__":
+    main()
