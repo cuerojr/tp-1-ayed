@@ -1,13 +1,8 @@
-# Constantes con los datos de los estudiantes
-usuario1_email = "estudiante1@ayed.com"
-usuario1_contraseña = "111222"
-usuario2_email = "estudiante2@ayed.com"
-usuario2_contraseña = "333444"
-usuario3_email = "estudiante3@ayed.com"
-usuario3_contraseña = "555666"
+
 
 # Función para ocultar la contraseña mientras se escribe
 def ocultar_contraseña():
+    print("Ingrese su contraseña: ", end="", flush=True)
     contraseña = ""
     while True:
         caracter = msvcrt.getch().decode("utf-8")
@@ -31,55 +26,47 @@ def menu_completo():
 
 # Función para gestionar mi perfil
 def gestionar_mi_perfil():
+    os.system("cls")
     print("a. Editar mis datos personales")
     print("b. Eliminar mi perfil")
     print("c. Volver")
-
+    opcion = input("Ingrese su opción: ")
+    if opcion == "a":
+        editar_datos_personales()
+    elif opcion == "b":
+        cons()
+        return
 # Función para gestionar candidatos
 def gestionar_candidatos():
+    os.system("cls")
     print("a. Ver candidatos")
     print("b. Reportar un candidato")
     print("c. Volver")
 
 # Función para matcheos
 def matcheos():
+    os.system("cls")
     print("a. Ver matcheos")
-    print("b. Eliminar un matcheo")
+    print("B. Eliminar un matcheo")
     print("c. Volver")
 
 # Función para editar datos personales
 def editar_datos_personales():
+    os.system("cls")
     # Implementar la edición de datos personales
     print("Editar datos personales")
 
-# Base de datos de estudiantes
-estudiantes = [
-    {"nombre": "Estudiante 1", "fecha_nacimiento": "2000-01-01", "biografia": "Soy el Estudiante 1", "hobbies": ["Fútbol", "Música"]},
-    {"nombre": "Estudiante 2", "fecha_nacimiento": "2001-02-02", "biografia": "Soy el Estudiante 2", "hobbies": ["Pintura", "Videojuegos"]},
-    {"nombre": "Estudiante 3", "fecha_nacimiento": "2002-03-03", "biografia": "Soy el Estudiante 3", "hobbies": ["Lectura", "Cine"]}
-]
-
-# Función para calcular la edad a partir de la fecha de nacimiento
-def calcular_edad(fecha_nacimiento):
-    from datetime import datetime
-    fecha_nacimiento = datetime.strptime(fecha_nacimiento, "%Y-%m-%d")
-    hoy = datetime.now()
-    edad = hoy.year - fecha_nacimiento.year - ((hoy.month, hoy.day) < (fecha_nacimiento.month, fecha_nacimiento.day))
-    return edad
-
 # Función para ver candidatos
-def ver_candidatos(estudiantes):
-    print("Candidatos:")
-    for estudiante in estudiantes:
-        edad = calcular_edad(estudiante["fecha_nacimiento"])
-        print("\nNombre:", estudiante["nombre"])
-        print("Edad:", edad)
-        print("Biografía:", estudiante["biografia"])
-        print("Hobbies:", ", ".join(estudiante["hobbies"]))
+def ver_candidatos():
+    os.system("cls")
+    # Implementar la visualización de candidatos
+    print("Ver candidatos")
 
 # Funciones para "En Construcción"
 def cons():
-    print("En Construcción.")
+    os.system("cls")
+    print("En Construcción")
+
 
 # Función para la ruleta
 def ruleta():
@@ -108,99 +95,84 @@ def ruleta():
     else:
         print("Persona seleccionada: C")
 
-# Programa principal---------------------------------------------------------------------------------------------------------------------------------------------
+# Programa principal
 import msvcrt
 import random
+import os
 
 intentos = 3
-salir = True
 
-while intentos > 0 and salir:
-    print("Ingrese su email y contraseña.")
-    email = input("Email: ")
-    contraseña = ocultar_contraseña()
+def iniciar_sesion():
+    # Constantes con los datos de los estudiantes
+    # Constantes con los datos de los estudiantes
+    usuario1_email = "111"
+    usuario1_contraseña = "222"
+    usuario2_email = "estudiante2@ayed.com"
+    usuario2_contraseña = "333444"
+    usuario3_email = "estudiante3@ayed.com"
+    usuario3_contraseña = "555666"
+    
+    intentos_restantes = 3
+    usuario_autenticado = False
+    
+    while intentos_restantes > 0 and not usuario_autenticado:
+        email = input("Ingrese su email: ")
+        contraseña = ocultar_contraseña()
+        
+        if email == usuario1_email and contraseña == usuario1_contraseña:
+            print("Inicio de sesión exitoso!")
+            usuario_autenticado = True
+        else:
+            intentos_restantes -= 1
+            print(f"Credenciales incorrectas. Intentos restantes: {intentos_restantes}")
+    
+    return usuario_autenticado
 
-    if email == usuario1_email and contraseña == usuario1_contraseña:
-        print("Bienvenido Usuario 1.")
-        menu_completo()
+def sesion_iniciada():
+  sesion_activa = False
+  while not sesion_activa:
+    os.system("cls")
+    print("Bienvenido!")
+    menu_completo()
+    opcion = input("Ingrese su opción: ")
+    if opcion == "1":
+        gestionar_mi_perfil()
         opcion = input("Ingrese su opción: ")
-        if opcion == "1":
-            gestionar_mi_perfil()
-            opcion == input("Ingrese su opción:")
-            if opcion == "a":
-                editar_datos_personales()
-            else:
-                cons()
-        elif opcion == "2":
-            gestionar_candidatos()
-            opcion == input("Ingrese su opción:")
-            if opcion == "a":
-                ver_candidatos()
-            else:
-                cons()        
-        elif opcion == "3":
-            cons()
-        elif opcion == "4":
-            cons()
-        elif opcion == "0":
-            salir = False
+        if opcion == "a":
+             editar_datos_personales()
         else:
-            print("Opción inválida.")
-    elif email == usuario2_email and contraseña == usuario2_contraseña:
-        print("Bienvenido Usuario 1.")
-        menu_completo()
-        opcion = input("Ingrese su opción: ")
-        if opcion == "1":
-            gestionar_mi_perfil()
-            opcion == input("Ingrese su opción:")
-            if opcion == "a":
-                editar_datos_personales()
-            else:
+               cons()
+    elif opcion == "2":
+         gestionar_candidatos()
+         opcion = input("Ingrese su opción: ")
+         if opcion == "a":
+              ver_candidatos()
+         else:
                 cons()
-        elif opcion == "2":
-            gestionar_candidatos()
-            opcion == input("Ingrese su opción:")
-            if opcion == "a":
-                ver_candidatos()
-            else:
-                cons()        
-        elif opcion == "3":
+    elif opcion == "3":
+            matcheos()
+    elif opcion == "4":
             cons()
-        elif opcion == "4":
-            cons()
-        elif opcion == "0":
-            salir = False
-        else:
-            print("Opción inválida.")
-    elif email == usuario3_email and contraseña == usuario3_contraseña:
-        print("Bienvenido Usuario 1.")
-        menu_completo()
-        opcion = input("Ingrese su opción: ")
-        if opcion == "1":
-            gestionar_mi_perfil()
-            opcion == input("Ingrese su opción:")
-            if opcion == "a":
-                editar_datos_personales()
-            else:
-                cons()
-        elif opcion == "2":
-            gestionar_candidatos()
-            opcion == input("Ingrese su opción:")
-            if opcion == "a":
-                ver_candidatos()
-            else:
-                cons()        
-        elif opcion == "3":
-            cons()
-        elif opcion == "4":
-            cons()
-        elif opcion == "0":
-            salir = False
-        else:
-            print("Opción inválida.")
+    elif opcion == "0": 
+            print("Sesión cerrada. ¡Hasta luego!")
+            sesion_activa = True  # Cambiado a False para finalizar la sesión y salir del bucle
     else:
-        intentos -= 1
-        print("Email o contraseña incorrectos.")
+            print("Opción inválida.")
 
-if intentos == 0:
-    print("Ha excedido el número de intentos permitidos. Cerrando el programa.")
+def main():
+    sesion_activa = True  # Cambiado a True para iniciar la sesión
+
+    while sesion_activa:  # Modificado para que la sesión continúe mientras sea True
+        if iniciar_sesion():
+            sesion_iniciada()
+            if sesion_iniciada():
+                sesion_activa = False
+            else: 
+                return sesion_iniciada()
+        else:
+            respuesta = input("¿Desea intentar iniciar sesión nuevamente? (s/n): ")
+            if respuesta.lower() != 's':
+                print("Adiós.")
+
+if __name__ == "__main__":
+    main()
