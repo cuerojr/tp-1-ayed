@@ -35,21 +35,40 @@ def gestionar_mi_perfil():
         editar_datos_personales()
     elif opcion == "b":
         cons()
-        return
+    elif opcion == "c":
+        sesion_iniciada()
+    else:
+        gestionar_mi_perfil()
 # Función para gestionar candidatos
 def gestionar_candidatos():
     os.system("cls")
     print("a. Ver candidatos")
     print("b. Reportar un candidato")
     print("c. Volver")
-
+    opcion = input("Ingrese su opción: ")
+    if opcion == "a":
+        ver_candidatos()
+    elif opcion == "b":
+        cons()
+    elif opcion == "c":
+        sesion_iniciada()
+    else:
+        gestionar_candidatos()
 # Función para matcheos
 def matcheos():
     os.system("cls")
     print("a. Ver matcheos")
     print("B. Eliminar un matcheo")
     print("c. Volver")
-
+    opcion = input("Ingrese su opción: ")
+    if opcion == "a":
+        cons()
+    elif opcion == "b":
+        cons()
+    elif opcion == "c":
+        sesion_iniciada()
+    else:
+        matcheos()
 # Función para editar datos personales
 def editar_datos_personales():
     os.system("cls")
@@ -66,7 +85,10 @@ def ver_candidatos():
 def cons():
     os.system("cls")
     print("En Construcción")
-
+    print("0. Volver al inicio.")
+    volver = input("Ingrese su opción: ")
+    if volver == "0":
+        sesion_iniciada()
 
 # Función para la ruleta
 def ruleta():
@@ -147,8 +169,6 @@ def sesion_iniciada():
          opcion = input("Ingrese su opción: ")
          if opcion == "a":
               ver_candidatos()
-         else:
-                cons()
     elif opcion == "3":
             matcheos()
     elif opcion == "4":
@@ -158,6 +178,7 @@ def sesion_iniciada():
             sesion_activa = True  # Cambiado a False para finalizar la sesión y salir del bucle
     else:
             print("Opción inválida.")
+            sesion_iniciada()
 
 def main():
     sesion_activa = True  # Cambiado a True para iniciar la sesión
@@ -168,11 +189,12 @@ def main():
             if sesion_iniciada():
                 sesion_activa = False
             else: 
-                return sesion_iniciada()
+                sesion_iniciada()
         else:
             respuesta = input("¿Desea intentar iniciar sesión nuevamente? (s/n): ")
             if respuesta.lower() != 's':
                 print("Adiós.")
+                sesion_activa = False
 
 if __name__ == "__main__":
     main()
