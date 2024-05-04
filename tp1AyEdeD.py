@@ -1,6 +1,6 @@
 
 
-# Función para ocultar la contraseña mientras se escribe
+# Función para ocultar la contraseña mientras se escribe--------------------(arreglar: la frase se puede borrar al correr el programa)
 def ocultar_contraseña():
     print("Ingrese su contraseña: ", end="", flush=True)
     contraseña = ""
@@ -151,50 +151,46 @@ def iniciar_sesion():
     return usuario_autenticado
 
 def sesion_iniciada():
-  sesion_activa = False
-  while not sesion_activa:
     os.system("cls")
     print("Bienvenido!")
-    menu_completo()
-    opcion = input("Ingrese su opción: ")
-    if opcion == "1":
-        gestionar_mi_perfil()
+    while True:
+        menu_completo()
         opcion = input("Ingrese su opción: ")
-        if opcion == "a":
-             editar_datos_personales()
-        else:
-               cons()
-    elif opcion == "2":
-         gestionar_candidatos()
-         opcion = input("Ingrese su opción: ")
-         if opcion == "a":
-              ver_candidatos()
-    elif opcion == "3":
+        if opcion == "1":
+            gestionar_mi_perfil()
+        elif opcion == "2":
+            gestionar_candidatos()
+        elif opcion == "3":
             matcheos()
-    elif opcion == "4":
+        elif opcion == "4":
             cons()
-    elif opcion == "0": 
+        elif opcion == "0":
+            os.system("cls")
             print("Sesión cerrada. ¡Hasta luego!")
-            sesion_activa = True  # Cambiado a False para finalizar la sesión y salir del bucle
-    else:
+            return  # Salir de la función sesion_iniciada() cuando se elija salir
+        else:
             print("Opción inválida.")
-            sesion_iniciada()
 
 def main():
-    sesion_activa = True  # Cambiado a True para iniciar la sesión
+    sesion_activa = True
 
-    while sesion_activa:  # Modificado para que la sesión continúe mientras sea True
+    while sesion_activa:
         if iniciar_sesion():
             sesion_iniciada()
-            if sesion_iniciada():
+            respuesta = input("¿Desea iniciar sesión nuevamente? (s/n): ")
+            if respuesta.lower() != 's':
+                print("Adiós.")
                 sesion_activa = False
-            else: 
-                sesion_iniciada()
         else:
             respuesta = input("¿Desea intentar iniciar sesión nuevamente? (s/n): ")
             if respuesta.lower() != 's':
                 print("Adiós.")
                 sesion_activa = False
+            else:
+                print("Reintentar iniciar sesión.")
+                sesion_activa = True  # Reiniciar la sesión activa para volver a intentar iniciar sesión
+
+    print("Programa finalizado.")  # Agregar un mensaje de finalización al salir del bucle
 
 if __name__ == "__main__":
     main()
