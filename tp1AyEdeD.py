@@ -36,7 +36,8 @@ def gestionar_mi_perfil():
     elif opcion == "b":
         cons()
     elif opcion == "c":
-        sesion_iniciada()
+        os.system("cls")
+        return
     else:
         gestionar_mi_perfil()
 # Función para gestionar candidatos
@@ -51,7 +52,8 @@ def gestionar_candidatos():
     elif opcion == "b":
         cons()
     elif opcion == "c":
-        sesion_iniciada()
+        os.system("cls")
+        return
     else:
         gestionar_candidatos()
 # Función para matcheos
@@ -66,7 +68,8 @@ def matcheos():
     elif opcion == "b":
         cons()
     elif opcion == "c":
-        sesion_iniciada()
+        os.system("cls")
+        return
     else:
         matcheos()
 # Función para editar datos personales
@@ -74,6 +77,7 @@ def editar_datos_personales():
     os.system("cls")
     # Implementar la edición de datos personales
     print("Editar datos personales")
+
 
 # Función para ver candidatos
 def ver_candidatos():
@@ -88,28 +92,23 @@ def cons():
     print("0. Volver al inicio.")
     volver = input("Ingrese su opción: ")
     if volver == "0":
-        sesion_iniciada()
+        os.system("cls")
+        return
 
-# Función para la ruleta
+
+#Funcion ruleta
 def ruleta():
-    # Solicitar al usuario las probabilidades de matcheo
-    while True:
-        try:
-            probabilidad_a = int(input("Ingrese la probabilidad de matcheo para la Persona A: "))
-            probabilidad_b = int(input("Ingrese la probabilidad de matcheo para la Persona B: "))
-            probabilidad_c = int(input("Ingrese la probabilidad de matcheo para la Persona C: "))
-            if probabilidad_a + probabilidad_b + probabilidad_c != 100:
-                print("La suma de las probabilidades debe ser igual a 100. Intente de nuevo.")
-            else:
-                break
-        except ValueError:
-            print("Ingrese números enteros.")
-
-    # Simular la ruleta
+    probabilidad_a = int(input("Ingrese la probabilidad de matcheo para la Persona A: "))
+    probabilidad_b = int(input("Ingrese la probabilidad de matcheo para la Persona B: "))
+    probabilidad_c = int(input("Ingrese la probabilidad de matcheo para la Persona C: "))
+    if probabilidad_a + probabilidad_b + probabilidad_c != 100:
+        print("La suma de las probabilidades debe ser igual a 100. Intente de nuevo.")
+    else:
+        return
+        # Simular la ruleta
     ruleta = [1] * probabilidad_a + [2] * probabilidad_b + [3] * probabilidad_c
     seleccion = random.choice(ruleta)
-
-    # Mostrar el resultado
+        # Mostrar el resultado
     if seleccion == 1:
         print("Persona seleccionada: A")
     elif seleccion == 2:
