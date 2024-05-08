@@ -26,74 +26,84 @@ def menu_completo():
 
 # Función para gestionar mi perfil
 def gestionar_mi_perfil():
-    os.system("cls")
-    print("a. Editar mis datos personales")
-    print("b. Eliminar mi perfil")
-    print("c. Volver")
-    opcion = input("Ingrese su opción: ")
-    if opcion == "a":
-        editar_datos_personales()
-    elif opcion == "b":
-        cons()
-    elif opcion == "c":
-        os.system("cls")
-        return
-    else:
-        gestionar_mi_perfil()
+    while True:
+        print("a. Editar mis datos personales")
+        print("b. Eliminar mi perfil")
+        print("c. Volver")
+        opcion = input("Ingrese su opción: ")
+        if opcion == "a":
+            os.system("cls")
+            editar_datos_personales()
+        elif opcion == "b":
+            os.system("cls")
+            cons()
+        elif opcion == "c":
+            os.system("cls")
+            return # Salir de la función
+        else:
+            os.system("cls")
+            print("Opción inválida.")
 # Función para gestionar candidatos
 def gestionar_candidatos():
-    os.system("cls")
-    print("a. Ver candidatos")
-    print("b. Reportar un candidato")
-    print("c. Volver")
-    opcion = input("Ingrese su opción: ")
-    if opcion == "a":
-        ver_candidatos()
-    elif opcion == "b":
-        cons()
-    elif opcion == "c":
-        os.system("cls")
-        return
-    else:
-        gestionar_candidatos()
+    while True:
+        print("a. Ver candidatos")
+        print("b. Reportar un candidato")
+        print("c. Volver")
+        opcion = input("Ingrese su opción: ")
+        if opcion == "a":
+            os.system("cls")
+            ver_candidatos()
+        elif opcion == "b":
+            os.system("cls")
+            cons()
+        elif opcion == "c":
+            os.system("cls")
+            return # Salir de la función
+        else:
+            os.system("cls")
+            print("Opción inválida.")
 # Función para matcheos
 def matcheos():
-    os.system("cls")
-    print("a. Ver matcheos")
-    print("B. Eliminar un matcheo")
-    print("c. Volver")
-    opcion = input("Ingrese su opción: ")
-    if opcion == "a":
-        cons()
-    elif opcion == "b":
-        cons()
-    elif opcion == "c":
-        os.system("cls")
-        return
-    else:
-        matcheos()
+    while True:
+        print("a. Ver matcheos")
+        print("B. Eliminar un matcheo")
+        print("c. Volver")
+        opcion = input("Ingrese su opción: ")
+        if opcion == "a":
+            os.system("cls")
+            cons()
+        elif opcion == "b":
+            os.system("cls")
+            cons()
+        elif opcion == "c":
+            os.system("cls")
+            return # Salir de la función
+        else:
+            os.system("cls")
+            print("Opción inválida.")
 # Función para editar datos personales
 def editar_datos_personales():
-    os.system("cls")
     # Implementar la edición de datos personales
     print("Editar datos personales")
 
 
 # Función para ver candidatos
 def ver_candidatos():
-    os.system("cls")
     # Implementar la visualización de candidatos
     print("Ver candidatos")
 
 # Funciones para "En Construcción"
 def cons():
-    os.system("cls")
-    print("En Construcción")
-    print("0. Volver al inicio.")
-    volver = input("Ingrese su opción: ")
-    if volver == "0":
-        os.system("cls")
-        return
+    while True:
+        print("En Construcción")
+        print("0. Volver")
+        volver = input("Ingrese su opción: ")
+        if volver == "0":
+          os.system("cls")
+          return # Salir de la función
+        else:
+            os.system("cls")
+            print("Opción inválida.")
 
 
 #Funcion ruleta
@@ -156,18 +166,23 @@ def sesion_iniciada():
         menu_completo()
         opcion = input("Ingrese su opción: ")
         if opcion == "1":
+            os.system("cls")
             gestionar_mi_perfil()
         elif opcion == "2":
+            os.system("cls")
             gestionar_candidatos()
         elif opcion == "3":
+            os.system("cls")
             matcheos()
         elif opcion == "4":
+            os.system("cls")
             cons()
         elif opcion == "0":
             os.system("cls")
             print("Sesión cerrada. ¡Hasta luego!")
-            return  # Salir de la función sesion_iniciada() cuando se elija salir
+            return  # Salir de la función
         else:
+            os.system("cls")
             print("Opción inválida.")
 
 def main():
@@ -186,6 +201,7 @@ def main():
                 print("Adiós.")
                 sesion_activa = False
             else:
+                os.system("cls")
                 print("Reintentar iniciar sesión.")
                 sesion_activa = True  # Reiniciar la sesión activa para volver a intentar iniciar sesión
 
