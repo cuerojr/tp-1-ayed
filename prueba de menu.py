@@ -1,29 +1,33 @@
-def menu_completo(sesion_activa):
+def menu_completo(isLoggedIn):
     os.system("cls")
-    print("1. Gestionar mi perfil")
+    print("Menu")
+    print("\n1. Gestionar mi perfil")
     print("2. Gestionar candidatos")
     print("3. Matcheos")
     print("4. Reportes estadisticos")
     print("0. Salir")
-    option = input("Ingrese su opción: ")
+    option = int(input("Ingrese su opción: "))
 
-    if option == "1": 
-        sesion_activa = gestionar_mi_perfil(sesion_activa)
-    elif option == "2":
+    if option == 1: 
+        isLoggedIn = gestionar_mi_perfil(isLoggedIn)
+    elif option == 2:
         gestionar_candidatos() # type: ignore
-    elif option == "3":
+    elif option == 3:
         matcheos() # type: ignore
-    elif option == "4":
+    elif option == 4:
         reportes_estadisticos() # type: ignore
-    elif option == "0":
+    elif option == 0:
         print("Sesión cerrada. ¡Hasta luego!")
-        sesion_activa = False
-    return sesion_activa
+        isLoggedIn = False
+    else:
+        print("Opción inválida")
+    return isLoggedIn
 
 
-def gestionar_mi_perfil(sesion_activa):
+def gestionar_mi_perfil(isLoggedIn):
     os.system("cls")
-    print("1. Gestionar mi perfil")
+    print("Menu")
+    print("\n1. Gestionar mi perfil")
     print(" a. Editar mis datos personales")
     print(" b. Eliminar mi perfil")
     print(" c. Volver")
@@ -39,9 +43,12 @@ def gestionar_mi_perfil(sesion_activa):
         eliminar_mi_perfil() # type: ignore
     elif option == "c":
         os.system("cls")
-        sesion_activa = menu_completo(sesion_activa)
+        isLoggedIn = menu_completo(isLoggedIn)
+    else:
+        print("Opción inválida")
+        option = input("Ingrese su opción: ")
 
-    return sesion_activa
+    return isLoggedIn
 
 # Programa principal
 import msvcrt
@@ -76,13 +83,13 @@ def iniciar_sesion():
     return usuario_autenticado
 
 def main():
-    sesion_activa = True 
+    isLoggedIn = True 
         
     if iniciar_sesion():
-        while sesion_activa:
+        while isLoggedIn:
             os.system("cls")
             print("Bienvenido!")            
-            sesion_activa = menu_completo(sesion_activa)
+            isLoggedIn = menu_completo(isLoggedIn)
             
 
 if __name__ == "__main__":
