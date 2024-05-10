@@ -6,7 +6,8 @@ def menu_completo(isLoggedIn):
     print("3. Matcheos")
     print("4. Reportes estadisticos")
     print("0. Salir")
-    option = int(input("Ingrese su opción: "))
+
+    option = validar_opcion()
 
     if option >= 1 and option <= 4:
         if option == 1:
@@ -24,7 +25,7 @@ def menu_completo(isLoggedIn):
     return isLoggedIn
 
 def gestionar_mi_perfil():
-    #os.system("cls")
+    os.system("cls")
     print("Menu gestionar_mi_perfil")
     print("\n1. Gestionar mi perfil")
     print(" a. Editar mis datos personales")
@@ -94,7 +95,7 @@ def matcheos():
             print("Opción inválida")               
         option = input("Ingrese su opción 1: ")
 
-def reportes_estadisticos(isLoggedIn):
+def reportes_estadisticos():
     #os.system("cls")
     print("Menu")
     print("\n1. Gestionar mi perfil")
@@ -117,6 +118,17 @@ def reportes_estadisticos(isLoggedIn):
             print("Opción inválida")               
         option = input("Ingrese su opción 1: ")
         
+def validar_opcion():
+    while True:
+        try:
+            option = int(input("Ingrese su opción: "))
+            if 0 <= option <= 4:
+                return option
+            else:
+                print("Por favor, ingrese un número entre 0 y 4.")
+        except ValueError:
+            print("Por favor, ingrese un número entero.")
+
 # Programa principal
 import msvcrt
 import random
