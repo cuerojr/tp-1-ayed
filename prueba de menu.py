@@ -1,6 +1,6 @@
-def menu_completo(isLoggedIn):
+def menu_completo(isLoggedIn, usuario):
     os.system("cls")
-    print("Menu menu_completo")
+    print("Menu ")
     print("\n1. Gestionar mi perfil")
     print("2. Gestionar candidatos")
     print("3. Matcheos")
@@ -11,7 +11,7 @@ def menu_completo(isLoggedIn):
 
     if option >= 1 and option <= 4:
         if option == 1:
-            gestionar_mi_perfil()
+            gestionar_mi_perfil(usuario)
         elif option == 2:
             gestionar_candidatos()
         elif option == 3:
@@ -24,7 +24,7 @@ def menu_completo(isLoggedIn):
     
     return isLoggedIn
 
-def gestionar_mi_perfil():
+def gestionar_mi_perfil(usuario):
     os.system("cls")
     print("Menu gestionar_mi_perfil")
     print("\n1. Gestionar mi perfil")
@@ -35,18 +35,18 @@ def gestionar_mi_perfil():
     print("3. Matcheos")
     print("4. Reportes estadisticos")
     print("0. Salir")
-    option = input("Ingrese su opción 1: ")
+    option = input("Ingrese su opción 'a', 'b', 'c': ")
 
     while option != "c":
         if option == "a": 
             #editar_mis_datos_personales() # type: ignore
-            print("\n1. Matcheos")
+            print("\n1. Matcheos", usuario)
         elif option == "b":
             #eliminar_mi_perfil() # type: ignore 
             print("\n1. Matcheos")
         else:
             print("Opción inválida")               
-        option = input("Ingrese su opción 1: ")
+        option = input("Ingrese su opción 'a', 'b', 'c': ")
 
 
 def gestionar_candidatos():
@@ -59,7 +59,7 @@ def gestionar_candidatos():
     print("3. Matcheos")
     print("4. Reportes estadisticos")
     print("0. Salir")
-    option = input("Ingrese su opción: ")
+    option = input("Ingrese su opción 'a', 'b', 'c': ")
     
     while option != "c":
         if option == "a": 
@@ -70,7 +70,7 @@ def gestionar_candidatos():
             print("\n1. Matcheos")
         else:
             print("Opción inválida")               
-        option = input("Ingrese su opción 1: ")
+        option = input("Ingrese su opción 'a', 'b', 'c': ")
 
 def matcheos():
     #os.system("cls")
@@ -82,7 +82,7 @@ def matcheos():
     print(" c. Volver")
     print("4. Reportes estadisticos")
     print("0. Salir")
-    option = input("Ingrese su opción: ")
+    option = input("Ingrese su opción 'a', 'b', 'c': ")
 
     while option != "c":
         if option == "a": 
@@ -93,7 +93,7 @@ def matcheos():
             print("\n1. Matcheos")
         else:
             print("Opción inválida")               
-        option = input("Ingrese su opción 1: ")
+        option = input("Ingrese su opción 'a', 'b', 'c': ")
 
 def reportes_estadisticos():
     #os.system("cls")
@@ -105,7 +105,7 @@ def reportes_estadisticos():
     print(" En contruccion")
     print(" c. Volver")
     print("0. Salir")
-    option = input("Ingrese su opción: ")
+    option = input("Ingrese su opción 'a', 'b', 'c': ")
 
     while option != "c":
         if option == "a": 
@@ -116,7 +116,7 @@ def reportes_estadisticos():
             print("\n1. Matcheos")
         else:
             print("Opción inválida")               
-        option = input("Ingrese su opción 1: ")
+        option = input("Ingrese su opción 'a', 'b', 'c': ")
         
 def validar_opcion():
     while True:
@@ -146,15 +146,15 @@ def iniciar_sesion():
     usuario3_contraseña = "555666"
     
     intentos_restantes = 3
-    usuario_autenticado = False
+    usuario_autenticado = ""
     
     while intentos_restantes > 0 and not usuario_autenticado:
         email = input("Ingrese su email: ")
         contraseña = input("Ingrese su contraseña: ")
         
-        if email == usuario1_email and contraseña == usuario1_contraseña:
+        if (email == usuario1_email and contraseña == usuario1_contraseña) or (email == usuario2_email and contraseña == usuario2_contraseña) or (email == usuario3_email and contraseña == usuario3_contraseña):
             print("Inicio de sesión exitoso!")
-            usuario_autenticado = True
+            usuario_autenticado = email
         else:
             intentos_restantes -= 1
             print(f"Credenciales incorrectas. Intentos restantes: {intentos_restantes}")
@@ -162,13 +162,14 @@ def iniciar_sesion():
     return usuario_autenticado
 
 def main():
-    isLoggedIn = True 
-        
-    if iniciar_sesion():
+    isLoggedIn = True
+    usuario = iniciar_sesion()
+    
+    if usuario != "":
         while isLoggedIn:
             #os.system("cls")
-            print("Bienvenido!")            
-            isLoggedIn = menu_completo(isLoggedIn)
+            print("Bienvenido!")
+            isLoggedIn = menu_completo(isLoggedIn, usuario)
             
 
 if __name__ == "__main__":
