@@ -1,5 +1,5 @@
 def menu_completo(isLoggedIn):
-    #os.system("cls")
+    os.system("cls")
     print("Menu menu_completo")
     print("\n1. Gestionar mi perfil")
     print("2. Gestionar candidatos")
@@ -8,23 +8,22 @@ def menu_completo(isLoggedIn):
     print("0. Salir")
     option = int(input("Ingrese su opción: "))
 
-    if option == 1: 
-        gestionar_mi_perfil(isLoggedIn)
-    elif option == 2:
-        gestionar_candidatos(isLoggedIn) 
-    elif option == 3:
-        matcheos(isLoggedIn) # type: ignore
-    elif option == 4:
-        reportes_estadisticos(isLoggedIn) # type: ignore
+    if option >= 1 and option <= 4:
+        if option == 1:
+            gestionar_mi_perfil()
+        elif option == 2:
+            gestionar_candidatos()
+        elif option == 3:
+            matcheos() # type: ignore
+        elif option == 4:
+            reportes_estadisticos() # type: ignore
     elif option == 0:
         print("Sesión cerrada. ¡Hasta luego!")
         isLoggedIn = False
-    else:
-        print("Opción inválida")
-
+    
     return isLoggedIn
 
-def gestionar_mi_perfil(isLoggedIn):
+def gestionar_mi_perfil():
     #os.system("cls")
     print("Menu gestionar_mi_perfil")
     print("\n1. Gestionar mi perfil")
@@ -37,18 +36,19 @@ def gestionar_mi_perfil(isLoggedIn):
     print("0. Salir")
     option = input("Ingrese su opción 1: ")
 
-    if option == "a": 
-        editar_mis_datos_personales(isLoggedIn) # type: ignore
-    elif option == "b":
-        eliminar_mi_perfil(isLoggedIn) # type: ignore            
-    elif option == "c":
-        #os.system("cls")
-        menu_completo(isLoggedIn)   
-    else:
-        print("Opción inválida")
-        #gestionar_mi_perfil(isLoggedIn)     
+    while option != "c":
+        if option == "a": 
+            #editar_mis_datos_personales() # type: ignore
+            print("\n1. Matcheos")
+        elif option == "b":
+            #eliminar_mi_perfil() # type: ignore 
+            print("\n1. Matcheos")
+        else:
+            print("Opción inválida")               
+        option = input("Ingrese su opción 1: ")
 
-def gestionar_candidatos(isLoggedIn):
+
+def gestionar_candidatos():
     #os.system("cls")
     print("Menu gestionar_candidatos")
     print("\n1. Gestionar mi perfil")
@@ -60,14 +60,18 @@ def gestionar_candidatos(isLoggedIn):
     print("0. Salir")
     option = input("Ingrese su opción: ")
     
-    if option == "c":
-        # os.system("cls")
-        menu_completo(isLoggedIn)
-    else:
-        print("Opción inválida")
-        #gestionar_candidatos(isLoggedIn)
+    while option != "c":
+        if option == "a": 
+            #editar_mis_datos_personales() # type: ignore
+            print("\n1. Matcheos")
+        elif option == "b":
+            #eliminar_mi_perfil() # type: ignore 
+            print("\n1. Matcheos")
+        else:
+            print("Opción inválida")               
+        option = input("Ingrese su opción 1: ")
 
-def matcheos(isLoggedIn):
+def matcheos():
     #os.system("cls")
     print("Menu matcheos")
     print("\n1. Gestionar mi perfil")
@@ -79,12 +83,16 @@ def matcheos(isLoggedIn):
     print("0. Salir")
     option = input("Ingrese su opción: ")
 
-    if option == "c":
-        #os.system("cls")
-        menu_completo(isLoggedIn)
-    else:
-        print("Opción inválida")
-        matcheos(isLoggedIn)
+    while option != "c":
+        if option == "a": 
+            #editar_mis_datos_personales() # type: ignore
+            print("\n1. Matcheos")
+        elif option == "b":
+            #eliminar_mi_perfil() # type: ignore 
+            print("\n1. Matcheos")
+        else:
+            print("Opción inválida")               
+        option = input("Ingrese su opción 1: ")
 
 def reportes_estadisticos(isLoggedIn):
     #os.system("cls")
@@ -98,12 +106,16 @@ def reportes_estadisticos(isLoggedIn):
     print("0. Salir")
     option = input("Ingrese su opción: ")
 
-    if option == "c":
-        #os.system("cls")
-        menu_completo(isLoggedIn)
-    else:
-        print("Opción inválida")
-        reportes_estadisticos(isLoggedIn)
+    while option != "c":
+        if option == "a": 
+            #editar_mis_datos_personales() # type: ignore
+            print("\n1. Matcheos")
+        elif option == "b":
+            #eliminar_mi_perfil() # type: ignore 
+            print("\n1. Matcheos")
+        else:
+            print("Opción inválida")               
+        option = input("Ingrese su opción 1: ")
         
 # Programa principal
 import msvcrt
