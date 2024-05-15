@@ -1,20 +1,11 @@
-
+import getpass
+import random
+import os
 
 # Función para ocultar la contraseña mientras se escribe--------------------(arreglar: la frase se puede borrar al correr el programa)
 def ocultar_contraseña():
-    print("Ingrese su contraseña: ", end="", flush=True)
-    contraseña = ""
-    while True:
-        caracter = msvcrt.getch().decode("utf-8")
-        if caracter == "\r":
-            print()
-            return contraseña
-        elif caracter == "\b":
-            contraseña = contraseña[:-1]
-            print("\b \b", end="", flush=True)
-        else:
-            contraseña += caracter
-            print("*", end="", flush=True)
+    contraseña = getpass.getpass("Ingrese su contraseña: ")
+    print(contraseña)
 
 # Función para menu completo
 def menu_completo():
@@ -126,10 +117,7 @@ def ruleta():
     else:
         print("Persona seleccionada: C")
 
-# Programa principal
-import msvcrt
-import random
-import os
+# Programa principal (poner arriba de todo)
 
 intentos = 3
 
