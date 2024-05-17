@@ -183,7 +183,11 @@ def editar_mis_datos_personales():
         print(" c. Editar mis hobbies")  
         print(" d. Volver")  
         option = str(input("Ingrese su opción 'a', 'b', 'c', 'd': "))
-    
+
+'''
+FUN menu_de_mis_datos()
+usuario1_email, usuario1_contraseña, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario2_me_gusta, email_usuario_autenticado, usuario3_email, usuario3_contraseña, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, usuario3_me_gusta: str
+''' 
 def menu_de_mis_datos():
     if (email_usuario_autenticado == usuario1_email):
         mostrar_mis_datos(usuario1_email, usuario1_contraseña, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario1_me_gusta)
