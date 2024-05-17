@@ -1,10 +1,13 @@
 '''
-TP#1 Comisión 113
+TP#1 AyED Comisión 113
 Rojo Nicolás
 Frenna Luca
 Alegre Sebastian
 Cosenza María Soledad
 '''
+# Librerias
+import os
+import getpass
 
 def mostrar_menu():
     os.system("cls")
@@ -15,8 +18,14 @@ def mostrar_menu():
     print("4. Reportes estadisticos")
     print("0. Salir")
 
-def menu_principal():
-    global isLoggedIn
+'''
+FUN menu_completo
+option: int
+isLoggedIn: bool
+email_usuario_autenticado: str
+'''
+def menu_completo():
+    global isLoggedIn, email_usuario_autenticado
 
     mostrar_menu()
 
@@ -39,6 +48,10 @@ def menu_principal():
             isLoggedIn = False
             os.system("cls")
 
+'''
+FUN gestionar_mi_perfil
+option: str
+'''
 def gestionar_mi_perfil():    
     os.system("cls")
 
@@ -47,7 +60,7 @@ def gestionar_mi_perfil():
     print(" b. Eliminar mi perfil")
     print(" c. Volver")
 
-    option = input("Ingrese su opción: ")
+    option = str(input("Ingrese su opción: "))
     while option  != "c":
         if option == "a": 
             editar_mis_datos_personales() # type: ignore            
@@ -59,8 +72,12 @@ def gestionar_mi_perfil():
         print(" a. Editar mis datos personales")
         print(" b. Eliminar mi perfil")
         print(" c. Volver")
-        option = input("Ingrese su opción 'a', 'b', 'c': ")
+        option = str(input("Ingrese su opción 'a', 'b', 'c': "))
 
+'''
+FUN gestionar_candidatos
+option: str
+'''
 def gestionar_candidatos():
     os.system("cls")
 
@@ -68,7 +85,7 @@ def gestionar_candidatos():
     print(" En contruccion")
     print(" c. Volver")
 
-    option = input("Ingrese su opción: ")    
+    option = str(input("Ingrese su opción: "))  
     while option != "c":
         if option == "a": 
             #editar_mis_datos_personales() # type: ignore
@@ -80,8 +97,12 @@ def gestionar_candidatos():
         print("\nGestionar candidatos")
         print(" En contruccion")
         print(" c. Volver")     
-        option = input("Ingrese su opción 'a', 'b', 'c': ")
+        option = str(input("Ingrese su opción 'a', 'b', 'c': "))
 
+'''
+FUN matcheos-
+option: str
+'''
 def matcheos():
     os.system("cls")
 
@@ -89,7 +110,7 @@ def matcheos():
     print(" En contruccion")
     print(" c. Volver")
 
-    option = input("Ingrese su opción 'a', 'b', 'c': ")
+    option = str(input("Ingrese su opción 'a', 'b', 'c': "))
     while option != "c":
         if option == "a": 
             #editar_mis_datos_personales() # type: ignore
@@ -97,8 +118,12 @@ def matcheos():
         elif option == "b":
             #eliminar_mi_perfil() # type: ignore 
             print("\n1. en construccion")           
-        option = input("Ingrese su opción 'a', 'b', 'c': ")
+        option = str(input("Ingrese su opción 'a', 'b', 'c': "))
 
+'''
+FUN reportes_estadisticos
+option: str
+'''
 def reportes_estadisticos():
     os.system("cls")
 
@@ -106,7 +131,7 @@ def reportes_estadisticos():
     print(" En contruccion")
     print(" c. Volver")
 
-    option = input("Ingrese su opción 'a', 'b', 'c': ")
+    option = str(input("Ingrese su opción 'a', 'b', 'c': "))
     while option != "c":
         if option == "a": 
             #editar_mis_datos_personales() # type: ignore
@@ -114,22 +139,35 @@ def reportes_estadisticos():
         elif option == "b":
             #eliminar_mi_perfil() # type: ignore 
             print("\n1. option b")           
-        option = input("Ingrese su opción 'a', 'b', 'c': ")
-        
+        option = str(input("Ingrese su opción 'a', 'b', 'c': "))
+
+'''
+FUN editar_mis_datos_personales
+email_usuario_autenticado, usuario1_email, usuario1_biografia, usuario1_hobbies, usuario2_email, usuario2_biografia, usuario2_hobbies, usuario3_email, usuario3_biografia, usuario3_hobbies, usuario1_contraseña, usuario1_me_gusta, usuario1_fecha_de_nacimiento, usuario2_contraseña, usuario2_me_gusta, usuario2_fecha_de_nacimiento, usuario3_contraseña, usuario3_me_gusta, usuario3_fecha_de_nacimiento: str
+
+'''       
 def editar_mis_datos_personales():
     global usuario1_email, email_usuario_autenticado
-        
-    if (usuario1_email == email_usuario_autenticado):
-        print("Email: ", usuario1_email)
-        print("Contraseña: ", usuario1_contraseña)
-        print("Mi fecha de nacimiento: ", usuario1_fecha_de_nacimiento)
+    os.system("cls")
 
+    if (usuario1_email == email_usuario_autenticado):
+        mostrar_mis_datos(usuario1_email, usuario1_contraseña, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario1_me_gusta)
     elif (usuario2_email == email_usuario_autenticado):
-        print("Email: ", usuario2_email)
-        print("Contraseña: ", usuario2_contraseña)
+        mostrar_mis_datos(usuario2_email, usuario2_contraseña, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario2_me_gusta)
     elif (usuario3_email == email_usuario_autenticado):
-        print("Email: ", usuario3_email)
-        print("Contraseña: ", usuario3_contraseña)
+        mostrar_mis_datos(usuario3_email, usuario3_contraseña, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, usuario3_me_gusta)
+
+'''
+FUN mostrar_mis_datos
+usuario_email, usuario_contraseña, usuario_fecha_de_nacimiento, usuario_biografia, usuario_hobbies, usuario_me_gusta: str
+'''
+def mostrar_mis_datos(usuario_email, usuario_contraseña, usuario_fecha_de_nacimiento, usuario_biografia, usuario_hobbies, usuario_me_gusta):
+    print("\nEmail: ", usuario_email)
+    print("Contraseña: ", usuario_contraseña)
+    print("Mi fecha de nacimiento: ", usuario_fecha_de_nacimiento)
+    print("Biografia: ", usuario_biografia)
+    print("Mis hobbies: ", usuario_hobbies)
+    print("Mis me gusta: ", usuario_me_gusta)
 
 def validar_numero():
     while True:
@@ -138,6 +176,11 @@ def validar_numero():
         except ValueError:
             print("Debe ingresar un número")
 
+'''
+FUN declarar_constantes
+email_usuario_autenticado, usuario1_email, usuario1_biografia, usuario1_hobbies, usuario2_email, usuario2_biografia, usuario2_hobbies, usuario3_email, usuario3_biografia, usuario3_hobbies, usuario1_contraseña, usuario1_me_gusta, usuario1_fecha_de_nacimiento, usuario2_contraseña, usuario2_me_gusta, usuario2_fecha_de_nacimiento, usuario3_contraseña, usuario3_me_gusta, usuario3_fecha_de_nacimiento: str 
+intentos_restantes: int
+'''
 def declarar_constantes():
     # Constantes con los datos de los estudiantes
     global usuario1_email, usuario1_contraseña, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_me_gusta, usuario3_email, usuario3_me_gusta, usuario3_contraseña, intentos_restantes, email_usuario_autenticado, isLoggedIn, intentos_restantes, email_usuario_autenticado, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario3_fecha_de_nacimiento,usuario3_biografia, usuario3_hobbies, usuario1_nombre, usuario2_nombre, usuario3_nombre
@@ -173,18 +216,19 @@ def declarar_constantes():
     intentos_restantes = 3
     email_usuario_autenticado = ""
 
-# Programa principal
-import msvcrt
-import random
-import os
-
+'''
+FUN iniciar_sesion
+email, usuario1_email, usuario2_email, usuario3_email, email_usuario_autenticado, contraseña, usuario1_contraseña, usuario2_contraseña, usuario3_contraseña: str
+isLoggedIn: boolean
+intentos_restantes: int
+'''
 def iniciar_sesion():    
     global isLoggedIn, intentos_restantes, email_usuario_autenticado
     declarar_constantes()    
     
     while intentos_restantes > 0 and not email_usuario_autenticado:
         email = input("Ingrese su email: ")
-        contraseña = input("Ingrese su contraseña: ")
+        contraseña = getpass.getpass("Ingrese su contraseña: ")
         
         if (email == usuario1_email and contraseña == usuario1_contraseña) or (email == usuario2_email and contraseña == usuario2_contraseña) or (email == usuario3_email and contraseña == usuario3_contraseña):
             os.system("cls")
@@ -196,11 +240,14 @@ def iniciar_sesion():
             intentos_restantes -= 1
             print(f"Credenciales incorrectas. Intentos restantes: {intentos_restantes}")
 
-def main():
-    
-    iniciar_sesion()
-    
+'''
+FUN main
+email_usuario_autenticado: string
+isLoggedIn: boolean
+'''
+def main():    
+    iniciar_sesion()    
     while email_usuario_autenticado and isLoggedIn:        
-        menu_principal()
+        menu_completo()
             
 main()
