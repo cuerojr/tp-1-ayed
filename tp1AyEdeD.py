@@ -46,6 +46,11 @@ def gestionar_mi_perfil():
         elif option == "b":
             #eliminar_mi_perfil() # type: ignore 
             print("\n1. En construccion")
+            
+        print("\nGestionar mi perfil")
+        print(" a. Editar mis datos personales")
+        print(" b. Eliminar mi perfil")
+        print(" c. Volver")
         option = input("Ingrese su opción 'a', 'b', 'c': ")
 
 
@@ -63,7 +68,11 @@ def gestionar_candidatos():
             print("\n1. en construccion")
         elif option == "b":
             #eliminar_mi_perfil() # type: ignore 
-            print("\n1. en construccion")           
+            print("\n1. en construccion")      
+
+        print("\nGestionar candidatos")
+        print(" En contruccion")
+        print(" c. Volver")     
         option = input("Ingrese su opción 'a', 'b', 'c': ")
 
 def matcheos():
@@ -102,10 +111,16 @@ def reportes_estadisticos():
         
 def editar_mis_datos_personales():
     global usuario1_email, email_usuario_autenticado
-    
-    
+        
     if (usuario1_email == email_usuario_autenticado):
-        print("\n1. editar_mis_datos_personales", email_usuario_autenticado)
+        print("Email: ", usuario1_email)
+        print("Contraseña: ", usuario1_contraseña)
+    elif (usuario2_email == email_usuario_autenticado):
+        print("Email: ", usuario2_email)
+        print("Contraseña: ", usuario2_contraseña)
+    elif (usuario3_email == email_usuario_autenticado):
+        print("Email: ", usuario3_email)
+        print("Contraseña: ", usuario3_contraseña)
 
 def validar_numero():
     while True:
@@ -114,19 +129,22 @@ def validar_numero():
         except ValueError:
             print("Debe ingresar un número")
 
-def declarar_variables_globales():
+def declarar_constantes():
     # Constantes con los datos de los estudiantes
-    global usuario1_email, usuario1_contraseña, usuario2_email, usuario2_contraseña, usuario3_email,   usuario3_contraseña, intentos_restantes, email_usuario_autenticado
+    global usuario1_email, usuario1_contraseña, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_me_gusta, usuario3_email, usuario3_me_gusta, usuario3_contraseña, intentos_restantes, email_usuario_autenticado, isLoggedIn, intentos_restantes, email_usuario_autenticado
 
     usuario1_email = "111"
     usuario1_contraseña = "222"
-    #agregar el me gusta y el resto de los datos para cada usuarios
+    usuario1_me_gusta = ""
+    
     usuario2_email = "estudiante2@ayed.com"
-    usuario2_contraseña = "333444"
-    
+    usuario2_contraseña = "333"
+    usuario2_me_gusta = ""
+
     usuario3_email = "estudiante3@ayed.com"
-    usuario3_contraseña = "555666"
-    
+    usuario3_contraseña = "444"
+    usuario3_me_gusta = ""
+
     intentos_restantes = 3
     email_usuario_autenticado = ""
 
@@ -137,7 +155,7 @@ import os
 
 def iniciar_sesion():    
     global isLoggedIn, intentos_restantes, email_usuario_autenticado
-    declarar_variables_globales()    
+    declarar_constantes()    
     
     while intentos_restantes > 0 and not email_usuario_autenticado:
         email = input("Ingrese su email: ")
@@ -161,6 +179,4 @@ def main():
     while email_usuario_autenticado and isLoggedIn:        
         menu_completo()
             
-
 main()
-
