@@ -115,6 +115,8 @@ def editar_mis_datos_personales():
     if (usuario1_email == email_usuario_autenticado):
         print("Email: ", usuario1_email)
         print("Contraseña: ", usuario1_contraseña)
+        print("Mi fecha de nacimiento: ", usuario1_fecha_de_nacimiento)
+
     elif (usuario2_email == email_usuario_autenticado):
         print("Email: ", usuario2_email)
         print("Contraseña: ", usuario2_contraseña)
@@ -131,20 +133,33 @@ def validar_numero():
 
 def declarar_constantes():
     # Constantes con los datos de los estudiantes
-    global usuario1_email, usuario1_contraseña, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_me_gusta, usuario3_email, usuario3_me_gusta, usuario3_contraseña, intentos_restantes, email_usuario_autenticado, isLoggedIn, intentos_restantes, email_usuario_autenticado
+    global usuario1_email, usuario1_contraseña, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_me_gusta, usuario3_email, usuario3_me_gusta, usuario3_contraseña, intentos_restantes, email_usuario_autenticado, isLoggedIn, intentos_restantes, email_usuario_autenticado, usuario1_fecha_de_nacimiento
 
+    #Usuario 1 dec vars
     usuario1_email = "111"
     usuario1_contraseña = "222"
     usuario1_me_gusta = ""
-    
+    usuario1_fecha_de_nacimiento = "Por definir"
+    usuario1_biografia = ""
+    usuario1_hobbies = ""
+
+    #Usuario2 decl vars
     usuario2_email = "estudiante2@ayed.com"
     usuario2_contraseña = "333"
     usuario2_me_gusta = ""
+    usuario2_fecha_de_nacimiento = "Por definir"
+    usuario2_biografia = ""
+    usuario2_hobbies = ""
 
+    #Usuario3 dec vars
     usuario3_email = "estudiante3@ayed.com"
     usuario3_contraseña = "444"
     usuario3_me_gusta = ""
+    usuario3_fecha_de_nacimiento = "Por definir"
+    usuario3_biografia = ""
+    usuario3_hobbies = ""
 
+    #dec vars
     intentos_restantes = 3
     email_usuario_autenticado = ""
 
@@ -172,7 +187,7 @@ def iniciar_sesion():
             print(f"Credenciales incorrectas. Intentos restantes: {intentos_restantes}")
 
 def main():
-    global email_usuario_autenticado, isLoggedIn
+    #global email_usuario_autenticado, isLoggedIn
     
     iniciar_sesion()
     
