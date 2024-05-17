@@ -1,3 +1,11 @@
+'''
+TP#1 Comisión 113
+Rojo Nicolás
+Frenna Luca
+Alegre Sebastian
+Cosenza María Soledad
+'''
+
 def mostrar_menu():
     os.system("cls")
     print("Menu ")
