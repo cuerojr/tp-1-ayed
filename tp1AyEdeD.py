@@ -1,164 +1,186 @@
-# Constantes con los datos de los estudiantes
-usuario1_email = "estudiante1@ayed.com"
-usuario1_contraseña = "111222"
-usuario2_email = "estudiante2@ayed.com"
-usuario2_contraseña = "333444"
-usuario3_email = "estudiante3@ayed.com"
-usuario3_contraseña = "555666"
-
-# Función para ocultar la contraseña mientras se escribe
-def ocultar_contraseña():
-    contraseña = ""
-    while True:
-        caracter = msvcrt.getch().decode("utf-8")
-        if caracter == "\r":
-            print()
-            return contraseña
-        elif caracter == "\b":
-            contraseña = contraseña[:-1]
-            print("\b \b", end="", flush=True)
-        else:
-            contraseña += caracter
-            print("*", end="", flush=True)
-
-# Función para menu completo
 def menu_completo():
-    print("1. Gestionar mi perfil")
+    global isLoggedIn, usuario_autenticado, isLoggedIn
+    os.system("cls")
+    print("Menu ")
+    print("\n1. Gestionar mi perfil")
     print("2. Gestionar candidatos")
     print("3. Matcheos")
     print("4. Reportes estadisticos")
     print("0. Salir")
 
-# Función para gestionar mi perfil
+    option = validar_opcion()
+
+    if option >= 1 and option <= 4:
+        if option == 1:
+            gestionar_mi_perfil()
+        elif option == 2:
+            gestionar_candidatos()
+        elif option == 3:
+            matcheos() # type: ignore
+        elif option == 4:
+            reportes_estadisticos() # type: ignore
+    elif option == 0:
+        print("Sesión cerrada. ¡Hasta luego!")
+        isLoggedIn = False
+    
+
 def gestionar_mi_perfil():
-    print("a. Editar mis datos personales")
-    print("b. Eliminar mi perfil")
-    print("c. Volver")
+    global usuario_autenticado
+    os.system("cls")
+    print("Menu gestionar_mi_perfil")
+    print("\n1. Gestionar mi perfil")
+    print(" a. Editar mis datos personales")
+    print(" b. Eliminar mi perfil")
+    print(" c. Volver")
+    print("2. Gestionar candidatos")
+    print("3. Matcheos")
+    print("4. Reportes estadisticos")
+    print("0. Salir")
+    option = input("Ingrese su opción 'a', 'b', 'c': ")
 
-# Función para gestionar candidatos
+    while option != "c":
+        if option == "a": 
+            editar_mis_datos_personales() # type: ignore
+            print("\n1. Matcheos")
+        elif option == "b":
+            #eliminar_mi_perfil() # type: ignore 
+            print("\n1. Matcheos")
+        else:
+            print("Opción inválida")               
+        option = input("Ingrese su opción 'a', 'b', 'c': ")
+
+
 def gestionar_candidatos():
-    print("a. Ver candidatos")
-    print("b. Reportar un candidato")
-    print("c. Volver")
+    #os.system("cls")
+    print("Menu gestionar_candidatos")
+    print("\n1. Gestionar mi perfil")
+    print("2. Gestionar candidatos")
+    print(" En contruccion")
+    print(" c. Volver")
+    print("3. Matcheos")
+    print("4. Reportes estadisticos")
+    print("0. Salir")
+    option = input("Ingrese su opción 'a', 'b', 'c': ")
+    
+    while option != "c":
+        if option == "a": 
+            #editar_mis_datos_personales() # type: ignore
+            print("\n1. Matcheos")
+        elif option == "b":
+            #eliminar_mi_perfil() # type: ignore 
+            print("\n1. Matcheos")
+        else:
+            print("Opción inválida")               
+        option = input("Ingrese su opción 'a', 'b', 'c': ")
 
-# Función para matcheos
 def matcheos():
-    print("a. Ver matcheos")
-    print("B. Eliminar un matcheo")
-    print("c. Volver")
+    #os.system("cls")
+    print("Menu matcheos")
+    print("\n1. Gestionar mi perfil")
+    print("2. Gestionar candidatos")
+    print("3. Matcheos")
+    print(" En contruccion")
+    print(" c. Volver")
+    print("4. Reportes estadisticos")
+    print("0. Salir")
+    option = input("Ingrese su opción 'a', 'b', 'c': ")
 
-# Función para editar datos personales
-def editar_datos_personales():
+    while option != "c":
+        if option == "a": 
+            #editar_mis_datos_personales() # type: ignore
+            print("\n1. Matcheos")
+        elif option == "b":
+            #eliminar_mi_perfil() # type: ignore 
+            print("\n1. Matcheos")
+        else:
+            print("Opción inválida")               
+        option = input("Ingrese su opción 'a', 'b', 'c': ")
+
+def reportes_estadisticos():
+    #os.system("cls")
+    print("Menu")
+    print("\n1. Gestionar mi perfil")
+    print("2. Gestionar candidatos")
+    print("3. Matcheos")
+    print("4. Reportes estadisticos")
+    print(" En contruccion")
+    print(" c. Volver")
+    print("0. Salir")
+    option = input("Ingrese su opción 'a', 'b', 'c': ")
+
+    while option != "c":
+        if option == "a": 
+            #editar_mis_datos_personales() # type: ignore
+            print("\n1. Matcheos")
+        elif option == "b":
+            #eliminar_mi_perfil() # type: ignore 
+            print("\n1. Matcheos")
+        else:
+            print("Opción inválida")               
+        option = input("Ingrese su opción 'a', 'b', 'c': ")
+        
+def editar_mis_datos_personales():
     # Implementar la edición de datos personales
-    print("Editar datos personales")
-
-# Función para ver candidatos
-def ver_candidatos():
-    # Implementar la visualización de candidatos
-    print("Ver candidatos")
-
-# Funciones para "En Construcción"
-def cons_1b():
-    print("En Construcción")
-
-def cons_2b():
-    print("En Construcción")
-
-def cons_3_entero():
-    print("En Construcción")
-
-def cons_4():
-    print("En Construcción")
-
-# Función para la ruleta
-def ruleta():
-    # Solicitar al usuario las probabilidades de matcheo
+    print("Editar datos personales", usuario_autenticado)
+def validar_opcion():
     while True:
         try:
-            probabilidad_a = int(input("Ingrese la probabilidad de matcheo para la Persona A: "))
-            probabilidad_b = int(input("Ingrese la probabilidad de matcheo para la Persona B: "))
-            probabilidad_c = int(input("Ingrese la probabilidad de matcheo para la Persona C: "))
-            if probabilidad_a + probabilidad_b + probabilidad_c != 100:
-                print("La suma de las probabilidades debe ser igual a 100. Intente de nuevo.")
+            option = int(input("Ingrese su opción: "))
+            if 0 <= option <= 4:
+                return option
             else:
-                break
+                print("Por favor, ingrese un número entre 0 y 4.")
         except ValueError:
-            print("Ingrese números enteros.")
-
-    # Simular la ruleta
-    ruleta = [1] * probabilidad_a + [2] * probabilidad_b + [3] * probabilidad_c
-    seleccion = random.choice(ruleta)
-
-    # Mostrar el resultado
-    if seleccion == 1:
-        print("Persona seleccionada: A")
-    elif seleccion == 2:
-        print("Persona seleccionada: B")
-    else:
-        print("Persona seleccionada: C")
+            print("Por favor, ingrese un número entero.")
 
 # Programa principal
 import msvcrt
 import random
+import os
 
-intentos = 3
 
-while intentos > 0:
-    print("Ingrese su email y contraseña.")
-    email = input("Email: ")
-    contraseña = ocultar_contraseña()
 
-    if email == usuario1_email and contraseña == usuario1_contraseña:
-        print("Bienvenido Usuario 1.")
-        menu_completo()
-        opcion = input("Ingrese su opción: ")
-        if opcion == "1":
-            gestionar_mi_perfil()
-        elif opcion == "2":
-            gestionar_candidatos()
-        elif opcion == "3":
-            matcheos()
-        elif opcion == "4":
-            cons_4()
-        elif opcion == "0":
-            break
+def iniciar_sesion():
+    # Constantes con los datos de los estudiantes
+    global intentos, intentos_restantes, usuario_autenticado, usuario1_email, usuario1_contraseña, usuario2_email, usuario2_contraseña, usuario3_email, usuario3_contraseña
+    
+    intentos = 3
+    usuario1_email = "111"
+    usuario1_contraseña = "222"
+    usuario2_email = "estudiante2@ayed.com"
+    usuario2_contraseña = "333444"
+    usuario3_email = "estudiante3@ayed.com"
+    usuario3_contraseña = "555666"
+    
+    intentos_restantes = 3
+    
+    
+    while intentos_restantes > 0 and not usuario_autenticado:
+        email = input("Ingrese su email: ")
+        contraseña = input("Ingrese su contraseña: ")
+        
+        if (email == usuario1_email and contraseña == usuario1_contraseña) or (email == usuario2_email and contraseña == usuario2_contraseña) or (email == usuario3_email and contraseña == usuario3_contraseña):
+            print("Inicio de sesión exitoso!")
+            usuario_autenticado = email
         else:
-            print("Opción inválida.")
-    elif email == usuario2_email and contraseña == usuario2_contraseña:
-        print("Bienvenido Usuario 2.")
-        menu_completo()
-        opcion = input("Ingrese su opción: ")
-        if opcion == "1":
-            gestionar_mi_perfil()
-        elif opcion == "2":
-            gestionar_candidatos()
-        elif opcion == "3":
-            matcheos()
-        elif opcion == "4":
-            cons_4()
-        elif opcion == "0":
-            break
-        else:
-            print("Opción inválida.")
-    elif email == usuario3_email and contraseña == usuario3_contraseña:
-        print("Bienvenido Usuario 3.")
-        menu_completo()
-        opcion = input("Ingrese su opción: ")
-        if opcion == "1":
-            gestionar_mi_perfil()
-        elif opcion == "2":
-            gestionar_candidatos()
-        elif opcion == "3":
-            matcheos()
-        elif opcion == "4":
-            cons_4()
-        elif opcion == "0":
-            break
-        else:
-            print("Opción inválida.")
-    else:
-        intentos -= 1
-        print("Email o contraseña incorrectos.")
+            intentos_restantes -= 1
+            print(f"Credenciales incorrectas. Intentos restantes: {intentos_restantes}")
+    
+    #return usuario_autenticado
 
-if intentos == 0:
-    print("Ha excedido el número de intentos permitidos. Cerrando el programa.")
+def main():
+    global usuario_autenticado, isLoggedIn
+    isLoggedIn = True
+    usuario_autenticado = ""
+    iniciar_sesion()
+    
+    if usuario_autenticado != "":
+        while isLoggedIn:
+            #os.system("cls")
+            print("Bienvenido!")
+            menu_completo()
+            
+
+if __name__ == "__main__":
+    main()
+
