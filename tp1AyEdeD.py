@@ -133,7 +133,7 @@ def validar_numero():
 
 def declarar_constantes():
     # Constantes con los datos de los estudiantes
-    global usuario1_email, usuario1_contraseña, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_me_gusta, usuario3_email, usuario3_me_gusta, usuario3_contraseña, intentos_restantes, email_usuario_autenticado, isLoggedIn, intentos_restantes, email_usuario_autenticado, usuario1_fecha_de_nacimiento
+    global usuario1_email, usuario1_contraseña, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_me_gusta, usuario3_email, usuario3_me_gusta, usuario3_contraseña, intentos_restantes, email_usuario_autenticado, isLoggedIn, intentos_restantes, email_usuario_autenticado, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario2_fecha_de_nacimiento,usuario2_biografia,usuario2_hobbies,usuario3_fecha_de_nacimiento,usuario3_biografia,usuario3_hobbies
 
     #Usuario 1 dec vars
     usuario1_email = "111"
