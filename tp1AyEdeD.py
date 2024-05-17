@@ -171,14 +171,26 @@ def declarar_constantes():
     email_usuario_autenticado = ""
 
 
-
+''' -VARIABLES FUNCION iniciar_sesion-
+email ->
+contraseña ->
+usuario1_email ->
+usuario2_email ->
+usuario3_email ->
+usuario1_contraseña ->
+usuario2_contraseña ->
+usuario3_contraseña ->
+email_usuario_autenticado ->
+isLoggedIn ->
+intentos_restantes ->
+'''
 def iniciar_sesion():    
     global isLoggedIn, intentos_restantes, email_usuario_autenticado
     declarar_constantes()    
     
     while intentos_restantes > 0 and not email_usuario_autenticado:
         email = input("Ingrese su email: ")
-        contraseña = input("Ingrese su contraseña: ")
+        contraseña = getpass.getpass("Ingrese su contraseña: ")
         
         if (email == usuario1_email and contraseña == usuario1_contraseña) or (email == usuario2_email and contraseña == usuario2_contraseña) or (email == usuario3_email and contraseña == usuario3_contraseña):
             os.system("cls")
