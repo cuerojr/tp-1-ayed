@@ -20,7 +20,7 @@ def mostrar_menu():
 
 '''
 FUN menu_completo
-option: int
+option: integer
 isLoggedIn: bool
 email_usuario_autenticado: str
 '''
@@ -266,7 +266,7 @@ def validar_numero():
 '''
 FUN declarar_constantes
 email_usuario_autenticado, usuario1_email, usuario1_biografia, usuario1_hobbies, usuario2_email, usuario2_biografia, usuario2_hobbies, usuario3_email, usuario3_biografia, usuario3_hobbies, usuario1_contraseña, usuario1_me_gusta, usuario1_fecha_de_nacimiento, usuario2_contraseña, usuario2_me_gusta, usuario2_fecha_de_nacimiento, usuario3_contraseña, usuario3_me_gusta, usuario3_fecha_de_nacimiento: str 
-intentos_restantes: int
+intentos_restantes: integer
 '''
 def declarar_constantes():
     global usuario1_email, usuario1_contraseña, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_me_gusta, usuario3_email, usuario3_me_gusta, usuario3_contraseña, intentos_restantes, email_usuario_autenticado, isLoggedIn, intentos_restantes, email_usuario_autenticado, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario3_fecha_de_nacimiento,usuario3_biografia, usuario3_hobbies, usuario1_nombre, usuario2_nombre, usuario3_nombre
@@ -305,7 +305,7 @@ def declarar_constantes():
 FUN iniciar_sesion
 email, usuario1_email, usuario2_email, usuario3_email, email_usuario_autenticado, contraseña, usuario1_contraseña, usuario2_contraseña, usuario3_contraseña: str
 isLoggedIn: boolean
-intentos_restantes: int
+intentos_restantes: integer
 '''
 def iniciar_sesion():    
     global isLoggedIn, intentos_restantes, email_usuario_autenticado
