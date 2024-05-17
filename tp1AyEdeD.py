@@ -7,8 +7,8 @@ def mostrar_menu():
     print("4. Reportes estadisticos")
     print("0. Salir")
 
-def menu_completo():
-    global isLoggedIn, email_usuario_autenticado
+def menu_principal():
+    global isLoggedIn
 
     mostrar_menu()
 
@@ -52,7 +52,6 @@ def gestionar_mi_perfil():
         print(" b. Eliminar mi perfil")
         print(" c. Volver")
         option = input("Ingrese su opción 'a', 'b', 'c': ")
-
 
 def gestionar_candidatos():
     os.system("cls")
@@ -133,13 +132,14 @@ def validar_numero():
 
 def declarar_constantes():
     # Constantes con los datos de los estudiantes
-    global usuario1_email, usuario1_contraseña, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_me_gusta, usuario3_email, usuario3_me_gusta, usuario3_contraseña, intentos_restantes, email_usuario_autenticado, isLoggedIn, intentos_restantes, email_usuario_autenticado, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario2_fecha_de_nacimiento,usuario2_biografia,usuario2_hobbies,usuario3_fecha_de_nacimiento,usuario3_biografia,usuario3_hobbies
+    global usuario1_email, usuario1_contraseña, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_me_gusta, usuario3_email, usuario3_me_gusta, usuario3_contraseña, intentos_restantes, email_usuario_autenticado, isLoggedIn, intentos_restantes, email_usuario_autenticado, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario3_fecha_de_nacimiento,usuario3_biografia, usuario3_hobbies, usuario1_nombre, usuario2_nombre, usuario3_nombre
 
     #Usuario 1 dec vars
     usuario1_email = "111"
     usuario1_contraseña = "222"
     usuario1_me_gusta = ""
     usuario1_fecha_de_nacimiento = "Por definir"
+    usuario1_nombre = ""
     usuario1_biografia = ""
     usuario1_hobbies = ""
 
@@ -148,6 +148,7 @@ def declarar_constantes():
     usuario2_contraseña = "333"
     usuario2_me_gusta = ""
     usuario2_fecha_de_nacimiento = "Por definir"
+    usuario2_nombre = ""
     usuario2_biografia = ""
     usuario2_hobbies = ""
 
@@ -156,6 +157,7 @@ def declarar_constantes():
     usuario3_contraseña = "444"
     usuario3_me_gusta = ""
     usuario3_fecha_de_nacimiento = "Por definir"
+    usuario3_nombre = ""
     usuario3_biografia = ""
     usuario3_hobbies = ""
 
@@ -187,11 +189,10 @@ def iniciar_sesion():
             print(f"Credenciales incorrectas. Intentos restantes: {intentos_restantes}")
 
 def main():
-    #global email_usuario_autenticado, isLoggedIn
     
     iniciar_sesion()
     
     while email_usuario_autenticado and isLoggedIn:        
-        menu_completo()
+        menu_principal()
             
 main()
