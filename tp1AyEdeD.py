@@ -1,6 +1,4 @@
-def menu_completo():
-    global isLoggedIn, email_usuario_autenticado
-
+def mostrar_menu():
     os.system("cls")
     print("Menu ")
     print("\n1. Gestionar mi perfil")
@@ -9,22 +7,30 @@ def menu_completo():
     print("4. Reportes estadisticos")
     print("0. Salir")
 
+def menu_completo():
+    global isLoggedIn, email_usuario_autenticado
+
+    mostrar_menu()
+
     option = int(input("Ingrese su opción: "))
     while option < 0 and option > 4:
         print("Opción inválida")
         option = int(input("Ingrese su opción '0', '1', '2', '3', '4': "))
 
-    if option == 1:
-        gestionar_mi_perfil()
-    elif option == 2:
-        gestionar_candidatos()
-    elif option == 3:
-        matcheos()
-    elif option == 4:
-        reportes_estadisticos()
-    elif option == 0:
-        print("Sesión cerrada. ¡Hasta luego!")
-        isLoggedIn = False
+    match option:
+        case 1:
+            gestionar_mi_perfil()
+        case 2:
+            gestionar_candidatos()
+        case 3:
+            matcheos()
+        case 4:
+            reportes_estadisticos()
+        case 0:
+            print("Sesión cerrada. ¡Hasta luego!")
+            isLoggedIn = False
+            os.system("cls")
+
 
 def gestionar_mi_perfil():    
     os.system("cls")
@@ -33,7 +39,6 @@ def gestionar_mi_perfil():
     print(" a. Editar mis datos personales")
     print(" b. Eliminar mi perfil")
     print(" c. Volver")
-
 
     option = input("Ingrese su opción: ")
     while option  != "c":
