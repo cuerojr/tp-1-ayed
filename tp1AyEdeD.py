@@ -156,12 +156,7 @@ option: str
 def editar_mis_datos_personales():
     os.system("cls")
 
-    if (email_usuario_autenticado == usuario1_email):
-        mostrar_mis_datos(usuario1_email, usuario1_contraseña, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario1_me_gusta)
-    elif (email_usuario_autenticado == usuario2_email):
-        mostrar_mis_datos(usuario2_email, usuario2_contraseña, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario2_me_gusta)
-    elif (email_usuario_autenticado == usuario3_email):
-        mostrar_mis_datos(usuario3_email, usuario3_contraseña, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, usuario3_me_gusta)
+    menu_de_mis_datos()
 
     print("\nEditar mis datos personales")
     print(" a. Editar mi fecha de nacimiento")
@@ -179,6 +174,9 @@ def editar_mis_datos_personales():
             editar_mis_hobbies()  
 
         os.system("cls")
+
+        menu_de_mis_datos()
+        
         print("\nEditar mis datos personales")
         print(" a. Editar mi fecha de nacimiento")
         print(" b. Editar mi biografía")
@@ -186,6 +184,14 @@ def editar_mis_datos_personales():
         print(" d. Volver")  
         option = str(input("Ingrese su opción 'a', 'b', 'c', 'd': "))
     
+def menu_de_mis_datos():
+    if (email_usuario_autenticado == usuario1_email):
+        mostrar_mis_datos(usuario1_email, usuario1_contraseña, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario1_me_gusta)
+    elif (email_usuario_autenticado == usuario2_email):
+        mostrar_mis_datos(usuario2_email, usuario2_contraseña, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario2_me_gusta)
+    elif (email_usuario_autenticado == usuario3_email):
+        mostrar_mis_datos(usuario3_email, usuario3_contraseña, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, usuario3_me_gusta)
+
 '''
 FUN editar_mi_fecha_de_nacimiento
 usuario1_fecha_de_nacimiento, usuario2_fecha_de_nacimiento, usuario3_fecha_de_nacimiento, nueva_fecha_de_nacimiento: str
