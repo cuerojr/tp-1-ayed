@@ -2,6 +2,13 @@ import getpass
 import random
 import os
 
+# Constantes para los usuarios precargados
+USUARIOS = {
+    "111": "222",
+    "estudiante2@ayed.com": "333444",
+    "estudiante3@ayed.com": "555666"
+}
+
 # Función para ocultar la contraseña mientras se escribe--------------------(arreglar: la frase se puede borrar al correr el programa)
 def ocultar_contraseña():
     contraseña = getpass.getpass("Ingrese su contraseña: ")
@@ -122,24 +129,14 @@ def ruleta():
 intentos = 3
 
 def iniciar_sesion():
-    # Constantes con los datos de los estudiantes
-    # Constantes con los datos de los estudiantes
-    usuario1_email = "111"
-    usuario1_contraseña = "222"
-    usuario2_email = "estudiante2@ayed.com"
-    usuario2_contraseña = "333444"
-    usuario3_email = "estudiante3@ayed.com"
-    usuario3_contraseña = "555666"
-    
     intentos_restantes = 3
     usuario_autenticado = False
     
     while intentos_restantes > 0 and not usuario_autenticado:
         email = input("Ingrese su email: ")
-        contraseña = ocultar_contraseña()
+        contraseña = getpass.getpass("Ingrese su contraseña: ")
         
-        if email == usuario1_email and contraseña == usuario1_contraseña:
-            print("Inicio de sesión exitoso!")
+        if email in USUARIOS and contraseña == USUARIOS[email]:
             usuario_autenticado = True
         else:
             intentos_restantes -= 1
@@ -149,7 +146,7 @@ def iniciar_sesion():
 
 def sesion_iniciada():
     os.system("cls")
-    print("Bienvenido!")
+    print("Acceso concedido. ¡Bienvenido!")
     while True:
         menu_completo()
         opcion = input("Ingrese su opción: ")
