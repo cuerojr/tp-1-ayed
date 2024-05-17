@@ -20,7 +20,7 @@ def mostrar_menu():
 
 '''
 FUN menu_completo
-option: integer
+opcion: integer
 isLoggedIn: bool
 email_usuario_autenticado: str
 '''
@@ -29,12 +29,12 @@ def menu_completo():
 
     mostrar_menu()
 
-    option = validar_numero()
-    while option < 0 and option > 4:
+    opcion = validar_numero()
+    while opcion < 0 and opcion > 4:
         print("Opción inválida")
-        option = validar_numero()
+        opcion = validar_numero()
 
-    match option:
+    match opcion:
         case 1:
             gestionar_mi_perfil()
         case 2:
@@ -50,7 +50,7 @@ def menu_completo():
 
 '''
 FUN gestionar_mi_perfil
-option: str
+opcion: str
 '''
 def gestionar_mi_perfil():    
     os.system("cls")
@@ -58,12 +58,12 @@ def gestionar_mi_perfil():
     print(" a. Editar mis datos personales")
     print(" b. Eliminar mi perfil")
     print(" c. Volver")
-    option = str(input("Ingrese su opción: "))
+    opcion = str(input("Ingrese su opción: "))
 
-    while option  != "c":
-        if option == "a": 
+    while opcion != "c":
+        if opcion == "a": 
             editar_mis_datos_personales() # type: ignore            
-        elif option == "b":
+        elif opcion == "b":
             #eliminar_mi_perfil() # type: ignore 
             print("\n1. En construccion")
 
@@ -72,24 +72,24 @@ def gestionar_mi_perfil():
         print(" a. Editar mis datos personales")
         print(" b. Eliminar mi perfil")
         print(" c. Volver")
-        option = str(input("Ingrese su opción 'a', 'b', 'c': "))
+        opcion = str(input("Ingrese su opción 'a', 'b', 'c': "))
 
 '''
 FUN gestionar_candidatos
-option: str
+opcion: str
 '''
 def gestionar_candidatos():
     os.system("cls")
     print("\nGestionar candidatos")
     print(" En contruccion")
     print(" c. Volver")
-    option = str(input("Ingrese su opción: "))  
+    opcion = str(input("Ingrese su opción: "))  
 
-    while option != "c":
-        if option == "a": 
+    while opcion != "c":
+        if opcion == "a": 
             #editar_mis_datos_personales() # type: ignore
             print("\n1. en construccion")
-        elif option == "b":
+        elif opcion == "b":
             #eliminar_mi_perfil() # type: ignore 
             print("\n1. en construccion")      
 
@@ -97,24 +97,24 @@ def gestionar_candidatos():
         print("\nGestionar candidatos")
         print(" En contruccion")
         print(" c. Volver")     
-        option = str(input("Ingrese su opción 'a', 'b', 'c': "))
+        opcion = str(input("Ingrese su opción 'a', 'b', 'c': "))
 
 '''
 FUN matcheos-
-option: str
+opcion: str
 '''
 def matcheos():
     os.system("cls")
     print("\n3. Matcheos")
     print(" En contruccion")
     print(" c. Volver")
-    option = str(input("Ingrese su opción 'c': "))
+    opcion = str(input("Ingrese su opción 'c': "))
 
-    while option != "c":
-        if option == "a": 
+    while opcion != "c":
+        if opcion == "a": 
             #editar_mis_datos_personales() # type: ignore
             print("\n1. en construccion")
-        elif option == "b":
+        elif opcion == "b":
             #eliminar_mi_perfil() # type: ignore 
             print("\n1. en construccion")  
         
@@ -122,36 +122,36 @@ def matcheos():
         print("\n3. Matcheos")
         print(" En contruccion")
         print(" c. Volver")         
-        option = str(input("Ingrese su opción 'c': "))
+        opcion = str(input("Ingrese su opción 'c': "))
 
 '''
 FUN reportes_estadisticos
-option: str
+opcion: str
 '''
 def reportes_estadisticos():
     os.system("cls")
     print("\nReportes estadisticos")
     print(" En contruccion")
     print(" c. Volver")
-    option = str(input("Ingrese su opción 'c': "))
+    opcion = str(input("Ingrese su opción 'c': "))
 
-    while option != "c":
-        if option == "a": 
+    while opcion != "c":
+        if opcion == "a": 
             #editar_mis_datos_personales() # type: ignore
-            print("\n1. option c")
-        elif option == "b":
+            print("\n1. opcion c")
+        elif opcion == "b":
             #eliminar_mi_perfil() # type: ignore 
-            print("\n1. option b") 
+            print("\n1. opcion b") 
 
         os.system("cls")
         print("\nReportes estadisticos")
         print(" En contruccion")
         print(" c. Volver")  
-        option = str(input("Ingrese su opción 'c': "))
+        opcion = str(input("Ingrese su opción 'c': "))
 
 '''
 FUN editar_mis_datos_personales
-option: str
+opcion: str
 '''       
 def editar_mis_datos_personales():
     os.system("cls")
@@ -163,14 +163,14 @@ def editar_mis_datos_personales():
     print(" b. Editar mi biografía")
     print(" c. Editar mis hobbies")
     print(" d. Volver")  
-    option = str(input("Ingrese su opción: "))
+    opcion = str(input("Ingrese su opción: "))
 
-    while option != "d":
-        if option == "a": 
+    while opcion != "d":
+        if opcion == "a": 
             editar_mi_fecha_de_nacimiento()
-        elif option == "b":
+        elif opcion == "b":
             editar_mi_biografia()          
-        elif option == "c":
+        elif opcion == "c":
             editar_mis_hobbies()  
 
         os.system("cls")
@@ -182,7 +182,7 @@ def editar_mis_datos_personales():
         print(" b. Editar mi biografía")
         print(" c. Editar mis hobbies")  
         print(" d. Volver")  
-        option = str(input("Ingrese su opción 'a', 'b', 'c', 'd': "))
+        opcion = str(input("Ingrese su opción 'a', 'b', 'c', 'd': "))
 
 '''
 FUN menu_de_mis_datos()
@@ -253,6 +253,7 @@ usuario_email, usuario_contraseña, usuario_fecha_de_nacimiento, usuario_biograf
 '''
 def mostrar_mis_datos(usuario_email, usuario_contraseña, usuario_fecha_de_nacimiento, usuario_biografia, usuario_hobbies, usuario_me_gusta):
     os.system("cls")
+    print("\nMis datos personales")
     print("\nEmail: ", usuario_email)
     print("Contraseña: ", usuario_contraseña)
     print("Mi fecha de nacimiento: ", usuario_fecha_de_nacimiento)
