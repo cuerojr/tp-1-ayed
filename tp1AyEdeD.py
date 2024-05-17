@@ -12,10 +12,10 @@ def menu_completo():
 
     mostrar_menu()
 
-    option = int(input("Ingrese su opción: "))
+    option = validar_numero()
     while option < 0 and option > 4:
         print("Opción inválida")
-        option = int(input("Ingrese su opción '0', '1', '2', '3', '4': "))
+        option = validar_numero()
 
     match option:
         case 1:
@@ -104,6 +104,13 @@ def reportes_estadisticos():
         
 def editar_mis_datos_personales():
     print("\n1. editar_mis_datos_personales")
+
+def validar_numero():
+    while True:
+        try:
+            return int(input("Ingrese un número: "))
+        except ValueError:
+            print("Debe ingresar un número")
 
 # Programa principal
 import msvcrt
