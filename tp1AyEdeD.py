@@ -1,3 +1,10 @@
+# Programa principal
+import msvcrt
+import random
+import os
+import getpass
+
+
 def mostrar_menu():
     os.system("cls")
     print("Menu ")
@@ -163,10 +170,7 @@ def declarar_constantes():
     intentos_restantes = 3
     email_usuario_autenticado = ""
 
-# Programa principal
-import msvcrt
-import random
-import os
+
 
 def iniciar_sesion():    
     global isLoggedIn, intentos_restantes, email_usuario_autenticado
