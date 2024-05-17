@@ -1,6 +1,4 @@
 # Programa principal
-import msvcrt
-import random
 import os
 import getpass
 
@@ -14,6 +12,11 @@ def mostrar_menu():
     print("4. Reportes estadisticos")
     print("0. Salir")
 
+'''-VARIABLES FUNCION menu_completo'-
+int <- option
+bool <- isLoggedIn
+str <- email_usuario_autenticado
+'''
 def menu_completo():
     global isLoggedIn, email_usuario_autenticado
 
@@ -37,7 +40,9 @@ def menu_completo():
             print("Sesión cerrada. ¡Hasta luego!")
             isLoggedIn = False
             os.system("cls")
-
+'''-VARIABLES FUNCION gestionar_mi_perfil-
+str <- option
+'''
 def gestionar_mi_perfil():    
     os.system("cls")
 
@@ -46,7 +51,7 @@ def gestionar_mi_perfil():
     print(" b. Eliminar mi perfil")
     print(" c. Volver")
 
-    option = input("Ingrese su opción: ")
+    option = str(input("Ingrese su opción: "))
     while option  != "c":
         if option == "a": 
             editar_mis_datos_personales() # type: ignore            
@@ -58,9 +63,11 @@ def gestionar_mi_perfil():
         print(" a. Editar mis datos personales")
         print(" b. Eliminar mi perfil")
         print(" c. Volver")
-        option = input("Ingrese su opción 'a', 'b', 'c': ")
+        option = str(input("Ingrese su opción 'a', 'b', 'c': "))
 
-
+'''-VARIABLES FUNCION gestionar_candidatos-
+str <- option
+'''
 def gestionar_candidatos():
     os.system("cls")
 
@@ -68,7 +75,7 @@ def gestionar_candidatos():
     print(" En contruccion")
     print(" c. Volver")
 
-    option = input("Ingrese su opción: ")    
+    option = str(input("Ingrese su opción: "))  
     while option != "c":
         if option == "a": 
             #editar_mis_datos_personales() # type: ignore
@@ -80,8 +87,11 @@ def gestionar_candidatos():
         print("\nGestionar candidatos")
         print(" En contruccion")
         print(" c. Volver")     
-        option = input("Ingrese su opción 'a', 'b', 'c': ")
+        option = str(input("Ingrese su opción 'a', 'b', 'c': "))
 
+'''-VARIABLES FUNCION matcheos-
+str <- option
+'''
 def matcheos():
     os.system("cls")
 
@@ -89,7 +99,7 @@ def matcheos():
     print(" En contruccion")
     print(" c. Volver")
 
-    option = input("Ingrese su opción 'a', 'b', 'c': ")
+    option = str(input("Ingrese su opción 'a', 'b', 'c': "))
     while option != "c":
         if option == "a": 
             #editar_mis_datos_personales() # type: ignore
@@ -97,8 +107,11 @@ def matcheos():
         elif option == "b":
             #eliminar_mi_perfil() # type: ignore 
             print("\n1. en construccion")           
-        option = input("Ingrese su opción 'a', 'b', 'c': ")
+        option = str(input("Ingrese su opción 'a', 'b', 'c': "))
 
+'''-VARIABLES FUNCION reportes_estadisticos-
+str <- option
+'''
 def reportes_estadisticos():
     os.system("cls")
 
@@ -106,7 +119,7 @@ def reportes_estadisticos():
     print(" En contruccion")
     print(" c. Volver")
 
-    option = input("Ingrese su opción 'a', 'b', 'c': ")
+    option = str(input("Ingrese su opción 'a', 'b', 'c': "))
     while option != "c":
         if option == "a": 
             #editar_mis_datos_personales() # type: ignore
@@ -114,8 +127,12 @@ def reportes_estadisticos():
         elif option == "b":
             #eliminar_mi_perfil() # type: ignore 
             print("\n1. option b")           
-        option = input("Ingrese su opción 'a', 'b', 'c': ")
-        
+        option = str(input("Ingrese su opción 'a', 'b', 'c': "))
+
+'''-VARIABLES FUNCION editar_mis_datos_personales-
+str <- email_usuario_autenticado, usuario1_email, usuario1_biografia, usuario1_hobbies, usuario2_email, usuario2_biografia, usuario2_hobbies, usuario3_email, usuario3_biografia, usuario3_hobbies
+int <- usuario1_contraseña, usuario1_me_gusta, usuario1_fecha_de_nacimiento, usuario2_contraseña, usuario2_me_gusta, usuario2_fecha_de_nacimiento, usuario3_contraseña, usuario3_me_gusta, usuario3_fecha_de_nacimiento
+'''       
 def editar_mis_datos_personales():
     global usuario1_email, email_usuario_autenticado
         
@@ -123,13 +140,23 @@ def editar_mis_datos_personales():
         print("Email: ", usuario1_email)
         print("Contraseña: ", usuario1_contraseña)
         print("Mi fecha de nacimiento: ", usuario1_fecha_de_nacimiento)
-
+        print("Biografia: ", usuario1_biografia)
+        print("Mis hobbies: ", usuario1_hobbies)
+        print("Mis me gusta: ", usuario1_me_gusta)
     elif (usuario2_email == email_usuario_autenticado):
         print("Email: ", usuario2_email)
         print("Contraseña: ", usuario2_contraseña)
+        print("Mi fecha de nacimiento: ", usuario2_fecha_de_nacimiento)
+        print("Biografia: ", usuario2_biografia)
+        print("Mis hobbies: ", usuario2_hobbies)
+        print("Mis me gusta: ", usuario2_me_gusta)
     elif (usuario3_email == email_usuario_autenticado):
         print("Email: ", usuario3_email)
         print("Contraseña: ", usuario3_contraseña)
+        print("Mi fecha de nacimiento: ", usuario3_fecha_de_nacimiento)
+        print("Biografia: ", usuario3_biografia)
+        print("Mis hobbies: ", usuario3_hobbies)
+        print("Mis me gusta: ", usuario3_me_gusta)
 
 def validar_numero():
     while True:
@@ -138,6 +165,10 @@ def validar_numero():
         except ValueError:
             print("Debe ingresar un número")
 
+''' -VARIABLES FUNCION declarar_constantes-
+str <- email_usuario_autenticado, usuario1_email, usuario1_biografia, usuario1_hobbies, usuario2_email, usuario2_biografia, usuario2_hobbies, usuario3_email, usuario3_biografia, usuario3_hobbies
+int <- usuario1_contraseña, usuario1_me_gusta, usuario1_fecha_de_nacimiento, usuario2_contraseña, usuario2_me_gusta, usuario2_fecha_de_nacimiento, usuario3_contraseña, usuario3_me_gusta, usuario3_fecha_de_nacimiento, intentos_restantes
+'''
 def declarar_constantes():
     # Constantes con los datos de los estudiantes
     global usuario1_email, usuario1_contraseña, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_me_gusta, usuario3_email, usuario3_me_gusta, usuario3_contraseña, intentos_restantes, email_usuario_autenticado, isLoggedIn, intentos_restantes, email_usuario_autenticado, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario2_fecha_de_nacimiento,usuario2_biografia,usuario2_hobbies,usuario3_fecha_de_nacimiento,usuario3_biografia,usuario3_hobbies
@@ -170,19 +201,10 @@ def declarar_constantes():
     intentos_restantes = 3
     email_usuario_autenticado = ""
 
-
 ''' -VARIABLES FUNCION iniciar_sesion-
-email ->
-contraseña ->
-usuario1_email ->
-usuario2_email ->
-usuario3_email ->
-usuario1_contraseña ->
-usuario2_contraseña ->
-usuario3_contraseña ->
-email_usuario_autenticado ->
-isLoggedIn ->
-intentos_restantes ->
+str <- email, usuario1_email, usuario2_email, usuario3_email, email_usuario_autenticado
+int <- contraseña, usuario1_contraseña, usuario2_contraseña, usuario3_contraseña, intentos_restantes
+bool <- isLoggedIn
 '''
 def iniciar_sesion():    
     global isLoggedIn, intentos_restantes, email_usuario_autenticado
