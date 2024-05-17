@@ -31,7 +31,6 @@ def menu_completo():
             isLoggedIn = False
             os.system("cls")
 
-
 def gestionar_mi_perfil():    
     os.system("cls")
 
@@ -46,7 +45,7 @@ def gestionar_mi_perfil():
             editar_mis_datos_personales() # type: ignore            
         elif option == "b":
             #eliminar_mi_perfil() # type: ignore 
-            print("\n1. option b")
+            print("\n1. En construccion")
         option = input("Ingrese su opción 'a', 'b', 'c': ")
 
 
@@ -57,15 +56,14 @@ def gestionar_candidatos():
     print(" En contruccion")
     print(" c. Volver")
 
-
     option = input("Ingrese su opción: ")    
     while option != "c":
         if option == "a": 
             #editar_mis_datos_personales() # type: ignore
-            print("\n1. option a")
+            print("\n1. en construccion")
         elif option == "b":
             #eliminar_mi_perfil() # type: ignore 
-            print("\n1. option b")           
+            print("\n1. en construccion")           
         option = input("Ingrese su opción 'a', 'b', 'c': ")
 
 def matcheos():
@@ -79,10 +77,10 @@ def matcheos():
     while option != "c":
         if option == "a": 
             #editar_mis_datos_personales() # type: ignore
-            print("\n1. option c")
+            print("\n1. en construccion")
         elif option == "b":
             #eliminar_mi_perfil() # type: ignore 
-            print("\n1. option b")            
+            print("\n1. en construccion")           
         option = input("Ingrese su opción 'a', 'b', 'c': ")
 
 def reportes_estadisticos():
@@ -103,7 +101,11 @@ def reportes_estadisticos():
         option = input("Ingrese su opción 'a', 'b', 'c': ")
         
 def editar_mis_datos_personales():
-    print("\n1. editar_mis_datos_personales")
+    global usuario1_email, email_usuario_autenticado
+    
+    
+    if (usuario1_email == email_usuario_autenticado):
+        print("\n1. editar_mis_datos_personales", email_usuario_autenticado)
 
 def validar_numero():
     while True:
@@ -112,24 +114,30 @@ def validar_numero():
         except ValueError:
             print("Debe ingresar un número")
 
-# Programa principal
-import msvcrt
-import random
-import os
-
-def iniciar_sesion():
+def declarar_variables_globales():
     # Constantes con los datos de los estudiantes
-    global isLoggedIn, intentos_restantes, email_usuario_autenticado
-    
+    global usuario1_email, usuario1_contraseña, usuario2_email, usuario2_contraseña, usuario3_email,   usuario3_contraseña, intentos_restantes, email_usuario_autenticado
+
     usuario1_email = "111"
     usuario1_contraseña = "222"
+    #agregar el me gusta y el resto de los datos para cada usuarios
     usuario2_email = "estudiante2@ayed.com"
     usuario2_contraseña = "333444"
+    
     usuario3_email = "estudiante3@ayed.com"
     usuario3_contraseña = "555666"
     
     intentos_restantes = 3
     email_usuario_autenticado = ""
+
+# Programa principal
+import msvcrt
+import random
+import os
+
+def iniciar_sesion():    
+    global isLoggedIn, intentos_restantes, email_usuario_autenticado
+    declarar_variables_globales()    
     
     while intentos_restantes > 0 and not email_usuario_autenticado:
         email = input("Ingrese su email: ")
@@ -144,7 +152,6 @@ def iniciar_sesion():
         else:
             intentos_restantes -= 1
             print(f"Credenciales incorrectas. Intentos restantes: {intentos_restantes}")
-    
 
 def main():
     global email_usuario_autenticado, isLoggedIn
@@ -155,6 +162,5 @@ def main():
         menu_completo()
             
 
-if __name__ == "__main__":
-    main()
+main()
 
