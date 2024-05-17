@@ -54,20 +54,20 @@ option: str
 '''
 def gestionar_mi_perfil():    
     os.system("cls")
-
     print("\nGestionar mi perfil")
     print(" a. Editar mis datos personales")
     print(" b. Eliminar mi perfil")
     print(" c. Volver")
-
     option = str(input("Ingrese su opción: "))
+
     while option  != "c":
         if option == "a": 
             editar_mis_datos_personales() # type: ignore            
         elif option == "b":
             #eliminar_mi_perfil() # type: ignore 
             print("\n1. En construccion")
-            
+
+        os.system("cls")    
         print("\nGestionar mi perfil")
         print(" a. Editar mis datos personales")
         print(" b. Eliminar mi perfil")
@@ -80,12 +80,11 @@ option: str
 '''
 def gestionar_candidatos():
     os.system("cls")
-
     print("\nGestionar candidatos")
     print(" En contruccion")
     print(" c. Volver")
-
     option = str(input("Ingrese su opción: "))  
+
     while option != "c":
         if option == "a": 
             #editar_mis_datos_personales() # type: ignore
@@ -94,6 +93,7 @@ def gestionar_candidatos():
             #eliminar_mi_perfil() # type: ignore 
             print("\n1. en construccion")      
 
+        os.system("cls")
         print("\nGestionar candidatos")
         print(" En contruccion")
         print(" c. Volver")     
@@ -105,20 +105,24 @@ option: str
 '''
 def matcheos():
     os.system("cls")
-
     print("\n3. Matcheos")
     print(" En contruccion")
     print(" c. Volver")
+    option = str(input("Ingrese su opción 'c': "))
 
-    option = str(input("Ingrese su opción 'a', 'b', 'c': "))
     while option != "c":
         if option == "a": 
             #editar_mis_datos_personales() # type: ignore
             print("\n1. en construccion")
         elif option == "b":
             #eliminar_mi_perfil() # type: ignore 
-            print("\n1. en construccion")           
-        option = str(input("Ingrese su opción 'a', 'b', 'c': "))
+            print("\n1. en construccion")  
+        
+        os.system("cls")
+        print("\n3. Matcheos")
+        print(" En contruccion")
+        print(" c. Volver")         
+        option = str(input("Ingrese su opción 'c': "))
 
 '''
 FUN reportes_estadisticos
@@ -126,42 +130,119 @@ option: str
 '''
 def reportes_estadisticos():
     os.system("cls")
-
     print("\nReportes estadisticos")
     print(" En contruccion")
     print(" c. Volver")
+    option = str(input("Ingrese su opción 'c': "))
 
-    option = str(input("Ingrese su opción 'a', 'b', 'c': "))
     while option != "c":
         if option == "a": 
             #editar_mis_datos_personales() # type: ignore
             print("\n1. option c")
         elif option == "b":
             #eliminar_mi_perfil() # type: ignore 
-            print("\n1. option b")           
-        option = str(input("Ingrese su opción 'a', 'b', 'c': "))
+            print("\n1. option b") 
+
+        os.system("cls")
+        print("\nReportes estadisticos")
+        print(" En contruccion")
+        print(" c. Volver")  
+        option = str(input("Ingrese su opción 'c': "))
 
 '''
 FUN editar_mis_datos_personales
-email_usuario_autenticado, usuario1_email, usuario1_biografia, usuario1_hobbies, usuario2_email, usuario2_biografia, usuario2_hobbies, usuario3_email, usuario3_biografia, usuario3_hobbies, usuario1_contraseña, usuario1_me_gusta, usuario1_fecha_de_nacimiento, usuario2_contraseña, usuario2_me_gusta, usuario2_fecha_de_nacimiento, usuario3_contraseña, usuario3_me_gusta, usuario3_fecha_de_nacimiento: str
-
+option: str
 '''       
 def editar_mis_datos_personales():
-    global usuario1_email, email_usuario_autenticado
     os.system("cls")
 
-    if (usuario1_email == email_usuario_autenticado):
+    if (email_usuario_autenticado == usuario1_email):
         mostrar_mis_datos(usuario1_email, usuario1_contraseña, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario1_me_gusta)
-    elif (usuario2_email == email_usuario_autenticado):
+    elif (email_usuario_autenticado == usuario2_email):
         mostrar_mis_datos(usuario2_email, usuario2_contraseña, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario2_me_gusta)
-    elif (usuario3_email == email_usuario_autenticado):
+    elif (email_usuario_autenticado == usuario3_email):
         mostrar_mis_datos(usuario3_email, usuario3_contraseña, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, usuario3_me_gusta)
+
+    print("\nEditar mis datos personales")
+    print(" a. Editar mi fecha de nacimiento")
+    print(" b. Editar mi biografía")
+    print(" c. Editar mis hobbies")
+    print(" d. Volver")  
+    option = str(input("Ingrese su opción: "))
+
+    while option != "d":
+        if option == "a": 
+            editar_mi_fecha_de_nacimiento()
+        elif option == "b":
+            editar_mi_biografia()          
+        elif option == "c":
+            editar_mis_hobbies()  
+
+        os.system("cls")
+        print("\nEditar mis datos personales")
+        print(" a. Editar mi fecha de nacimiento")
+        print(" b. Editar mi biografía")
+        print(" c. Editar mis hobbies")  
+        print(" d. Volver")  
+        option = str(input("Ingrese su opción 'a', 'b', 'c', 'd': "))
+    
+'''
+FUN editar_mi_fecha_de_nacimiento
+usuario1_fecha_de_nacimiento, usuario2_fecha_de_nacimiento, usuario3_fecha_de_nacimiento, nueva_fecha_de_nacimiento: str
+'''
+def editar_mi_fecha_de_nacimiento():
+    global usuario1_fecha_de_nacimiento, usuario2_fecha_de_nacimiento, usuario3_fecha_de_nacimiento 
+
+    nueva_fecha_de_nacimiento = str(input("Ingrese su fecha de nacimiento: "))
+    if (email_usuario_autenticado == usuario1_email):
+        usuario1_fecha_de_nacimiento = nueva_fecha_de_nacimiento
+    elif (email_usuario_autenticado == usuario2_email):
+        usuario2_fecha_de_nacimiento = nueva_fecha_de_nacimiento
+    elif (email_usuario_autenticado == usuario3_email):
+        usuario3_fecha_de_nacimiento = nueva_fecha_de_nacimiento
+    else:
+        print("Error")
+
+'''
+FUN editar_mi_biografia
+usuario1_biografia, usuario2_biografia, usuario3_biografia, nueva_biografia: str
+'''
+def editar_mi_biografia():
+    global usuario1_biografia, usuario2_biografia, usuario3_biografia
+
+    nueva_biografia = str(input("Ingrese su biografia: "))
+    if (email_usuario_autenticado == usuario1_email):
+        usuario1_biografia = nueva_biografia
+    elif (email_usuario_autenticado == usuario2_email):
+        usuario2_biografia = nueva_biografia
+    elif (email_usuario_autenticado == usuario3_email):
+        usuario3_biografia = nueva_biografia
+    else:
+        print("Error")
+
+'''
+FUN editar_mis_hobbies
+usuario1_hobbies, usuario2_hobbies, usuario3_hobbies, nuevos_hobbies: str
+'''
+def editar_mis_hobbies():
+    global usuario1_hobbies, usuario2_hobbies, usuario3_hobbies
+
+    nuevos_hobbies = str(input("Ingrese sus hobbies: "))
+    if (email_usuario_autenticado == usuario1_email):
+        usuario1_hobbies = nuevos_hobbies
+    elif (email_usuario_autenticado == usuario2_email):
+        usuario2_hobbies = nuevos_hobbies
+    elif (email_usuario_autenticado == usuario3_email):
+        usuario3_hobbies = nuevos_hobbies
+    else:
+        print("Error")
 
 '''
 FUN mostrar_mis_datos
 usuario_email, usuario_contraseña, usuario_fecha_de_nacimiento, usuario_biografia, usuario_hobbies, usuario_me_gusta: str
 '''
 def mostrar_mis_datos(usuario_email, usuario_contraseña, usuario_fecha_de_nacimiento, usuario_biografia, usuario_hobbies, usuario_me_gusta):
+    os.system("cls")
     print("\nEmail: ", usuario_email)
     print("Contraseña: ", usuario_contraseña)
     print("Mi fecha de nacimiento: ", usuario_fecha_de_nacimiento)
@@ -182,37 +263,35 @@ email_usuario_autenticado, usuario1_email, usuario1_biografia, usuario1_hobbies,
 intentos_restantes: int
 '''
 def declarar_constantes():
-    # Constantes con los datos de los estudiantes
     global usuario1_email, usuario1_contraseña, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_me_gusta, usuario3_email, usuario3_me_gusta, usuario3_contraseña, intentos_restantes, email_usuario_autenticado, isLoggedIn, intentos_restantes, email_usuario_autenticado, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario3_fecha_de_nacimiento,usuario3_biografia, usuario3_hobbies, usuario1_nombre, usuario2_nombre, usuario3_nombre
 
     #Usuario 1 dec vars
     usuario1_email = "111"
     usuario1_contraseña = "222"
     usuario1_me_gusta = ""
-    usuario1_fecha_de_nacimiento = "Por definir"
+    usuario1_fecha_de_nacimiento = ""
     usuario1_nombre = ""
     usuario1_biografia = ""
     usuario1_hobbies = ""
 
     #Usuario2 decl vars
     usuario2_email = "estudiante2@ayed.com"
-    usuario2_contraseña = "333"
+    usuario2_contraseña = "333444"
     usuario2_me_gusta = ""
-    usuario2_fecha_de_nacimiento = "Por definir"
+    usuario2_fecha_de_nacimiento = ""
     usuario2_nombre = ""
     usuario2_biografia = ""
     usuario2_hobbies = ""
 
     #Usuario3 dec vars
     usuario3_email = "estudiante3@ayed.com"
-    usuario3_contraseña = "444"
+    usuario3_contraseña = "555666"
     usuario3_me_gusta = ""
-    usuario3_fecha_de_nacimiento = "Por definir"
+    usuario3_fecha_de_nacimiento = ""
     usuario3_nombre = ""
     usuario3_biografia = ""
     usuario3_hobbies = ""
 
-    #dec vars
     intentos_restantes = 3
     email_usuario_autenticado = ""
 
@@ -227,6 +306,7 @@ def iniciar_sesion():
     declarar_constantes()    
     
     while intentos_restantes > 0 and not email_usuario_autenticado:
+        print("\nLog In")
         email = input("Ingrese su email: ")
         contraseña = getpass.getpass("Ingrese su contraseña: ")
         
