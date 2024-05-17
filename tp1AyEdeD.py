@@ -176,7 +176,7 @@ def editar_mis_datos_personales():
         os.system("cls")
 
         menu_de_mis_datos()
-        
+
         print("\nEditar mis datos personales")
         print(" a. Editar mi fecha de nacimiento")
         print(" b. Editar mi biografía")
@@ -275,28 +275,28 @@ def declarar_constantes():
     usuario1_email = "111"
     usuario1_contraseña = "222"
     usuario1_me_gusta = ""
-    usuario1_fecha_de_nacimiento = ""
-    usuario1_nombre = ""
-    usuario1_biografia = ""
-    usuario1_hobbies = ""
+    usuario1_fecha_de_nacimiento = "1985-02-25"
+    usuario1_nombre = "Carlos"
+    usuario1_biografia = "Nacido en Rosario"
+    usuario1_hobbies = "tocar la guitarra y correr"
 
     #Usuario2 decl vars
     usuario2_email = "estudiante2@ayed.com"
     usuario2_contraseña = "333444"
     usuario2_me_gusta = ""
-    usuario2_fecha_de_nacimiento = ""
-    usuario2_nombre = ""
-    usuario2_biografia = ""
-    usuario2_hobbies = ""
+    usuario2_fecha_de_nacimiento = "2001-12-06"
+    usuario2_nombre = "Ramiro"
+    usuario2_biografia = "Nacido en Misiones"
+    usuario2_hobbies = "Dibujar y pintar"
 
     #Usuario3 dec vars
     usuario3_email = "estudiante3@ayed.com"
     usuario3_contraseña = "555666"
     usuario3_me_gusta = ""
-    usuario3_fecha_de_nacimiento = ""
-    usuario3_nombre = ""
-    usuario3_biografia = ""
-    usuario3_hobbies = ""
+    usuario3_fecha_de_nacimiento = "1993-05-25"
+    usuario3_nombre = "Sandra"
+    usuario3_biografia = "Nacida en San Francisco"
+    usuario3_hobbies = "Cocinar y cantar en el coro"
 
     intentos_restantes = 3
     email_usuario_autenticado = ""
