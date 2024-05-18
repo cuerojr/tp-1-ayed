@@ -358,8 +358,8 @@ def declarar_constantes():
     global usuario1_email, usuario1_contraseña, usuario1_nombre, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_nombre, usuario2_me_gusta, usuario3_email, usuario3_me_gusta, usuario3_contraseña, usuario3_nombre, intentos_restantes, isLoggedIn, intentos_restantes, email_usuario_autenticado, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario3_fecha_de_nacimiento,usuario3_biografia, usuario3_hobbies
 
     #Usuario 1 dec vars
-    usuario1_email = "111"
-    usuario1_contraseña = "222"
+    usuario1_email = "estudiante1@ayed.com"
+    usuario1_contraseña = "111222"
     usuario1_me_gusta = ""
     usuario1_fecha_de_nacimiento = "1985-02-25"
     usuario1_nombre = "Carlos"
