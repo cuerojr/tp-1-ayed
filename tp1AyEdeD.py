@@ -22,16 +22,15 @@ def mostrar_menu():
 '''
 FUN menu_completo
 opcion: integer
-isLoggedIn: bool
-email_usuario_autenticado: str
+isLoggedIn: boolean
 '''
 def menu_completo():
-    global isLoggedIn, email_usuario_autenticado
+    global isLoggedIn
 
     mostrar_menu()
 
     opcion = validar_numero()
-    while opcion < 0 and opcion > 4:
+    while opcion < 0 or opcion > 4:
         print("Opción inválida")
         opcion = validar_numero()
 
@@ -93,13 +92,13 @@ def gestionar_candidatos():
         opcion = str(input("Ingrese su opción 'a', 'c': "))
 
 '''
-FUN matcheos-
+FUN matcheos
 opcion: str
 '''
 def matcheos():
     os.system("cls")
     print("\n3. Matcheos")
-    print(" En contruccion")
+    print(" En construcción")
     print(" c. Volver")
     opcion = str(input("Ingrese su opción 'c': "))
 
@@ -113,7 +112,7 @@ def matcheos():
         
         os.system("cls")
         print("\n3. Matcheos")
-        print(" En contruccion")
+        print(" En construcción")
         print(" c. Volver")         
         opcion = str(input("Ingrese su opción 'c': "))
 
@@ -124,7 +123,7 @@ opcion: str
 def reportes_estadisticos():
     os.system("cls")
     print("\nReportes estadisticos")
-    print(" En contruccion")
+    print(" En construcción")
     print(" c. Volver")
     opcion = str(input("Ingrese su opción 'c': "))
 
@@ -138,7 +137,7 @@ def reportes_estadisticos():
 
         os.system("cls")
         print("\nReportes estadisticos")
-        print(" En contruccion")
+        print(" En construcción")
         print(" c. Volver")  
         opcion = str(input("Ingrese su opción 'c': "))
 
@@ -203,19 +202,20 @@ FUN mostrar_todos_los_candidatos
 email_usuario_autenticado, usuario1_email, usuario2_email, usuario3_email, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies: str
 '''
 def mostrar_todos_los_candidatos():
+    campo_vacio = ""
     print("Candidatos\n")
     if email_usuario_autenticado == usuario1_email:
-        mostrar_datos("", "", usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, "")
+        mostrar_datos(campo_vacio, campo_vacio, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, campo_vacio)
         print("\n")
-        mostrar_datos("", "", usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, "")
+        mostrar_datos(campo_vacio, campo_vacio, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, campo_vacio)
     elif email_usuario_autenticado == usuario2_email:
-        mostrar_datos("", "", usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, "")
+        mostrar_datos(campo_vacio, campo_vacio, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, campo_vacio)
         print("\n")
-        mostrar_datos("", "", usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, "")
+        mostrar_datos(campo_vacio, campo_vacio, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, campo_vacio)
     elif email_usuario_autenticado == usuario3_email:
-        mostrar_datos("", "", usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, "")
+        mostrar_datos(campo_vacio, campo_vacio, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, campo_vacio)
         print("\n")
-        mostrar_datos("", "", usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, "")
+        mostrar_datos(campo_vacio, campo_vacio, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, campo_vacio)
 
 '''
 FUN dar_me_gusta_al_candidato
@@ -340,26 +340,26 @@ def mostrar_datos(usuario_email, usuario_contraseña, usuario_nombre, usuario_fe
         print("Hobbies: ", usuario_hobbies)
     if(usuario_me_gusta):   
         print("Me gusta: ", usuario_me_gusta)
-    
 
 def validar_numero():
     while True:
         try:
-            return int(input("Ingrese un número: "))
+            return int(input("Ingrese un número entre 0 y 4: "))
         except ValueError:
             print("Debe ingresar un número")
 
 '''
 FUN declarar_constantes
-email_usuario_autenticado, usuario1_email, usuario1_biografia, usuario1_hobbies, usuario2_email, usuario2_biografia, usuario2_hobbies, usuario3_email, usuario3_biografia, usuario3_hobbies, usuario1_contraseña, usuario1_nombre, usuario1_me_gusta, usuario1_fecha_de_nacimiento, usuario2_contraseña, usuario2_nombre, usuario2_me_gusta, usuario2_fecha_de_nacimiento, , usuario3_nombre, usuario3_me_gusta, usuario3_fecha_de_nacimiento: str 
+email_usuario_autenticado, usuario1_email, usuario1_biografia, usuario1_hobbies, usuario2_email, usuario2_biografia, usuario2_hobbies, usuario3_email, usuario3_biografia, usuario3_hobbies, usuario1_contraseña, usuario1_nombre, usuario1_me_gusta, usuario1_fecha_de_nacimiento, usuario2_contraseña, usuario2_nombre, usuario2_me_gusta, usuario2_fecha_de_nacimiento, usuario3_contraseña, usuario3_nombre, usuario3_me_gusta, usuario3_fecha_de_nacimiento: str 
 intentos_restantes: integer
+isLoggedIn: boolean
 '''
 def declarar_constantes():
-    global usuario1_email, usuario1_contraseña, usuario1_nombre, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_nombre, usuario2_me_gusta, usuario3_email, usuario3_me_gusta, usuario3_contraseña, usuario3_nombre, intentos_restantes, email_usuario_autenticado, isLoggedIn, intentos_restantes, email_usuario_autenticado, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario3_fecha_de_nacimiento,usuario3_biografia, usuario3_hobbies
+    global usuario1_email, usuario1_contraseña, usuario1_nombre, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_nombre, usuario2_me_gusta, usuario3_email, usuario3_me_gusta, usuario3_contraseña, usuario3_nombre, intentos_restantes, isLoggedIn, intentos_restantes, email_usuario_autenticado, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario3_fecha_de_nacimiento,usuario3_biografia, usuario3_hobbies
 
     #Usuario 1 dec vars
-    usuario1_email = "111"
-    usuario1_contraseña = "222"
+    usuario1_email = "estudiante1@ayed.com"
+    usuario1_contraseña = "111222"
     usuario1_me_gusta = ""
     usuario1_fecha_de_nacimiento = "1985-02-25"
     usuario1_nombre = "Carlos"
@@ -404,8 +404,6 @@ def iniciar_sesion():
         
         if (email == usuario1_email and contraseña == usuario1_contraseña) or (email == usuario2_email and contraseña == usuario2_contraseña) or (email == usuario3_email and contraseña == usuario3_contraseña):
             os.system("cls")
-            print("Inicio de sesión exitoso!")
-            print("Bienvenido!")
             email_usuario_autenticado = email
             isLoggedIn = True
         else:
