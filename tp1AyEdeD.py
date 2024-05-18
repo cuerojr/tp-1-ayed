@@ -57,7 +57,6 @@ def gestionar_mi_perfil():
     os.system("cls")
     print("\nGestionar mi perfil")
     print(" a. Editar mis datos personales")
-    print(" b. Eliminar mi perfil")
     print(" c. Volver")
     opcion = str(input("Ingrese su opción: "))
 
@@ -89,9 +88,9 @@ def gestionar_candidatos():
 
         os.system("cls")
         print("\nGestionar candidatos")
-        print(" En contruccion")
+        print(" a. Elegir candidato para matchear")
         print(" c. Volver")     
-        opcion = str(input("Ingrese su opción 'a', 'b', 'c': "))
+        opcion = str(input("Ingrese su opción 'a', 'c': "))
 
 '''
 FUN matcheos-
@@ -185,8 +184,8 @@ def ver_candidatos():
 
     mostrar_todos_los_candidatos()
 
-    print("\nEditar mis datos personales")
-    print(" a. Elegir candidato para matchear")
+    print("\nGestionar candidatos")
+    print(" a. Ingresar el nombre del candidato")
     print(" c. Volver")  
     opcion = str(input("Ingrese su opción: "))
 
@@ -194,24 +193,29 @@ def ver_candidatos():
         if opcion == "a": 
             dar_me_gusta_al_candidato()
         
-        print("\nEditar mis datos personales")
-        print(" a. Elegir candidato")
+        print("\nGestionar candidatos")
+        print(" a. Ingresar el nombre del candidato")
         print(" c. Volver")  
         opcion = str(input("Ingrese su opción 'a', 'c': "))
 
-
+'''
+FUN mostrar_todos_los_candidatos
+email_usuario_autenticado, usuario1_email, usuario2_email, usuario3_email: str
+'''
 def mostrar_todos_los_candidatos():
-    print("mostrar_todos_los_candidatos")
-    
+    print("Candidatos\n")
     if email_usuario_autenticado == usuario1_email:
-        print("user2", usuario2_email)
-        print("user3", usuario3_email)
+        mostrar_datos("", "", usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, "")
+        print("\n")
+        mostrar_datos("", "", usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, "")
     elif email_usuario_autenticado == usuario2_email:
-        print("user1", usuario1_email)
-        print("user3", usuario3_email)
+        mostrar_datos("", "", usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, "")
+        print("\n")
+        mostrar_datos("", "", usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, "")
     elif email_usuario_autenticado == usuario3_email:
-        print("user1", usuario1_email)
-        print("user2", usuario2_email)
+        mostrar_datos("", "", usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, "")
+        print("\n")
+        mostrar_datos("", "", usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, "")
 
 '''
 FUN dar_me_gusta_al_candidato
@@ -231,18 +235,22 @@ def dar_me_gusta_al_candidato():
         usuario2_me_gusta = nombre_candidato
     elif email_usuario_autenticado == usuario3_email:
         usuario3_me_gusta = nombre_candidato
+    
+    os.system("cls")
 
 '''
 FUN menu_de_mis_datos()
 usuario1_email, usuario1_contraseña, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario2_me_gusta, email_usuario_autenticado, usuario3_email, usuario3_contraseña, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, usuario3_me_gusta: str
 ''' 
 def menu_de_mis_datos():
+    os.system("cls")
+    print("Mis datos personales")
     if (email_usuario_autenticado == usuario1_email):
-        mostrar_mis_datos(usuario1_email, usuario1_contraseña, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario1_me_gusta)
+        mostrar_datos(usuario1_email, usuario1_contraseña, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario1_me_gusta)
     elif (email_usuario_autenticado == usuario2_email):
-        mostrar_mis_datos(usuario2_email, usuario2_contraseña, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario2_me_gusta)
+        mostrar_datos(usuario2_email, usuario2_contraseña, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario2_me_gusta)
     elif (email_usuario_autenticado == usuario3_email):
-        mostrar_mis_datos(usuario3_email, usuario3_contraseña, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, usuario3_me_gusta)
+        mostrar_datos(usuario3_email, usuario3_contraseña, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, usuario3_me_gusta)
 
 '''
 FUN editar_mi_fecha_de_nacimiento
@@ -311,20 +319,28 @@ def mostrar_edad(fecha):
     return edad
 
 '''
-FUN mostrar_mis_datos
+FUN mostrar_datos
 usuario_email, usuario_contraseña, usuario_nombre, usuario_fecha_de_nacimiento, usuario_biografia, usuario_hobbies, usuario_me_gusta: str
 '''
-def mostrar_mis_datos(usuario_email, usuario_contraseña, usuario_nombre, usuario_fecha_de_nacimiento, usuario_biografia, usuario_hobbies, usuario_me_gusta):
-    os.system("cls")
-    print("Mis datos personales")
-    print("\nEmail: ", usuario_email)
-    print("Contraseña: ", usuario_contraseña)
-    print("Nombre: ", usuario_nombre)
-    print("Fecha de nacimiento: ", usuario_fecha_de_nacimiento)
-    print("Biografia: ", usuario_biografia)
-    print("Edad: ", mostrar_edad(usuario_fecha_de_nacimiento))
-    print("Hobbies: ", usuario_hobbies)
-    print("Me gusta: ", usuario_me_gusta)
+def mostrar_datos(usuario_email, usuario_contraseña, usuario_nombre, usuario_fecha_de_nacimiento, usuario_biografia, usuario_hobbies, usuario_me_gusta):
+    
+    if(usuario_email):
+        print("\nEmail: ", usuario_email)
+    if(usuario_contraseña):
+        print("Contraseña: ", usuario_contraseña)
+    if(usuario_nombre):   
+        print("Nombre: ", usuario_nombre)
+    if(usuario_fecha_de_nacimiento):   
+        print("Fecha de nacimiento: ", usuario_fecha_de_nacimiento)
+    if(usuario_biografia):   
+        print("Biografia: ", usuario_biografia)
+    if(usuario_fecha_de_nacimiento):   
+        print("Edad: ", mostrar_edad(usuario_fecha_de_nacimiento), "años")
+    if(usuario_hobbies):   
+        print("Hobbies: ", usuario_hobbies)
+    if(usuario_me_gusta):   
+        print("Me gusta: ", usuario_me_gusta)
+    
 
 def validar_numero():
     while True:
