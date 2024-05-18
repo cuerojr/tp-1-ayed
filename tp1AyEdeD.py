@@ -236,7 +236,7 @@ def dar_me_gusta_al_candidato():
     elif email_usuario_autenticado == usuario3_email:
         usuario3_me_gusta = nombre_candidato
     
-    os.system("cls")
+    print("El candidato ha sido seleccionado correctamente")
 
 '''
 FUN menu_de_mis_datos()
