@@ -202,19 +202,20 @@ FUN mostrar_todos_los_candidatos
 email_usuario_autenticado, usuario1_email, usuario2_email, usuario3_email, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies: str
 '''
 def mostrar_todos_los_candidatos():
+    campo_vacio = ""
     print("Candidatos\n")
     if email_usuario_autenticado == usuario1_email:
-        mostrar_datos("", "", usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, "")
+        mostrar_datos(campo_vacio, campo_vacio, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, campo_vacio)
         print("\n")
-        mostrar_datos("", "", usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, "")
+        mostrar_datos(campo_vacio, campo_vacio, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, campo_vacio)
     elif email_usuario_autenticado == usuario2_email:
-        mostrar_datos("", "", usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, "")
+        mostrar_datos(campo_vacio, campo_vacio, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, campo_vacio)
         print("\n")
-        mostrar_datos("", "", usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, "")
+        mostrar_datos(campo_vacio, campo_vacio, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, campo_vacio)
     elif email_usuario_autenticado == usuario3_email:
-        mostrar_datos("", "", usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, "")
+        mostrar_datos(campo_vacio, campo_vacio, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, campo_vacio)
         print("\n")
-        mostrar_datos("", "", usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, "")
+        mostrar_datos(campo_vacio, campo_vacio, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, campo_vacio)
 
 '''
 FUN dar_me_gusta_al_candidato
@@ -339,7 +340,6 @@ def mostrar_datos(usuario_email, usuario_contraseña, usuario_nombre, usuario_fe
         print("Hobbies: ", usuario_hobbies)
     if(usuario_me_gusta):   
         print("Me gusta: ", usuario_me_gusta)
-    
 
 def validar_numero():
     while True:
