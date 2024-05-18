@@ -254,18 +254,35 @@ def menu_de_mis_datos():
 
 '''
 FUN editar_mi_fecha_de_nacimiento
-usuario1_fecha_de_nacimiento, usuario2_fecha_de_nacimiento, usuario3_fecha_de_nacimiento, nueva_fecha_de_nacimiento: str
+usuario1_fecha_de_nacimiento, usuario2_fecha_de_nacimiento, usuario3_fecha_de_nacimiento, nueva_fecha_de_nacimiento, fecha_nacimiento_str: str
+nuevo_año_de_nacimiento, nuevo_mes_de_nacimiento, nuevo_dia_de_nacimiento: int
 '''
 def editar_mi_fecha_de_nacimiento():
     global usuario1_fecha_de_nacimiento, usuario2_fecha_de_nacimiento, usuario3_fecha_de_nacimiento 
 
-    nueva_fecha_de_nacimiento = str(input("Ingrese su fecha de nacimiento: "))
+    nuevo_año_de_nacimiento = int(input("Ingrese su año de nacimiento: "))
+    while nuevo_año_de_nacimiento < 1900 and nuevo_año_de_nacimiento >= 2024:
+        print("El año de nacimiento no es válido")
+        nuevo_año_de_nacimiento = int(input("Ingrese su año de nacimiento: "))
+
+    nuevo_mes_de_nacimiento = int(input("Ingrese su mes de nacimiento: "))
+    while nuevo_mes_de_nacimiento < 0 and nuevo_mes_de_nacimiento > 12:
+        print("El mes de nacimiento no es válido")
+        nuevo_mes_de_nacimiento = int(input("Ingrese su mes de nacimiento: "))
+
+    nuevo_dia_de_nacimiento = int(input("Ingrese su dia de nacimiento: "))
+    while nuevo_dia_de_nacimiento < 0 and nuevo_dia_de_nacimiento > 31:
+        print("El dia de nacimiento no es válido")
+        nuevo_dia_de_nacimiento = int(input("Ingrese su dia de nacimiento: "))
+
+    fecha_nacimiento_str = f"{nuevo_año_de_nacimiento:04d}-{nuevo_mes_de_nacimiento:02d}-{nuevo_dia_de_nacimiento:02d}"
+
     if (email_usuario_autenticado == usuario1_email):
-        usuario1_fecha_de_nacimiento = nueva_fecha_de_nacimiento
+        usuario1_fecha_de_nacimiento = fecha_nacimiento_str
     elif (email_usuario_autenticado == usuario2_email):
-        usuario2_fecha_de_nacimiento = nueva_fecha_de_nacimiento
+        usuario2_fecha_de_nacimiento = fecha_nacimiento_str
     elif (email_usuario_autenticado == usuario3_email):
-        usuario3_fecha_de_nacimiento = nueva_fecha_de_nacimiento
+        usuario3_fecha_de_nacimiento = fecha_nacimiento_str
     else:
         print("Error")
 
