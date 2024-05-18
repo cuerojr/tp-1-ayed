@@ -200,7 +200,7 @@ def ver_candidatos():
 
 '''
 FUN mostrar_todos_los_candidatos
-email_usuario_autenticado, usuario1_email, usuario2_email, usuario3_email: str
+email_usuario_autenticado, usuario1_email, usuario2_email, usuario3_email, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies: str
 '''
 def mostrar_todos_los_candidatos():
     print("Candidatos\n")
