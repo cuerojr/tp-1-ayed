@@ -199,23 +199,24 @@ def ver_candidatos():
 
 '''
 FUN mostrar_todos_los_candidatos
-email_usuario_autenticado, usuario1_email, usuario2_email, usuario3_email, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies: str
+email_usuario_autenticado, usuario1_email, usuario2_email, usuario3_email, usuario1_nombre, usuario1_biografia, usuario1_hobbies, usuario2_nombre, usuario2_biografia, usuario2_hobbies, usuario3_nombre, usuario3_biografia, usuario3_hobbies, campo_vacio: str
+usuario2_año_de_nacimiento, usuario2_mes_de_nacimiento, usuario2_dia_de_nacimiento, usuario3_año_de_nacimiento, usuario3_mes_de_nacimiento, usuario3_dia_de_nacimiento, usuario1_año_de_nacimiento, usuario1_mes_de_nacimiento, usuario1_dia_de_nacimiento: integer
 '''
 def mostrar_todos_los_candidatos():
     campo_vacio = ""
     print("Candidatos\n")
     if email_usuario_autenticado == usuario1_email:
-        mostrar_datos(campo_vacio, campo_vacio, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, campo_vacio)
+        mostrar_datos(campo_vacio, campo_vacio, usuario2_nombre, usuario2_año_de_nacimiento, usuario2_mes_de_nacimiento, usuario2_dia_de_nacimiento,usuario2_biografia, usuario2_hobbies, campo_vacio)
         print("\n")
-        mostrar_datos(campo_vacio, campo_vacio, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, campo_vacio)
+        mostrar_datos(campo_vacio, campo_vacio, usuario3_nombre, usuario3_año_de_nacimiento, usuario3_mes_de_nacimiento, usuario3_dia_de_nacimiento, usuario3_biografia, usuario3_hobbies, campo_vacio)
     elif email_usuario_autenticado == usuario2_email:
-        mostrar_datos(campo_vacio, campo_vacio, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, campo_vacio)
+        mostrar_datos(campo_vacio, campo_vacio, usuario1_nombre, usuario1_año_de_nacimiento, usuario1_mes_de_nacimiento, usuario1_dia_de_nacimiento, usuario1_biografia, usuario1_hobbies, campo_vacio)
         print("\n")
-        mostrar_datos(campo_vacio, campo_vacio, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, campo_vacio)
+        mostrar_datos(campo_vacio, campo_vacio, usuario3_nombre, usuario3_año_de_nacimiento, usuario3_mes_de_nacimiento, usuario3_dia_de_nacimiento, usuario3_biografia, usuario3_hobbies, campo_vacio)
     elif email_usuario_autenticado == usuario3_email:
-        mostrar_datos(campo_vacio, campo_vacio, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, campo_vacio)
+        mostrar_datos(campo_vacio, campo_vacio, usuario1_nombre, usuario1_año_de_nacimiento, usuario1_mes_de_nacimiento, usuario1_dia_de_nacimiento, usuario1_biografia, usuario1_hobbies, campo_vacio)
         print("\n")
-        mostrar_datos(campo_vacio, campo_vacio, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, campo_vacio)
+        mostrar_datos(campo_vacio, campo_vacio, usuario2_nombre, usuario2_año_de_nacimiento, usuario2_mes_de_nacimiento, usuario2_dia_de_nacimiento,usuario2_biografia, usuario2_hobbies, campo_vacio)
 
 '''
 FUN dar_me_gusta_al_candidato
@@ -240,25 +241,25 @@ def dar_me_gusta_al_candidato():
 
 '''
 FUN menu_de_mis_datos()
-usuario1_email, usuario1_contraseña, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario2_me_gusta, email_usuario_autenticado, usuario3_email, usuario3_contraseña, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, usuario3_me_gusta: str
+usuario1_email, usuario1_contraseña, usuario1_nombre, usuario1_biografia, usuario1_hobbies, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_nombre, usuario2_biografia, usuario2_hobbies, usuario2_me_gusta, email_usuario_autenticado, usuario3_email, usuario3_contraseña, usuario3_nombre, usuario3_biografia, usuario3_hobbies, usuario3_me_gusta: str
+usuario1_año_de_nacimiento, usuario1_mes_de_nacimiento, usuario1_dia_de_nacimiento, usuario2_año_de_nacimiento, usuario2_mes_de_nacimiento, usuario2_dia_de_nacimiento,  usuario3_año_de_nacimiento, usuario3_mes_de_nacimiento, usuario3_dia_de_nacimiento: integer
 ''' 
 def menu_de_mis_datos():
     os.system("cls")
     print("Mis datos personales")
     if (email_usuario_autenticado == usuario1_email):
-        mostrar_datos(usuario1_email, usuario1_contraseña, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario1_me_gusta)
+        mostrar_datos(usuario1_email, usuario1_contraseña, usuario1_nombre, usuario1_año_de_nacimiento, usuario1_mes_de_nacimiento, usuario1_dia_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario1_me_gusta)
     elif (email_usuario_autenticado == usuario2_email):
-        mostrar_datos(usuario2_email, usuario2_contraseña, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario2_me_gusta)
+        mostrar_datos(usuario2_email, usuario2_contraseña, usuario2_nombre, usuario2_año_de_nacimiento, usuario2_mes_de_nacimiento, usuario2_dia_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario2_me_gusta)
     elif (email_usuario_autenticado == usuario3_email):
-        mostrar_datos(usuario3_email, usuario3_contraseña, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, usuario3_me_gusta)
+        mostrar_datos(usuario3_email, usuario3_contraseña, usuario3_nombre, usuario3_año_de_nacimiento, usuario3_mes_de_nacimiento, usuario3_dia_de_nacimiento, usuario3_mes_de_nacimiento, usuario3_dia_de_nacimiento, usuario3_biografia, usuario3_hobbies, usuario3_me_gusta)
 
 '''
 FUN editar_mi_fecha_de_nacimiento
-usuario1_fecha_de_nacimiento, usuario2_fecha_de_nacimiento, usuario3_fecha_de_nacimiento, nueva_fecha_de_nacimiento, fecha_nacimiento_str: str
-nuevo_año_de_nacimiento, nuevo_mes_de_nacimiento, nuevo_dia_de_nacimiento: int
+usuario1_año_de_nacimiento, usuario1_mes_de_nacimiento, usuario1_dia_de_nacimiento, usuario2_año_de_nacimiento, usuario2_mes_de_nacimiento, usuario2_dia_de_nacimiento, usuario3_año_de_nacimiento, usuario3_mes_de_nacimiento, usuario3_dia_de_nacimiento, nuevo_año_de_nacimiento, nuevo_mes_de_nacimiento, nuevo_dia_de_nacimiento: int
 '''
 def editar_mi_fecha_de_nacimiento():
-    global usuario1_fecha_de_nacimiento, usuario2_fecha_de_nacimiento, usuario3_fecha_de_nacimiento 
+    global usuario1_año_de_nacimiento, usuario1_mes_de_nacimiento, usuario1_dia_de_nacimiento, usuario2_año_de_nacimiento, usuario2_mes_de_nacimiento, usuario2_dia_de_nacimiento, usuario3_año_de_nacimiento, usuario3_mes_de_nacimiento, usuario3_dia_de_nacimiento
 
     nuevo_año_de_nacimiento = int(input("Ingrese su año de nacimiento: "))
     while nuevo_año_de_nacimiento < 1900 and nuevo_año_de_nacimiento >= 2024:
@@ -275,16 +276,18 @@ def editar_mi_fecha_de_nacimiento():
         print("El dia de nacimiento no es válido")
         nuevo_dia_de_nacimiento = int(input("Ingrese su dia de nacimiento: "))
 
-    fecha_nacimiento_str = f"{nuevo_año_de_nacimiento:04d}-{nuevo_mes_de_nacimiento:02d}-{nuevo_dia_de_nacimiento:02d}"
-
     if (email_usuario_autenticado == usuario1_email):
-        usuario1_fecha_de_nacimiento = fecha_nacimiento_str
+        usuario1_año_de_nacimiento = nuevo_año_de_nacimiento
+        usuario1_mes_de_nacimiento = nuevo_mes_de_nacimiento
+        usuario1_dia_de_nacimiento = nuevo_dia_de_nacimiento
     elif (email_usuario_autenticado == usuario2_email):
-        usuario2_fecha_de_nacimiento = fecha_nacimiento_str
+        usuario2_año_de_nacimiento = nuevo_año_de_nacimiento
+        usuario2_mes_de_nacimiento = nuevo_mes_de_nacimiento
+        usuario2_dia_de_nacimiento = nuevo_dia_de_nacimiento
     elif (email_usuario_autenticado == usuario3_email):
-        usuario3_fecha_de_nacimiento = fecha_nacimiento_str
-    else:
-        print("Error")
+        usuario3_año_de_nacimiento = nuevo_año_de_nacimiento
+        usuario3_mes_de_nacimiento = nuevo_mes_de_nacimiento
+        usuario3_dia_de_nacimiento = nuevo_dia_de_nacimiento
 
 '''
 FUN editar_mi_biografia
@@ -322,24 +325,23 @@ def editar_mis_hobbies():
 
 '''
 FUN mostrar_edad
-fecha_nacimiento, fecha_actual: date
-edad: int
+fecha_actual: date
+usuario_año_de_nacimiento, usuario_mes_nacimiento, usuario_dia_nacimiento, edad: int
 '''
-def mostrar_edad(fecha):
-    fecha_nacimiento = datetime.strptime(fecha, '%Y-%m-%d')   #dudoso 
-    fecha_actual = datetime.now()
-    
-    edad = fecha_actual.year - fecha_nacimiento.year
-    if (fecha_actual.month, fecha_actual.day) < (fecha_nacimiento.month, fecha_nacimiento.day):
+def mostrar_edad(usuario_año_de_nacimiento, usuario_mes_nacimiento, usuario_dia_nacimiento):    
+    fecha_actual = datetime.now()    
+    edad = fecha_actual.year - usuario_año_de_nacimiento
+    if (fecha_actual.month, fecha_actual.day) < (usuario_mes_nacimiento, usuario_dia_nacimiento):
         edad -= 1
     
     return edad
 
 '''
 FUN mostrar_datos
-usuario_email, usuario_contraseña, usuario_nombre, usuario_fecha_de_nacimiento, usuario_biografia, usuario_hobbies, usuario_me_gusta: str
+usuario_email, usuario_contraseña, usuario_nombre, usuario_biografia, usuario_hobbies, usuario_me_gusta: str
+usuario_año_de_nacimiento, usuario_mes_nacimiento, usuario_dia_nacimiento: integer
 '''
-def mostrar_datos(usuario_email, usuario_contraseña, usuario_nombre, usuario_fecha_de_nacimiento, usuario_biografia, usuario_hobbies, usuario_me_gusta):
+def mostrar_datos(usuario_email, usuario_contraseña, usuario_nombre, usuario_año_de_nacimiento, usuario_mes_de_nacimiento, usuario_dia_de_nacimiento, usuario_biografia, usuario_hobbies, usuario_me_gusta):
     
     if(usuario_email):
         print("\nEmail: ", usuario_email)
@@ -347,12 +349,12 @@ def mostrar_datos(usuario_email, usuario_contraseña, usuario_nombre, usuario_fe
         print("Contraseña: ", usuario_contraseña)
     if(usuario_nombre):   
         print("Nombre: ", usuario_nombre)
-    if(usuario_fecha_de_nacimiento):   
-        print("Fecha de nacimiento: ", usuario_fecha_de_nacimiento)
+    if(usuario_año_de_nacimiento and usuario_mes_de_nacimiento and usuario_dia_de_nacimiento):   
+        print("Fecha de nacimiento: ", f"{usuario_año_de_nacimiento}-{usuario_mes_de_nacimiento}-{usuario_dia_de_nacimiento}")
     if(usuario_biografia):   
         print("Biografia: ", usuario_biografia)
-    if(usuario_fecha_de_nacimiento):   
-        print("Edad: ", mostrar_edad(usuario_fecha_de_nacimiento), "años")
+    if(usuario_año_de_nacimiento and usuario_mes_de_nacimiento and usuario_dia_de_nacimiento):   
+        print("Edad: ", mostrar_edad(usuario_año_de_nacimiento, usuario_mes_de_nacimiento, usuario_dia_de_nacimiento), "años")
     if(usuario_hobbies):   
         print("Hobbies: ", usuario_hobbies)
     if(usuario_me_gusta):   
@@ -368,38 +370,44 @@ def validar_numero():
 '''
 FUN declarar_constantes
 email_usuario_autenticado, usuario1_email, usuario1_biografia, usuario1_hobbies, usuario2_email, usuario2_biografia, usuario2_hobbies, usuario3_email, usuario3_biografia, usuario3_hobbies, usuario1_contraseña, usuario1_nombre, usuario1_me_gusta, usuario1_fecha_de_nacimiento, usuario2_contraseña, usuario2_nombre, usuario2_me_gusta, usuario2_fecha_de_nacimiento, usuario3_contraseña, usuario3_nombre, usuario3_me_gusta, usuario3_fecha_de_nacimiento: str 
-intentos_restantes: integer
+intentos_restantes, usuario1_año_de_nacimiento, usuario1_mes_de_nacimiento, usuario1_dia_de_nacimiento, usuario2_año_de_nacimiento, usuario2_mes_de_nacimiento, usuario2_dia_de_nacimiento, usuario3_año_de_nacimiento, usuario3_mes_de_nacimiento, usuario3_dia_de_nacimiento: integer
 isLoggedIn: boolean
 '''
 def declarar_constantes():
-    global usuario1_email, usuario1_contraseña, usuario1_nombre, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_nombre, usuario2_me_gusta, usuario3_email, usuario3_me_gusta, usuario3_contraseña, usuario3_nombre, intentos_restantes, isLoggedIn, intentos_restantes, email_usuario_autenticado, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario3_fecha_de_nacimiento,usuario3_biografia, usuario3_hobbies
+    global usuario1_email, usuario1_contraseña, usuario1_nombre, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_nombre, usuario2_me_gusta, usuario3_email, usuario3_me_gusta, usuario3_contraseña, usuario3_nombre, intentos_restantes, isLoggedIn, intentos_restantes, email_usuario_autenticado,  usuario1_biografia, usuario1_hobbies, usuario2_biografia, usuario2_hobbies, usuario3_biografia, usuario3_hobbies, usuario1_año_de_nacimiento, usuario1_mes_de_nacimiento, usuario1_dia_de_nacimiento, usuario2_año_de_nacimiento, usuario2_mes_de_nacimiento, usuario2_dia_de_nacimiento, usuario3_año_de_nacimiento, usuario3_mes_de_nacimiento, usuario3_dia_de_nacimiento
 
     #Usuario 1 dec vars
     usuario1_email = "estudiante1@ayed.com"
     usuario1_contraseña = "111222"
     usuario1_me_gusta = ""
-    usuario1_fecha_de_nacimiento = "1985-02-25"
     usuario1_nombre = "Carlos"
     usuario1_biografia = "Nacido en Rosario"
     usuario1_hobbies = "tocar la guitarra y correr"
+    usuario1_año_de_nacimiento  = 1985
+    usuario1_mes_de_nacimiento  = 2
+    usuario1_dia_de_nacimiento  = 25
 
     #Usuario2 decl vars
     usuario2_email = "estudiante2@ayed.com"
     usuario2_contraseña = "333444"
     usuario2_me_gusta = ""
-    usuario2_fecha_de_nacimiento = "2001-12-06"
     usuario2_nombre = "Ramiro"
     usuario2_biografia = "Nacido en Misiones"
     usuario2_hobbies = "Dibujar y pintar"
+    usuario2_año_de_nacimiento = 2001
+    usuario2_mes_de_nacimiento = 12
+    usuario2_dia_de_nacimiento = 6
 
     #Usuario3 dec vars
     usuario3_email = "estudiante3@ayed.com"
     usuario3_contraseña = "555666"
     usuario3_me_gusta = ""
-    usuario3_fecha_de_nacimiento = "1993-05-25"
     usuario3_nombre = "Sandra"
     usuario3_biografia = "Nacida en San Francisco"
     usuario3_hobbies = "Cocinar y cantar en el coro"
+    usuario3_año_de_nacimiento = 1993
+    usuario3_mes_de_nacimiento = 5
+    usuario3_dia_de_nacimiento = 25
 
     intentos_restantes = 3
     email_usuario_autenticado = ""
