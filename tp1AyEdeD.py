@@ -174,7 +174,6 @@ def editar_mis_datos_personales():
             editar_mis_hobbies()  
 
         os.system("cls")
-
         menu_de_mis_datos()
 
         print("\nEditar mis datos personales")
@@ -228,7 +227,7 @@ def editar_mi_biografia():
     elif (email_usuario_autenticado == usuario3_email):
         usuario3_biografia = nueva_biografia
     else:
-        print("Error")
+        print("El ususario no existe")
 
 '''
 FUN editar_mis_hobbies
@@ -253,7 +252,7 @@ usuario_email, usuario_contraseña, usuario_fecha_de_nacimiento, usuario_biograf
 '''
 def mostrar_mis_datos(usuario_email, usuario_contraseña, usuario_fecha_de_nacimiento, usuario_biografia, usuario_hobbies, usuario_me_gusta):
     os.system("cls")
-    print("\nMis datos personales")
+    print("Mis datos personales")
     print("\nEmail: ", usuario_email)
     print("Contraseña: ", usuario_contraseña)
     print("Mi fecha de nacimiento: ", usuario_fecha_de_nacimiento)
