@@ -22,8 +22,7 @@ def mostrar_menu():
 '''
 FUN menu_completo
 opcion: integer
-isLoggedIn: bool
-email_usuario_autenticado: str
+isLoggedIn: boolean
 '''
 def menu_completo():
     global isLoggedIn
@@ -93,7 +92,7 @@ def gestionar_candidatos():
         opcion = str(input("Ingrese su opción 'a', 'c': "))
 
 '''
-FUN matcheos-
+FUN matcheos
 opcion: str
 '''
 def matcheos():
