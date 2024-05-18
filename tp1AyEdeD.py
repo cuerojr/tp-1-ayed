@@ -26,12 +26,12 @@ isLoggedIn: bool
 email_usuario_autenticado: str
 '''
 def menu_completo():
-    global isLoggedIn, email_usuario_autenticado
+    global isLoggedIn
 
     mostrar_menu()
 
     opcion = validar_numero()
-    while opcion < 0 and opcion > 4:
+    while opcion < 0 or opcion > 4:
         print("Opción inválida")
         opcion = validar_numero()
 
@@ -99,7 +99,7 @@ opcion: str
 def matcheos():
     os.system("cls")
     print("\n3. Matcheos")
-    print(" En contruccion")
+    print(" En construcción")
     print(" c. Volver")
     opcion = str(input("Ingrese su opción 'c': "))
 
@@ -113,7 +113,7 @@ def matcheos():
         
         os.system("cls")
         print("\n3. Matcheos")
-        print(" En contruccion")
+        print(" En construcción")
         print(" c. Volver")         
         opcion = str(input("Ingrese su opción 'c': "))
 
@@ -124,7 +124,7 @@ opcion: str
 def reportes_estadisticos():
     os.system("cls")
     print("\nReportes estadisticos")
-    print(" En contruccion")
+    print(" En construcción")
     print(" c. Volver")
     opcion = str(input("Ingrese su opción 'c': "))
 
@@ -138,7 +138,7 @@ def reportes_estadisticos():
 
         os.system("cls")
         print("\nReportes estadisticos")
-        print(" En contruccion")
+        print(" En construcción")
         print(" c. Volver")  
         opcion = str(input("Ingrese su opción 'c': "))
 
@@ -345,7 +345,7 @@ def mostrar_datos(usuario_email, usuario_contraseña, usuario_nombre, usuario_fe
 def validar_numero():
     while True:
         try:
-            return int(input("Ingrese un número: "))
+            return int(input("Ingrese un número entre 0 y 4: "))
         except ValueError:
             print("Debe ingresar un número")
 
@@ -404,8 +404,6 @@ def iniciar_sesion():
         
         if (email == usuario1_email and contraseña == usuario1_contraseña) or (email == usuario2_email and contraseña == usuario2_contraseña) or (email == usuario3_email and contraseña == usuario3_contraseña):
             os.system("cls")
-            print("Inicio de sesión exitoso!")
-            print("Bienvenido!")
             email_usuario_autenticado = email
             isLoggedIn = True
         else:
