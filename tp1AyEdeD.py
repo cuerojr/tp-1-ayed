@@ -421,6 +421,5 @@ def main():
     iniciar_sesion()    
     while email_usuario_autenticado and isLoggedIn:        
         menu_completo()
-        
-            
+           
 main()
