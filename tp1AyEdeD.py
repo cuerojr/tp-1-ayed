@@ -409,7 +409,7 @@ def declarar_constantes():
     usuario3_nombre = "Sandra"
     usuario3_biografia = "Nacida en San Francisco"
     usuario3_hobbies = "Cocinar y cantar en el coro"
-    usuario3_año_de_nacimiento = 1993
+    usuario3_año_de_nacimiento = 1999
     usuario3_mes_de_nacimiento = 5
     usuario3_dia_de_nacimiento = 25
 
@@ -448,5 +448,6 @@ def main():
     iniciar_sesion()    
     while email_usuario_autenticado and isLoggedIn:        
         menu_completo()
-            
+        
+           
 main()
