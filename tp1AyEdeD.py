@@ -29,10 +29,10 @@ def menu_completo():
 
     mostrar_menu()
 
-    opcion = validar_numero()
+    opcion = validar_numero("Ingrese un número: ")
     while opcion < 0 or opcion > 4:
         print("Opción inválida")
-        opcion = validar_numero()
+        opcion = validar_numero("Ingrese un número: ")
 
     match opcion:
         case 1:
@@ -50,7 +50,7 @@ def menu_completo():
 
 '''
 FUN gestionar_mi_perfil
-opcion: str
+opcion: string
 '''
 def gestionar_mi_perfil():    
     os.system("cls")
@@ -71,7 +71,7 @@ def gestionar_mi_perfil():
 
 '''
 FUN gestionar_candidatos
-opcion: str
+opcion: string
 '''
 def gestionar_candidatos():
     os.system("cls")
@@ -93,7 +93,7 @@ def gestionar_candidatos():
 
 '''
 FUN matcheos
-opcion: str
+opcion: string
 '''
 def matcheos():
     os.system("cls")
@@ -118,7 +118,7 @@ def matcheos():
 
 '''
 FUN reportes_estadisticos
-opcion: str
+opcion: string
 '''
 def reportes_estadisticos():
     os.system("cls")
@@ -143,7 +143,7 @@ def reportes_estadisticos():
 
 '''
 FUN editar_mis_datos_personales
-opcion: str
+opcion: string
 '''       
 def editar_mis_datos_personales():
     os.system("cls")
@@ -199,7 +199,7 @@ def ver_candidatos():
 
 '''
 FUN mostrar_todos_los_candidatos
-email_usuario_autenticado, usuario1_email, usuario2_email, usuario3_email, usuario1_nombre, usuario1_biografia, usuario1_hobbies, usuario2_nombre, usuario2_biografia, usuario2_hobbies, usuario3_nombre, usuario3_biografia, usuario3_hobbies, campo_vacio: str
+email_usuario_autenticado, usuario1_email, usuario2_email, usuario3_email, usuario1_nombre, usuario1_biografia, usuario1_hobbies, usuario2_nombre, usuario2_biografia, usuario2_hobbies, usuario3_nombre, usuario3_biografia, usuario3_hobbies, campo_vacio: string
 usuario2_año_de_nacimiento, usuario2_mes_de_nacimiento, usuario2_dia_de_nacimiento, usuario3_año_de_nacimiento, usuario3_mes_de_nacimiento, usuario3_dia_de_nacimiento, usuario1_año_de_nacimiento, usuario1_mes_de_nacimiento, usuario1_dia_de_nacimiento: integer
 '''
 def mostrar_todos_los_candidatos():
@@ -220,7 +220,7 @@ def mostrar_todos_los_candidatos():
 
 '''
 FUN dar_me_gusta_al_candidato
-usuario1_me_gusta, usuario2_me_gusta, usuario3_me_gusta, nombre_candidato, email_usuario_autenticado, usuario1_nombre, usuario2_nombre, usuario3_nombre: str
+usuario1_me_gusta, usuario2_me_gusta, usuario3_me_gusta, nombre_candidato, email_usuario_autenticado, usuario1_nombre, usuario2_nombre, usuario3_nombre: string
 '''
 def dar_me_gusta_al_candidato():
     global usuario1_me_gusta, usuario2_me_gusta, usuario3_me_gusta
@@ -241,7 +241,7 @@ def dar_me_gusta_al_candidato():
 
 '''
 FUN menu_de_mis_datos()
-usuario1_email, usuario1_contraseña, usuario1_nombre, usuario1_biografia, usuario1_hobbies, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_nombre, usuario2_biografia, usuario2_hobbies, usuario2_me_gusta, email_usuario_autenticado, usuario3_email, usuario3_contraseña, usuario3_nombre, usuario3_biografia, usuario3_hobbies, usuario3_me_gusta: str
+usuario1_email, usuario1_contraseña, usuario1_nombre, usuario1_biografia, usuario1_hobbies, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_nombre, usuario2_biografia, usuario2_hobbies, usuario2_me_gusta, email_usuario_autenticado, usuario3_email, usuario3_contraseña, usuario3_nombre, usuario3_biografia, usuario3_hobbies, usuario3_me_gusta: string
 usuario1_año_de_nacimiento, usuario1_mes_de_nacimiento, usuario1_dia_de_nacimiento, usuario2_año_de_nacimiento, usuario2_mes_de_nacimiento, usuario2_dia_de_nacimiento,  usuario3_año_de_nacimiento, usuario3_mes_de_nacimiento, usuario3_dia_de_nacimiento: integer
 ''' 
 def menu_de_mis_datos():
@@ -261,20 +261,20 @@ usuario1_año_de_nacimiento, usuario1_mes_de_nacimiento, usuario1_dia_de_nacimie
 def editar_mi_fecha_de_nacimiento():
     global usuario1_año_de_nacimiento, usuario1_mes_de_nacimiento, usuario1_dia_de_nacimiento, usuario2_año_de_nacimiento, usuario2_mes_de_nacimiento, usuario2_dia_de_nacimiento, usuario3_año_de_nacimiento, usuario3_mes_de_nacimiento, usuario3_dia_de_nacimiento
 
-    nuevo_año_de_nacimiento = int(input("Ingrese su año de nacimiento: "))
-    while nuevo_año_de_nacimiento < 1900 and nuevo_año_de_nacimiento >= 2024:
+    nuevo_año_de_nacimiento = validar_numero("Ingrese su año de nacimiento: ")
+    while nuevo_año_de_nacimiento < 1900 or nuevo_año_de_nacimiento >= 2024:
         print("El año de nacimiento no es válido")
-        nuevo_año_de_nacimiento = int(input("Ingrese su año de nacimiento: "))
+        nuevo_año_de_nacimiento = validar_numero("Ingrese su año de nacimiento: ")
 
-    nuevo_mes_de_nacimiento = int(input("Ingrese su mes de nacimiento: "))
-    while nuevo_mes_de_nacimiento < 0 and nuevo_mes_de_nacimiento > 12:
+    nuevo_mes_de_nacimiento = validar_numero("Ingrese su mes de nacimiento: ")
+    while nuevo_mes_de_nacimiento <= 0 or nuevo_mes_de_nacimiento > 12:
         print("El mes de nacimiento no es válido")
-        nuevo_mes_de_nacimiento = int(input("Ingrese su mes de nacimiento: "))
+        nuevo_mes_de_nacimiento = validar_numero("Ingrese su mes de nacimiento: ")
 
-    nuevo_dia_de_nacimiento = int(input("Ingrese su dia de nacimiento: "))
-    while nuevo_dia_de_nacimiento < 0 and nuevo_dia_de_nacimiento > 31:
+    nuevo_dia_de_nacimiento = validar_numero("Ingrese su dia de nacimiento: ")
+    while nuevo_dia_de_nacimiento <= 0 or nuevo_dia_de_nacimiento > 31:
         print("El dia de nacimiento no es válido")
-        nuevo_dia_de_nacimiento = int(input("Ingrese su dia de nacimiento: "))
+        nuevo_dia_de_nacimiento = validar_numero("Ingrese su dia de nacimiento: ")
 
     if (email_usuario_autenticado == usuario1_email):
         usuario1_año_de_nacimiento = nuevo_año_de_nacimiento
@@ -291,7 +291,7 @@ def editar_mi_fecha_de_nacimiento():
 
 '''
 FUN editar_mi_biografia
-usuario1_biografia, usuario2_biografia, usuario3_biografia, nueva_biografia: str
+usuario1_biografia, usuario2_biografia, usuario3_biografia, nueva_biografia: string
 '''
 def editar_mi_biografia():
     global usuario1_biografia, usuario2_biografia, usuario3_biografia
@@ -308,7 +308,7 @@ def editar_mi_biografia():
 
 '''
 FUN editar_mis_hobbies
-usuario1_hobbies, usuario2_hobbies, usuario3_hobbies, nuevos_hobbies: str
+usuario1_hobbies, usuario2_hobbies, usuario3_hobbies, nuevos_hobbies: string
 '''
 def editar_mis_hobbies():
     global usuario1_hobbies, usuario2_hobbies, usuario3_hobbies
@@ -338,7 +338,7 @@ def mostrar_edad(usuario_año_de_nacimiento, usuario_mes_nacimiento, usuario_dia
 
 '''
 FUN mostrar_datos
-usuario_email, usuario_contraseña, usuario_nombre, usuario_biografia, usuario_hobbies, usuario_me_gusta: str
+usuario_email, usuario_contraseña, usuario_nombre, usuario_biografia, usuario_hobbies, usuario_me_gusta: string
 usuario_año_de_nacimiento, usuario_mes_nacimiento, usuario_dia_nacimiento: integer
 '''
 def mostrar_datos(usuario_email, usuario_contraseña, usuario_nombre, usuario_año_de_nacimiento, usuario_mes_de_nacimiento, usuario_dia_de_nacimiento, usuario_biografia, usuario_hobbies, usuario_me_gusta):
@@ -360,16 +360,20 @@ def mostrar_datos(usuario_email, usuario_contraseña, usuario_nombre, usuario_a�
     if(usuario_me_gusta):   
         print("Me gusta: ", usuario_me_gusta)
 
-def validar_numero():
+'''
+FUN validar_numero
+mensaje: string
+'''
+def validar_numero(mensaje):
     while True:
         try:
-            return int(input("Ingrese un número entre 0 y 4: "))
+            return int(input(mensaje))
         except ValueError:
             print("Debe ingresar un número")
 
 '''
 FUN declarar_constantes
-email_usuario_autenticado, usuario1_email, usuario1_biografia, usuario1_hobbies, usuario2_email, usuario2_biografia, usuario2_hobbies, usuario3_email, usuario3_biografia, usuario3_hobbies, usuario1_contraseña, usuario1_nombre, usuario1_me_gusta, usuario1_fecha_de_nacimiento, usuario2_contraseña, usuario2_nombre, usuario2_me_gusta, usuario2_fecha_de_nacimiento, usuario3_contraseña, usuario3_nombre, usuario3_me_gusta, usuario3_fecha_de_nacimiento: str 
+email_usuario_autenticado, usuario1_email, usuario1_biografia, usuario1_hobbies, usuario2_email, usuario2_biografia, usuario2_hobbies, usuario3_email, usuario3_biografia, usuario3_hobbies, usuario1_contraseña, usuario1_nombre, usuario1_me_gusta, usuario1_fecha_de_nacimiento, usuario2_contraseña, usuario2_nombre, usuario2_me_gusta, usuario2_fecha_de_nacimiento, usuario3_contraseña, usuario3_nombre, usuario3_me_gusta, usuario3_fecha_de_nacimiento: string 
 intentos_restantes, usuario1_año_de_nacimiento, usuario1_mes_de_nacimiento, usuario1_dia_de_nacimiento, usuario2_año_de_nacimiento, usuario2_mes_de_nacimiento, usuario2_dia_de_nacimiento, usuario3_año_de_nacimiento, usuario3_mes_de_nacimiento, usuario3_dia_de_nacimiento: integer
 isLoggedIn: boolean
 '''
@@ -414,7 +418,7 @@ def declarar_constantes():
 
 '''
 FUN iniciar_sesion
-email, usuario1_email, usuario2_email, usuario3_email, email_usuario_autenticado, contraseña, usuario1_contraseña, usuario2_contraseña, usuario3_contraseña: str
+email, usuario1_email, usuario2_email, usuario3_email, email_usuario_autenticado, contraseña, usuario1_contraseña, usuario2_contraseña, usuario3_contraseña: string
 isLoggedIn: boolean
 intentos_restantes: integer
 '''
