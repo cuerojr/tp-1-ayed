@@ -10,7 +10,7 @@ import os
 import getpass
 from datetime import datetime
 
-def mostrar_menu():
+def usu_mm():
     os.system("cls")
     print("Menu ")
     print("\n1. Gestionar mi perfil")
@@ -19,40 +19,65 @@ def mostrar_menu():
     print("4. Reportes estadisticos")
     print("0. Salir")
 
-'''
-FUN menu_completo
-opcion: integer
-isLoggedIn: boolean
-'''
-def menu_completo():
-    global isLoggedIn
+def mod_mm():
+    os.system("cls")
+    print("Menu ")
+    print("\n1. Gestionar usuarios")
+    print("2. Gestionar reportes")
+    print("0. Salir")
 
-    mostrar_menu()
-
-    opcion = validar_numero()
-    while opcion < 0 or opcion > 4:
-        print("Opción inválida")
-        opcion = validar_numero()
-
-    match opcion:
-        case 1:
-            gestionar_mi_perfil()
-        case 2:
-            gestionar_candidatos()
-        case 3:
-            matcheos()
-        case 4:
-            reportes_estadisticos()
-        case 0:
-            print("Sesión cerrada. ¡Hasta luego!")
-            isLoggedIn = False
+def main_mods():
+    opc = 1 
+    while (opc!=0):
+        usu_mm()
+        opc = int(input("Ingrese su opcion: "))
+        match opc:
+            case 1: usu_gestionar_mi_perfil()
+            case 2: usu_gestionar_candidatos() 
+            case 3: usu_matcheos() 
+            case 4: usu_reportes_estadisticos() 
+            case 0: print('\n\n GRACIAS POR USAR NUESTRO SISTEMA!!!!')
+        while (opc<0 or opc>4):
             os.system("cls")
+            usu_mm()
+            opc = int(input("Ingreso Invalido - reintente ... "))
+            match opc:
+                case 1: usu_gestionar_mi_perfil()
+                case 2: usu_gestionar_candidatos() 
+                case 3: usu_matcheos() 
+                case 4: usu_reportes_estadisticos()
+                case 0: print('\n\n GRACIAS POR USAR NUESTRO SISTEMA!!!!')
 
-'''
-FUN gestionar_mi_perfil
-opcion: str
-'''
-def gestionar_mi_perfil():    
+def main_usuarios():
+    opc = 1 
+    while (opc!=0):
+        mod_mm()
+        opc = int(input("Ingrese su opcion: "))
+        match opc:
+            case 1: mod_gestionar_usuarios()
+            case 2:  mod_gestionar_reportes()
+            case 3:  mod_reportes_estadisticos()
+            case 0: print('\n\n GRACIAS POR USAR NUESTRO SISTEMA!!!!')
+        while (opc<0 or opc>4):
+            os.system("cls")
+            mod_mm()
+            opc = int(input("Ingreso Invalido - reintente ... "))
+            match opc:
+                case 1: mod_gestionar_usuarios()
+                case 2:  mod_gestionar_reportes()
+                case 3:  mod_reportes_estadisticos()
+                case 0: print('\n\n GRACIAS POR USAR NUESTRO SISTEMA!!!!')
+
+def mod_gestionar_usuarios():
+    print("1")
+
+def mod_gestionar_reportes():
+    print("2")
+
+def mod_reportes_estadisticos():
+    print("3")
+
+def usu_gestionar_mi_perfil():    
     os.system("cls")
     print("\nGestionar mi perfil")
     print(" a. Editar mis datos personales")
@@ -73,7 +98,7 @@ def gestionar_mi_perfil():
 FUN gestionar_candidatos
 opcion: str
 '''
-def gestionar_candidatos():
+def usu_gestionar_candidatos():
     os.system("cls")
 
     print("\nGestionar candidatos")
@@ -83,7 +108,7 @@ def gestionar_candidatos():
 
     while opcion != "c":
         if opcion == "a":
-            ver_candidatos() 
+            usu_ver_candidatos() 
 
         os.system("cls")
         print("\nGestionar candidatos")
@@ -95,7 +120,7 @@ def gestionar_candidatos():
 FUN matcheos
 opcion: str
 '''
-def matcheos():
+def usu_matcheos():
     os.system("cls")
     print("\n3. Matcheos")
     print(" En construcción")
@@ -120,7 +145,7 @@ def matcheos():
 FUN reportes_estadisticos
 opcion: str
 '''
-def reportes_estadisticos():
+def usu_reportes_estadisticos():
     os.system("cls")
     print("\nReportes estadisticos")
     print(" En construcción")
@@ -145,10 +170,10 @@ def reportes_estadisticos():
 FUN editar_mis_datos_personales
 opcion: str
 '''       
-def editar_mis_datos_personales():
+def usu_editar_mis_datos_personales():
     os.system("cls")
 
-    menu_de_mis_datos()
+    usu_menu_de_mis_datos()
 
     print("\nEditar mis datos personales")
     print(" a. Editar mi fecha de nacimiento")
@@ -159,14 +184,14 @@ def editar_mis_datos_personales():
 
     while opcion != "d":
         if opcion == "a": 
-            editar_mi_fecha_de_nacimiento()
+            usu_editar_mi_fecha_de_nacimiento()
         elif opcion == "b":
-            editar_mi_biografia()          
+            usu_editar_mi_biografia()          
         elif opcion == "c":
-            editar_mis_hobbies()  
+            usu_editar_mis_hobbies()  
 
         os.system("cls")
-        menu_de_mis_datos()
+        usu_menu_de_mis_datos()
 
         print("\nEditar mis datos personales")
         print(" a. Editar mi fecha de nacimiento")
@@ -178,10 +203,10 @@ def editar_mis_datos_personales():
 '''
 
 '''
-def ver_candidatos():
+def usu_ver_candidatos():
     os.system("cls")
 
-    mostrar_todos_los_candidatos()
+    usu_mostrar_todos_los_candidatos()
 
     print("\nGestionar candidatos")
     print(" a. Ingresar el nombre del candidato")
@@ -190,7 +215,7 @@ def ver_candidatos():
 
     while opcion != "c":
         if opcion == "a": 
-            dar_me_gusta_al_candidato()
+            usu_dar_me_gusta_al_candidato()
         
         print("\nGestionar candidatos")
         print(" a. Ingresar el nombre del candidato")
@@ -201,27 +226,27 @@ def ver_candidatos():
 FUN mostrar_todos_los_candidatos
 email_usuario_autenticado, usuario1_email, usuario2_email, usuario3_email, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies: str
 '''
-def mostrar_todos_los_candidatos():
+def usu_mostrar_todos_los_candidatos():
     campo_vacio = ""
     print("Candidatos\n")
     if email_usuario_autenticado == usuario1_email:
-        mostrar_datos(campo_vacio, campo_vacio, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, campo_vacio)
+        usu_mostrar_datos(campo_vacio, campo_vacio, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, campo_vacio)
         print("\n")
-        mostrar_datos(campo_vacio, campo_vacio, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, campo_vacio)
+        usu_mostrar_datos(campo_vacio, campo_vacio, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, campo_vacio)
     elif email_usuario_autenticado == usuario2_email:
-        mostrar_datos(campo_vacio, campo_vacio, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, campo_vacio)
+        usu_mostrar_datos(campo_vacio, campo_vacio, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, campo_vacio)
         print("\n")
-        mostrar_datos(campo_vacio, campo_vacio, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, campo_vacio)
+        usu_mostrar_datos(campo_vacio, campo_vacio, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, campo_vacio)
     elif email_usuario_autenticado == usuario3_email:
-        mostrar_datos(campo_vacio, campo_vacio, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, campo_vacio)
+        usu_mostrar_datos(campo_vacio, campo_vacio, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, campo_vacio)
         print("\n")
-        mostrar_datos(campo_vacio, campo_vacio, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, campo_vacio)
+        usu_mostrar_datos(campo_vacio, campo_vacio, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, campo_vacio)
 
 '''
 FUN dar_me_gusta_al_candidato
 usuario1_me_gusta, usuario2_me_gusta, usuario3_me_gusta, nombre_candidato, email_usuario_autenticado, usuario1_nombre, usuario2_nombre, usuario3_nombre: str
 '''
-def dar_me_gusta_al_candidato():
+def usu_dar_me_gusta_al_candidato():
     global usuario1_me_gusta, usuario2_me_gusta, usuario3_me_gusta
 
     nombre_candidato = str(input("Ingrese el nombre su candidato: "))
@@ -242,21 +267,21 @@ def dar_me_gusta_al_candidato():
 FUN menu_de_mis_datos()
 usuario1_email, usuario1_contraseña, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario2_me_gusta, email_usuario_autenticado, usuario3_email, usuario3_contraseña, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, usuario3_me_gusta: str
 ''' 
-def menu_de_mis_datos():
+def usu_menu_de_mis_datos():
     os.system("cls")
     print("Mis datos personales")
     if (email_usuario_autenticado == usuario1_email):
-        mostrar_datos(usuario1_email, usuario1_contraseña, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario1_me_gusta)
+        usu_mostrar_datos(usuario1_email, usuario1_contraseña, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario1_me_gusta)
     elif (email_usuario_autenticado == usuario2_email):
-        mostrar_datos(usuario2_email, usuario2_contraseña, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario2_me_gusta)
+        usu_mostrar_datos(usuario2_email, usuario2_contraseña, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario2_me_gusta)
     elif (email_usuario_autenticado == usuario3_email):
-        mostrar_datos(usuario3_email, usuario3_contraseña, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, usuario3_me_gusta)
+        usu_mostrar_datos(usuario3_email, usuario3_contraseña, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, usuario3_me_gusta)
 
 '''
 FUN editar_mi_fecha_de_nacimiento
 usuario1_fecha_de_nacimiento, usuario2_fecha_de_nacimiento, usuario3_fecha_de_nacimiento, nueva_fecha_de_nacimiento: str
 '''
-def editar_mi_fecha_de_nacimiento():
+def usu_editar_mi_fecha_de_nacimiento():
     global usuario1_fecha_de_nacimiento, usuario2_fecha_de_nacimiento, usuario3_fecha_de_nacimiento 
 
     nueva_fecha_de_nacimiento = str(input("Ingrese su fecha de nacimiento: "))
@@ -273,7 +298,7 @@ def editar_mi_fecha_de_nacimiento():
 FUN editar_mi_biografia
 usuario1_biografia, usuario2_biografia, usuario3_biografia, nueva_biografia: str
 '''
-def editar_mi_biografia():
+def usu_editar_mi_biografia():
     global usuario1_biografia, usuario2_biografia, usuario3_biografia
 
     nueva_biografia = str(input("Ingrese su biografia: "))
@@ -290,7 +315,7 @@ def editar_mi_biografia():
 FUN editar_mis_hobbies
 usuario1_hobbies, usuario2_hobbies, usuario3_hobbies, nuevos_hobbies: str
 '''
-def editar_mis_hobbies():
+def usu_editar_mis_hobbies():
     global usuario1_hobbies, usuario2_hobbies, usuario3_hobbies
 
     nuevos_hobbies = str(input("Ingrese sus hobbies: "))
@@ -308,7 +333,7 @@ FUN mostrar_edad
 fecha_nacimiento, fecha_actual: date
 edad: int
 '''
-def mostrar_edad(fecha):
+def usu_mostrar_edad(fecha):
     fecha_nacimiento = datetime.strptime(fecha, '%Y-%m-%d')   #dudoso 
     fecha_actual = datetime.now()
     
@@ -322,7 +347,7 @@ def mostrar_edad(fecha):
 FUN mostrar_datos
 usuario_email, usuario_contraseña, usuario_nombre, usuario_fecha_de_nacimiento, usuario_biografia, usuario_hobbies, usuario_me_gusta: str
 '''
-def mostrar_datos(usuario_email, usuario_contraseña, usuario_nombre, usuario_fecha_de_nacimiento, usuario_biografia, usuario_hobbies, usuario_me_gusta):
+def usu_mostrar_datos(usuario_email, usuario_contraseña, usuario_nombre, usuario_fecha_de_nacimiento, usuario_biografia, usuario_hobbies, usuario_me_gusta):
     
     if(usuario_email):
         print("\nEmail: ", usuario_email)
@@ -335,7 +360,7 @@ def mostrar_datos(usuario_email, usuario_contraseña, usuario_nombre, usuario_fe
     if(usuario_biografia):   
         print("Biografia: ", usuario_biografia)
     if(usuario_fecha_de_nacimiento):   
-        print("Edad: ", mostrar_edad(usuario_fecha_de_nacimiento), "años")
+        print("Edad: ", usu_mostrar_edad(usuario_fecha_de_nacimiento), "años")
     if(usuario_hobbies):   
         print("Hobbies: ", usuario_hobbies)
     if(usuario_me_gusta):   
@@ -348,12 +373,8 @@ def validar_numero():
         except ValueError:
             print("Debe ingresar un número")
 
-'''
-FUN declarar_constantes
-email_usuario_autenticado, usuario1_email, usuario1_biografia, usuario1_hobbies, usuario2_email, usuario2_biografia, usuario2_hobbies, usuario3_email, usuario3_biografia, usuario3_hobbies, usuario1_contraseña, usuario1_nombre, usuario1_me_gusta, usuario1_fecha_de_nacimiento, usuario2_contraseña, usuario2_nombre, usuario2_me_gusta, usuario2_fecha_de_nacimiento, usuario3_contraseña, usuario3_nombre, usuario3_me_gusta, usuario3_fecha_de_nacimiento: str 
-intentos_restantes: integer
-isLoggedIn: boolean
-'''
+
+
 def declarar_constantes():
     global usuario1_email, usuario1_contraseña, usuario1_nombre, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_nombre, usuario2_me_gusta, usuario3_email, usuario3_me_gusta, usuario3_contraseña, usuario3_nombre, intentos_restantes, isLoggedIn, intentos_restantes, email_usuario_autenticado, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario3_fecha_de_nacimiento,usuario3_biografia, usuario3_hobbies
 
@@ -387,37 +408,6 @@ def declarar_constantes():
     intentos_restantes = 3
     email_usuario_autenticado = ""
 
-'''
-FUN iniciar_sesion
-email, usuario1_email, usuario2_email, usuario3_email, email_usuario_autenticado, contraseña, usuario1_contraseña, usuario2_contraseña, usuario3_contraseña: str
-isLoggedIn: boolean
-intentos_restantes: integer
-'''
-def iniciar_sesion():    
-    global isLoggedIn, intentos_restantes, email_usuario_autenticado
-    declarar_constantes()    
-    
-    while intentos_restantes > 0 and not email_usuario_autenticado:
-        print("\nLog In")
-        email = input("Ingrese su email: ")
-        contraseña = getpass.getpass("Ingrese su contraseña: ")
-        
-        if (email == usuario1_email and contraseña == usuario1_contraseña) or (email == usuario2_email and contraseña == usuario2_contraseña) or (email == usuario3_email and contraseña == usuario3_contraseña):
-            os.system("cls")
-            email_usuario_autenticado = email
-            isLoggedIn = True
-        else:
-            intentos_restantes -= 1
-            print(f"Credenciales incorrectas. Intentos restantes: {intentos_restantes}")
 
-'''
-FUN main
-email_usuario_autenticado: string
-isLoggedIn: boolean
-'''
-def main():    
-    iniciar_sesion()    
-    while email_usuario_autenticado and isLoggedIn:        
-        menu_completo()
-            
-main()
+
+main_usuarios()
