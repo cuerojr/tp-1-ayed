@@ -10,7 +10,7 @@ import os
 import getpass
 from datetime import datetime
 
-def usu_mm():
+def usu_mm():#el prefijo "usu" nos permite ver todas las funciones dedicadas a los usuarios, para facil acceso y no confundirse
     os.system("cls")
     print("Menu ")
     print("\n1. Gestionar mi perfil")
@@ -19,23 +19,25 @@ def usu_mm():
     print("4. Reportes estadisticos")
     print("0. Salir")
 
-def mod_mm():
+def mod_mm():#el prefijo "mod" nos deja ver todas las funciones de los mods, para facil acceso y no confundirse
     os.system("cls")
     print("Menu ")
     print("\n1. Gestionar usuarios")
     print("2. Gestionar reportes")
+    print("3. Reportes estadisticos")
     print("0. Salir")
 
-def main_mods():
+def main_usuarios():
     opc = 1 
     while (opc!=0):
+        os.system("cls")
         usu_mm()
         opc = int(input("Ingrese su opcion: "))
         match opc:
             case 1: usu_gestionar_mi_perfil()
             case 2: usu_gestionar_candidatos() 
             case 3: usu_matcheos() 
-            case 4: usu_reportes_estadisticos() 
+            case 4: reportes_estadisticos() 
             case 0: print('\n\n GRACIAS POR USAR NUESTRO SISTEMA!!!!')
         while (opc<0 or opc>4):
             os.system("cls")
@@ -45,18 +47,19 @@ def main_mods():
                 case 1: usu_gestionar_mi_perfil()
                 case 2: usu_gestionar_candidatos() 
                 case 3: usu_matcheos() 
-                case 4: usu_reportes_estadisticos()
+                case 4: reportes_estadisticos()
                 case 0: print('\n\n GRACIAS POR USAR NUESTRO SISTEMA!!!!')
 
-def main_usuarios():
+def main_mods():
     opc = 1 
     while (opc!=0):
+        os.system("cls")
         mod_mm()
         opc = int(input("Ingrese su opcion: "))
         match opc:
             case 1: mod_gestionar_usuarios()
             case 2:  mod_gestionar_reportes()
-            case 3:  mod_reportes_estadisticos()
+            case 3:  reportes_estadisticos()
             case 0: print('\n\n GRACIAS POR USAR NUESTRO SISTEMA!!!!')
         while (opc<0 or opc>4):
             os.system("cls")
@@ -65,34 +68,77 @@ def main_usuarios():
             match opc:
                 case 1: mod_gestionar_usuarios()
                 case 2:  mod_gestionar_reportes()
-                case 3:  mod_reportes_estadisticos()
+                case 3:  reportes_estadisticos()
                 case 0: print('\n\n GRACIAS POR USAR NUESTRO SISTEMA!!!!')
 
 def mod_gestionar_usuarios():
-    print("1")
+    os.system("cls")
+    print("Gestionar usuarios")
+    print("\na. Desactivar usuario")
+    print("b. Volver")
+    opc = str(input("Ingrese su opcion: "))
+    match opc:
+        case "a": mod_desactivar_ususario()
+        case "b": print("Volviendo al menu anterior")
+    while (opc!="b"):
+        os.system("cls")
+        print("Gestionar usuarios")
+        print("\na. Desactivar usuario")
+        print("b. Volver")
+        opc = str(input("Ingreso Invalido - reintente ... "))
+        match opc:
+            case "a": mod_desactivar_ususario()
+            case "b":  print("Volviendo al menu anterior")
+
+def mod_desactivar_ususario():
+    os.system("cls")
+    print("Desactivar usuario")
+    opc=str(input("Ingrese ID o nombre de usuario: "))#esto esta hecho mara comprobar si funciona
 
 def mod_gestionar_reportes():
-    print("2")
+    os.system("cls")
+    print("Gestionar reportes")
+    print("\na. Ver reportes")
+    print("b. Volver")
+    opc = str(input("Ingrese su opcion: "))
+    match opc:
+        case "a": mod_ver_reportes()
+        case "b": print("Volviendo al menu anterior")
+    while (opc!="b"):
+        os.system("cls")
+        print("Gestionar reportes")
+        print("\na. Ver reportes")
+        print("b. Volver")
+        opc = str(input("Ingreso Invalido - reintente ... "))
+        match opc:
+            case "a": mod_ver_reportes()
+            case "b":  print("Volviendo al menu anterior")
 
-def mod_reportes_estadisticos():
+reportes=["pooner reportes aca"]#no esta hecho todavia, solo es de relleno para el resto del sistema
+
+def mod_ver_reportes():
+    os.system("cls")
+    print("Ver reportes")
+    print(reportes)
+    opc = str(input("Desea volver?: "))#esto esta hecho para comprobar si funciona
+
+def reportes_estadisticos():
     print("3")
 
 def usu_gestionar_mi_perfil():    
     os.system("cls")
-    print("\nGestionar mi perfil")
-    print(" a. Editar mis datos personales")
-    print(" c. Volver")
+    print("Gestionar mi perfil")
+    print("\na. Editar mis datos personales")
+    print("c. Volver")
     opcion = str(input("Ingrese su opción: "))
-
     while opcion != "c":
         if opcion == "a": 
-            editar_mis_datos_personales() # type: ignore            
-        
+            usu_editar_mis_datos_personales()         
         os.system("cls")    
-        print("\nGestionar mi perfil")
-        print(" a. Editar mis datos personales")
-        print(" c. Volver")
-        opcion = str(input("Ingrese su opción 'a', 'c': "))
+        print("Gestionar mi perfil")
+        print("\na. Editar mis datos personales")
+        print("c. Volver")
+        opcion = str(input("Ingreso Invalido - reintente ... "))
 
 '''
 FUN gestionar_candidatos
@@ -100,21 +146,18 @@ opcion: str
 '''
 def usu_gestionar_candidatos():
     os.system("cls")
-
-    print("\nGestionar candidatos")
-    print(" a. Elegir candidato para matchear")
-    print(" c. Volver")
+    print("Gestionar candidatos")
+    print("\na. Elegir candidato para matchear")
+    print("c. Volver")
     opcion = str(input("Ingrese su opción: "))  
-
     while opcion != "c":
         if opcion == "a":
             usu_ver_candidatos() 
-
         os.system("cls")
-        print("\nGestionar candidatos")
-        print(" a. Elegir candidato para matchear")
-        print(" c. Volver")     
-        opcion = str(input("Ingrese su opción 'a', 'c': "))
+        print("Gestionar candidatos")
+        print("\na. Elegir candidato para matchear")
+        print("c. Volver")     
+        opcion = str(input("Ingreso Invalido - reintente ... "))
 
 '''
 FUN matcheos
@@ -122,49 +165,33 @@ opcion: str
 '''
 def usu_matcheos():
     os.system("cls")
-    print("\n3. Matcheos")
-    print(" En construcción")
-    print(" c. Volver")
-    opcion = str(input("Ingrese su opción 'c': "))
-
-    while opcion != "c":
-        if opcion == "a": 
-            #editar_mis_datos_personales() # type: ignore
-            print("\n1. en construccion")
-        elif opcion == "b":
-            #eliminar_mi_perfil() # type: ignore 
-            print("\n1. en construccion")  
-        
+    print("Matcheos")
+    print("\nEn construcción")
+    print("a. Volver")
+    opcion = str(input("Ingrese su opción: "))
+    while opcion != "a":
         os.system("cls")
-        print("\n3. Matcheos")
-        print(" En construcción")
-        print(" c. Volver")         
-        opcion = str(input("Ingrese su opción 'c': "))
+        print("Matcheos")
+        print("\nEn construcción")
+        print("a. Volver")         
+        opcion = str(input("Ingreso Invalido - reintente ... "))
 
 '''
 FUN reportes_estadisticos
 opcion: str
 '''
-def usu_reportes_estadisticos():
+def reportes_estadisticos():
     os.system("cls")
-    print("\nReportes estadisticos")
-    print(" En construcción")
-    print(" c. Volver")
-    opcion = str(input("Ingrese su opción 'c': "))
-
-    while opcion != "c":
-        if opcion == "a": 
-            #editar_mis_datos_personales() # type: ignore
-            print("\n1. opcion c")
-        elif opcion == "b":
-            #eliminar_mi_perfil() # type: ignore 
-            print("\n1. opcion b") 
-
+    print("Reportes estadisticos")
+    print("\nEn construcción")
+    print("a. Volver")
+    opc = str(input("Ingrese su opción: "))
+    while opc != "a":
         os.system("cls")
-        print("\nReportes estadisticos")
-        print(" En construcción")
-        print(" c. Volver")  
-        opcion = str(input("Ingrese su opción 'c': "))
+        print("Reportes estadisticos")
+        print("\nEn construcción")
+        print("a. Volver")  
+        opc = str(input("Ingreso Invalido - reintente ... "))
 
 '''
 FUN editar_mis_datos_personales
@@ -172,16 +199,13 @@ opcion: str
 '''       
 def usu_editar_mis_datos_personales():
     os.system("cls")
-
     usu_menu_de_mis_datos()
-
     print("\nEditar mis datos personales")
     print(" a. Editar mi fecha de nacimiento")
     print(" b. Editar mi biografía")
     print(" c. Editar mis hobbies")
     print(" d. Volver")  
     opcion = str(input("Ingrese su opción: "))
-
     while opcion != "d":
         if opcion == "a": 
             usu_editar_mi_fecha_de_nacimiento()
@@ -189,58 +213,49 @@ def usu_editar_mis_datos_personales():
             usu_editar_mi_biografia()          
         elif opcion == "c":
             usu_editar_mis_hobbies()  
-
         os.system("cls")
         usu_menu_de_mis_datos()
-
         print("\nEditar mis datos personales")
         print(" a. Editar mi fecha de nacimiento")
         print(" b. Editar mi biografía")
         print(" c. Editar mis hobbies")  
         print(" d. Volver")  
-        opcion = str(input("Ingrese su opción 'a', 'b', 'c', 'd': "))
+        opcion = str(input("Ingreso Invalido - reintente ... "))
 
-'''
-
-'''
 def usu_ver_candidatos():
     os.system("cls")
-
     usu_mostrar_todos_los_candidatos()
-
-    print("\nGestionar candidatos")
-    print(" a. Ingresar el nombre del candidato")
-    print(" c. Volver")  
+    print("Gestionar candidatos")
+    print("\na. Ingresar el nombre del candidato")
+    print("b. Volver")  
     opcion = str(input("Ingrese su opción: "))
-
-    while opcion != "c":
+    while opcion != "b":
         if opcion == "a": 
             usu_dar_me_gusta_al_candidato()
-        
         print("\nGestionar candidatos")
         print(" a. Ingresar el nombre del candidato")
-        print(" c. Volver")  
-        opcion = str(input("Ingrese su opción 'a', 'c': "))
+        print(" b. Volver")  
+        opcion = str(input("Ingreso Invalido - reintente ... "))
 
 '''
 FUN mostrar_todos_los_candidatos
 email_usuario_autenticado, usuario1_email, usuario2_email, usuario3_email, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies: str
 '''
 def usu_mostrar_todos_los_candidatos():
-    campo_vacio = ""
+    cv = "" #cv = (campo vacio)
     print("Candidatos\n")
     if email_usuario_autenticado == usuario1_email:
-        usu_mostrar_datos(campo_vacio, campo_vacio, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, campo_vacio)
+        usu_mostrar_datos(cv, cv, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, cv)
         print("\n")
-        usu_mostrar_datos(campo_vacio, campo_vacio, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, campo_vacio)
+        usu_mostrar_datos(cv, cv, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, cv)
     elif email_usuario_autenticado == usuario2_email:
-        usu_mostrar_datos(campo_vacio, campo_vacio, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, campo_vacio)
+        usu_mostrar_datos(cv, cv, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, cv)
         print("\n")
-        usu_mostrar_datos(campo_vacio, campo_vacio, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, campo_vacio)
+        usu_mostrar_datos(cv, cv, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, cv)
     elif email_usuario_autenticado == usuario3_email:
-        usu_mostrar_datos(campo_vacio, campo_vacio, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, campo_vacio)
+        usu_mostrar_datos(cv, cv, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, cv)
         print("\n")
-        usu_mostrar_datos(campo_vacio, campo_vacio, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, campo_vacio)
+        usu_mostrar_datos(cv, cv, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, cv)
 
 '''
 FUN dar_me_gusta_al_candidato
@@ -410,4 +425,5 @@ def declarar_constantes():
 
 
 
+main_mods()
 main_usuarios()
