@@ -257,7 +257,7 @@ def editar_mi_fecha_de_nacimiento():
 
     nueva_fecha_de_nacimiento = str(input("Ingrese su fecha de nacimiento: "))
     for i in range(8):
-        if (email_usuario_autenticado == arreglo_de_estudiantes[i][0]):
+        if email_usuario_autenticado == arreglo_de_estudiantes[i][0]:
             arreglo_de_estudiantes[i][3] = nueva_fecha_de_nacimiento
         else:
             print("Error")
@@ -271,7 +271,7 @@ def editar_mi_biografia():
 
     nueva_biografia = str(input("Ingrese su biografia: "))
     for i in range(8):
-        if (email_usuario_autenticado == arreglo_de_estudiantes[i][0]):
+        if email_usuario_autenticado == arreglo_de_estudiantes[i][0]:
             arreglo_de_estudiantes[i][5] = nueva_biografia
         else:
             print("El ususario no existe")
@@ -285,7 +285,7 @@ def editar_mis_hobbies():
 
     nuevos_hobbies = str(input("Ingrese sus hobbies: "))
     for i in range(8):
-        if (email_usuario_autenticado == arreglo_de_estudiantes[i][0]):
+        if email_usuario_autenticado == arreglo_de_estudiantes[i][0]:
             arreglo_de_estudiantes[i][6] = nuevos_hobbies
         else:
             print("Error")
@@ -312,16 +312,26 @@ usuario_email, usuario_contraseña, usuario_nombre, usuario_fecha_de_nacimiento,
 def mostrar_datos():
 
     for i in range(8):
-            print("Nombre: ", arreglo_de_estudiantes[i][2])
-            print("Fecha de nacimiento: ", arreglo_de_estudiantes[i][3])
-            print("Biografia: ", arreglo_de_estudiantes[i][4])
-            print("Edad: ", mostrar_edad(arreglo_de_estudiantes[i][5]), "años")
-            print("Hobbies: ", arreglo_de_estudiantes[i][6])
-            print("Me gusta: ",)
+            if arreglo_de_estudiantes[i][0] != "":
+                
+                print("\nNombre: ", arreglo_de_estudiantes[i][4])
+                print("Fecha de nacimiento: ", arreglo_de_estudiantes[i][3])
+                print("Biografia: ", arreglo_de_estudiantes[i][5])
+                print("Edad: ", mostrar_edad(arreglo_de_estudiantes[i][3]), "años")
+                print("Hobbies: ", arreglo_de_estudiantes[i][6])
+                print("Me gusta: ", arreglo_de_estudiantes[i][8])
+                print("Estado: ", arreglo_de_estudiantes[i][2])
 
 def me_gusta():
+    global email_usuario_autenticado
     print("Dar me gusta\n")
-    megusta = str(input("Ingresar nombre de estudiante "))
+    megusta = str(input("Ingresar nombre de estudiante: "))
+    for i in range(8):
+        if email_usuario_autenticado == arreglo_de_estudiantes[i][0]:
+            arreglo_de_estudiantes[i][8] = megusta
+            arreglo_likes
+
+
 
 def validar_numero():
     while True:
@@ -331,17 +341,17 @@ def validar_numero():
             print("Debe ingresar un número")
 
 def popular_likes():
-    global arreglo_multidemensional
+    global arreglo_likes
     for i in range(8):
         for j in range(8):
-            arreglo_multidemensional[i][j] = random.randint(0, 1)
+            arreglo_likes[i][j] = random.randint(0, 1)
 '''
 FUN declarar_constantes
 email_usuario_autenticado, usuario1_email, usuario1_biografia, usuario1_hobbies, usuario2_email, usuario2_biografia, usuario2_hobbies, usuario3_email, usuario3_biografia, usuario3_hobbies, usuario1_contraseña, usuario1_nombre, usuario1_me_gusta,  usuario2_contraseña, usuario2_nombre, usuario2_me_gusta, usuario2_fecha_de_nacimiento, , usuario3_nombre, usuario3_me_gusta, usuario3_fecha_de_nacimiento: str 
 intentos_restantes: integer
 '''
 def declarar_constantes():
-    global  intentos_restantes, email_usuario_autenticado, isLoggedIn, arreglo_unidimensional, arreglo_bidimensional, arreglo_multidemensional, arreglo_de_estudiantes, tipo_usuario_autenticado, MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, MAX_CANT_MODERADORES, estudiantesRegistrados, moderadoresRegistrados
+    global  intentos_restantes, email_usuario_autenticado, isLoggedIn, arreglo_unidimensional, arreglo_bidimensional, arreglo_likes, arreglo_de_estudiantes, tipo_usuario_autenticado, MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, MAX_CANT_MODERADORES, estudiantesRegistrados, moderadoresRegistrados
 
     MIN_CANT_ESTUDIANTES = 4
     MAX_CANT_ESTUDIANTES = 8
@@ -355,8 +365,8 @@ def declarar_constantes():
     isLoggedIn = False
     arreglo_unidimensional = [0]*8 # Arreglo unidimensional de 0 a 7 de enteros
     arreglo_bidimensional = [[0]*8 for i in range(2)] # Arreglo bidimensional de 8x2 de enteros
-    arreglo_multidemensional = [[0]*8 for i in range(8)] # Arreglo multidimensionl de 8x8 de enteros
-    arreglo_de_estudiantes = [[""]*8 for i in range(8)] # Arreglo multidimensionl de 8x8 de caracteres
+    arreglo_likes = [[0]*8 for i in range(8)] # Arreglo multidimensionl de 8x8 de enteros
+    arreglo_de_estudiantes = [[""]*9 for i in range(8)] # Arreglo multidimensionl de 8x8 de caracteres
     arreglo_de_moderadores = [[""]*8 for i in range(4)] # Arreglo multidimensionl de 8x4 de caracteres
 
     #Usuario 1 dec vars
@@ -368,16 +378,18 @@ def declarar_constantes():
     arreglo_de_estudiantes[0][5] = "Nacido en Rosario"
     arreglo_de_estudiantes[0][6] = "tocar la guitarra y correr"
     arreglo_de_estudiantes[0][7] = "estudiante"
+    arreglo_de_estudiantes[0][8] = ""
 
     #Usuario2 decl vars
-    arreglo_de_estudiantes[1][0] = "estudiante2@ayed.com"
-    arreglo_de_estudiantes[1][1] = "333444"
+    arreglo_de_estudiantes[1][0] = "333"
+    arreglo_de_estudiantes[1][1] = "444"
     arreglo_de_estudiantes[1][2] = "activo"
     arreglo_de_estudiantes[1][3] = "2001-12-06"
     arreglo_de_estudiantes[1][4] = "Ramiro"
     arreglo_de_estudiantes[1][5] = "Nacido en Misiones"
     arreglo_de_estudiantes[1][6] = "Dibujar y pintar"
     arreglo_de_estudiantes[1][7] = "estudiante"
+    arreglo_de_estudiantes[1][8] = ""
 
     #Usuario3 dec vars
     arreglo_de_estudiantes[2][0] = "estudiante3@ayed.com"
@@ -388,6 +400,7 @@ def declarar_constantes():
     arreglo_de_estudiantes[2][5] = "Nacida en San Francisco"
     arreglo_de_estudiantes[2][6] = "Cocinar y cantar en el coro"
     arreglo_de_estudiantes[2][7] = "estudiante"
+    arreglo_de_estudiantes[2][8] = ""
 
     #Usuario4 dec vars
     arreglo_de_estudiantes[3][0] = "estudiante4@ayed.com"
@@ -398,6 +411,7 @@ def declarar_constantes():
     arreglo_de_estudiantes[3][5] = "Nacida en San Fernando"
     arreglo_de_estudiantes[3][6] = "Cocinar y cantar en el coro"
     arreglo_de_estudiantes[3][7] = "estudiante"
+    arreglo_de_estudiantes[3][8] = ""
 
     #Moderador1 dec vars
     arreglo_de_moderadores[0][0] = "mod1@ayed.com"
@@ -408,6 +422,7 @@ def declarar_constantes():
     arreglo_de_moderadores[0][5] = "Nacida en Rosario"
     arreglo_de_moderadores[0][6] = "Viajar"
     arreglo_de_moderadores[0][7] = "moderador"
+
 
     intentos_restantes = 3
     email_usuario_autenticado = ""
