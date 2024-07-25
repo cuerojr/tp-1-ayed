@@ -212,19 +212,7 @@ email_usuario_autenticado, usuario1_email, usuario2_email, usuario3_email, usuar
 '''
 def mostrar_todos_los_candidatos():
     print("Candidatos\n")
-    # if email_usuario_autenticado == usuario1_email:
-    #     mostrar_datos("", "", usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, "")
-    #     print("\n")
-    #     mostrar_datos("", "", usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, "")
-    # elif email_usuario_autenticado == usuario2_email:
-    #     mostrar_datos("", "", usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, "")
-    #     print("\n")
-    #     mostrar_datos("", "", usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, "")
-    # elif email_usuario_autenticado == usuario3_email:
-    #     mostrar_datos("", "", usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, "")
-    #     print("\n")
-    #     mostrar_datos("", "", usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, "")
-
+    mostrar_datos()
 '''
 FUN dar_me_gusta_al_candidato
 usuario1_me_gusta, usuario2_me_gusta, usuario3_me_gusta, nombre_candidato, email_usuario_autenticado, usuario1_nombre, usuario2_nombre, usuario3_nombre: str
@@ -265,51 +253,42 @@ FUN editar_mi_fecha_de_nacimiento
 usuario1_fecha_de_nacimiento, usuario2_fecha_de_nacimiento, usuario3_fecha_de_nacimiento, nueva_fecha_de_nacimiento: str
 '''
 def editar_mi_fecha_de_nacimiento():
-    global usuario1_fecha_de_nacimiento, usuario2_fecha_de_nacimiento, usuario3_fecha_de_nacimiento 
+    global arreglo_de_estudiantes
 
-    # nueva_fecha_de_nacimiento = str(input("Ingrese su fecha de nacimiento: "))
-    # if (email_usuario_autenticado == usuario1_email):
-    #     usuario1_fecha_de_nacimiento = nueva_fecha_de_nacimiento
-    # elif (email_usuario_autenticado == usuario2_email):
-    #     usuario2_fecha_de_nacimiento = nueva_fecha_de_nacimiento
-    # elif (email_usuario_autenticado == usuario3_email):
-    #     usuario3_fecha_de_nacimiento = nueva_fecha_de_nacimiento
-    # else:
-    #     print("Error")
+    nueva_fecha_de_nacimiento = str(input("Ingrese su fecha de nacimiento: "))
+    for i in range(8):
+        if (email_usuario_autenticado == arreglo_de_estudiantes[i][0]):
+            arreglo_de_estudiantes[i][3] = nueva_fecha_de_nacimiento
+        else:
+            print("Error")
 
 '''
 FUN editar_mi_biografia
 usuario1_biografia, usuario2_biografia, usuario3_biografia, nueva_biografia: str
 '''
 def editar_mi_biografia():
-    global usuario1_biografia, usuario2_biografia, usuario3_biografia
+    global arreglo_de_estudiantes
 
-    # nueva_biografia = str(input("Ingrese su biografia: "))
-    # if (email_usuario_autenticado == usuario1_email):
-    #     usuario1_biografia = nueva_biografia
-    # elif (email_usuario_autenticado == usuario2_email):
-    #     usuario2_biografia = nueva_biografia
-    # elif (email_usuario_autenticado == usuario3_email):
-    #     usuario3_biografia = nueva_biografia
-    # else:
-    #     print("El ususario no existe")
+    nueva_biografia = str(input("Ingrese su biografia: "))
+    for i in range(8):
+        if (email_usuario_autenticado == arreglo_de_estudiantes[i][0]):
+            arreglo_de_estudiantes[i][5] = nueva_biografia
+        else:
+            print("El ususario no existe")
 
 '''
 FUN editar_mis_hobbies
 usuario1_hobbies, usuario2_hobbies, usuario3_hobbies, nuevos_hobbies: str
 '''
 def editar_mis_hobbies():
-    global usuario1_hobbies, usuario2_hobbies, usuario3_hobbies
+    global arreglo_de_estudiantes
 
-    # nuevos_hobbies = str(input("Ingrese sus hobbies: "))
-    # if (email_usuario_autenticado == usuario1_email):
-    #     usuario1_hobbies = nuevos_hobbies
-    # elif (email_usuario_autenticado == usuario2_email):
-    #     usuario2_hobbies = nuevos_hobbies
-    # elif (email_usuario_autenticado == usuario3_email):
-    #     usuario3_hobbies = nuevos_hobbies
-    # else:
-    #     print("Error")
+    nuevos_hobbies = str(input("Ingrese sus hobbies: "))
+    for i in range(8):
+        if (email_usuario_autenticado == arreglo_de_estudiantes[i][0]):
+            arreglo_de_estudiantes[i][6] = nuevos_hobbies
+        else:
+            print("Error")
 
 '''
 FUN mostrar_edad
@@ -330,25 +309,19 @@ def mostrar_edad(fecha):
 FUN mostrar_datos
 usuario_email, usuario_contraseña, usuario_nombre, usuario_fecha_de_nacimiento, usuario_biografia, usuario_hobbies, usuario_me_gusta: str
 '''
-def mostrar_datos(usuario_email, usuario_contraseña, usuario_nombre, usuario_fecha_de_nacimiento, usuario_biografia, usuario_hobbies, usuario_me_gusta):
-    
-    if(usuario_email):
-        print("\nEmail: ", usuario_email)
-    if(usuario_contraseña):
-        print("Contraseña: ", usuario_contraseña)
-    if(usuario_nombre):   
-        print("Nombre: ", usuario_nombre)
-    if(usuario_fecha_de_nacimiento):   
-        print("Fecha de nacimiento: ", usuario_fecha_de_nacimiento)
-    if(usuario_biografia):   
-        print("Biografia: ", usuario_biografia)
-    if(usuario_fecha_de_nacimiento):   
-        print("Edad: ", mostrar_edad(usuario_fecha_de_nacimiento), "años")
-    if(usuario_hobbies):   
-        print("Hobbies: ", usuario_hobbies)
-    if(usuario_me_gusta):   
-        print("Me gusta: ", usuario_me_gusta)
-    
+def mostrar_datos():
+
+    for i in range(8):
+            print("Nombre: ", arreglo_de_estudiantes[i][2])
+            print("Fecha de nacimiento: ", arreglo_de_estudiantes[i][3])
+            print("Biografia: ", arreglo_de_estudiantes[i][4])
+            print("Edad: ", mostrar_edad(arreglo_de_estudiantes[i][5]), "años")
+            print("Hobbies: ", arreglo_de_estudiantes[i][6])
+            print("Me gusta: ",)
+
+def me_gusta():
+    print("Dar me gusta\n")
+    megusta = str(input("Ingresar nombre de estudiante "))
 
 def validar_numero():
     while True:
@@ -463,6 +436,7 @@ def iniciar_sesion():
             if (email == arreglo_de_estudiantes[i][0] and contraseña == arreglo_de_estudiantes[i][1] and arreglo_de_estudiantes[i][2] == "activo"):
                 os.system("cls")                
                 email_usuario_autenticado = email
+                
                 isLoggedIn = True
                 tipo_usuario_autenticado = arreglo_de_estudiantes[i][7]
 
@@ -480,3 +454,4 @@ def ejecutar_sistema_principal():
         mostrar_menu_completo()
             
 ejecutar_sistema_principal()
+
