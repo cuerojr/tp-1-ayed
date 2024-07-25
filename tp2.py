@@ -30,18 +30,18 @@ def ver_estadisticas():
 
 def menu_estudiante():
     global isLoggedIn
-    print("\nMenu Estudiante")
+    print("\nMenu Estudiante\n")
     print("1. Ingresar datos")
     print("2. Ver estadísticas")
     print("0. Salir")
     
-    opcion = validar_numero()
-    while opcion < 0 and opcion > 3:
+    opc = validar_numero()
+    while opc < 0 and opc > 3:
         print("Opción inválida")
-        opcion = validar_numero()
+        opc = validar_numero()
 
-    while opcion != 0:
-        match opcion:
+    while opc != 0:
+        match opc:
             case 1:
                 ingresar_datos_estudiantes(estudiantes_registrados)                
             case 2:
@@ -54,10 +54,10 @@ def menu_estudiante():
         print("1. Ingresar datos")
         print("2. Ver estadísticas")
         print("0. Salir")
-        opcion = validar_numero()
-        while opcion < 0 and opcion > 3:
+        opc = validar_numero()
+        while opc < 0 and opc > 3:
             print("Opción inválida")
-            opcion = validar_numero()
+            opc = validar_numero()
 
 def validar_ingreso():
     global isLoggedIn
@@ -136,9 +136,9 @@ def registrar(MAX_CANT_ESTUDIANTES,MAX_CANT_MODERADORES,estudiantes_registrados,
     print(" b. Registrar moderador")
     print(" c. Volver")
 
-    opcion = str(input("Ingrese su opción: "))
-    while opcion != "c":
-        match opcion:
+    opc = str(input("Ingrese su opción: "))
+    while opc != "c":
+        match opc:
             case "a": 
                 estudiantes_registrados = registrar_estudiante(estudiantes_registrados, MAX_CANT_ESTUDIANTES) # type: ignore            
             case "b": 
@@ -149,7 +149,7 @@ def registrar(MAX_CANT_ESTUDIANTES,MAX_CANT_MODERADORES,estudiantes_registrados,
         print(" a. Registrar estudiante")
         print(" b. Registrar moderador")
         print(" c. Volver")
-        opcion = str(input("Ingrese su opción: "))
+        opc = str(input("Ingrese su opción: "))
     return estudiantes_registrados, moderadores_registrados
 
 def validar_numero():
@@ -169,13 +169,13 @@ def mostrar_menu():
 def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES,MIN_CANT_MODERADORES,MAX_CANT_MODERADORES,estudiantes_registrados,moderadores_registrados,arreglo_de_estudiantes,arreglo_de_moderadores):
 
     mostrar_menu()     
-    opcion = validar_numero()
-    while opcion < 0 and opcion > 3:
+    opc = validar_numero()
+    while opc < 0 and opc > 3:
         print("Opción inválida")
-        opcion = validar_numero()
+        opc = validar_numero()
 
-    while opcion != 0:
-        match opcion:
+    while opc != 0:
+        match opc:
             case 1:
                 estudiantes_registrados, moderadores_registrados = registrar(MAX_CANT_ESTUDIANTES, MAX_CANT_MODERADORES, estudiantes_registrados,moderadores_registrados)
             case 2:
@@ -184,10 +184,10 @@ def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES,MIN_C
                 print("Bonuses")
 
         mostrar_menu()
-        opcion = validar_numero()
-        while opcion < 0 and opcion > 3:
+        opc = validar_numero()
+        while opc < 0 and opc > 3:
             print("Opción inválida")
-            opcion = validar_numero()
+            opc = validar_numero()
 
     os.system("cls")
     print("Sesión cerrada. ¡Hasta luego!")
