@@ -337,9 +337,7 @@ def menu_moderadores(arreglo_usuarios_creados, MODERADORES_INDEX):
             case 1:
                 ingresar_datos_estudiantes(arreglo_usuarios_creados)                
             case 2:
-                ver_estadisticas()  
-            case 0:
-                isLoggedIn = False  
+                ver_estadisticas() 
 
         # os.system("cls")
         print("\nMenu Estudiante")
