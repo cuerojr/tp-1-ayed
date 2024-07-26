@@ -29,12 +29,6 @@ for i in range(8):
     for j in range(8):
         arreglo_me_gusta[i][j] = random.randint(0, 1) # Populacion aleatoria de me_gusta
 
-def ingresar_datos_estudiantes(estudiantes_registrados):
-    print(f"ingresar_datos_estudiantes {estudiantes_registrados}")
-
-def ver_estadisticas():
-    print("ver_estadisticas")
-
 def mostrar_menu_estudiante():
     print("Menu ")
     print("\n1. Gestionar mi perfil")
@@ -44,7 +38,6 @@ def mostrar_menu_estudiante():
     print("0. Salir")
 
 def menu_estudiante():
-    global isLoggedIn
     mostrar_menu_estudiante()
     
     opc = validar_numero()
@@ -252,7 +245,7 @@ def eliminar_mi_perfil():
 def perfil_eliminado():  # solo cambiar a inactivo
     for i in range(estudiantes_registrados):
         if  arreglo_de_estudiantes[i][7] == "iniciado":
-            arreglo_de_estudiantes[i][1] = "inactivo" #nombre
+            arreglo_de_estudiantes[i][5] = "inactivo" 
     print("\nPerfil eliminado exitosamente\n")
 
 def gestionar_candidatos():
@@ -311,7 +304,6 @@ def reportar_candidato():
                     print("Error")
         else:
             print("Error")
-
 
 def matcheos():
     os.system("cls")
@@ -388,13 +380,15 @@ def like2():
     os.system("cls")
     print("Likes recibidos y no respondidos: ", contador)
 
+def mostrar_menu_moderadores():
+        print("\nMenu Moderadores\n")
+        print("1. Gestionar usuarios")
+        print("2. Gestionar reportes")
+        print("3. Reportes estadísticos")
+        print("0. Salir")
+
 def menu_moderadores():
-    global isLoggedIn
-    print("\nMenu Moderadores\n")
-    print("1. Ingresar datos")
-    print("2. Ver estadísticas")
-    print("0. Salir")
-    
+    mostrar_menu_moderadores
     opc = validar_numero()
     while opc < 0 and opc > 3:
         print("Opción inválida")
@@ -403,22 +397,118 @@ def menu_moderadores():
     while opc != 0:
         match opc:
             case 1:
-                ingresar_datos_estudiantes(estudiantes_registrados)                
+                gestionar_usuarios()
             case 2:
-                ver_estadisticas()  
+                gestionar_reportes()
+            case 3:
+                reportes_estadisticos_mods()
             case 0:
-                isLoggedIn = False  
-
-        # os.system("cls")
-        print("\nMenu Estudiante")
-        print("1. Ingresar datos")
-        print("2. Ver estadísticas")
-        print("0. Salir")
+                print("Sesión cerrada. ¡Hasta luego!")
+                isLoggedIn = False
+                for i in range(moderadores_registrados):
+                    if  arreglo_de_moderadores[i][7] == "iniciado":  # <------ chequear esto
+                        arreglo_de_moderadores[i][7] = "no iniciado"
+                os.system("cls")
+        os.system("cls")
+        mostrar_menu_moderadores()
         opc = validar_numero()
         while opc < 0 and opc > 3:
             print("Opción inválida")
             opc = validar_numero()
 
+def gestionar_usuarios():
+    os.system("cls")
+    print("\nGestionar usuarios\n")
+    print("a. Desactivar usuario")  
+    print("b. Volver") 
+    opc = str(input("Ingrese su opción: "))
+
+    while opc != "b":
+        match opc:
+            case "a":
+                desactivar_usuario()
+
+        os.system("cls")
+        print("\nGestionar usuarios\n")
+        print("a. Desactivar usuario")  
+        print("b. Volver") 
+        opc = str(input("Opción inválida. Ingrese de nuevo: "))
+
+def desactivar_usuario():
+    os.system("cls")
+    print("\nDesactivar usuario\n")
+    desactivar = str(input("Ingresar nombre o ID de usuario a desactivar: "))
+    for i in range(estudiantes_registrados):
+        if desactivar == arreglo_de_estudiantes[i][0] or desactivar == arreglo_de_estudiantes[i][1]:
+            arreglo_de_estudiantes[i][5] = "inactivo"
+        else:
+            print("Error")
+
+def gestionar_reportes():
+    os.system("cls")
+    print("\nGestionar reportes\n")
+    print("a. Ver reportes")  
+    print("b. Volver") 
+    opc = str(input("Ingrese su opción: "))
+
+    while opc != "b":
+        match opc:
+            case "a":
+                ver_reportes()
+        os.system("cls")
+        print("\nGestionar reportes\n")
+        print("a. Ver reportes")  
+        print("b. Volver") 
+        opc = str(input("Opción inválida. Ingrese de nuevo: "))
+
+def ver_reportes():   #<-----------------------------------------------------bastante dudoso(no lo probe)
+    for i in range(arreglo_reportes):       #slot usuario
+        os.system("cls")
+        print("\nReportes\n")
+        for j in range(arreglo_reportes):       #slot del reporte
+            if  arreglo_reportes[i][j] == "0":
+                print("ID: ", arreglo_de_estudiantes[i][0])
+                print("Nombre: ", arreglo_de_estudiantes[i][1])
+                for h in range(arreglo_reportes):                   #para revisar cada reporte y tomar una decisión
+                    if arreglo_reportes[i][h] != "" and arreglo_reportes[i][h] != "1" and arreglo_reportes[i][h] != "2":
+                        print(arreglo_informe_reportes[i][h])
+                        print("\n¿Que acción desea tomar?\n")
+                        print("a. Ignorar reporte")
+                        print("b. Desactivar usuario")
+                        opc = str(input("Ingrese su opción:"))
+                        while opc != "b" and opc != "a":
+                            match opc:
+                                case "a":
+                                    arreglo_reportes[i][h] = "2"
+                                case "b":
+                                    arreglo_reportes[i][h] = "1"
+                                    arreglo_de_estudiantes[i][5] = "inactivo"
+                            os.system("cls")
+                            print(arreglo_informe_reportes[i][h])
+                            print("\n¿Que acción desea tomar?\n")
+                            print("a. Ignorar reporte")
+                            print("b. Desactivar usuario")
+                            opc = str(input("Opción inválida. Ingrese de nuevo: "))
+                        os.system("cls")
+                        print("\nEl reporte ha sido tomado\n")
+                    else:
+                        print("Error")
+            else:
+                print("No hay reportes pendientes")
+
+
+def reportes_estadisticos_mods():
+    print("\nReportes estadisticos\n")
+    print("En construcción")  
+    print("a. Volver") 
+    opc = str(input("Ingrese su opción: "))
+
+    while opc != "a":
+        print("\nReportes estadisticos\n")
+        print("En construcción")  
+        print("a. Volver") 
+        opc = str(input("Opción inválida. Ingrese de nuevo: "))
+        
 def validar_ingreso():
     global isLoggedIn
     intentos = 3
@@ -483,7 +573,7 @@ def ingresar_datos_de_estudiantes(estudiantes_registrados):
     arreglo_de_estudiantes[estudiantes_registrados][2] = apellido
     arreglo_de_estudiantes[estudiantes_registrados][3] = email
     arreglo_de_estudiantes[estudiantes_registrados][4] = "estudiante"
-    arreglo_de_estudiantes[estudiantes_registrados][5] = "inactivo"
+    arreglo_de_estudiantes[estudiantes_registrados][5] = "activo"
     contraseña = input("Ingrese su contraseña: ")
     asegurar_contraseña = input("Vuelva a ingresar su contraseña: ")
     while contraseña != asegurar_contraseña:
