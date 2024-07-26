@@ -20,12 +20,14 @@ estudiantes_registrados = 0
 moderadores_registrados = 0
 
 isLoggedIn = False
-arreglo_de_estudiantes = [[""]*12 for i in range(8)] # Arreglo multidimensional de 8x8 de caracteres
+arreglo_informe_reportes = [[""]*8 for i in range(8)] # Arreglo multidimensional de 8x8 de caracteres
+arreglo_reportes = [[]*8 for i in range(8)] # Arreglo multidimensional de 8x8 de enteros
+arreglo_de_estudiantes = [[""]*12 for i in range(8)] # Arreglo multidimensional de 12x8 de caracteres
 arreglo_de_moderadores = [[""]*9 for i in range(4)] # Arreglo multidimensional de 8x4 de caracteres
-arreglo_likes = [[0]*8 for i in range(8)] # Arreglo multidimensional de 8x8 de enteros
+arreglo_me_gusta = [[0]*8 for i in range(8)] # Arreglo multidimensional de 8x8 de enteros
 for i in range(8):
     for j in range(8):
-        arreglo_likes[i][j] = random.randint(0, 1) # Populacion aleatoria de likes
+        arreglo_me_gusta[i][j] = random.randint(0, 1) # Populacion aleatoria de me_gusta
 
 def ingresar_datos_estudiantes(estudiantes_registrados):
     print(f"ingresar_datos_estudiantes {estudiantes_registrados}")
@@ -105,10 +107,11 @@ def editar_mis_datos_personales():
     print("a. Editar mi fecha de nacimiento")
     print("b. Editar mi biografía")
     print("c. Editar mis hobbies")
-    print("d. Volver")  
+    print("d. Eliminar mis me gusta")
+    print("e. Volver")  
     opc = str(input("Ingrese su opción: "))
 
-    while opc != "d":
+    while opc != "e":
         match opc:    
             case "a": 
                 editar_mi_fecha_de_nacimiento()
@@ -116,6 +119,8 @@ def editar_mis_datos_personales():
                 editar_mi_biografia()          
             case "c":
                 editar_mis_hobbies()  
+            case "d":
+                eliminar_mis_me_gusta()
 
         os.system("cls")
         mostrar_menu_de_mis_datos()
@@ -124,7 +129,8 @@ def editar_mis_datos_personales():
         print("a. Editar mi fecha de nacimiento")
         print("b. Editar mi biografía")
         print("c. Editar mis hobbies")  
-        print("d. Volver")  
+        print("d. Eliminar mis me gusta")
+        print("e. Volver")   
         opc = str(input("Opción inválida. Ingrese de nuevo: "))
 
 def mostrar_menu_de_mis_datos():
@@ -164,6 +170,31 @@ def editar_mis_hobbies():
         else:
             print("Error")
 
+def eliminar_mis_me_gusta():
+    mostrar_me_gusta()
+    eliminarmegusta = str(input("Ingrese nombre de usuario para eliminar de la lista: "))
+    for i in range(estudiantes_registrados):
+        if  arreglo_de_estudiantes[i][7] == "iniciado":
+            for j in range(estudiantes_registrados):
+                if eliminarmegusta == arreglo_de_estudiantes[j][1]:
+                    arreglo_me_gusta[i][j] = 0
+                else:
+                    print("Error")
+        else:
+            print("Error")
+                
+def mostrar_me_gusta():
+    print("\nMis me gusta\n")
+    for i in range(estudiantes_registrados):
+        if  arreglo_de_estudiantes[i][7] == "iniciado":
+            for j in range(estudiantes_registrados):
+                if arreglo_me_gusta[i][j] == 1 and arreglo_de_estudiantes[j][1] != "":
+                    print (arreglo_de_estudiantes[j][1])
+                else:
+                    print("Error")
+        else:
+            print("Error")
+
 def mostrar_edad(fecha):
     fecha_nacimiento = datetime.strptime(fecha, '%Y-%m-%d')
     fecha_actual = datetime.now()
@@ -174,7 +205,7 @@ def mostrar_edad(fecha):
     
     return edad
 
-def mostrar_datos():
+def mostrar_datos():   #cambio en los me gusta de esta funcion
 
     for i in range(estudiantes_registrados):
         print("\nID: ",arreglo_de_estudiantes[i][0])
@@ -184,24 +215,21 @@ def mostrar_datos():
         print("Biografia: ", arreglo_de_estudiantes[i][9])
         print("Edad: ", mostrar_edad(arreglo_de_estudiantes[i][8]), "años")
         print("Hobbies: ", arreglo_de_estudiantes[i][10])
-        print("Me gusta: ", arreglo_de_estudiantes[i][11])
+        print(mostrar_me_gusta())
         print("Estado: ", arreglo_de_estudiantes[i][2])
 
 def me_gusta():
     print("\nDar me gusta\n")
-    megusta = str(input("Ingresar nombre 0 ID de estudiante: "))
-
+    megusta = str(input("Ingresar nombre de estudiante: "))
     for i in range(estudiantes_registrados):
         if  arreglo_de_estudiantes[i][7] == "iniciado":
-            arreglo_de_estudiantes[i][8] = megusta
             for j in range(estudiantes_registrados):
-                if megusta == arreglo_de_estudiantes[j][1] or megusta == arreglo_de_estudiantes[j][0] :
-                    arreglo_likes[i][j] = 1
+                if megusta == arreglo_de_estudiantes[j][1]:
+                    arreglo_me_gusta[i][j] = 1
                 else:
                     print("Error")
         else:
-            print("Error")
-            
+            print("Error")            
 
 def eliminar_mi_perfil():
     print("\nEliminar mi perfil")
@@ -221,17 +249,11 @@ def eliminar_mi_perfil():
         print("b. No. Volver")
         opc = str(input("Opción inválida. Ingrese de nuevo: "))
 
-def perfil_eliminado():
+def perfil_eliminado():  # solo cambiar a inactivo
     for i in range(estudiantes_registrados):
         if  arreglo_de_estudiantes[i][7] == "iniciado":
-            arreglo_de_estudiantes[i][1] = "" #nombre
-            arreglo_de_estudiantes[i][2] = "" #apellido
-            arreglo_de_estudiantes[i][8] = "" #fecha de nacimiento
-            arreglo_de_estudiantes[i][9] = "" #bibliografia
-            arreglo_de_estudiantes[i][10] = "" #hobbies
-            arreglo_de_estudiantes[i][11] = "" #likes
+            arreglo_de_estudiantes[i][1] = "inactivo" #nombre
     print("\nPerfil eliminado exitosamente\n")
-
 
 def gestionar_candidatos():
     os.system("cls")
@@ -274,7 +296,22 @@ def ver_candidatos():
         opc = str(input("Opción inválida. Ingrese de nuevo: "))
 
 def reportar_candidato():
-    print("reportar")
+    print("\nReportar candidatos\n")
+    reportado = str(input("Ingrese nombre o ID de usuario a reportar: "))
+    reporte = str(input("Ingrese su reporte: "))
+    for i in range(estudiantes_registrados):
+        if  arreglo_de_estudiantes[i][7] == "iniciado":
+            for j in range(estudiantes_registrados):
+                if reportado == arreglo_de_estudiantes[j][1] or reportado == arreglo_de_estudiantes[j][0]:
+                    arreglo_reportes[i][j] = 0
+                    arreglo_informe_reportes[i][j] = reporte
+                    os.system("cls")
+                    print("\nReporte exitoso.\n")
+                else:
+                    print("Error")
+        else:
+            print("Error")
+
 
 def matcheos():
     os.system("cls")
