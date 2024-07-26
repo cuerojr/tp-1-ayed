@@ -20,8 +20,12 @@ estudiantes_registrados = 0
 moderadores_registrados = 0
 
 isLoggedIn = False
-arreglo_de_estudiantes = [[""]*9 for i in range(8)] # Arreglo multidimensionl de 8x8 de caracteres
-arreglo_de_moderadores = [[""]*9 for i in range(4)] # Arreglo multidimensionl de 8x4 de caracteres
+arreglo_de_estudiantes = [[""]*12 for i in range(8)] # Arreglo multidimensional de 8x8 de caracteres
+arreglo_de_moderadores = [[""]*9 for i in range(4)] # Arreglo multidimensional de 8x4 de caracteres
+arreglo_likes = [[0]*8 for i in range(8)] # Arreglo multidimensional de 8x8 de enteros
+for i in range(8):
+    for j in range(8):
+        arreglo_likes[i][j] = random.randint(0, 1) # Populacion aleatoria de likes
 
 def ingresar_datos_estudiantes(estudiantes_registrados):
     print(f"ingresar_datos_estudiantes {estudiantes_registrados}")
@@ -120,6 +124,60 @@ def editar_mis_datos_personales():
         print("d. Volver")  
         opc = str(input("Opción inválida. Ingrese de nuevo: "))
 
+def editar_mi_fecha_de_nacimiento():
+    nueva_fecha_de_nacimiento = str(input("Ingrese su fecha de nacimiento: "))
+    for i in range(estudiantes_registrados):
+        if  arreglo_de_estudiantes[i][7] == "iniciado":
+            arreglo_de_estudiantes[i][8] = nueva_fecha_de_nacimiento
+        else:
+            print("Error")
+
+def editar_mi_biografia():
+    nueva_biografia = str(input("Ingrese su biografia: "))
+    for i in range(estudiantes_registrados):
+        if  arreglo_de_estudiantes[i][7] == "iniciado":
+            arreglo_de_estudiantes[i][9] = nueva_biografia
+        else:
+            print("Error")
+
+def editar_mis_hobbies():
+    nuevos_hobbies = str(input("Ingrese sus hobbies: "))
+    for i in range(estudiantes_registrados):
+        if  arreglo_de_estudiantes[i][7] == "iniciado":
+            arreglo_de_estudiantes[i][10] = nuevos_hobbies
+        else:
+            print("Error")
+
+def mostrar_edad(fecha):
+    fecha_nacimiento = datetime.strptime(fecha, '%Y-%m-%d')
+    fecha_actual = datetime.now()
+    
+    edad = fecha_actual.year - fecha_nacimiento.year
+    if (fecha_actual.month, fecha_actual.day) < (fecha_nacimiento.month, fecha_nacimiento.day):
+        edad -= 1
+    
+    return edad
+
+def mostrar_datos():
+
+    for i in range(estudiantes_registrados):
+        print("\nNombre: ", arreglo_de_estudiantes[i][1])
+        print("Apellido: ", arreglo_de_estudiantes[i][2])
+        print("Fecha de nacimiento: ", arreglo_de_estudiantes[i][8])
+        print("Biografia: ", arreglo_de_estudiantes[i][9])
+        print("Edad: ", mostrar_edad(arreglo_de_estudiantes[i][8]), "años")
+        print("Hobbies: ", arreglo_de_estudiantes[i][10])
+        print("Me gusta: ", arreglo_de_estudiantes[i][11])
+        print("Estado: ", arreglo_de_estudiantes[i][2])
+
+def me_gusta():
+    print("\nDar me gusta\n")
+    megusta = str(input("Ingresar nombre de estudiante: "))
+    for i in range(estudiantes_registrados):
+        if  arreglo_de_estudiantes[i][7] == "iniciado":
+            arreglo_de_estudiantes[i][8] = megusta
+            arreglo_likes
+
 def gestionar_candidatos():
     os.system("cls")
 
@@ -210,14 +268,16 @@ def validar_ingreso():
     email = input("Ingrese su email: ")
     contraseña = getpass.getpass("Ingrese su contraseña: ")
     while isLoggedIn:
-        for i in range(8):
-            if (email == "admin@ayed.com" and contraseña == "admin123" or email == arreglo_de_estudiantes[i][6] and contraseña == arreglo_de_estudiantes[i][6]):
+        for i in range(estudiantes_registrados):
+            if (email == "admin@ayed.com" and contraseña == "admin123" or email == arreglo_de_estudiantes[i][6] and contraseña == arreglo_de_estudiantes[i][6] and arreglo_de_estudiantes[i][5] == "activo"):
                 isLoggedIn = True
+                arreglo_de_estudiantes[i][7] = "iniciado"
                 print("Sesión iniciada correctamente")
                 menu_estudiante()
-        for i in range(4):
+        for i in range(moderadores_registrados):
             if (email == arreglo_de_moderadores[i][5] and contraseña == arreglo_de_moderadores[i][5]):
                 isLoggedIn = True
+                arreglo_de_moderadores[i][6] = "iniciado"
                 print("Sesión iniciada correctamente")
                 menu_moderadores()
         print("Email o contraseña incorrectos")
@@ -233,7 +293,6 @@ def ingresar(MIN_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, estudiantes_registrados
     else:
         os.system("cls")
         print("No se puede ingresar, cantidad de estudiantes y moderadores insuficientes")
-
 
 def ingresar_datos_moderadores(moderadores_registrados):
     os.system("cls")
@@ -253,6 +312,7 @@ def ingresar_datos_moderadores(moderadores_registrados):
         asegurar_contraseña = input("Vuelva a ingresar su contraseña: ")
         if contraseña == asegurar_contraseña:
             arreglo_de_moderadores[moderadores_registrados][5] = contraseña
+    arreglo_de_moderadores[moderadores_registrados][6] = "no iniciado"
 
 def ingresar_datos_de_estudiantes(estudiantes_registrados):
     os.system("cls")
@@ -274,6 +334,7 @@ def ingresar_datos_de_estudiantes(estudiantes_registrados):
         asegurar_contraseña = input("Vuelva a ingresar su contraseña: ")
         if contraseña == asegurar_contraseña:
             arreglo_de_estudiantes[estudiantes_registrados][6] = contraseña
+    arreglo_de_estudiantes[estudiantes_registrados][7] = "no iniciado"
 
 def registrar_estudiante(estudiantes_registrados, MAX_CANT_ESTUDIANTES):
     if (estudiantes_registrados < MAX_CANT_ESTUDIANTES):
