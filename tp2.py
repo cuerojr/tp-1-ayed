@@ -140,7 +140,7 @@ def mostrar_menu_de_mis_datos():
             print("Mis me gusta: ", arreglo_de_estudiantes[i][11])
             print("Mi estado: ", arreglo_de_estudiantes[i][2])
 
-def editar_mi_fecha_de_nacimiento():
+def editar_mi_fecha_de_nacimiento(): # chequear el tema de que pasa si no esta bien escrita la fecha
     nueva_fecha_de_nacimiento = str(input("Ingrese su fecha de nacimiento: "))
     for i in range(estudiantes_registrados):
         if  arreglo_de_estudiantes[i][7] == "iniciado":
@@ -190,10 +190,18 @@ def mostrar_datos():
 def me_gusta():
     print("\nDar me gusta\n")
     megusta = str(input("Ingresar nombre 0 ID de estudiante: "))
+
     for i in range(estudiantes_registrados):
         if  arreglo_de_estudiantes[i][7] == "iniciado":
             arreglo_de_estudiantes[i][8] = megusta
-            arreglo_likes
+            for j in range(estudiantes_registrados):
+                if megusta == arreglo_de_estudiantes[j][1] or megusta == arreglo_de_estudiantes[j][0] :
+                    arreglo_likes[i][j] = 1
+                else:
+                    print("Error")
+        else:
+            print("Error")
+            
 
 def eliminar_mi_perfil():
     print("\nEliminar mi perfil")
