@@ -330,16 +330,63 @@ def matcheos():
 def reportes_estadisticos():
     os.system("cls")
     print("\nReportes estadísticos\n")
-    print("En contruccion")
+    porcentaje_matcheos()
+    like1()
+    like2()
     print("a. Volver")
     opc = str(input("Ingrese su opción: "))
 
     while opc != "a":
         os.system("cls")
         print("\nReportes estadísticos\n")
-        print("En contruccion")
+        porcentaje_matcheos()
+        like1()
+        like2()
         print("a. Volver")  
         opc = str(input("Opción inválida. Ingrese de nuevo: "))
+
+def porcentaje_matcheos():
+    matcheos = 0
+    for i in range(estudiantes_registrados):
+        if  arreglo_de_estudiantes[i][7] == "iniciado":
+            for j in range(estudiantes_registrados):
+                if arreglo_me_gusta[i][j] == 1 and arreglo_me_gusta[j][i] == 1:
+                    matcheos = matcheos + 1
+                else:
+                    print("Error")
+            porcentaje = (matcheos * 100)/estudiantes_registrados - 1
+        else:
+            print("Error")
+    os.system("cls")
+    print("Matcheados sobre el % posible: ", int(porcentaje), "%")
+
+def like1():
+    contador = 0
+    for i in range(estudiantes_registrados):
+        if  arreglo_de_estudiantes[i][7] == "iniciado":
+            for j in range(estudiantes_registrados):
+                if arreglo_me_gusta[i][j] == 1 and arreglo_me_gusta[j][i] == 0:
+                    contador = contador + 1
+                else:
+                    print("Error")
+        else:
+            print("Error")
+    os.system("cls")
+    print("Likes dados y no recibidos: ", contador)
+
+def like2():
+    contador = 0
+    for i in range(estudiantes_registrados):
+        if  arreglo_de_estudiantes[i][7] == "iniciado":
+            for j in range(estudiantes_registrados):
+                if arreglo_me_gusta[i][j] == 0 and arreglo_me_gusta[j][i] == 1:
+                    contador = contador + 1
+                else:
+                    print("Error")
+        else:
+            print("Error")
+    os.system("cls")
+    print("Likes recibidos y no respondidos: ", contador)
 
 def menu_moderadores():
     global isLoggedIn
