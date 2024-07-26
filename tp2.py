@@ -21,7 +21,7 @@ moderadores_registrados = 0
 
 isLoggedIn = False
 arreglo_informe_reportes = [[""]*8 for i in range(8)] # Arreglo multidimensional de 8x8 de caracteres
-arreglo_reportes = [[]*8 for i in range(8)] # Arreglo multidimensional de 8x8 de enteros
+arreglo_reportes = [[""]*8 for i in range(8)] # Arreglo multidimensional de 8x8 de caracteres
 arreglo_de_estudiantes = [[""]*12 for i in range(8)] # Arreglo multidimensional de 12x8 de caracteres
 arreglo_de_moderadores = [[""]*9 for i in range(4)] # Arreglo multidimensional de 8x4 de caracteres
 arreglo_me_gusta = [[0]*8 for i in range(8)] # Arreglo multidimensional de 8x8 de enteros
@@ -143,7 +143,7 @@ def mostrar_menu_de_mis_datos():
             print("Mi biografia: ", arreglo_de_estudiantes[i][9])
             print("Mi edad: ", mostrar_edad(arreglo_de_estudiantes[i][8]), "años")
             print("Mis hobbies: ", arreglo_de_estudiantes[i][10])
-            print("Mis me gusta: ", arreglo_de_estudiantes[i][11])
+            print(mostrar_me_gusta())
             print("Mi estado: ", arreglo_de_estudiantes[i][2])
 
 def editar_mi_fecha_de_nacimiento(): # chequear el tema de que pasa si no esta bien escrita la fecha
@@ -303,7 +303,7 @@ def reportar_candidato():
         if  arreglo_de_estudiantes[i][7] == "iniciado":
             for j in range(estudiantes_registrados):
                 if reportado == arreglo_de_estudiantes[j][1] or reportado == arreglo_de_estudiantes[j][0]:
-                    arreglo_reportes[i][j] = 0
+                    arreglo_reportes[i][j] = "0"
                     arreglo_informe_reportes[i][j] = reporte
                     os.system("cls")
                     print("\nReporte exitoso.\n")
