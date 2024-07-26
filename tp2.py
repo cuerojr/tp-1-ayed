@@ -63,6 +63,9 @@ def menu_estudiante():
             case 0:
                 print("Sesión cerrada. ¡Hasta luego!")
                 isLoggedIn = False
+                for i in range(estudiantes_registrados):
+                    if  arreglo_de_estudiantes[i][7] == "iniciado":  # en vez de utilizar la global, usamos un slot del arreglo <------ Miralo nico(borrar) lo mismo para el loggedIn se puede hacer me imagino
+                        arreglo_de_estudiantes[i][7] = "no iniciado"
                 os.system("cls")
         os.system("cls")
         mostrar_menu_estudiante()
@@ -124,6 +127,19 @@ def editar_mis_datos_personales():
         print("d. Volver")  
         opc = str(input("Opción inválida. Ingrese de nuevo: "))
 
+def mostrar_menu_de_mis_datos():
+    for i in range(estudiantes_registrados):
+        if  arreglo_de_estudiantes[i][7] == "iniciado":
+            print("\nMi ID: ", arreglo_de_estudiantes[i][0])
+            print("Mi nombre: ", arreglo_de_estudiantes[i][1])
+            print("Mi apellido: ", arreglo_de_estudiantes[i][2])
+            print("Mi fecha de nacimiento: ", arreglo_de_estudiantes[i][8])
+            print("Mi biografia: ", arreglo_de_estudiantes[i][9])
+            print("Mi edad: ", mostrar_edad(arreglo_de_estudiantes[i][8]), "años")
+            print("Mis hobbies: ", arreglo_de_estudiantes[i][10])
+            print("Mis me gusta: ", arreglo_de_estudiantes[i][11])
+            print("Mi estado: ", arreglo_de_estudiantes[i][2])
+
 def editar_mi_fecha_de_nacimiento():
     nueva_fecha_de_nacimiento = str(input("Ingrese su fecha de nacimiento: "))
     for i in range(estudiantes_registrados):
@@ -161,7 +177,8 @@ def mostrar_edad(fecha):
 def mostrar_datos():
 
     for i in range(estudiantes_registrados):
-        print("\nNombre: ", arreglo_de_estudiantes[i][1])
+        print("\nID: ",arreglo_de_estudiantes[i][0])
+        print("Nombre: ", arreglo_de_estudiantes[i][1])
         print("Apellido: ", arreglo_de_estudiantes[i][2])
         print("Fecha de nacimiento: ", arreglo_de_estudiantes[i][8])
         print("Biografia: ", arreglo_de_estudiantes[i][9])
@@ -172,11 +189,41 @@ def mostrar_datos():
 
 def me_gusta():
     print("\nDar me gusta\n")
-    megusta = str(input("Ingresar nombre de estudiante: "))
+    megusta = str(input("Ingresar nombre 0 ID de estudiante: "))
     for i in range(estudiantes_registrados):
         if  arreglo_de_estudiantes[i][7] == "iniciado":
             arreglo_de_estudiantes[i][8] = megusta
             arreglo_likes
+
+def eliminar_mi_perfil():
+    print("\nEliminar mi perfil")
+    print("Cuidado! Al aceptar se eliminara todo tu perfi!\n")
+    print("a. Si, continuar")
+    print("b. No. Volver")
+    opc = str(input("Ingrese su opción: "))
+    while opc != "b" or opc != "a":
+        match opc:
+            case "a": 
+                perfil_eliminado()
+    
+        os.system("cls")    
+        print("\nEliminar mi perfil")
+        print("Cuidado! Al aceptar se eliminara todo tu perfi!\n")
+        print("a. Si, continuar")
+        print("b. No. Volver")
+        opc = str(input("Opción inválida. Ingrese de nuevo: "))
+
+def perfil_eliminado():
+    for i in range(estudiantes_registrados):
+        if  arreglo_de_estudiantes[i][7] == "iniciado":
+            arreglo_de_estudiantes[i][1] = "" #nombre
+            arreglo_de_estudiantes[i][2] = "" #apellido
+            arreglo_de_estudiantes[i][8] = "" #fecha de nacimiento
+            arreglo_de_estudiantes[i][9] = "" #bibliografia
+            arreglo_de_estudiantes[i][10] = "" #hobbies
+            arreglo_de_estudiantes[i][11] = "" #likes
+    print("\nPerfil eliminado exitosamente\n")
+
 
 def gestionar_candidatos():
     os.system("cls")
@@ -200,6 +247,26 @@ def gestionar_candidatos():
         print("b. Reportar candidato")    
         print("c. Volver") 
         opc = str(input("Opción inválida. Ingrese de nuevo: "))
+
+def ver_candidatos():
+    print("\nCandidatos\n")
+    mostrar_datos()
+    print("\n\n\na. Dar me gusta")
+    print("\nb. Volver")
+    opc = str(input("Ingrese su opción: "))
+    while opc != "b":
+        match opc:
+            case "a":
+                me_gusta()
+        os.system("cls")
+        print("\nCandidatos\n")
+        mostrar_datos()
+        print("\n\n\na. Dar me gusta")
+        print("\nb. Volver")
+        opc = str(input("Opción inválida. Ingrese de nuevo: "))
+
+def reportar_candidato():
+    print("reportar")
 
 def matcheos():
     os.system("cls")
@@ -269,13 +336,13 @@ def validar_ingreso():
     contraseña = getpass.getpass("Ingrese su contraseña: ")
     while isLoggedIn:
         for i in range(estudiantes_registrados):
-            if (email == "admin@ayed.com" and contraseña == "admin123" or email == arreglo_de_estudiantes[i][6] and contraseña == arreglo_de_estudiantes[i][6] and arreglo_de_estudiantes[i][5] == "activo"):
+            if (email == "admin@ayed.com" and contraseña == "admin123" or email == arreglo_de_estudiantes[i][3] and contraseña == arreglo_de_estudiantes[i][6] and arreglo_de_estudiantes[i][5] == "activo"):
                 isLoggedIn = True
                 arreglo_de_estudiantes[i][7] = "iniciado"
                 print("Sesión iniciada correctamente")
                 menu_estudiante()
         for i in range(moderadores_registrados):
-            if (email == arreglo_de_moderadores[i][5] and contraseña == arreglo_de_moderadores[i][5]):
+            if (email == arreglo_de_moderadores[i][3] and contraseña == arreglo_de_moderadores[i][5]):
                 isLoggedIn = True
                 arreglo_de_moderadores[i][6] = "iniciado"
                 print("Sesión iniciada correctamente")
@@ -319,7 +386,6 @@ def ingresar_datos_de_estudiantes(estudiantes_registrados):
     nombre = input("Ingrese el nombre del estudiante: ")
     apellido = input("Ingrese el apellido del estudiante: ")
     email = input("Ingrese el email del estudiante: ")
-
     arreglo_de_estudiantes[estudiantes_registrados][0] = str(estudiantes_registrados)
     arreglo_de_estudiantes[estudiantes_registrados][1] = nombre
     arreglo_de_estudiantes[estudiantes_registrados][2] = apellido
@@ -391,7 +457,7 @@ def validar_numero():
 
 def mostrar_menu():
     #os.system("cls")
-    print("Menu ")
+    print("\nMenu ")
     print("\n1. Registro")
     print("2. Iniciar sesion")
     print("0. Salir\n")
