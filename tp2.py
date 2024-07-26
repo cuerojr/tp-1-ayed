@@ -25,12 +25,155 @@ arreglo_de_moderadores = [[""]*9 for i in range(4)] # Arreglo multidimensionl de
 
 def ingresar_datos_estudiantes(estudiantes_registrados):
     print(f"ingresar_datos_estudiantes {estudiantes_registrados}")
+
 def ver_estadisticas():
     print("ver_estadisticas")
 
+def mostrar_menu_estudiante():
+    print("Menu ")
+    print("\n1. Gestionar mi perfil")
+    print("2. Gestionar candidatos")
+    print("3. Matcheos")
+    print("4. Reportes estadisticos")
+    print("0. Salir")
+
 def menu_estudiante():
     global isLoggedIn
-    print("\nMenu Estudiante\n")
+    mostrar_menu_estudiante()
+    
+    opc = validar_numero()
+    while opc < 0 and opc > 3:
+        print("Opción inválida")
+        opc = validar_numero()
+
+    while opc != 0:
+        match opc:
+            case 1:
+                gestionar_mi_perfil()
+            case 2:
+                gestionar_candidatos()
+            case 3:
+                matcheos()
+            case 4:
+                reportes_estadisticos()
+            case 0:
+                print("Sesión cerrada. ¡Hasta luego!")
+                isLoggedIn = False
+                os.system("cls")
+        os.system("cls")
+        mostrar_menu_estudiante()
+        opc = validar_numero()
+        while opc < 0 and opc > 3:
+            print("Opción inválida")
+            opc = validar_numero()
+
+def gestionar_mi_perfil():    
+    os.system("cls")
+    print("\nGestionar mi perfil\n")
+    print("a. Editar mis datos personales")
+    print("b. Eliminar mi perfil")    
+    print("c. Volver") 
+    opc = str(input("Ingrese su opción: "))
+
+    while opc != "c":
+        match opc:
+            case "a": 
+                editar_mis_datos_personales()
+            case "b":
+                eliminar_mi_perfil() 
+    
+        os.system("cls")    
+        print("\nGestionar mi perfil\n")
+        print("a. Editar mis datos personales")
+        print("b. Eliminar mi perfil")    
+        print("c. Volver") 
+        opc = str(input("Opción inválida. Ingrese de nuevo: "))
+
+def editar_mis_datos_personales():
+    os.system("cls")
+
+    mostrar_menu_de_mis_datos()
+
+    print("\nEditar mis datos personales\n")
+    print("a. Editar mi fecha de nacimiento")
+    print("b. Editar mi biografía")
+    print("c. Editar mis hobbies")
+    print("d. Volver")  
+    opc = str(input("Ingrese su opción: "))
+
+    while opc != "d":
+        match opc:    
+            case "a": 
+                editar_mi_fecha_de_nacimiento()
+            case "b":
+                editar_mi_biografia()          
+            case "c":
+                editar_mis_hobbies()  
+
+        os.system("cls")
+        mostrar_menu_de_mis_datos()
+
+        print("\nEditar mis datos personales\n")
+        print("a. Editar mi fecha de nacimiento")
+        print("b. Editar mi biografía")
+        print("c. Editar mis hobbies")  
+        print("d. Volver")  
+        opc = str(input("Opción inválida. Ingrese de nuevo: "))
+
+def gestionar_candidatos():
+    os.system("cls")
+
+    print("\nGestionar candidatos\n")
+    print("a. Ver candidatos")
+    print("b. Reportar candidato")    
+    print("c. Volver") 
+    opc = str(input("Ingrese su opción: "))
+
+    while opc != "c":
+        match opc:
+            case "a":
+                ver_candidatos()
+            case "b":
+                reportar_candidato()
+
+        os.system("cls")
+        print("\nGestionar candidatos\n")
+        print("a. Ver candidatos")
+        print("b. Reportar candidato")    
+        print("c. Volver") 
+        opc = str(input("Opción inválida. Ingrese de nuevo: "))
+
+def matcheos():
+    os.system("cls")
+    print("\nMatcheos\n")
+    print("En contruccion")
+    print(" a. Volver")
+    opc = str(input("Ingrese su opción: "))
+
+    while opc != "a":
+        os.system("cls")
+        print("\nMatcheos\n")
+        print("En contruccion!\n")
+        print("a. Volver")         
+        opc = str(input("Opción inválida. Ingrese de nuevo: "))
+
+def reportes_estadisticos():
+    os.system("cls")
+    print("\nReportes estadísticos\n")
+    print("En contruccion")
+    print("a. Volver")
+    opc = str(input("Ingrese su opción: "))
+
+    while opc != "a":
+        os.system("cls")
+        print("\nReportes estadísticos\n")
+        print("En contruccion")
+        print("a. Volver")  
+        opc = str(input("Opción inválida. Ingrese de nuevo: "))
+
+def menu_moderadores():
+    global isLoggedIn
+    print("\nMenu Moderadores\n")
     print("1. Ingresar datos")
     print("2. Ver estadísticas")
     print("0. Salir")
@@ -63,23 +206,32 @@ def validar_ingreso():
     global isLoggedIn
     intentos = 3
 
-    print("Inicia sesión")
+    print("Inicia sesión\n")
     email = input("Ingrese su email: ")
     contraseña = getpass.getpass("Ingrese su contraseña: ")
-    if email == "admin@ayed.com" and contraseña == "admin123":
-        isLoggedIn = True
-        print("Sesión iniciada correctamente")
-        menu_estudiante()
-    else:
+    while isLoggedIn:
+        for i in range(8):
+            if (email == "admin@ayed.com" and contraseña == "admin123" or email == arreglo_de_estudiantes[i][6] and contraseña == arreglo_de_estudiantes[i][6]):
+                isLoggedIn = True
+                print("Sesión iniciada correctamente")
+                menu_estudiante()
+        for i in range(4):
+            if (email == arreglo_de_moderadores[i][5] and contraseña == arreglo_de_moderadores[i][5]):
+                isLoggedIn = True
+                print("Sesión iniciada correctamente")
+                menu_moderadores()
         print("Email o contraseña incorrectos")
         intentos -= 1
+        print("\nQuedan ", intentos, "intentos\n")
+        email = input("Ingrese su email: ")
+        contraseña = getpass.getpass("Ingrese su contraseña: ")
 
 def ingresar(MIN_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, estudiantes_registrados, moderadores_registrados):
     if(MIN_CANT_ESTUDIANTES <= estudiantes_registrados and MIN_CANT_MODERADORES <= moderadores_registrados):
-        print("ingreso exitoso")
+        os.system("cls")
         validar_ingreso()
     else:
-       # os.system("cls")
+        os.system("cls")
         print("No se puede ingresar, cantidad de estudiantes y moderadores insuficientes")
 
 
@@ -93,18 +245,35 @@ def ingresar_datos_moderadores(moderadores_registrados):
     arreglo_de_moderadores[moderadores_registrados][2] = apellido
     arreglo_de_moderadores[moderadores_registrados][3] = email
     arreglo_de_moderadores[moderadores_registrados][4] = "moderador"
+    contraseña = input("Ingrese su contraseña: ")
+    asegurar_contraseña = input("Vuelva a ingresar su contraseña: ")
+    while contraseña != asegurar_contraseña:
+        print("La contraseña no coincide, vuelva a intentar: ")
+        contraseña = input("Ingrese su contraseña: ")
+        asegurar_contraseña = input("Vuelva a ingresar su contraseña: ")
+        if contraseña == asegurar_contraseña:
+            arreglo_de_moderadores[moderadores_registrados][5] = contraseña
 
 def ingresar_datos_de_estudiantes(estudiantes_registrados):
     os.system("cls")
     nombre = input("Ingrese el nombre del estudiante: ")
     apellido = input("Ingrese el apellido del estudiante: ")
     email = input("Ingrese el email del estudiante: ")
+
     arreglo_de_estudiantes[estudiantes_registrados][0] = str(estudiantes_registrados)
     arreglo_de_estudiantes[estudiantes_registrados][1] = nombre
     arreglo_de_estudiantes[estudiantes_registrados][2] = apellido
     arreglo_de_estudiantes[estudiantes_registrados][3] = email
     arreglo_de_estudiantes[estudiantes_registrados][4] = "estudiante"
     arreglo_de_estudiantes[estudiantes_registrados][5] = "inactivo"
+    contraseña = input("Ingrese su contraseña: ")
+    asegurar_contraseña = input("Vuelva a ingresar su contraseña: ")
+    while contraseña != asegurar_contraseña:
+        print("La contraseña no coincide, vuelva a intentar: ")
+        contraseña = input("Ingrese su contraseña: ")
+        asegurar_contraseña = input("Vuelva a ingresar su contraseña: ")
+        if contraseña == asegurar_contraseña:
+            arreglo_de_estudiantes[estudiantes_registrados][6] = contraseña
 
 def registrar_estudiante(estudiantes_registrados, MAX_CANT_ESTUDIANTES):
     if (estudiantes_registrados < MAX_CANT_ESTUDIANTES):
@@ -131,7 +300,7 @@ def registrar_moderador(moderadores_registrados, MAX_CANT_MODERADORES):
 
 def registrar(MAX_CANT_ESTUDIANTES,MAX_CANT_MODERADORES,estudiantes_registrados,moderadores_registrados):
     os.system("cls")
-    print("\nRegistrar usuario")
+    print("\nRegistrar usuario\n")
     print(" a. Registrar estudiante")
     print(" b. Registrar moderador")
     print(" c. Volver")
@@ -164,10 +333,10 @@ def mostrar_menu():
     print("Menu ")
     print("\n1. Registro")
     print("2. Iniciar sesion")
-    print("0. Salir")
+    print("0. Salir\n")
 
 def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES,MIN_CANT_MODERADORES,MAX_CANT_MODERADORES,estudiantes_registrados,moderadores_registrados,arreglo_de_estudiantes,arreglo_de_moderadores):
-
+    os.system("cls")
     mostrar_menu()     
     opc = validar_numero()
     while opc < 0 and opc > 3:
@@ -182,7 +351,7 @@ def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES,MIN_C
                 ingresar(MIN_CANT_ESTUDIANTES,MIN_CANT_MODERADORES,estudiantes_registrados,moderadores_registrados)
             case 3:
                 print("Bonuses")
-
+        
         mostrar_menu()
         opc = validar_numero()
         while opc < 0 and opc > 3:
@@ -190,6 +359,6 @@ def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES,MIN_C
             opc = validar_numero()
 
     os.system("cls")
-    print("Sesión cerrada. ¡Hasta luego!")
+    print("\n\nSesión cerrada. ¡Hasta luego!\n\n")
   
 ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES,MIN_CANT_MODERADORES,MAX_CANT_MODERADORES,estudiantes_registrados,moderadores_registrados,arreglo_de_estudiantes,arreglo_de_moderadores)
