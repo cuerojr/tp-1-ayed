@@ -38,12 +38,14 @@ MODERADORES_INDEX: int = 1 # enteros
 # 8 type: string
 # 9 status: string
 
-arreglo_de_estudiantes = [[""]*12 for i in range(8)] # Arreglo multidimensional de 8x8 de strings
-arreglo_de_moderadores = [[""]*9 for i in range(4)] # Arreglo multidimensional de 8x4 de strings
-arreglo_likes = [[0]*8 for i in range(8)] # Arreglo multidimensional de 8x8 de enteros
+arreglo_de_estudiantes:     list[list[str]] = [[""]*12 for i in range(8)]   # Arreglo multidimensional de 8x8 de strings
+arreglo_de_moderadores:     list[list[str]] = [[""]*9 for i in range(4)]    # Arreglo multidimensional de 8x4 de strings
+arreglo_informe_reportes:   list[list[str]] = [[""]*8 for i in range(8)]    # Arreglo multidimensional de 8x8 de caracteres
+arreglo_reportes:           list[list[str]] = [[""]*8 for i in range(8)]      # Arreglo multidimensional de 8x8 de strings
+arreglo_me_gusta:           list[list[int]] = [[0]*8 for i in range(8)]     # Arreglo multidimensional de 8x8 de enteros
 
-arreglo_logged_in = [False]*2 # Arreglo unidimensional de booleanos
-arreglo_usuarios_creados = [0]*2 # Arreglo unidimensional de enteros
+arreglo_usuarios_sesion:    list[bool] = [False]*2  # Arreglo unidimensional de booleanos
+arreglo_usuarios_creados:   list[int] = [0]*2       # Arreglo unidimensional de enteros
 
 for i in range(8):
     for j in range(8):
@@ -68,7 +70,7 @@ def menu_estudiante(estudiantes_registrados):
     mostrar_menu_estudiante()
     
     opc = validar_numero()
-    while opc < 0 and opc > 3:
+    while opc < 0 and opc > 4:
         print("Opción inválida")
         opc = validar_numero()
 
@@ -95,7 +97,7 @@ def menu_estudiante(estudiantes_registrados):
         os.system("cls")
         mostrar_menu_estudiante()
         opc = validar_numero()
-        while opc < 0 and opc > 3:
+        while opc < 0 and opc > 4:
             print("Opción inválida")
             opc = validar_numero()
 
@@ -189,7 +191,15 @@ def editar_mis_hobbies():
         else:
             print("Error")
 
-def mostrar_edad(fecha):
+'''
+FUNCION mostrar_edad
+Parametros:
+fecha: string
+
+Return:
+edad: string
+'''
+def mostrar_edad(fecha: str) -> int:
     fecha_nacimiento = datetime.strptime(fecha, '%Y-%m-%d')
     fecha_actual = datetime.now()
     
@@ -349,44 +359,44 @@ def menu_moderadores(arreglo_usuarios_creados, MODERADORES_INDEX):
             print("Opción inválida")
             opc = validar_numero()
 
-def validar_ingreso(arreglo_usuarios_creados, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_logged_in):
+def validar_ingreso(arreglo_usuarios_creados, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_usuarios_sesion):
     intentos = 3
 
     print("Inicia sesión\n")
     email = input("Ingrese su email: ")
     contraseña = getpass.getpass("Ingrese su contraseña: ")
-    while intentos > 1 and (not arreglo_logged_in[ESTUDIANTES_INDEX] and not arreglo_logged_in[MODERADORES_INDEX]):
+    while intentos > 1 and (not arreglo_usuarios_sesion[ESTUDIANTES_INDEX] and not arreglo_usuarios_sesion[MODERADORES_INDEX]):
         for i in range(arreglo_usuarios_creados[ESTUDIANTES_INDEX]):
             if ((email == arreglo_de_estudiantes[i][3] and contraseña == arreglo_de_estudiantes[i][4] and arreglo_de_estudiantes[i][9] == "activo")):
                 # isLoggedIn = True
-                arreglo_logged_in[ESTUDIANTES_INDEX] = True
+                arreglo_usuarios_sesion[ESTUDIANTES_INDEX] = True
                 print("Sesión iniciada correctamente")
                 menu_estudiante(arreglo_usuarios_creados[ESTUDIANTES_INDEX])
 
         for i in range(arreglo_usuarios_creados[MODERADORES_INDEX]):
             if (email == arreglo_de_moderadores[i][3] and contraseña == arreglo_de_moderadores[i][4]):
                 # isLoggedIn = True
-                arreglo_logged_in[MODERADORES_INDEX] = True
+                arreglo_usuarios_sesion[MODERADORES_INDEX] = True
                 print("Sesión iniciada correctamente")
-                menu_moderadores(arreglo_usuarios_creados[MODERADORES_INDEX], arreglo_logged_in[MODERADORES_INDEX])
+                menu_moderadores(arreglo_usuarios_creados[MODERADORES_INDEX], arreglo_usuarios_sesion[MODERADORES_INDEX])
 
-        print( arreglo_logged_in[ESTUDIANTES_INDEX], arreglo_logged_in[MODERADORES_INDEX])
-        if(not arreglo_logged_in[ESTUDIANTES_INDEX] and not arreglo_logged_in[MODERADORES_INDEX]):
+        print( arreglo_usuarios_sesion[ESTUDIANTES_INDEX], arreglo_usuarios_sesion[MODERADORES_INDEX])
+        if(not arreglo_usuarios_sesion[ESTUDIANTES_INDEX] and not arreglo_usuarios_sesion[MODERADORES_INDEX]):
             print("Email o contraseña incorrectos")
             intentos -= 1
             print("\nQuedan ", intentos, "intentos\n")
             email = input("Ingrese su email: ")
             contraseña = getpass.getpass("Ingrese su contraseña: ")
 
-def ingresar(MIN_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, arreglo_logged_in, arreglo_usuarios_creados, ESTUDIANTES_INDEX, MODERADORES_INDEX):
+def ingresar(MIN_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, arreglo_usuarios_sesion, arreglo_usuarios_creados, ESTUDIANTES_INDEX, MODERADORES_INDEX):
     if(MIN_CANT_ESTUDIANTES <= arreglo_usuarios_creados[ESTUDIANTES_INDEX] and MIN_CANT_MODERADORES <= arreglo_usuarios_creados[MODERADORES_INDEX]):
         os.system("cls")
-        validar_ingreso(arreglo_usuarios_creados, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_logged_in)
+        validar_ingreso(arreglo_usuarios_creados, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_usuarios_sesion)
     else:
         os.system("cls")
         print("No se puede ingresar, cantidad de estudiantes y moderadores insuficientes")
 
-def ingresar_datos_moderadores(arreglo_usuarios_creados, MODERADORES_INDEX):
+def ingresar_datos_moderadores(arreglo_usuarios_creados: list[int], MODERADORES_INDEX: int):
     ## MODELO MODERADOR
     # ID
     # nombre
@@ -415,7 +425,7 @@ def ingresar_datos_moderadores(arreglo_usuarios_creados, MODERADORES_INDEX):
     if contraseña == confirmar_contraseña:
         arreglo_de_moderadores[arreglo_usuarios_creados[MODERADORES_INDEX]][4] = contraseña
 
-def ingresar_datos_de_estudiantes(arreglo_usuarios_creados, ESTUDIANTES_INDEX):
+def ingresar_datos_de_estudiantes(arreglo_usuarios_creados: list[int], ESTUDIANTES_INDEX: int):
     ## MODELO ESTUDIANTE
     # 0 ID
     # 1 nombre
@@ -448,7 +458,7 @@ def ingresar_datos_de_estudiantes(arreglo_usuarios_creados, ESTUDIANTES_INDEX):
     if contraseña == confirmar_contraseña:
         arreglo_de_estudiantes[arreglo_usuarios_creados[ESTUDIANTES_INDEX]][4] = contraseña
 
-def registrar_estudiante(arreglo_usuarios_creados, MAX_CANT_ESTUDIANTES, ESTUDIANTES_INDEX):
+def registrar_estudiante(arreglo_usuarios_creados: list[int], MAX_CANT_ESTUDIANTES: int, ESTUDIANTES_INDEX: int):
     if (arreglo_usuarios_creados[ESTUDIANTES_INDEX] < MAX_CANT_ESTUDIANTES):
         ingresar_datos_de_estudiantes(arreglo_usuarios_creados, ESTUDIANTES_INDEX)
         os.system("cls")
@@ -458,7 +468,7 @@ def registrar_estudiante(arreglo_usuarios_creados, MAX_CANT_ESTUDIANTES, ESTUDIA
     else: 
         print("Todos los estudiantes fueron cargados")
   
-def registrar_moderador(arreglo_usuarios_creados, MAX_CANT_MODERADORES, MODERADORES_INDEX):
+def registrar_moderador(arreglo_usuarios_creados: list[int], MAX_CANT_MODERADORES: int, MODERADORES_INDEX: int):
     if (arreglo_usuarios_creados[MODERADORES_INDEX] < MAX_CANT_MODERADORES):
         ingresar_datos_moderadores(arreglo_usuarios_creados, MODERADORES_INDEX)
         os.system("cls")
@@ -468,7 +478,7 @@ def registrar_moderador(arreglo_usuarios_creados, MAX_CANT_MODERADORES, MODERADO
     else:
         print("Todos los moderadores fueron cargados")
 
-def registrar(MAX_CANT_ESTUDIANTES,MAX_CANT_MODERADORES, arreglo_usuarios_creados, ESTUDIANTES_INDEX, MODERADORES_INDEX):
+def registrar(MAX_CANT_ESTUDIANTES: int, MAX_CANT_MODERADORES: int, arreglo_usuarios_creados: list[int], ESTUDIANTES_INDEX: int, MODERADORES_INDEX: int):
     os.system("cls")
     mostrar_menu_registrar()
 
@@ -483,8 +493,13 @@ def registrar(MAX_CANT_ESTUDIANTES,MAX_CANT_MODERADORES, arreglo_usuarios_creado
            
         mostrar_menu_registrar()
         opc = str(input("Ingrese su opción: "))
-    
-def validar_numero():
+
+"""
+FUN
+
+return entero
+"""
+def validar_numero() -> int:
     while True:
         try:
             return int(input("Ingrese un número: "))
@@ -497,6 +512,9 @@ def mostrar_menu_registrar():
     print(" b. Registrar moderador")
     print(" c. Volver")
 
+"""
+
+"""
 def mostrar_menu_principal():
     #os.system("cls")
     print("\nMenu ")
@@ -504,9 +522,12 @@ def mostrar_menu_principal():
     print("2. Iniciar sesion")
     print("0. Salir\n")
 
-def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, MAX_CANT_MODERADORES, arreglo_logged_in,arreglo_usuarios_creados, arreglo_de_estudiantes, arreglo_de_moderadores, ESTUDIANTES_INDEX, MODERADORES_INDEX):
+"""
+
+"""
+def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES: int, MAX_CANT_ESTUDIANTES: int, MIN_CANT_MODERADORES: int, MAX_CANT_MODERADORES: int, arreglo_usuarios_sesion: list[bool], arreglo_usuarios_creados: list[int], arreglo_de_estudiantes: list[list[str]], arreglo_de_moderadores: list[list[str]], ESTUDIANTES_INDEX: int, MODERADORES_INDEX: int):
     os.system("cls")
-    # print(arreglo_logged_in)
+    # print(arreglo_usuarios_sesion)
     # print(arreglo_usuarios_creados)
     mostrar_menu_principal()     
     opc = validar_numero()
@@ -519,7 +540,7 @@ def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_
             case 1:
                 registrar(MAX_CANT_ESTUDIANTES, MAX_CANT_MODERADORES, arreglo_usuarios_creados, ESTUDIANTES_INDEX, MODERADORES_INDEX)
             case 2:
-                ingresar(MIN_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, arreglo_logged_in, arreglo_usuarios_creados, ESTUDIANTES_INDEX, MODERADORES_INDEX)
+                ingresar(MIN_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, arreglo_usuarios_sesion, arreglo_usuarios_creados, ESTUDIANTES_INDEX, MODERADORES_INDEX)
             case 3:
                 print("Bonuses")
         
@@ -532,4 +553,4 @@ def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_
     os.system("cls")
     print("\n\nSesión cerrada. ¡Hasta luego!\n\n")
   
-ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES,MIN_CANT_MODERADORES,MAX_CANT_MODERADORES,arreglo_logged_in,arreglo_usuarios_creados, arreglo_de_estudiantes, arreglo_de_moderadores, ESTUDIANTES_INDEX, MODERADORES_INDEX)
+ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES,MIN_CANT_MODERADORES,MAX_CANT_MODERADORES,arreglo_usuarios_sesion,arreglo_usuarios_creados, arreglo_de_estudiantes, arreglo_de_moderadores, ESTUDIANTES_INDEX, MODERADORES_INDEX)
