@@ -2,8 +2,6 @@
 TP#1 AyED Comisión 113
 Rojo Nicolás
 Frenna Luca
-Giuliano 
-Cosenza María Soledad
 '''
 # Librerias
 import os
@@ -214,9 +212,9 @@ def gestionar_mi_perfil(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudian
     while opc != "c":
         match opc:
             case "a": 
-                editar_mis_datos_personales(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
+                editar_mis_datos_personales(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, USUARIO_INDEX)
             case "b":
-                eliminar_mi_perfil(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, USUARIO_INDEX) 
+                eliminar_mi_perfil(arreglo_usuarios, arreglo_de_estudiantes, USUARIO_INDEX) 
     
         os.system("cls")    
         print("\nGestionar mi perfil\n")
@@ -227,16 +225,16 @@ def gestionar_mi_perfil(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudian
 
 """
 PROCEDIMIENTO editar_mis_datos_personales
-ESTUDIANTES_INDEX: enteros
+ESTUDIANTES_INDEX, USUARIO_INDEX: enteros
 opc: string
 
 arreglo_usuarios:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8x12 de strings
 """
-def editar_mis_datos_personales(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes):
+def editar_mis_datos_personales(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, USUARIO_INDEX):
     os.system("cls")
 
-    mostrar_menu_de_mis_datos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
+    mostrar_menu_de_mis_datos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, USUARIO_INDEX)
 
     print("\nEditar mis datos personales\n")
     print("a. Editar mi fecha de nacimiento")
@@ -253,12 +251,12 @@ def editar_mis_datos_personales(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_
             case "b":
                 editar_mi_biografia(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes)          
             case "c":
-                editar_mis_hobbies(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes)  
+                editar_mis_hobbies(arreglo_usuarios, USUARIO_INDEX, arreglo_de_estudiantes)  
             case "d":
                 eliminar_mis_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
 
         os.system("cls")
-        mostrar_menu_de_mis_datos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
+        mostrar_menu_de_mis_datos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, USUARIO_INDEX)
 
         print("\nEditar mis datos personales\n")
         print("a. Editar mi fecha de nacimiento")
@@ -270,12 +268,12 @@ def editar_mis_datos_personales(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_
 
 """
 PROCEDIMIENTO mostrar_menu_de_mis_datos
-ESTUDIANTES_INDEX, i: enteros
+ESTUDIANTES_INDEX, USUARIO_INDEX, i: enteros
 
 arreglo_usuarios:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 """
-def mostrar_menu_de_mis_datos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes):
+def mostrar_menu_de_mis_datos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, USUARIO_INDEX):
     print("\nMi ID: ", arreglo_de_estudiantes[arreglo_usuarios[USUARIO_INDEX]][0])
     print("Mi nombre: ", arreglo_de_estudiantes[arreglo_usuarios[USUARIO_INDEX]][1])
     print("Mi apellido: ", arreglo_de_estudiantes[arreglo_usuarios[USUARIO_INDEX]][2])
@@ -318,7 +316,7 @@ nuevos_hobbies: string
 arreglo_usuarios:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 """
-def editar_mis_hobbies(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes):
+def editar_mis_hobbies(arreglo_usuarios, USUARIO_INDEX, arreglo_de_estudiantes):
     nuevos_hobbies = str(input("Ingrese sus hobbies: "))
     arreglo_de_estudiantes[arreglo_usuarios[USUARIO_INDEX]][6] = nuevos_hobbies
 
