@@ -89,7 +89,7 @@ popular_db_estudiantes(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiant
 
 
 """
-Funcion 
+FUNCIÓN
 arr: arreglo unidimensional de enteros
 i, j, aux: enteros
 """
@@ -102,7 +102,7 @@ def ordenar_arreglo(arr):
                 arr[j+1] = aux
     return arr
 """
-Función
+FUNCIÓN
 izquierda, derecha, medio: enteros
 arr: arreglo unidimensional de enteros
 """
@@ -120,8 +120,8 @@ def busqueda_dicotomica(arr, x):
     return izquierda
 
 """
-Procedimiento
-edades
+PROCEDIMIENTO
+edades : enteros
 """
 def encontrar_huecos(edades):
     edades = ordenar_arreglo(edades)
@@ -133,10 +133,16 @@ def encontrar_huecos(edades):
         idx = busqueda_dicotomica(edades, i)
         if idx >= 6 or edades[idx] != i:
             huecos += 1
-
+    os.system("cls")
     print("Huecos encontrados:", huecos)
 
+"""
+PROCEDIMIENTO
+matcheosposibles , ESTUDIANTES_INDEX:  enteros
+arreglo_usuarios : arreglo unidimensional de enteros
+"""
 def matcheos_posibles():
+    os.system("cls")
     matcheosposibles = (arreglo_usuarios[ESTUDIANTES_INDEX]* (arreglo_usuarios[ESTUDIANTES_INDEX] - 1))//2
     print("Cantidad de matcheos posibles: ", matcheosposibles)
 
@@ -152,12 +158,12 @@ arreglo_informe_reportes:   arreglo bidimensional de 8x8 de caracteres
 arreglo_reportes:           arreglo bidimensional de 8x8 de strings
 """
 def mostrar_menu_estudiante():
-    print("Menu ")
+    print("\nMenu ")
     print("\n1. Gestionar mi perfil")
     print("2. Gestionar candidatos")
     print("3. Matcheos")
     print("4. Reportes estadisticos")
-    print("0. Salir")
+    print("0. Salir\n")
 
 """
 PROCEDIMIENTO menu_estudiante
@@ -194,7 +200,7 @@ def menu_estudiante(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes,
             opc = validar_numero()
     
     arreglo_de_estudiantes[arreglo_usuarios[USUARIO_INDEX]][10] = 0
-
+    os.system("cls")
 
 """
 PROCEDIMIENTO gestionar_mi_perfil
@@ -209,7 +215,7 @@ def gestionar_mi_perfil(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudian
     print("\nGestionar mi perfil\n")
     print("a. Editar mis datos personales")
     print("b. Eliminar mi perfil")    
-    print("c. Volver") 
+    print("c. Volver\n") 
 
     opc = str(input("Ingrese su opción: "))
 
@@ -224,7 +230,7 @@ def gestionar_mi_perfil(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudian
         print("\nGestionar mi perfil\n")
         print("a. Editar mis datos personales")
         print("b. Eliminar mi perfil")    
-        print("c. Volver") 
+        print("c. Volver\n") 
         opc = str(input("Ingrese de nuevo: "))
 
 """
@@ -245,7 +251,7 @@ def editar_mis_datos_personales(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_
     print("b. Editar mi biografía")
     print("c. Editar mis hobbies")
     print("d. Eliminar mis me gusta")
-    print("e. Volver")  
+    print("e. Volver\n")  
     opc = str(input("Ingrese su opción: "))
 
     while opc != "e":
@@ -267,8 +273,8 @@ def editar_mis_datos_personales(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_
         print("b. Editar mi biografía")
         print("c. Editar mis hobbies")  
         print("d. Eliminar mis me gusta")
-        print("e. Volver")   
-        opc = str(input("Opción inválida. Ingrese de nuevo: "))
+        print("e. Volver\n")   
+        opc = str(input("Ingrese de nuevo: "))
 
 """
 PROCEDIMIENTO mostrar_menu_de_mis_datos
@@ -446,7 +452,7 @@ def eliminar_mi_perfil(arreglo_usuarios, arreglo_de_estudiantes, USUARIO_INDEX):
     
     opc = str(input("Ingrese su opción: "))
     while opc != "a" and opc != "b":
-        print("Opción inválida. Ingrese de nuevo: ")
+        print("Ingrese de nuevo: ")
         opc = str(input("Ingrese su opción: "))
   
     match opc:
@@ -484,7 +490,7 @@ def gestionar_candidatos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudia
         print("a. Ver candidatos")
         print("b. Reportar candidato")    
         print("c. Volver") 
-        opc = str(input("Opción inválida. Ingrese de nuevo: "))
+        opc = str(input("Ingrese de nuevo: "))
 
 """
 PROCEDIMIENTO ver_candidatos
@@ -512,7 +518,7 @@ def ver_candidatos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, 
         mostrar_datos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta)
         print("\n\na. Dar me gusta")
         print("b. Volver")
-        opc = str(input("Opción inválida. Ingrese de nuevo: "))
+        opc = str(input("Ingrese de nuevo: "))
 
 """
 PROCEDIMIENTO reportar_candidato
@@ -536,7 +542,6 @@ def reportar_candidato(arreglo_usuarios, ESTUDIANTES_INDEX):
             arreglo_reportes[arreglo_usuarios[USUARIO_INDEX]][j][1] = reporte
             print("\nReporte exitoso.")
                     
-
 """
 PROCEDIMIENTO matcheos
 opc: string
@@ -554,7 +559,7 @@ def matcheos():
         print("\nMatcheos\n")
         print("En contruccion!\n")
         print("a. Volver")         
-        opc = str(input("Opción inválida. Ingrese de nuevo: "))
+        opc = str(input("Ingrese de nuevo: "))
 
 """
 PROCEDIMIENTO mostrar_reportes_estadisticos
@@ -579,7 +584,7 @@ def mostrar_reportes_estadisticos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_m
         mostrar_likes_dados(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_me_gusta, arreglo_de_estudiantes)
         mostrar_likes_recibidos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_me_gusta, arreglo_de_estudiantes)
         print("a. Volver")  
-        opc = str(input("Opción inválida. Ingrese de nuevo: "))
+        opc = str(input("Ingrese de nuevo: "))
 
 """
 PROCEDIMIENTO mostrar_porcentaje_matcheos
@@ -595,7 +600,7 @@ def mostrar_porcentaje_matcheos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_me_
         if arreglo_me_gusta[arreglo_usuarios[USUARIO_INDEX]][j] == 1 and arreglo_me_gusta[j][arreglo_usuarios[USUARIO_INDEX]] == 1:
             matcheos = matcheos + 1
 
-    porcentaje = (matcheos * 100)/arreglo_usuarios[ESTUDIANTES_INDEX]
+    porcentaje = (matcheos * 100)//arreglo_usuarios[ESTUDIANTES_INDEX]
     print("Matcheados sobre el % posible: ", porcentaje, "%")
 
 """
@@ -639,7 +644,7 @@ def mostrar_menu_moderadores():
         print("1. Gestionar usuarios")
         print("2. Gestionar reportes")
         print("3. Reportes estadísticos")
-        print("0. Salir")
+        print("0. Salir\n")
 
 """
 PROCEDIMIENTO menu_moderadores
@@ -650,7 +655,6 @@ arreglo_informe_reportes:   arreglo bidimensional de 8x8 de caracteres
 arreglo_reportes:           arreglo bidimensional de 8x8 de strings
 """
 def menu_moderadores(arreglo_usuarios, MODERADORES_INDEX, ESTUDIANTES_INDEX, arreglo_reportes, arreglo_informe_reportes):
-    os.system("cls")
     mostrar_menu_moderadores()
     opc = validar_numero()
     while opc < 0 and opc > 3:
@@ -684,7 +688,7 @@ def gestionar_usuarios(arreglo_usuarios, ESTUDIANTES_INDEX):
     os.system("cls")
     print("\nGestionar usuarios\n")
     print("a. Desactivar usuario")  
-    print("b. Volver") 
+    print("b. Volver\n") 
     opc = str(input("Ingrese su opción: "))
 
     while opc != "b":
@@ -695,8 +699,8 @@ def gestionar_usuarios(arreglo_usuarios, ESTUDIANTES_INDEX):
         os.system("cls")
         print("\nGestionar usuarios\n")
         print("a. Desactivar usuario")  
-        print("b. Volver") 
-        opc = str(input("Opción inválida. Ingrese de nuevo: "))
+        print("b. Volver\n") 
+        opc = str(input("Ingrese de nuevo: "))
 
 """
 PROCEDIMIENTO desactivar_usuario
@@ -713,8 +717,6 @@ def desactivar_usuario(arreglo_usuarios, ESTUDIANTES_INDEX):
     for i in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
         if desactivar == arreglo_de_estudiantes[i][0] or desactivar == arreglo_de_estudiantes[i][1]:
             arreglo_de_estudiantes[i][9] = "inactivo"
-        else:
-            print("Error")
 
 """
 PROCEDIMIENTO gestionar_reportes
@@ -737,7 +739,7 @@ def gestionar_reportes(arreglo_reportes, arreglo_informe_reportes, arreglo_usuar
         print("\nGestionar reportes\n")
         print("a. Ver reportes")  
         print("b. Volver") 
-        opc = str(input("Opción inválida. Ingrese de nuevo: "))
+        opc = str(input("Ingrese de nuevo: "))
 
 """
 PROCEDIMIENTO ver_reportes
@@ -772,7 +774,7 @@ def ver_reportes(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, E
                             print("\n¿Que acción desea tomar?\n")
                             print("a. Ignorar reporte")
                             print("b. Desactivar usuario")
-                            opc = str(input("Opción inválida. Ingrese de nuevo: "))
+                            opc = str(input("Ingrese de nuevo: "))
                         match opc:
                             case "a":
                                 arreglo_reportes[i][j][0] = "2"
@@ -791,13 +793,13 @@ opc: enteros
 def mostrar_menu_reportes_estadisticos():
     print("\nReportes estadisticos\n")
     print("En construcción")  
-    print("a. Volver") 
+    print("a. Volver\n") 
     opc = str(input("Ingrese su opción: "))
 
     while opc != "a":
         print("\nReportes estadisticos\n")
         print("En construcción")  
-        print("a. Volver") 
+        print("a. Volver\n") 
         opc = str(input("Ingrese de nuevo: "))
 
 """
@@ -828,15 +830,18 @@ def validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arre
         for i in range(arreglo_usuarios[MODERADORES_INDEX]):
             if (email == arreglo_de_moderadores[i][3] and contraseña == arreglo_de_moderadores[i][4]):
                 arreglo_sesion[MODERADORES_INDEX] = True
+                os.system("cls")
                 print("Sesión iniciada correctamente")
                 menu_moderadores(arreglo_usuarios, MODERADORES_INDEX, ESTUDIANTES_INDEX, arreglo_reportes, arreglo_informe_reportes)
 
         if(not arreglo_sesion[ESTUDIANTES_INDEX] and not arreglo_sesion[MODERADORES_INDEX]):
+            os.system("cls")
             print("Email o contraseña incorrectos")
             intentos -= 1
             print("\nQuedan ", intentos, "intentos\n")
             email = input("Ingrese su email: ")
             contraseña = getpass.getpass("Ingrese su contraseña: ")
+    os.system("cls")
 
 """
 PROCEDIMIENTO ingresar
@@ -969,6 +974,7 @@ def registrar(MAX_CANT_ESTUDIANTES, MAX_CANT_MODERADORES, arreglo_usuarios, ESTU
            
         mostrar_menu_registrar()
         opc = str(input("Ingrese su opción: "))
+    os.system("cls")
 
 """
 FUNCION validar_numero
@@ -989,7 +995,7 @@ def mostrar_menu_registrar():
     print("\nRegistrar usuario\n")
     print(" a. Registrar estudiante")
     print(" b. Registrar moderador")
-    print(" c. Volver")
+    print(" c. Volver\n")
 
 """
 PROCEDIMIENTO mostrar_menu_principal
@@ -1038,5 +1044,6 @@ def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_
             opc = validar_numero()
 
     os.system("cls")
+    print("\nPrograma finalizado, esperamos tu regreso...\n")
   
 ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, MAX_CANT_MODERADORES, arreglo_sesion, arreglo_usuarios, arreglo_de_estudiantes, arreglo_de_moderadores, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX)
