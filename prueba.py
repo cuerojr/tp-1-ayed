@@ -1024,6 +1024,8 @@ def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_
                 ingresar(MIN_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, arreglo_sesion, arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX)
             case 3:
                 encontrar_huecos([21, 18, 20, 19, 23, 24])
+            case 4:
+                print("para el bonus 2")
 
         mostrar_menu_principal()
         opc = validar_numero()
