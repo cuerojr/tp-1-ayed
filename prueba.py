@@ -49,11 +49,20 @@ arreglo_me_gusta            = [[0]*8    for i in range(8)] # Arreglo bidimension
 
 arreglo_usuarios_sesion     = [False]*2 # Arreglo unidimensional de booleanos
 arreglo_usuarios_creados    = [0]*2     # Arreglo unidimensional de enteros
+""""
+PROCEDIMIENTO popular_likes_aleatorios
+i, j: enteros
+arreglo_me_gusta:    arreglo bidimensional de 8*8 de enteros
+"""
+def popular_likes_aleatorios(arreglo_me_gusta):
+    for i in range(8):
+        for j in range(8):
+            if i != j:
+                arreglo_me_gusta[i][j] = random.randint(0, 1)
+            else:
+                arreglo_me_gusta[i][j] = 0
 
-for i in range(8):
-    for j in range(8):
-        arreglo_me_gusta[i][j] = random.randint(0, 1) # Populacion aleatoria de likes
-
+popular_likes_aleatorios(arreglo_me_gusta)
 """
 PROCEDIMIENTO popular_db_estudiantes
 ESTUDIANTES_INDEX, i: enteros
@@ -226,7 +235,7 @@ def mostrar_menu_de_mis_datos(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreg
             print("Mi biografia: ", arreglo_de_estudiantes[i][11])
             print("Mi edad: ", mostrar_edad(arreglo_de_estudiantes[i][8] or ""), "años")
             print("Mis hobbies: ", arreglo_de_estudiantes[i][6])
-            print(mostrar_me_gusta(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta))
+            mostrar_mis_me_gusta(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta)
             print("Mi estado: ", arreglo_de_estudiantes[i][9])
 
 """
@@ -280,7 +289,7 @@ arreglo_usuarios_creados:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 """
 def eliminar_mis_me_gusta(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes):
-    mostrar_me_gusta(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta)
+    mostrar_mis_me_gusta(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta)
     eliminar_me_gusta = str(input("Ingrese nombre de usuario para eliminar de la lista: "))
     for i in range(arreglo_usuarios_creados[ESTUDIANTES_INDEX]):
         if  arreglo_de_estudiantes[i][10] == "iniciado":
@@ -300,17 +309,19 @@ arreglo_usuarios_creados:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 arreglo_me_gusta:           arreglo bidimensional de 8x8 de enteros
 """
-def mostrar_me_gusta(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta):
+def mostrar_mis_me_gusta(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta):
     print("\nMis me gusta\n")
     for i in range(arreglo_usuarios_creados[ESTUDIANTES_INDEX]):
         if  arreglo_de_estudiantes[i][10] == "iniciado":
             for j in range(arreglo_usuarios_creados[ESTUDIANTES_INDEX]):
                 if arreglo_me_gusta[i][j] == 1 and arreglo_de_estudiantes[j][1] != "":
                     print (arreglo_de_estudiantes[j][1])
-                else:
-                    print("Error")
-        else:
-            print("Error")
+
+def mostrar_me_gusta(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, i):
+    print("\nMis me gusta\n")
+    for j in range(arreglo_usuarios_creados[ESTUDIANTES_INDEX]):
+        if arreglo_me_gusta[i][j] == 1 and arreglo_de_estudiantes[j][1] != "":
+            print (arreglo_de_estudiantes[j][1])
 
 """
 FUNCION mostrar_edad
@@ -360,7 +371,7 @@ def mostrar_datos(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudi
         print("Biografia: ", arreglo_de_estudiantes[i][11])
         print("Edad: ", mostrar_edad(arreglo_de_estudiantes[i][8]), "años")
         print("Hobbies: ", arreglo_de_estudiantes[i][6])
-        print(mostrar_me_gusta(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta))
+        mostrar_me_gusta(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, i)
         print("Estado: ", arreglo_de_estudiantes[i][9])
 
 """
@@ -378,12 +389,9 @@ def me_gusta(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes
     for i in range(arreglo_usuarios_creados[ESTUDIANTES_INDEX]):
         if  arreglo_de_estudiantes[i][10] == "iniciado":
             for j in range(arreglo_usuarios_creados[ESTUDIANTES_INDEX]):
-                if megusta == arreglo_de_estudiantes[j][1]:
-                    arreglo_me_gusta[i][j] = 1
-                else:
-                    print("Error")
-        else:
-            print("Error")            
+                if i != j:
+                    if megusta == arreglo_de_estudiantes[j][1]:
+                        arreglo_me_gusta[i][j] = 1           
 
 """
 PROCEDIMIENTO eliminar_mi_perfil
