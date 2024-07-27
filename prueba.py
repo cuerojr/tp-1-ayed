@@ -17,6 +17,7 @@ MIN_CANT_MODERADORES  = 1 # enteros
 MAX_CANT_MODERADORES  = 4 # enteros
 ESTUDIANTES_INDEX  = 0 # enteros
 MODERADORES_INDEX  = 1 # enteros
+USUARIO_INDEX = 0 # enteros
 
 ## MODELO MODERADOR
 # 0 ID: string
@@ -38,6 +39,7 @@ MODERADORES_INDEX  = 1 # enteros
 # 8 fecha de nacimiento: string
 # 9 status: string
 # 10 iniciado: string
+# 11 biografia: string
 
 arreglo_de_estudiantes      = [[""]*12  for i in range(8)] # Arreglo bidimensional de 8x12 de strings
 arreglo_de_moderadores      = [[""]*8   for i in range(4)] # Arreglo bidimensional de 8x4 de strings
@@ -103,7 +105,6 @@ arreglo_usuarios_creados:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 """
 def menu_estudiante(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes):
-    global isLoggedIn
     mostrar_menu_estudiante()
     
     opc = validar_numero()
@@ -141,6 +142,7 @@ ESTUDIANTES_INDEX: enteros
 opc: string
 
 arreglo_usuarios_creados:   arreglo unidimesional de enteros
+arreglo_de_estudiantes:     arreglo bidimensional de 8x12 de strings
 """
 def gestionar_mi_perfil(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes):    
     os.system("cls")
@@ -170,6 +172,7 @@ ESTUDIANTES_INDEX: enteros
 opc: string
 
 arreglo_usuarios_creados:   arreglo unidimesional de enteros
+arreglo_de_estudiantes:     arreglo bidimensional de 8x12 de strings
 """
 def editar_mis_datos_personales(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes):
     os.system("cls")
@@ -252,7 +255,7 @@ def editar_mi_biografia(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_
     nueva_biografia = str(input("Ingrese su biografia: "))
     for i in range(arreglo_usuarios_creados[ESTUDIANTES_INDEX]):
         if  arreglo_de_estudiantes[i][10] == "iniciado":
-            arreglo_de_estudiantes[i][9] = nueva_biografia
+            arreglo_de_estudiantes[i][11] = nueva_biografia
 
 """
 PROCEDIMIENTO editar_mis_hobbies
@@ -309,9 +312,10 @@ def mostrar_me_gusta(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_est
             print("Error")
 
 """
-PROCEDIMIENTO mostrar_edad
+FUNCION mostrar_edad
 edad: enteros
 fecha: string
+fecha_nacimiento, fecha_actual: datetime
 """
 def mostrar_edad(fecha):
     if(not fecha): 
@@ -333,17 +337,17 @@ arreglo_usuarios_creados:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 """
 def mostrar_datos(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes):   #cambio en los me gusta de esta funcion
-
     for i in range(arreglo_usuarios_creados[ESTUDIANTES_INDEX]):
         print("\nID: ",arreglo_de_estudiantes[i][0])
         print("Nombre: ", arreglo_de_estudiantes[i][1])
         print("Apellido: ", arreglo_de_estudiantes[i][2])
+        print("Email: ", arreglo_de_estudiantes[i][3])
         print("Fecha de nacimiento: ", arreglo_de_estudiantes[i][8])
-        print("Biografia: ", arreglo_de_estudiantes[i][9])
+        print("Biografia: ", arreglo_de_estudiantes[i][11])
         print("Edad: ", mostrar_edad(arreglo_de_estudiantes[i][8]), "años")
-        print("Hobbies: ", arreglo_de_estudiantes[i][10])
+        print("Hobbies: ", arreglo_de_estudiantes[i][6])
         print(mostrar_me_gusta(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes))
-        print("Estado: ", arreglo_de_estudiantes[i][2])
+        print("Estado: ", arreglo_de_estudiantes[i][9])
 
 """
 PROCEDIMIENTO me_gusta
@@ -631,10 +635,9 @@ def menu_moderadores(arreglo_usuarios_creados, MODERADORES_INDEX, ESTUDIANTES_IN
                 reportes_estadisticos_mods()
             case 0:
                 print("Sesión cerrada. ¡Hasta luego!")
-                isLoggedIn = False
-                for i in range(arreglo_usuarios_creados[MODERADORES_INDEX]):
-                    if  arreglo_de_moderadores[i][7] == "iniciado":  # <------ chequear esto
-                        arreglo_de_moderadores[i][7] = "no iniciado"
+                # for i in range(arreglo_usuarios_creados[MODERADORES_INDEX]):
+                #     if  arreglo_de_moderadores[i][7] == "iniciado":  # <------ chequear esto
+                #         arreglo_de_moderadores[i][7] = "no iniciado"
                 os.system("cls")
         os.system("cls")
         mostrar_menu_moderadores()
