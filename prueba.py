@@ -11,13 +11,13 @@ import getpass
 from datetime import datetime
 import random
 
-MIN_CANT_ESTUDIANTES  = 4 # enteros
-MAX_CANT_ESTUDIANTES  = 8 # enteros
-MIN_CANT_MODERADORES  = 1 # enteros
-MAX_CANT_MODERADORES  = 4 # enteros
-ESTUDIANTES_INDEX  = 0 # enteros
-MODERADORES_INDEX  = 1 # enteros
-USUARIO_INDEX = 0 # enteros
+MIN_CANT_ESTUDIANTES  = 4   # enteros
+MAX_CANT_ESTUDIANTES  = 8   # enteros
+MIN_CANT_MODERADORES  = 1   # enteros
+MAX_CANT_MODERADORES  = 4   # enteros
+ESTUDIANTES_INDEX  = 0      # enteros
+MODERADORES_INDEX  = 1      # enteros
+USUARIO_INDEX = 2           # enteros
 
 ## MODELO MODERADOR
 # 0 ID: string
@@ -338,7 +338,19 @@ arreglo_usuarios_creados:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 arreglo_me_gusta:           arreglo unidimensional de 8*8 de enteros
 """
-def mostrar_datos(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta):   #cambio en los me gusta de esta funcion
+def mostrar_datos(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta):   ## MODELO ESTUDIANTE
+# 0 ID: string
+# 1 nombre: string
+# 2 apellido: string
+# 3 email: string
+# 4 contraseña: string
+# 5 type: string
+# 6 hobbies: string
+# 7 me gusta: string
+# 8 fecha de nacimiento: string
+# 9 status: string
+# 10 iniciado: string
+# 11 biografia: string
     for i in range(arreglo_usuarios_creados[ESTUDIANTES_INDEX]):
         print("\nID: ",arreglo_de_estudiantes[i][0])
         print("Nombre: ", arreglo_de_estudiantes[i][1])
@@ -456,18 +468,20 @@ arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 def ver_candidatos(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta):
     print("\nCandidatos\n")
     mostrar_datos(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta)
-    print("\n\n\na. Dar me gusta")
-    print("\nb. Volver")
+    print("\n\na. Dar me gusta")
+    print("b. Volver")
+
     opc = str(input("Ingrese su opción: "))
     while opc != "b":
         match opc:
             case "a":
                 me_gusta(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta)
+
         os.system("cls")
         print("\nCandidatos\n")
         mostrar_datos(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta)
-        print("\n\n\na. Dar me gusta")
-        print("\nb. Volver")
+        print("\n\na. Dar me gusta")
+        print("b. Volver")
         opc = str(input("Opción inválida. Ingrese de nuevo: "))
 
 """
@@ -492,10 +506,12 @@ def reportar_candidato(arreglo_usuarios_creados, ESTUDIANTES_INDEX):
                     arreglo_informe_reportes[i][j] = reporte
                     os.system("cls")
                     print("\nReporte exitoso.\n")
+                    print("reportes", arreglo_reportes)
+                    print("informes", arreglo_informe_reportes)
                 else:
                     print("Error")
-        else:
-            print("Error")
+        # else:
+        #     print("Error")
 
 """
 PROCEDIMIENTO matcheos
@@ -878,6 +894,19 @@ arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 """
 def ingresar_datos_de_estudiantes(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes ):
     os.system("cls")
+    ## MODELO ESTUDIANTE
+# 0 ID: string
+# 1 nombre: string
+# 2 apellido: string
+# 3 email: string
+# 4 contraseña: string
+# 5 type: string
+# 6 hobbies: string
+# 7 me gusta: string
+# 8 fecha de nacimiento: string
+# 9 status: string
+# 10 iniciado: string
+# 11 biografia: string
     nombre = input("Ingrese el nombre del estudiante: ")
     apellido = input("Ingrese el apellido del estudiante: ")
     email = input("Ingrese el email del estudiante: ")
@@ -885,8 +914,8 @@ def ingresar_datos_de_estudiantes(arreglo_usuarios_creados, ESTUDIANTES_INDEX, a
     arreglo_de_estudiantes[arreglo_usuarios_creados[ESTUDIANTES_INDEX]][1] = nombre
     arreglo_de_estudiantes[arreglo_usuarios_creados[ESTUDIANTES_INDEX]][2] = apellido
     arreglo_de_estudiantes[arreglo_usuarios_creados[ESTUDIANTES_INDEX]][3] = email
-    arreglo_de_estudiantes[arreglo_usuarios_creados[ESTUDIANTES_INDEX]][8] = "estudiante"
-    arreglo_de_estudiantes[arreglo_usuarios_creados[ESTUDIANTES_INDEX]][9] = "activo" # volver a dejar como inactivo
+    arreglo_de_estudiantes[arreglo_usuarios_creados[ESTUDIANTES_INDEX]][5] = "estudiante"
+    arreglo_de_estudiantes[arreglo_usuarios_creados[ESTUDIANTES_INDEX]][9] = "activo"
 
     contraseña = input("Ingrese su contraseña: ")
     confirmar_contraseña = input("Vuelva a ingresar su contraseña: ")    
@@ -997,6 +1026,7 @@ arreglo_me_gusta:           arreglo bidimensional de 8*8 de enteros
 """
 def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, MAX_CANT_MODERADORES, arreglo_usuarios_sesion, arreglo_usuarios_creados, arreglo_de_estudiantes, arreglo_de_moderadores, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta):
     os.system("cls")
+    print(arreglo_de_estudiantes)
     mostrar_menu_principal()     
     opc = validar_numero()
     while opc < 0 and opc > 4:
