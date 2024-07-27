@@ -22,15 +22,27 @@ def mostrar_menu():
 '''
 FUN menu_completo
 opcion: integer
+<<<<<<< HEAD
 isLoggedIn: boolean
 '''
 def menu_completo():
     global isLoggedIn
+=======
+isLoggedIn: bool
+email_usuario_autenticado: str
+'''
+def menu_completo():
+    global isLoggedIn, email_usuario_autenticado
+>>>>>>> fd46101ba4152bf10aa0f85f745b8c581f8318f2
 
     mostrar_menu()
 
     opcion = validar_numero()
+<<<<<<< HEAD
     while opcion < 0 or opcion > 4:
+=======
+    while opcion < 0 and opcion > 4:
+>>>>>>> fd46101ba4152bf10aa0f85f745b8c581f8318f2
         print("Opción inválida")
         opcion = validar_numero()
 
@@ -92,13 +104,21 @@ def gestionar_candidatos():
         opcion = str(input("Ingrese su opción 'a', 'c': "))
 
 '''
+<<<<<<< HEAD
 FUN matcheos
+=======
+FUN matcheos-
+>>>>>>> fd46101ba4152bf10aa0f85f745b8c581f8318f2
 opcion: str
 '''
 def matcheos():
     os.system("cls")
     print("\n3. Matcheos")
+<<<<<<< HEAD
     print(" En construcción")
+=======
+    print(" En contruccion")
+>>>>>>> fd46101ba4152bf10aa0f85f745b8c581f8318f2
     print(" c. Volver")
     opcion = str(input("Ingrese su opción 'c': "))
 
@@ -112,7 +132,11 @@ def matcheos():
         
         os.system("cls")
         print("\n3. Matcheos")
+<<<<<<< HEAD
         print(" En construcción")
+=======
+        print(" En contruccion")
+>>>>>>> fd46101ba4152bf10aa0f85f745b8c581f8318f2
         print(" c. Volver")         
         opcion = str(input("Ingrese su opción 'c': "))
 
@@ -123,7 +147,11 @@ opcion: str
 def reportes_estadisticos():
     os.system("cls")
     print("\nReportes estadisticos")
+<<<<<<< HEAD
     print(" En construcción")
+=======
+    print(" En contruccion")
+>>>>>>> fd46101ba4152bf10aa0f85f745b8c581f8318f2
     print(" c. Volver")
     opcion = str(input("Ingrese su opción 'c': "))
 
@@ -137,7 +165,11 @@ def reportes_estadisticos():
 
         os.system("cls")
         print("\nReportes estadisticos")
+<<<<<<< HEAD
         print(" En construcción")
+=======
+        print(" En contruccion")
+>>>>>>> fd46101ba4152bf10aa0f85f745b8c581f8318f2
         print(" c. Volver")  
         opcion = str(input("Ingrese su opción 'c': "))
 
@@ -202,6 +234,7 @@ FUN mostrar_todos_los_candidatos
 email_usuario_autenticado, usuario1_email, usuario2_email, usuario3_email, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies: str
 '''
 def mostrar_todos_los_candidatos():
+<<<<<<< HEAD
     campo_vacio = ""
     print("Candidatos\n")
     if email_usuario_autenticado == usuario1_email:
@@ -216,6 +249,21 @@ def mostrar_todos_los_candidatos():
         mostrar_datos(campo_vacio, campo_vacio, usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, campo_vacio)
         print("\n")
         mostrar_datos(campo_vacio, campo_vacio, usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, campo_vacio)
+=======
+    print("Candidatos\n")
+    if email_usuario_autenticado == usuario1_email:
+        mostrar_datos("", "", usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, "")
+        print("\n")
+        mostrar_datos("", "", usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, "")
+    elif email_usuario_autenticado == usuario2_email:
+        mostrar_datos("", "", usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, "")
+        print("\n")
+        mostrar_datos("", "", usuario3_nombre, usuario3_fecha_de_nacimiento, usuario3_biografia, usuario3_hobbies, "")
+    elif email_usuario_autenticado == usuario3_email:
+        mostrar_datos("", "", usuario1_nombre, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, "")
+        print("\n")
+        mostrar_datos("", "", usuario2_nombre, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, "")
+>>>>>>> fd46101ba4152bf10aa0f85f745b8c581f8318f2
 
 '''
 FUN dar_me_gusta_al_candidato
@@ -236,7 +284,11 @@ def dar_me_gusta_al_candidato():
     elif email_usuario_autenticado == usuario3_email:
         usuario3_me_gusta = nombre_candidato
     
+<<<<<<< HEAD
     print("El candidato ha sido seleccionado correctamente")
+=======
+    os.system("cls")
+>>>>>>> fd46101ba4152bf10aa0f85f745b8c581f8318f2
 
 '''
 FUN menu_de_mis_datos()
@@ -340,16 +392,25 @@ def mostrar_datos(usuario_email, usuario_contraseña, usuario_nombre, usuario_fe
         print("Hobbies: ", usuario_hobbies)
     if(usuario_me_gusta):   
         print("Me gusta: ", usuario_me_gusta)
+<<<<<<< HEAD
+=======
+    
+>>>>>>> fd46101ba4152bf10aa0f85f745b8c581f8318f2
 
 def validar_numero():
     while True:
         try:
+<<<<<<< HEAD
             return int(input("Ingrese un número entre 0 y 4: "))
+=======
+            return int(input("Ingrese un número: "))
+>>>>>>> fd46101ba4152bf10aa0f85f745b8c581f8318f2
         except ValueError:
             print("Debe ingresar un número")
 
 '''
 FUN declarar_constantes
+<<<<<<< HEAD
 email_usuario_autenticado, usuario1_email, usuario1_biografia, usuario1_hobbies, usuario2_email, usuario2_biografia, usuario2_hobbies, usuario3_email, usuario3_biografia, usuario3_hobbies, usuario1_contraseña, usuario1_nombre, usuario1_me_gusta, usuario1_fecha_de_nacimiento, usuario2_contraseña, usuario2_nombre, usuario2_me_gusta, usuario2_fecha_de_nacimiento, usuario3_contraseña, usuario3_nombre, usuario3_me_gusta, usuario3_fecha_de_nacimiento: str 
 intentos_restantes: integer
 isLoggedIn: boolean
@@ -360,6 +421,17 @@ def declarar_constantes():
     #Usuario 1 dec vars
     usuario1_email = "estudiante1@ayed.com"
     usuario1_contraseña = "111222"
+=======
+email_usuario_autenticado, usuario1_email, usuario1_biografia, usuario1_hobbies, usuario2_email, usuario2_biografia, usuario2_hobbies, usuario3_email, usuario3_biografia, usuario3_hobbies, usuario1_contraseña, usuario1_nombre, usuario1_me_gusta, usuario1_fecha_de_nacimiento, usuario2_contraseña, usuario2_nombre, usuario2_me_gusta, usuario2_fecha_de_nacimiento, , usuario3_nombre, usuario3_me_gusta, usuario3_fecha_de_nacimiento: str 
+intentos_restantes: integer
+'''
+def declarar_constantes():
+    global usuario1_email, usuario1_contraseña, usuario1_nombre, usuario1_me_gusta, usuario2_email, usuario2_contraseña, usuario2_nombre, usuario2_me_gusta, usuario3_email, usuario3_me_gusta, usuario3_contraseña, usuario3_nombre, intentos_restantes, email_usuario_autenticado, isLoggedIn, intentos_restantes, email_usuario_autenticado, usuario1_fecha_de_nacimiento, usuario1_biografia, usuario1_hobbies, usuario2_fecha_de_nacimiento, usuario2_biografia, usuario2_hobbies, usuario3_fecha_de_nacimiento,usuario3_biografia, usuario3_hobbies
+
+    #Usuario 1 dec vars
+    usuario1_email = "111"
+    usuario1_contraseña = "222"
+>>>>>>> fd46101ba4152bf10aa0f85f745b8c581f8318f2
     usuario1_me_gusta = ""
     usuario1_fecha_de_nacimiento = "1985-02-25"
     usuario1_nombre = "Carlos"
@@ -404,6 +476,11 @@ def iniciar_sesion():
         
         if (email == usuario1_email and contraseña == usuario1_contraseña) or (email == usuario2_email and contraseña == usuario2_contraseña) or (email == usuario3_email and contraseña == usuario3_contraseña):
             os.system("cls")
+<<<<<<< HEAD
+=======
+            print("Inicio de sesión exitoso!")
+            print("Bienvenido!")
+>>>>>>> fd46101ba4152bf10aa0f85f745b8c581f8318f2
             email_usuario_autenticado = email
             isLoggedIn = True
         else:
