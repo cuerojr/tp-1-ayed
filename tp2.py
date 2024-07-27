@@ -1,7 +1,9 @@
 '''
 TP#1 AyED Comisión 113
 Rojo Nicolás
-Frenna Luca
+Frenna Luca Daniel
+Maria Soledad Cosenza
+Giuliano Contrera
 '''
 # Librerias
 import os
