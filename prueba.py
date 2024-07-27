@@ -55,18 +55,18 @@ for i in range(8):
         arreglo_me_gusta[i][j] = random.randint(0, 1) # Populacion aleatoria de likes
 
 """
-PROCEDIMIENTO popular_est
-ESTUDIANTES_INDEX: enteros
+PROCEDIMIENTO popular_db_estudiantes
+ESTUDIANTES_INDEX, i: enteros
 
 arreglo_usuarios_creados:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 """
-def popular_est():
+def popular_db_estudiantes(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes):
     for i in range(4):        
         arreglo_de_estudiantes[i][0] = str(i)
         arreglo_de_estudiantes[i][1] = "est" + str(i+1)
         arreglo_de_estudiantes[i][2] = "est" + str(i+1)
-        arreglo_de_estudiantes[i][3] = "est" + str(i+1)
+        arreglo_de_estudiantes[i][3] = "est" + str(i+1) + "@ayed.com"
         arreglo_de_estudiantes[i][4] = "est" + str(i+1)
         arreglo_de_estudiantes[i][5] = "estudiante"
         arreglo_de_estudiantes[i][8] = str(random.randint(1,30))+"-"+str(random.randint(1, 12))+"-"+"19"+str(random.randint(80, 99))
@@ -74,7 +74,7 @@ def popular_est():
 
     arreglo_usuarios_creados[ESTUDIANTES_INDEX] = 4
 
-popular_est()
+popular_db_estudiantes(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
 
 
 """
@@ -85,8 +85,8 @@ arreglo_usuarios_sesion:    arreglo unidimensional de booleanos
 arreglo_usuarios_creados:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 arreglo_de_moderadores:     arreglo bidimensional de 8*8 de strings
-arreglo_informe_reportes:
-arreglo_reportes:
+arreglo_informe_reportes:   arreglo bidimensional de 8x8 de caracteres
+arreglo_reportes:           arreglo bidimensional de 8x8 de strings
 """
 def mostrar_menu_estudiante():
     print("Menu ")
@@ -104,7 +104,7 @@ arreglo_usuarios_sesion:    arreglo unidimensional de booleanos
 arreglo_usuarios_creados:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 """
-def menu_estudiante(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes):
+def menu_estudiante(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta):
     mostrar_menu_estudiante()
     
     opc = validar_numero()
@@ -119,9 +119,9 @@ def menu_estudiante(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estu
             case 2:
                 gestionar_candidatos(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta)
             case 3:
-                matcheos(arreglo_usuarios_creados, ESTUDIANTES_INDEX)
+                matcheos()
             case 4:
-                reportes_estadisticos(arreglo_usuarios_creados, ESTUDIANTES_INDEX)
+                reportes_estadisticos(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_me_gusta, arreglo_de_estudiantes)
             case 0:
                 print("Sesión cerrada. ¡Hasta luego!")
                 arreglo_usuarios_sesion[ESTUDIANTES_INDEX]  = False
@@ -226,7 +226,7 @@ def mostrar_menu_de_mis_datos(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreg
             print("Mi biografia: ", arreglo_de_estudiantes[i][11])
             print("Mi edad: ", mostrar_edad(arreglo_de_estudiantes[i][8] or ""), "años")
             print("Mis hobbies: ", arreglo_de_estudiantes[i][6])
-            print(mostrar_me_gusta(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes))
+            print(mostrar_me_gusta(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta))
             print("Mi estado: ", arreglo_de_estudiantes[i][9])
 
 """
@@ -280,7 +280,7 @@ arreglo_usuarios_creados:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 """
 def eliminar_mis_me_gusta(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes):
-    mostrar_me_gusta(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
+    mostrar_me_gusta(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta)
     eliminar_me_gusta = str(input("Ingrese nombre de usuario para eliminar de la lista: "))
     for i in range(arreglo_usuarios_creados[ESTUDIANTES_INDEX]):
         if  arreglo_de_estudiantes[i][10] == "iniciado":
@@ -298,8 +298,9 @@ ESTUDIANTES_INDEX, MODERADORES_INDEX, i, j: enteros
 
 arreglo_usuarios_creados:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
+arreglo_me_gusta:           arreglo bidimensional de 8x8 de enteros
 """
-def mostrar_me_gusta(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes):
+def mostrar_me_gusta(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta):
     print("\nMis me gusta\n")
     for i in range(arreglo_usuarios_creados[ESTUDIANTES_INDEX]):
         if  arreglo_de_estudiantes[i][10] == "iniciado":
@@ -335,8 +336,9 @@ ESTUDIANTES_INDEX, i: enteros
 
 arreglo_usuarios_creados:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
+arreglo_me_gusta:           arreglo unidimensional de 8*8 de enteros
 """
-def mostrar_datos(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes):   #cambio en los me gusta de esta funcion
+def mostrar_datos(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta):   #cambio en los me gusta de esta funcion
     for i in range(arreglo_usuarios_creados[ESTUDIANTES_INDEX]):
         print("\nID: ",arreglo_de_estudiantes[i][0])
         print("Nombre: ", arreglo_de_estudiantes[i][1])
@@ -346,7 +348,7 @@ def mostrar_datos(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudi
         print("Biografia: ", arreglo_de_estudiantes[i][11])
         print("Edad: ", mostrar_edad(arreglo_de_estudiantes[i][8]), "años")
         print("Hobbies: ", arreglo_de_estudiantes[i][6])
-        print(mostrar_me_gusta(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes))
+        print(mostrar_me_gusta(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta))
         print("Estado: ", arreglo_de_estudiantes[i][9])
 
 """
@@ -415,8 +417,9 @@ PROCEDIMIENTO gestionar_candidatos
 ESTUDIANTES_INDEX: enteros
 opc: string
 
-arreglo_usuarios_creados:   arreglo unidimesional de enteroses:
-arreglo_reportes:
+arreglo_usuarios_creados:   arreglo unidimesional de enteros
+arreglo_de_estudiantes:     arreglo bidimensional de 8x12 de strings
+arreglo_me_gusta:           arreglo unidimensional de enteros
 """
 def gestionar_candidatos(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta):
     os.system("cls")
@@ -447,10 +450,12 @@ ESTUDIANTES_INDEX: enteros
 opc: string
 
 arreglo_usuarios_creados:   arreglo unidimesional de enteros
+arreglo_me_gusta:           arreglo unidimensional de enteros
+arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 """
 def ver_candidatos(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta):
     print("\nCandidatos\n")
-    mostrar_datos(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
+    mostrar_datos(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta)
     print("\n\n\na. Dar me gusta")
     print("\nb. Volver")
     opc = str(input("Ingrese su opción: "))
@@ -460,7 +465,7 @@ def ver_candidatos(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estud
                 me_gusta(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta)
         os.system("cls")
         print("\nCandidatos\n")
-        mostrar_datos(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
+        mostrar_datos(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta)
         print("\n\n\na. Dar me gusta")
         print("\nb. Volver")
         opc = str(input("Opción inválida. Ingrese de nuevo: "))
@@ -472,8 +477,8 @@ reportado, reporte: string
 
 arreglo_usuarios_creados:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
-arreglo_informe_reportes:
-arreglo_reportes:
+arreglo_informe_reportes:   arreglo bidimensional de 8x8 de caracteres
+arreglo_reportes:           arreglo bidimensional de 8x8 de strings
 """
 def reportar_candidato(arreglo_usuarios_creados, ESTUDIANTES_INDEX):
     print("\nReportar candidatos\n")
@@ -518,12 +523,12 @@ opc: string
 
 arreglo_usuarios_creados:   arreglo unidimesional de enteros
 """
-def reportes_estadisticos(arreglo_usuarios_creados, ESTUDIANTES_INDEX):
+def reportes_estadisticos(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_me_gusta, arreglo_de_estudiantes):
     os.system("cls")
     print("\nReportes estadísticos\n")
     porcentaje_matcheos()
-    like1(arreglo_usuarios_creados, ESTUDIANTES_INDEX)
-    like2(arreglo_usuarios_creados, ESTUDIANTES_INDEX)
+    like1(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_me_gusta, arreglo_de_estudiantes)
+    like2(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_me_gusta, arreglo_de_estudiantes)
     print("a. Volver")
     opc = str(input("Ingrese su opción: "))
 
@@ -531,8 +536,8 @@ def reportes_estadisticos(arreglo_usuarios_creados, ESTUDIANTES_INDEX):
         os.system("cls")
         print("\nReportes estadísticos\n")
         porcentaje_matcheos()
-        like1(arreglo_usuarios_creados, ESTUDIANTES_INDEX)
-        like2(arreglo_usuarios_creados, ESTUDIANTES_INDEX)
+        like1(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_me_gusta, arreglo_de_estudiantes)
+        like2(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_me_gusta, arreglo_de_estudiantes)
         print("a. Volver")  
         opc = str(input("Opción inválida. Ingrese de nuevo: "))
 
@@ -564,8 +569,9 @@ ESTUDIANTES_INDEX, i, j, contador: enteros
 
 arreglo_usuarios_creados:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
+arreglo_me_gusta:     arreglo bidimensional de 8*8 de enteros
 """
-def like1(arreglo_usuarios_creados, ESTUDIANTES_INDEX):
+def like1(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_me_gusta, arreglo_de_estudiantes):
     contador = 0
     for i in range(arreglo_usuarios_creados[ESTUDIANTES_INDEX]):
         if  arreglo_de_estudiantes[i][10] == "iniciado":
@@ -585,8 +591,9 @@ ESTUDIANTES_INDEX, i, j, contador: enteros
 
 arreglo_usuarios_creados:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
+arreglo_me_gusta:     arreglo bidimensional de 8*8 de enteros
 """
-def like2(arreglo_usuarios_creados, ESTUDIANTES_INDEX):
+def like2(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_me_gusta, arreglo_de_estudiantes):
     contador = 0
     for i in range(arreglo_usuarios_creados[ESTUDIANTES_INDEX]):
         if  arreglo_de_estudiantes[i][10] == "iniciado":
@@ -615,8 +622,8 @@ PROCEDIMIENTO menu_moderadores
 ESTUDIANTES_INDEX, MODERADORES_INDEX, opc: enteros
 
 arreglo_usuarios_creados:   arreglo unidimesional de enteros
-arreglo_informe_reportes:
-arreglo_reportes:
+arreglo_informe_reportes:   arreglo bidimensional de 8x8 de caracteres
+arreglo_reportes:           arreglo bidimensional de 8x8 de strings
 """
 def menu_moderadores(arreglo_usuarios_creados, MODERADORES_INDEX, ESTUDIANTES_INDEX, arreglo_reportes, arreglo_informe_reportes):
     mostrar_menu_moderadores()
@@ -783,11 +790,11 @@ arreglo_usuarios_sesion:    arreglo unidimensional de booleanos
 arreglo_usuarios_creados:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 arreglo_de_moderadores:     arreglo bidimensional de 8*8 de strings
+arreglo_me_gusta:           arreglo bidimensional de 8*8 de enteros
 """
-def validar_ingreso(arreglo_usuarios_creados, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_usuarios_sesion, arreglo_reportes, arreglo_informe_reportes):
+def validar_ingreso(arreglo_usuarios_creados, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_usuarios_sesion, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta):
     intentos = 3
 
-    print("Inicia sesión\n", arreglo_usuarios_sesion[ESTUDIANTES_INDEX], arreglo_usuarios_sesion[MODERADORES_INDEX])
     email = input("Ingrese su email: ")
     contraseña = getpass.getpass("Ingrese su contraseña: ")
     while intentos > 1 and (not arreglo_usuarios_sesion[ESTUDIANTES_INDEX] and not arreglo_usuarios_sesion[MODERADORES_INDEX]):
@@ -795,8 +802,9 @@ def validar_ingreso(arreglo_usuarios_creados, ESTUDIANTES_INDEX, MODERADORES_IND
             if ((email == arreglo_de_estudiantes[i][3] and contraseña == arreglo_de_estudiantes[i][4] and arreglo_de_estudiantes[i][9] == "activo")):
                 arreglo_usuarios_sesion[ESTUDIANTES_INDEX] = True
                 arreglo_de_estudiantes[i][10] = "iniciado"
+                os.system("cls")
                 print("Sesión iniciada correctamente")
-                menu_estudiante(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
+                menu_estudiante(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta)
 
         for i in range(arreglo_usuarios_creados[MODERADORES_INDEX]):
             if (email == arreglo_de_moderadores[i][3] and contraseña == arreglo_de_moderadores[i][4]):
@@ -819,13 +827,14 @@ arreglo_usuarios_sesion:    arreglo unidimensional de booleanos
 arreglo_usuarios_creados:   arreglo unidimesional de enteros
 arreglo_reportes
 arreglo_informe_reportes
+arreglo_me_gusta:           arreglo bidimensional de 8*8 de enteros
 """
-def ingresar(MIN_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, arreglo_usuarios_sesion, arreglo_usuarios_creados, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes):
+def ingresar(MIN_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, arreglo_usuarios_sesion, arreglo_usuarios_creados, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta):
     if(MIN_CANT_ESTUDIANTES <= arreglo_usuarios_creados[ESTUDIANTES_INDEX] and MIN_CANT_MODERADORES <= arreglo_usuarios_creados[MODERADORES_INDEX]):        
         arreglo_usuarios_sesion[MODERADORES_INDEX] = False
         arreglo_usuarios_sesion[ESTUDIANTES_INDEX] = False
         os.system("cls")
-        validar_ingreso(arreglo_usuarios_creados, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_usuarios_sesion, arreglo_reportes, arreglo_informe_reportes)
+        validar_ingreso(arreglo_usuarios_creados, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_usuarios_sesion, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta)
     else:
         os.system("cls")
         print("No se puede ingresar, cantidad de estudiantes y moderadores insuficientes")
@@ -919,7 +928,6 @@ def registrar_moderador(arreglo_usuarios_creados, MAX_CANT_MODERADORES, MODERADO
         os.system("cls")
         arreglo_usuarios_creados[MODERADORES_INDEX] = arreglo_usuarios_creados[MODERADORES_INDEX]+1
         print("Moderador registrado")
-        print(arreglo_de_moderadores)
     else:
         print("Todos los moderadores fueron cargados")
 
@@ -941,7 +949,6 @@ def registrar(MAX_CANT_ESTUDIANTES, MAX_CANT_MODERADORES, arreglo_usuarios_cread
                 registrar_estudiante(arreglo_usuarios_creados, MAX_CANT_ESTUDIANTES, ESTUDIANTES_INDEX, arreglo_de_estudiantes) # type: ignore            
             case "b": 
                 registrar_moderador(arreglo_usuarios_creados, MAX_CANT_MODERADORES, MODERADORES_INDEX, arreglo_de_moderadores) # type: ignore            
-        
            
         mostrar_menu_registrar()
         opc = str(input("Ingrese su opción: "))
@@ -955,7 +962,7 @@ def validar_numero():
         try:
             return int(input("Ingrese un número: "))
         except ValueError:
-            print("Debe ingresar un número")
+            print("\nDebe ingresar un número")
 
 """
 PROCEDIMIENTO mostrar_menu_registrar
@@ -984,10 +991,11 @@ arreglo_usuarios_sesion:    arreglo unidimensional de booleanos
 arreglo_usuarios_creados:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 arreglo_de_moderadores:     arreglo bidimensional de 8*8 de strings
-arreglo_informe_reportes:
-arreglo_reportes:
+arreglo_informe_reportes:   arreglo bidimensional de 8x8 de caracteres
+arreglo_reportes:           arreglo bidimensional de 8x8 de strings
+arreglo_me_gusta:           arreglo bidimensional de 8*8 de enteros
 """
-def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, MAX_CANT_MODERADORES, arreglo_usuarios_sesion, arreglo_usuarios_creados, arreglo_de_estudiantes, arreglo_de_moderadores, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes):
+def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, MAX_CANT_MODERADORES, arreglo_usuarios_sesion, arreglo_usuarios_creados, arreglo_de_estudiantes, arreglo_de_moderadores, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta):
     os.system("cls")
     mostrar_menu_principal()     
     opc = validar_numero()
@@ -1000,7 +1008,7 @@ def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_
             case 1:
                 registrar(MAX_CANT_ESTUDIANTES, MAX_CANT_MODERADORES, arreglo_usuarios_creados, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_de_estudiantes, arreglo_de_moderadores)
             case 2:
-                ingresar(MIN_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, arreglo_usuarios_sesion, arreglo_usuarios_creados, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes)
+                ingresar(MIN_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, arreglo_usuarios_sesion, arreglo_usuarios_creados, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta)
             case 3:
                 print("Bonuses")
         
@@ -1013,4 +1021,4 @@ def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_
     os.system("cls")
     print("\n\nSesión cerrada. ¡Hasta luego!\n\n")
   
-ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, MAX_CANT_MODERADORES, arreglo_usuarios_sesion, arreglo_usuarios_creados, arreglo_de_estudiantes, arreglo_de_moderadores, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes)
+ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, MAX_CANT_MODERADORES, arreglo_usuarios_sesion, arreglo_usuarios_creados, arreglo_de_estudiantes, arreglo_de_moderadores, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta)
