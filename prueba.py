@@ -87,6 +87,57 @@ def popular_db_estudiantes(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estud
 
 popular_db_estudiantes(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
 
+
+"""
+Funcion 
+arr: arreglo unidimensional de enteros
+i, j, aux: enteros
+"""
+def ordenar_arreglo(arr):
+    for i in range(0, 6):
+        for j in range(0, 6-i-1):
+            if arr[j] > arr[j+1]:
+                aux = arr[j]
+                arr[j] = arr[j+1]
+                arr[j+1] = aux
+    return arr
+"""
+Función
+izquierda, derecha, medio: enteros
+arr: arreglo unidimensional de enteros
+"""
+def busqueda_dicotomica(arr, x):
+    izquierda = 0
+    derecha = 6
+    while izquierda <= derecha:
+        medio = (izquierda + derecha) // 2
+        if arr[medio] == x:
+            return medio
+        elif arr[medio] < x:
+            izquierda = medio + 1
+        else:
+            derecha = medio - 1
+    return izquierda
+
+"""
+Procedimiento
+edades
+"""
+def encontrar_huecos(edades):
+    edades = ordenar_arreglo(edades)
+    huecos = 0
+    actual = edades[0]
+    fin = edades[-1]
+
+    for i in range(actual, fin):
+        idx = busqueda_dicotomica(edades, i)
+        if idx >= 6 or edades[idx] != i:
+            huecos += 1
+
+    print("Huecos encontrados:", huecos)
+
+
+
 """
 PROCEDIMIENTO mostrar_menu_estudiante
 MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, MAX_CANT_MODERADORES, ESTUDIANTES_INDEX, MODERADORES_INDEX, opc: enteros
@@ -974,7 +1025,7 @@ def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_
             case 2:
                 ingresar(MIN_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, arreglo_sesion, arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX)
             case 3:
-                print("Bonuses")
+                encontrar_huecos([21, 18, 20, 19, 23, 24])
 
         mostrar_menu_principal()
         opc = validar_numero()
