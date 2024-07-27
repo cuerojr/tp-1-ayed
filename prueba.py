@@ -44,7 +44,7 @@ USUARIO_INDEX = 2           # enteros
 arreglo_de_estudiantes      = [[""]*12  for i in range(8)] # Arreglo bidimensional de 8x12 de strings
 arreglo_de_moderadores      = [[""]*8   for i in range(4)] # Arreglo bidimensional de 8x4 de strings
 arreglo_informe_reportes    = [[""]*8   for i in range(8)] # Arreglo bidimensional de 8x8 de caracteres
-arreglo_reportes            = [[""]*8   for i in range(8)] # Arreglo bidimensional de 8x8 de strings
+arreglo_reportes            = [[[""]*2]*8   for i in range(8)] # Arreglo tridimensional de 8x8x2 de strings
 arreglo_me_gusta            = [[0]*8    for i in range(8)] # Arreglo bidimensional de 8x8 de enteros
 
 arreglo_usuarios_sesion     = [False]*2 # Arreglo unidimensional de booleanos
@@ -131,19 +131,19 @@ def menu_estudiante(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_de_estu
                 matcheos()
             case 4:
                 reportes_estadisticos(arreglo_usuarios_creados, ESTUDIANTES_INDEX, arreglo_me_gusta, arreglo_de_estudiantes)
-            case 0:
-                print("Sesión cerrada. ¡Hasta luego!")
-                arreglo_usuarios_sesion[ESTUDIANTES_INDEX]  = False
-                for i in range(arreglo_usuarios_creados[ESTUDIANTES_INDEX]):
-                    if  arreglo_de_estudiantes[i][10] == "iniciado":
-                        arreglo_de_estudiantes[i][10] = ""
-                os.system("cls")
+
         os.system("cls")
         mostrar_menu_estudiante()
         opc = validar_numero()
         while opc < 0 and opc > 4:
             print("Opción inválida")
             opc = validar_numero()
+    
+    for i in range(arreglo_usuarios_creados[ESTUDIANTES_INDEX]):
+        if  arreglo_de_estudiantes[i][10] == "iniciado":
+            arreglo_de_estudiantes[i][10] = ""
+    # arreglo_usuarios_sesion[ESTUDIANTES_INDEX]  = False
+
 
 """
 PROCEDIMIENTO gestionar_mi_perfil
@@ -510,16 +510,10 @@ def reportar_candidato(arreglo_usuarios_creados, ESTUDIANTES_INDEX):
         if  arreglo_de_estudiantes[i][10] == "iniciado":
             for j in range(arreglo_usuarios_creados[ESTUDIANTES_INDEX]):
                 if reportado == arreglo_de_estudiantes[j][1] or reportado == arreglo_de_estudiantes[j][0]:
-                    arreglo_reportes[i][j] = "0"
-                    arreglo_informe_reportes[i][j] = reporte
+                    arreglo_reportes[i][j][0] = "0"
+                    arreglo_reportes[i][j][1] = reporte
                     os.system("cls")
                     print("\nReporte exitoso.\n")
-                    print("reportes", arreglo_reportes)
-                    print("informes", arreglo_informe_reportes)
-                else:
-                    print("Error")
-        # else:
-        #     print("Error")
 
 """
 PROCEDIMIENTO matcheos
@@ -661,7 +655,7 @@ def menu_moderadores(arreglo_usuarios_creados, MODERADORES_INDEX, ESTUDIANTES_IN
             case 1:
                 gestionar_usuarios(arreglo_usuarios_creados, ESTUDIANTES_INDEX)
             case 2:
-                gestionar_reportes(arreglo_reportes, arreglo_informe_reportes)
+                gestionar_reportes(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios_creados, ESTUDIANTES_INDEX)
             case 3:
                 reportes_estadisticos_mods()
             case 0:
@@ -727,7 +721,7 @@ opc: string
 arreglo_reportes:           arreglo bidimensional de 8x8 de strings
 arreglo_informe_reportes:   arreglo bidimensional de 8x8 de caracteres
 """
-def gestionar_reportes(arreglo_reportes, arreglo_informe_reportes):
+def gestionar_reportes(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios_creados, ESTUDIANTES_INDEX):
     os.system("cls")
     print("\nGestionar reportes\n")
     print("a. Ver reportes")  
@@ -737,8 +731,7 @@ def gestionar_reportes(arreglo_reportes, arreglo_informe_reportes):
     while opc != "b":
         match opc:
             case "a":
-                ver_reportes(arreglo_reportes, arreglo_informe_reportes)
-        os.system("cls")
+                ver_reportes(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios_creados, ESTUDIANTES_INDEX)
         print("\nGestionar reportes\n")
         print("a. Ver reportes")  
         print("b. Volver") 
@@ -753,40 +746,49 @@ arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 arreglo_reportes:           arreglo bidimensional de 8x8 de strings
 arreglo_informe_reportes:   arreglo bidimensional de 8x8 de caracteres
 """
-def ver_reportes(arreglo_reportes, arreglo_informe_reportes):   #<-----------------------------------------------------bastante dudoso(no lo probe)
-    for i in range(arreglo_reportes):       #slot usuario
+def ver_reportes(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios_creados, ESTUDIANTES_INDEX):   #<-----------------------------------------------------bastante dudoso(no lo probe)
+    for i in range(arreglo_usuarios_creados[ESTUDIANTES_INDEX]):       #slot usuario
         os.system("cls")
         print("\nReportes\n")
-        for j in range(arreglo_reportes):       #slot del reporte
-            if  arreglo_reportes[i][j] == "0":
-                print("ID: ", arreglo_de_estudiantes[i][0])
-                print("Nombre: ", arreglo_de_estudiantes[i][1])
-                for h in range(arreglo_reportes):                   #para revisar cada reporte y tomar una decisión
-                    if arreglo_reportes[i][h] != "" and arreglo_reportes[i][h] != "1" and arreglo_reportes[i][h] != "2":
-                        print(arreglo_informe_reportes[i][h])
+        for j in range(arreglo_usuarios_creados[ESTUDIANTES_INDEX]):       #slot del reporte
+            if i != j:
+                if  arreglo_reportes[i][j][0] == "0":
+                    # for h in range(8):                   #para revisar cada reporte y tomar una decisión
+                    if arreglo_reportes[i][j][0] == "0":
+                        print("\nReporte")
+                        print("ID de reportante: ", arreglo_de_estudiantes[i][0])
+                        print("ID de reportado: ", arreglo_de_estudiantes[j][0])
+                        print(arreglo_reportes[i][j][1])
                         print("\n¿Que acción desea tomar?\n")
                         print("a. Ignorar reporte")
                         print("b. Desactivar usuario")
                         opc = str(input("Ingrese su opción:"))
-                        while opc != "b" and opc != "a":
-                            match opc:
-                                case "a":
-                                    arreglo_reportes[i][h] = "2"
-                                case "b":
-                                    arreglo_reportes[i][h] = "1"
-                                    arreglo_de_estudiantes[i][9] = "inactivo"
-                            os.system("cls")
-                            print(arreglo_informe_reportes[i][h])
+                        while opc != "a" and opc != "b":
+                            print("ID de reportante: ", arreglo_de_estudiantes[i][0])
+                            print("ID de reportado: ", arreglo_de_estudiantes[j][0])
+                            print(arreglo_reportes[i][j][1])
                             print("\n¿Que acción desea tomar?\n")
                             print("a. Ignorar reporte")
                             print("b. Desactivar usuario")
                             opc = str(input("Opción inválida. Ingrese de nuevo: "))
+                        match opc:
+                            case "a":
+                                arreglo_reportes[i][j][0] = "2"
+                            case "b":
+                                arreglo_reportes[i][j][0] = "1"
+                                arreglo_de_estudiantes[i][9] = "inactivo"
+                        os.system("cls")
+                        # print("ID de reportante: ", arreglo_de_estudiantes[i][0])
+                        # print("ID de reportado: ", arreglo_de_estudiantes[j][0])
+                        # print(arreglo_reportes[i][j][1])
+                        # print("\n¿Que acción desea tomar?\n")
+                        # print("a. Ignorar reporte")
+                        # print("b. Desactivar usuario")
+                        # opc = str(input("Opción inválida. Ingrese de nuevo: "))
                         os.system("cls")
                         print("\nEl reporte ha sido tomado\n")
-                    else:
-                        print("Error")
-            else:
-                print("No hay reportes pendientes")
+        else:
+            print("No hay reportes pendientes")
 
 """
 PROCEDIMIENTO reportes_estadisticos_mods
@@ -1034,7 +1036,7 @@ arreglo_me_gusta:           arreglo bidimensional de 8*8 de enteros
 """
 def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, MAX_CANT_MODERADORES, arreglo_usuarios_sesion, arreglo_usuarios_creados, arreglo_de_estudiantes, arreglo_de_moderadores, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta):
     os.system("cls")
-    print(arreglo_de_estudiantes)
+    print(arreglo_reportes)
     mostrar_menu_principal()     
     opc = validar_numero()
     while opc < 0 and opc > 4:
