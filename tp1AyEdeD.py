@@ -2,8 +2,8 @@
 TP#1 AyED Comisión 113
 Rojo Nicolás
 Frenna Luca
-Alegre Sebastian
-Cosenza María Soledad
+Díaz, Santiago
+Fernández, Lucas
 '''
 # Librerias
 import os
