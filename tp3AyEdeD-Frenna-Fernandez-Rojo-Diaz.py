@@ -23,12 +23,9 @@ import pickle
 """
 class Admin:
     def __init__(self):
-        self.id = ""
-        self.nombre = ""
-        self.apellido = ""
-        self.email = ""
-        self.contraseña = ""
-        self.type = ""
+        self.id_admin = 0       #int
+        self.email = ""         #string 32
+        self.contraseña = ""    #string 32
 
 """ MODELO MODERADOR
 # 0 ID: string
@@ -40,12 +37,10 @@ class Admin:
 """
 class Moderador:
     def __init__(self):
-        self.id = ""
-        self.nombre = ""
-        self.apellido = ""
-        self.email = ""
-        self.contraseña = ""
-        self.type = ""
+        self.id = 0             #int
+        self.email = ""         #string 32
+        self.contraseña = ""    #string 32
+        self.estado = False     #boolean
 
 """ MODELO ESTUDIANTE
 # 0 ID: string
@@ -63,19 +58,33 @@ class Moderador:
 """
 class Estudiante:
     def __init__(self):
-        self.id = ""
-        self.nombre = ""
-        self.apellido = ""
-        self.email = ""
-        self.contraseña = ""
-        self.type = ""
-        self.hobbies = ""
-        self.me_gusta = ""
-        self.fecha_nacimiento = ""
-        self.status = ""
-        self.iniciado = ""
-        self.biografia = ""
+        self.id_estudiante = 0      #int
+        self.email = ""             #string 32
+        self.nombre = ""            #string 32
+        self.contraseña = ""        #string 32
+        self.sexo = ""              #char
+        self.estado = False         #boolean
+        self.hobbies = ""           #string 255
+        self.materia_favorita = ""  #string 16
+        self.deporte_favorito = ""  #string 16
+        self.materia_fuerte = ""    #string 16
+        self.materia_debil = ""     #string 16
+        self.biografia = ""         #string 255
+        self.pais = ""              #string 32
+        self.ciudad = ""            #string 32        
+        self.fecha_nacimiento = ""  #string 10
 
+class Likes:
+    def __init__(self):
+        self.id_remitente = 0       #int
+        self.id_destinatario = 0    #int
+
+class Reportes:
+    def __init__(self):
+        self.id_reportante = 0      #int
+        self.id_reportado = 0       #int
+        self.motivo = ""            #string 255
+        self.estado = 0             #int
 
 # Constantes
 MIN_CANT_ESTUDIANTES  = 4   # enteros
@@ -129,7 +138,7 @@ def popular_db_estudiantes(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estud
 
     arreglo_usuarios[ESTUDIANTES_INDEX] = 4
 
-popular_db_estudiantes(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
+#popular_db_estudiantes(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
 
 
 """
@@ -973,13 +982,32 @@ arreglo_usuarios:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 """
 def registrar_estudiante(arreglo_usuarios, MAX_CANT_ESTUDIANTES, ESTUDIANTES_INDEX, arreglo_de_estudiantes):
-    if (arreglo_usuarios[ESTUDIANTES_INDEX] < MAX_CANT_ESTUDIANTES):
-        ingresar_datos_de_estudiantes(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
-        os.system("cls")
-        arreglo_usuarios[ESTUDIANTES_INDEX] = arreglo_usuarios[ESTUDIANTES_INDEX]+1
-        print("Estudiante registrado")
-    else: 
-        print("Todos los estudiantes fueron cargados")
+    global arFiEst, arLoEst
+
+    estudiante = Estudiante()
+    continuar = str(input("Seguro deasea registrar un estudiante (S/N)?: "))
+    # ingresar_datos_de_estudiantes(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
+    continuar.upper()
+    while continuar != "S" and continuar != "N":
+        print("Por favor, ingrese una opción válida (S/N)")
+        continuar = str(input("Seguro deasea registrar un estudiante (S/N)?: "))
+        continuar.upper()
+    while continuar == "S":
+        if os.path.getsize(arFiEst) == 0:
+            estudiante.id = 1
+        else:
+            arLoEst.seek(0,0)
+            estudiante = pickle.load(arLoEst)
+            tamReg = arLoEst.tell()
+            tamArc = os.path.getsize(arFiEst)
+            cantReg = tamArc // tamReg
+            estudiante.id = cantReg + 1
+
+
+
+
+    os.system("cls")
+    print("Estudiante registrado")
 
 """
 PROCEDIMIENTO registrar_moderador
