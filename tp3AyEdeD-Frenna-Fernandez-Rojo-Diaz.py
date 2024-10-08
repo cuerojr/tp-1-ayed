@@ -1,25 +1,53 @@
 '''
-TP#2 AyED Comisión 113
+TP#3 AyED Comisión 113
 Rojo Nicolás
 Frenna Luca Daniel
-Fernandez Lucas
+Fernández Lucas
 Diaz Santiago
 '''
 # Librerias
 import os
+import os.path
 import getpass
 from datetime import datetime
 import random
+import pickle
 
-## MODELO MODERADOR
+""" MODELO ADMIN
 # 0 ID: string
 # 1 nombre: string
 # 2 apellido: string
 # 3 email: string
 # 4 contraseña: string
 # 5 type: string
+"""
+class Admin:
+    def __init__(self):
+        self.id = ""
+        self.nombre = ""
+        self.apellido = ""
+        self.email = ""
+        self.contraseña = ""
+        self.type = ""
 
-## MODELO ESTUDIANTE
+""" MODELO MODERADOR
+# 0 ID: string
+# 1 nombre: string
+# 2 apellido: string
+# 3 email: string
+# 4 contraseña: string
+# 5 type: string
+"""
+class Moderador:
+    def __init__(self):
+        self.id = ""
+        self.nombre = ""
+        self.apellido = ""
+        self.email = ""
+        self.contraseña = ""
+        self.type = ""
+
+""" MODELO ESTUDIANTE
 # 0 ID: string
 # 1 nombre: string
 # 2 apellido: string
@@ -32,6 +60,22 @@ import random
 # 9 status: string
 # 10 iniciado: string
 # 11 biografia: string
+"""
+class Estudiante:
+    def __init__(self):
+        self.id = ""
+        self.nombre = ""
+        self.apellido = ""
+        self.email = ""
+        self.contraseña = ""
+        self.type = ""
+        self.hobbies = ""
+        self.me_gusta = ""
+        self.fecha_nacimiento = ""
+        self.status = ""
+        self.iniciado = ""
+        self.biografia = ""
+
 
 # Constantes
 MIN_CANT_ESTUDIANTES  = 4   # enteros
@@ -42,13 +86,13 @@ ESTUDIANTES_INDEX  = 0      # enteros
 MODERADORES_INDEX  = 1      # enteros
 USUARIO_INDEX = 2           # enteros
 
-arreglo_de_estudiantes      = [[""]*12  for _ in range(8)] # Arreglo bidimensional de 8x12 de strings
-arreglo_de_moderadores      = [[""]*8   for _ in range(4)] # Arreglo bidimensional de 8x4 de strings
-arreglo_informe_reportes    = [[""]*8   for _ in range(8)] # Arreglo bidimensional de 8x8 de caracteres
+arreglo_de_estudiantes      = [[""]*12  for _ in range(8)]  # Arreglo bidimensional de 8x12 de strings
+arreglo_de_moderadores      = [[""]*8   for _ in range(4)]  # Arreglo bidimensional de 8x4 de strings
+arreglo_informe_reportes    = [[""]*8   for _ in range(8)]  # Arreglo bidimensional de 8x8 de caracteres
 arreglo_reportes            = [[["" for _ in range(2)] for _ in range(8)] for _ in range(8)] # Arreglo tridimensional de 8x8x2 de strings
-arreglo_me_gusta            = [[0]*8    for i in range(8)] # Arreglo bidimensional de 8x8 de enteros
-arreglo_sesion     = [False]*2 # Arreglo unidimensional de booleanos
-arreglo_usuarios    = [0]*3     # Arreglo unidimensional de enteros
+arreglo_me_gusta            = [[0]*8    for i in range(8)]  # Arreglo bidimensional de 8x8 de enteros
+arreglo_sesion              = [False]*2                     # Arreglo unidimensional de booleanos
+arreglo_usuarios            = [0]*3                         # Arreglo unidimensional de enteros
 
 """"
 PROCEDIMIENTO popular_likes_aleatorios
@@ -1007,6 +1051,46 @@ def mostrar_menu_principal():
     print("0. Salir\n")
 
 """
+PROCEDIMIENTO abrir_archivos
+arFiAdmin, arFiMod, arFiEst: string
+
+arLoAdmin: 
+arLoMod: 
+arLoEst: 
+"""
+def abrir_archivos():
+    global arFiAdmin, arLoAdmin, arFiMod, arLoMod, arFiEst, arLoEst
+
+    arFiAdmin = "registroAdmins.dat"
+    arFiMod = "registroMods.dat"
+    arFiEst = "registroEsts.dat"
+
+    if os.path.exists(arFiEst):
+        arLoEst = open(arFiEst, "r+b")
+    else:
+        print(f"El archivo {arFiEst} se creo")
+        arLoEst = open(arFiEst, "w+b")
+
+    if os.path.exists(arFiAdmin):
+        arLoAdmin = open(arFiAdmin, "r+b")
+    else:
+        print(f"El archivo {arFiAdmin} se creo")
+        arLoAdmin = open(arFiAdmin, "w+b") 
+
+    if os.path.exists(arFiMod):
+        arLoMod = open(arFiMod, "r+b")
+    else:
+        print(f"El archivo {arFiAdmin} se creo")
+        arLoMod = open(arFiMod, "w+b")       
+
+def cerrar_archivos():
+    global arFiAdmin, arLoAdmin, arFiMod, arLoMod, arFiEst, arLoEst
+    arLoEst.close()
+    arLoAdmin.close()
+    arLoMod.close()
+    print("Archivos cerrados")
+
+"""
 PROCEDIMIENTO ejecutar_programa_principal
 MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, MAX_CANT_MODERADORES, USUARIO_INDEX, ESTUDIANTES_INDEX, MODERADORES_INDEX, opc: enteros
 
@@ -1020,6 +1104,8 @@ arreglo_me_gusta:           arreglo bidimensional de 8*8 de enteros
 """
 def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, MAX_CANT_MODERADORES, arreglo_sesion, arreglo_usuarios, arreglo_de_estudiantes, arreglo_de_moderadores, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX):
     
+    ## iniciar archivos
+    abrir_archivos()
     mostrar_menu_principal()     
     opc = validar_numero()
     while opc < 0 and opc > 4:
@@ -1044,6 +1130,9 @@ def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_
             opc = validar_numero()
 
     os.system("cls")
+    cerrar_archivos()
     print("\nPrograma finalizado, esperamos tu regreso...\n")
-  
+
+global arFiAdmin, arLoAdmin, arFiMod, arLoMod, arFiEst, arLoEst  
+
 ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, MAX_CANT_MODERADORES, arreglo_sesion, arreglo_usuarios, arreglo_de_estudiantes, arreglo_de_moderadores, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX)
