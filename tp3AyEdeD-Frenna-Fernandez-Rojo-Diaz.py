@@ -61,9 +61,10 @@ class Estudiante:
         self.id_estudiante = 0      #int
         self.email = ""             #string 32
         self.nombre = ""            #string 32
-        self.contraseña = ""        #string 32
+        self.contrasena = ""        #string 32
         self.sexo = ""              #char
         self.estado = False         #boolean
+        self.baja = "N"             #char
         self.hobbies = ""           #string 255
         self.materia_favorita = ""  #string 16
         self.deporte_favorito = ""  #string 16
@@ -94,6 +95,7 @@ MAX_CANT_MODERADORES  = 4   # enteros
 ESTUDIANTES_INDEX  = 0      # enteros
 MODERADORES_INDEX  = 1      # enteros
 USUARIO_INDEX = 2           # enteros
+ADMINISTRADOR_INDEX = 3     # enteros
 
 arreglo_de_estudiantes      = [[""]*12  for _ in range(8)]  # Arreglo bidimensional de 8x12 de strings
 arreglo_de_moderadores      = [[""]*8   for _ in range(4)]  # Arreglo bidimensional de 8x4 de strings
@@ -252,7 +254,8 @@ def menu_estudiante(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes,
             print("Opción inválida")
             opc = validar_numero()
     
-    arreglo_de_estudiantes[arreglo_usuarios[USUARIO_INDEX]][10] = 0
+    #arreglo_de_estudiantes[arreglo_usuarios[USUARIO_INDEX]][10] = 0
+    #arreglo_usuarios[USUARIO_INDEX] = 0
     os.system("cls")
 
 """
@@ -856,6 +859,22 @@ def mostrar_menu_reportes_estadisticos():
         opc = str(input("Ingrese de nuevo: "))
 
 """
+FUNCION buscar_estudiante
+
+"""
+def buscar_estudiante(param, search):
+    global arLoEst, arFiEst
+
+    tamArc = os.path.getsize(arFiEst)
+    arLoEst.seek(0, 0)    
+    while arLoEst.tell() < tamArc:
+        pos = arLoEst.tell()
+        estudiante = pickle.load(arLoEst)
+        if getattr(estudiante, param) == search:
+            return pos
+    return -1
+
+"""
 PROCEDIMIENTO validar_ingreso
 ESTUDIANTES_INDEX, USUARIO_INDEX, MODERADORES_INDEX, intentos, i: enteros
 email, contraseña: string
@@ -867,33 +886,66 @@ arreglo_de_moderadores:     arreglo bidimensional de 8*8 de strings
 arreglo_me_gusta:           arreglo bidimensional de 8*8 de enteros
 """
 def validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_sesion, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX):
+    global arLoEst 
     intentos = 3
 
-    email = input("Ingrese su email: ")
+    email = str(input("Ingrese email: "))
+    while len(email) > 32:
+        print("El email no puede tener más de 32 caracteres")
+        email = str(input("Ingrese email: "))
+    if len(email) < 32:
+        email = email.ljust(32, " ")
+    elif len(email) == 32:
+        email = email
+    estPos = buscar_estudiante("email", email)
+    estudiante = Estudiante()    
     contraseña = getpass.getpass("Ingrese su contraseña: ")
-    while intentos > 1 and (not arreglo_sesion[ESTUDIANTES_INDEX] and not arreglo_sesion[MODERADORES_INDEX]):
-        for i in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
-            if ((email == arreglo_de_estudiantes[i][3] and contraseña == arreglo_de_estudiantes[i][4] and arreglo_de_estudiantes[i][9] == "activo")):
-                arreglo_sesion[ESTUDIANTES_INDEX] = True
-                arreglo_usuarios[USUARIO_INDEX] = i
-                os.system("cls")
-                print("Sesión iniciada correctamente")
-                menu_estudiante(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, USUARIO_INDEX)
+    while len(contraseña) > 32:
+        print("La contraseña no puede tener más de 32 caracteres")
+        email = str(input("Ingrese contraseña: "))
+    if len(contraseña) < 32:
+        contraseña = contraseña.ljust(32, " ")
+    elif len(contraseña) == 32:
+        contraseña = contraseña
 
-        for i in range(arreglo_usuarios[MODERADORES_INDEX]):
-            if (email == arreglo_de_moderadores[i][3] and contraseña == arreglo_de_moderadores[i][4]):
-                arreglo_sesion[MODERADORES_INDEX] = True
-                os.system("cls")
-                print("Sesión iniciada correctamente")
-                menu_moderadores(arreglo_usuarios, MODERADORES_INDEX, ESTUDIANTES_INDEX, arreglo_reportes, arreglo_informe_reportes)
+    while intentos > 1 and (not arreglo_sesion[ESTUDIANTES_INDEX] and not arreglo_sesion[MODERADORES_INDEX]):
+        arLoEst.seek(estPos, 0)
+        estudiante = pickle.load(arLoEst)
+        print("🚀 ~ estudiante:", estudiante)
+
+        if ((contraseña == estudiante.contrasena and estudiante.baja == "N")):
+            print("Estudiante", estudiante) 
+            arreglo_sesion[ESTUDIANTES_INDEX] = True
+            arreglo_usuarios[USUARIO_INDEX] = estPos
+            print("arreglo_usuarios", estPos)
+            
+           # os.system("cls")
+            print("Sesión iniciada correctamente")
+            menu_estudiante(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, USUARIO_INDEX)
+
+        # if (email == arreglo_de_moderadores and contraseña == arreglo_de_moderadores[i][4]):
+        #         arreglo_sesion[MODERADORES_INDEX] = True
+        #         os.system("cls")
+        #         print("Sesión iniciada correctamente")
+        #         menu_moderadores(arreglo_usuarios, MODERADORES_INDEX, ESTUDIANTES_INDEX, arreglo_reportes, arreglo_informe_reportes)
 
         if(not arreglo_sesion[ESTUDIANTES_INDEX] and not arreglo_sesion[MODERADORES_INDEX]):
             os.system("cls")
             print("Email o contraseña incorrectos")
             intentos -= 1
             print("\nQuedan ", intentos, "intentos\n")
-            email = input("Ingrese su email: ")
+
+            email = str(input("Ingrese email: "))
+            while len(email) > 32:
+                print("El email no puede tener más de 32 caracteres")
+                email = str(input("Ingrese email: "))
+            if len(email) < 32:
+                email = email.ljust(32, " ")
+            elif len(email) == 32:
+                email = email
+            buscar_estudiante("email", email)
             contraseña = getpass.getpass("Ingrese su contraseña: ")
+
     os.system("cls")
 
 """
@@ -908,12 +960,12 @@ arreglo_me_gusta:           arreglo bidimensional de 8*8 de enteros
 """
 def ingresar(MIN_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, arreglo_sesion, arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX):
     os.system("cls")
-    if(MIN_CANT_ESTUDIANTES <= arreglo_usuarios[ESTUDIANTES_INDEX] and MIN_CANT_MODERADORES <= arreglo_usuarios[MODERADORES_INDEX]):        
-        arreglo_sesion[MODERADORES_INDEX] = False
-        arreglo_sesion[ESTUDIANTES_INDEX] = False
-        validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_sesion, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX)
-    else:        
-        print("No se puede ingresar, cantidad de estudiantes y moderadores insuficientes")
+    # if(MIN_CANT_ESTUDIANTES <= arreglo_usuarios[ESTUDIANTES_INDEX] and MIN_CANT_MODERADORES <= arreglo_usuarios[MODERADORES_INDEX]):        
+    arreglo_sesion[MODERADORES_INDEX] = False
+    arreglo_sesion[ESTUDIANTES_INDEX] = False
+    validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_sesion, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX)
+    # else:        
+    #     print("No se puede ingresar, cantidad de estudiantes y moderadores insuficientes")
 
 """
 PROCEDIMIENTO ingresar_datos_moderadores
@@ -987,25 +1039,67 @@ def registrar_estudiante(arreglo_usuarios, MAX_CANT_ESTUDIANTES, ESTUDIANTES_IND
     estudiante = Estudiante()
     continuar = str(input("Seguro deasea registrar un estudiante (S/N)?: "))
     # ingresar_datos_de_estudiantes(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
-    continuar.upper()
+    continuar = continuar.upper()
     while continuar != "S" and continuar != "N":
         print("Por favor, ingrese una opción válida (S/N)")
         continuar = str(input("Seguro deasea registrar un estudiante (S/N)?: "))
         continuar.upper()
     while continuar == "S":
         if os.path.getsize(arFiEst) == 0:
-            estudiante.id = 1
+            estudiante.id_estudiante = 1
         else:
             arLoEst.seek(0,0)
             estudiante = pickle.load(arLoEst)
             tamReg = arLoEst.tell()
             tamArc = os.path.getsize(arFiEst)
             cantReg = tamArc // tamReg
-            estudiante.id = cantReg + 1
+            estudiante.id_estudiante = cantReg + 1
+        # Ingreso y formateo campo nombre
+        nomYApe = str(input("Ingrese nombre y apellido: "))
+        while len(nomYApe) > 32:
+            print("El nombre y apellido no puede tener más de 32 caracteres")
+            nomYApe = str(input("Ingrese nombre y apellido: "))
+        if len(nomYApe) < 32:
+            estudiante.nombre = nomYApe.ljust(32, " ")
+        elif len(nomYApe) == 32:
+            estudiante.nombre = nomYApe
 
+        # Ingreso y formateo campo email
+        email = str(input("Ingrese email: "))
+        while len(email) > 32:
+            print("El email no puede tener más de 32 caracteres")
+            email = str(input("Ingrese email: "))
+        if len(email) < 32:
+            estudiante.email = email.ljust(32, " ")
+        elif len(email) == 32:
+            estudiante.email = email
 
+        # Ingreso y formateo campo contraseña
+        contraseña = str(input("Ingrese contraseña: "))
+        while len(contraseña) > 32:
+            print("La contraseña no puede tener más de 32 caracteres")
+            email = str(input("Ingrese contraseña: "))
+        if len(contraseña) < 32:
+            estudiante.contrasena = contraseña.ljust(32, " ")
+        elif len(contraseña) == 32:
+            estudiante.contrasena = contraseña
 
+        arLoEst.seek(0, 2) 
+        u = arLoEst.tell()
+        pickle.dump(estudiante, arLoEst)
+        arLoEst.flush()
+        arLoEst.seek(u, 0)  
+        estudiante = pickle.load(arLoEst)
+        print("Estudiante registrado con ID: ", estudiante.id_estudiante)      
+        print("Estudiante registrado con nombre: ", estudiante.nombre)      
+        print("Estudiante registrado con email: ", estudiante.email)      
 
+        continuar = str(input("Seguro deasea registrar otro estudiante (S/N)?: "))
+        continuar = continuar.upper()
+        while continuar != "S" and continuar != "N":
+            print("Por favor, ingrese una opción válida (S/N)")
+            continuar = str(input("Seguro deasea registrar un estudiante (S/N)?: "))
+            continuar = continuar.upper()
     os.system("cls")
     print("Estudiante registrado")
 
@@ -1112,7 +1206,7 @@ def abrir_archivos():
         arLoMod = open(arFiMod, "w+b")       
 
 def cerrar_archivos():
-    global arFiAdmin, arLoAdmin, arFiMod, arLoMod, arFiEst, arLoEst
+    global arLoAdmin, arLoMod, arLoEst
     arLoEst.close()
     arLoAdmin.close()
     arLoMod.close()
