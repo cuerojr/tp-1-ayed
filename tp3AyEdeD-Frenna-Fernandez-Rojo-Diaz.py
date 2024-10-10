@@ -1307,6 +1307,7 @@ def cerrar_archivos():
     arLoMod.close()
     print("Archivos cerrados")
 
+
 """
 PROCEDIMIENTO ejecutar_programa_principal
 MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, MAX_CANT_MODERADORES, USUARIO_INDEX, ESTUDIANTES_INDEX, MODERADORES_INDEX, opc: enteros
