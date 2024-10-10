@@ -340,15 +340,22 @@ arreglo_usuarios:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 """
 def mostrar_menu_de_mis_datos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, USUARIO_INDEX):
-    print("\nMi ID: ", arreglo_de_estudiantes[arreglo_usuarios[USUARIO_INDEX]][0])
-    print("Mi nombre: ", arreglo_de_estudiantes[arreglo_usuarios[USUARIO_INDEX]][1])
-    print("Mi apellido: ", arreglo_de_estudiantes[arreglo_usuarios[USUARIO_INDEX]][2])
-    print("Mi fecha de nacimiento: ", arreglo_de_estudiantes[arreglo_usuarios[USUARIO_INDEX]][8])
-    print("Mi biografia: ", arreglo_de_estudiantes[arreglo_usuarios[USUARIO_INDEX]][11])
-    print("Mi edad: ", mostrar_edad(arreglo_de_estudiantes[arreglo_usuarios[USUARIO_INDEX]][8] or ""), "años")
-    print("Mis hobbies: ", arreglo_de_estudiantes[arreglo_usuarios[USUARIO_INDEX]][6])
-    mostrar_mis_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta)
-    print("Mi estado: ", arreglo_de_estudiantes[arreglo_usuarios[USUARIO_INDEX]][9])
+    global arLoEst, arFiEst
+    usuarioPos = arreglo_usuarios[USUARIO_INDEX]
+    arLoEst.seek(usuarioPos, 0)
+    est = pickle.load(arLoEst)
+    
+    print("\nMi ID: ", est.id_estudiante)
+    print("Mi nombre: ", est.nombre)
+    print("Mi email: ", est.email)
+    print("Mi sexo: ", est.sexo)
+    print("Mi fecha de nacimiento: ", est.fecha_nacimiento)
+    print("Mi biografia: ", est.biografia)
+    print("Mi edad: ", mostrar_edad(est.fecha_nacimiento or ""), "años")
+    print("Mis hobbies: ", est.hobbies)
+    #mostrar_mis_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta)
+    print("Mi estado: ", est.estado)
+    print("Mi baja: ", est.baja)
 
 """
 PROCEDIMIENTO editar_mi_fecha_de_nacimiento
@@ -359,8 +366,24 @@ arreglo_usuarios:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 """
 def editar_mi_fecha_de_nacimiento(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes):
-    nueva_fecha_de_nacimiento = str(input("Ingrese su fecha de nacimiento: "))
-    arreglo_de_estudiantes[arreglo_usuarios[USUARIO_INDEX]][8] = nueva_fecha_de_nacimiento
+    usuarioPos = arreglo_usuarios[USUARIO_INDEX]
+    arLoEst.seek(usuarioPos, 0)
+    est = pickle.load(arLoEst)
+
+    nueva_fecha_de_nacimiento = str(input("Ingrese su fecha de nacimiento: "))    
+    while len(nueva_fecha_de_nacimiento) > 10:
+        print("La biografía no pueden tener más de 32 caracteres")
+        nueva_fecha_de_nacimiento = str(input("Ingrese sus hobbies: "))
+    if len(nueva_fecha_de_nacimiento) < 10:
+        arLoEst.seek(usuarioPos, 0)
+        est.fecha_nacimiento = nueva_fecha_de_nacimiento.ljust(10, " ")
+    elif len(nueva_fecha_de_nacimiento) == 10:
+        arLoEst.seek(usuarioPos, 0)
+        est.fecha_nacimiento = nueva_fecha_de_nacimiento
+    print(est)
+    pickle.dump(est, arLoEst)
+    arLoEst.flush()
+     
 
 """
 PROCEDIMIENTO editar_mi_biografia
@@ -371,8 +394,23 @@ arreglo_usuarios:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 """
 def editar_mi_biografia(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes):
-    nueva_biografia = str(input("Ingrese su biografia: "))
-    arreglo_de_estudiantes[arreglo_usuarios[USUARIO_INDEX]][11] = nueva_biografia
+    usuarioPos = arreglo_usuarios[USUARIO_INDEX]
+    arLoEst.seek(usuarioPos, 0)
+    est = pickle.load(arLoEst)
+
+    nueva_biografia = str(input("Ingrese su biografia: "))    
+    while len(nueva_biografia) > 255:
+        print("La biografía no pueden tener más de 32 caracteres")
+        nueva_biografia = str(input("Ingrese sus hobbies: "))
+    if len(nueva_biografia) < 255:
+        arLoEst.seek(usuarioPos, 0)
+        est.biografia = nueva_biografia.ljust(255, " ")
+    elif len(nueva_biografia) == 255:
+        arLoEst.seek(usuarioPos, 0)
+        est.biografia = nueva_biografia
+    print(est.biografia)
+    pickle.dump(est, arLoEst)
+    arLoEst.flush()
 
 """
 PROCEDIMIENTO editar_mis_hobbies
@@ -383,8 +421,23 @@ arreglo_usuarios:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 """
 def editar_mis_hobbies(arreglo_usuarios, USUARIO_INDEX, arreglo_de_estudiantes):
+    usuarioPos = arreglo_usuarios[USUARIO_INDEX]
+    arLoEst.seek(usuarioPos, 0)
+    est = pickle.load(arLoEst)
+   
     nuevos_hobbies = str(input("Ingrese sus hobbies: "))
-    arreglo_de_estudiantes[arreglo_usuarios[USUARIO_INDEX]][6] = nuevos_hobbies
+    while len(nuevos_hobbies) > 255:
+        print("Los hobbies no pueden tener más de 32 caracteres")
+        nuevos_hobbies = str(input("Ingrese sus hobbies: "))
+    if len(nuevos_hobbies) < 255:
+        arLoEst.seek(usuarioPos, 0)
+        est.hobbies = nuevos_hobbies.ljust(255, " ")
+    elif len(nuevos_hobbies) == 255:
+        arLoEst.seek(usuarioPos, 0)
+        est.hobbies = nuevos_hobbies
+    pickle.dump(est, arLoEst)
+    arLoEst.flush()
+    
 
 """
 PROCEDIMIENTO eliminar_mis_me_gusta
@@ -430,11 +483,11 @@ fecha: string
 fecha_nacimiento, fecha_actual: datetime
 """
 def mostrar_edad(fecha):
-    if(not fecha): 
-        return "000"
+    
+    if(not fecha or fecha == "00-00-0000"): 
+        return "n/s"
     fecha_nacimiento = datetime.strptime(fecha, '%d-%m-%Y')
     fecha_actual = datetime.now()
-    
     edad = fecha_actual.year - fecha_nacimiento.year
     if (fecha_actual.month, fecha_actual.day) < (fecha_nacimiento.month, fecha_nacimiento.day):
         edad -= 1
@@ -513,7 +566,14 @@ def eliminar_mi_perfil(arreglo_usuarios, arreglo_de_estudiantes, USUARIO_INDEX):
   
     match opc:
         case "a": 
-            arreglo_de_estudiantes[arreglo_usuarios[USUARIO_INDEX]][9] = "inactivo"
+            usuarioPos = arreglo_usuarios[USUARIO_INDEX]
+            arLoEst.seek(usuarioPos, 0)
+            est = pickle.load(arLoEst)                      
+            arLoEst.seek(usuarioPos, 0)
+            est.estado = True
+            est.baja = "S"
+            pickle.dump(est, arLoEst)
+            arLoEst.flush()
 
 """
 PROCEDIMIENTO gestionar_candidatos
@@ -860,9 +920,9 @@ def mostrar_menu_reportes_estadisticos():
 
 """
 FUNCION buscar_estudiante
-
+param, busqueda: string
 """
-def buscar_estudiante(param, search):
+def buscar_estudiante(param, busqueda):
     global arLoEst, arFiEst
 
     tamArc = os.path.getsize(arFiEst)
@@ -870,7 +930,7 @@ def buscar_estudiante(param, search):
     while arLoEst.tell() < tamArc:
         pos = arLoEst.tell()
         estudiante = pickle.load(arLoEst)
-        if getattr(estudiante, param) == search:
+        if getattr(estudiante, param) == busqueda:
             return pos
     return -1
 
@@ -897,9 +957,12 @@ def validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arre
         email = email.ljust(32, " ")
     elif len(email) == 32:
         email = email
+    
     estPos = buscar_estudiante("email", email)
+    
     estudiante = Estudiante()    
     contraseña = getpass.getpass("Ingrese su contraseña: ")
+
     while len(contraseña) > 32:
         print("La contraseña no puede tener más de 32 caracteres")
         email = str(input("Ingrese contraseña: "))
@@ -943,7 +1006,9 @@ def validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arre
                 email = email.ljust(32, " ")
             elif len(email) == 32:
                 email = email
+            
             buscar_estudiante("email", email)
+
             contraseña = getpass.getpass("Ingrese su contraseña: ")
 
     os.system("cls")
@@ -1084,15 +1149,17 @@ def registrar_estudiante(arreglo_usuarios, MAX_CANT_ESTUDIANTES, ESTUDIANTES_IND
         elif len(contraseña) == 32:
             estudiante.contrasena = contraseña
 
+        empty = ""
+        estudiante.biografia = empty.ljust(255, " ")
+        estudiante.hobbies = empty.ljust(255, " ")
+        estudiante.fecha_nacimiento = "00-00-0000"
+
         arLoEst.seek(0, 2) 
-        u = arLoEst.tell()
+        #u = arLoEst.tell()
         pickle.dump(estudiante, arLoEst)
         arLoEst.flush()
-        arLoEst.seek(u, 0)  
-        estudiante = pickle.load(arLoEst)
-        print("Estudiante registrado con ID: ", estudiante.id_estudiante)      
-        print("Estudiante registrado con nombre: ", estudiante.nombre)      
-        print("Estudiante registrado con email: ", estudiante.email)      
+        #arLoEst.seek(u, 0)  
+        #estudiante = pickle.load(arLoEst)
 
         continuar = str(input("Seguro deasea registrar otro estudiante (S/N)?: "))
         continuar = continuar.upper()
