@@ -670,13 +670,10 @@ def mostrar_si_dio_like(remitente, destinatario):
     like = Likes()
     tamArc = os.path.getsize(arFiLi)
     arLoLi.seek(0,0)
-    #like = pickle.load(arLoLi)
-    #tamReg = arLoLi.tell()
     while arLoLi.tell() < tamArc:
         like = pickle.load(arLoLi)
         if like.id_remitente == remitente and like.id_destinatario == destinatario:
             return True
-        #tamReg = arLoLi.tell()
     return False
 
 """
