@@ -37,7 +37,7 @@ class Admin:
 """
 class Moderador:
     def __init__(self):
-        self.id_ = 0             #int
+        self.id = 0             #int
         self.email = ""         #string 32
         self.contrasena = ""    #string 32
         self.estado = False     #boolean
@@ -1049,11 +1049,12 @@ def eliminar_usuario_moderador():
     global arLoMod
     print("\nEliminar un moderador\n")
     id = int(input("Ingrese el ID del moderador a eliminar: "))
-    modPos = buscar_moderadores("id_moderador", id)
+    modPos = buscar_moderadores("id", id)
     if modPos != -1:
         arLoMod.seek(modPos, 0)
         mod = pickle.load(arLoMod)                      
         mod.estado = True
+        mod.baja = "S"
         arLoMod.seek(modPos, 0)
         pickle.dump(mod, arLoMod)
         arLoEst.flush()
@@ -1341,11 +1342,6 @@ def validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, ADMI
                 os.system("cls")
                 print("Sesión iniciada correctamente")
                 menu_administradores(arreglo_usuarios, MODERADORES_INDEX, arreglo_de_moderadores, arreglo_me_gusta, USUARIO_INDEX)
-
-            
-
-        
-
     os.system("cls")
 
 """
@@ -1459,6 +1455,7 @@ def registrar_estudiante(arreglo_usuarios, MAX_CANT_ESTUDIANTES, ESTUDIANTES_IND
         estudiante.biografia = empty.ljust(255, " ")
         estudiante.hobbies = empty.ljust(255, " ")
         estudiante.fecha_nacimiento = "00-00-0000"
+        estudiante.baja = "N"
 
         arLoEst.seek(0, 2) 
         #u = arLoEst.tell()
