@@ -26,7 +26,7 @@ class Admin:
     def __init__(self):
         self.id_admin = 0       #int
         self.email = ""         #string 32
-        self.contraseña = ""    #string 32
+        self.contrasena = ""    #string 32
 
 """ MODELO MODERADOR
 # 0 ID: string
@@ -40,8 +40,9 @@ class Moderador:
     def __init__(self):
         self.id = 0             #int
         self.email = ""         #string 32
-        self.contraseña = ""    #string 32
+        self.contrasena = ""    #string 32
         self.estado = False     #boolean
+        self.baja = "N"         #char
 
 """ MODELO ESTUDIANTE
 # 0 ID: string
@@ -112,7 +113,7 @@ arreglo_de_moderadores      = [[""]*8   for _ in range(4)]  # Arreglo bidimensio
 arreglo_informe_reportes    = [[""]*8   for _ in range(8)]  # Arreglo bidimensional de 8x8 de caracteres
 arreglo_reportes            = [[["" for _ in range(2)] for _ in range(8)] for _ in range(8)] # Arreglo tridimensional de 8x8x2 de strings
 arreglo_me_gusta            = [[0]*8    for i in range(8)]  # Arreglo bidimensional de 8x8 de enteros
-arreglo_sesion              = [False]*2                     # Arreglo unidimensional de booleanos
+arreglo_sesion              = [False]*4                     # Arreglo unidimensional de booleanos
 arreglo_usuarios            = [0]*3                         # Arreglo unidimensional de enteros
 
 
@@ -952,11 +953,11 @@ def menu_moderadores(arreglo_usuarios, MODERADORES_INDEX, ESTUDIANTES_INDEX, arr
     while opc != 0:
         match opc:
             case 1:
-                gestionar_usuarios(arreglo_usuarios, ESTUDIANTES_INDEX)
+                gestionar_usuarios_moderador(arreglo_usuarios, ESTUDIANTES_INDEX)
             case 2:
-                gestionar_reportes(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX)
+                gestionar_reportes_moderador(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX)
             case 3:
-                mostrar_menu_reportes_estadisticos()
+                mostrar_menu_reportes_estadisticos_moderador()
 
         os.system("cls")
         mostrar_menu_moderadores()
@@ -966,13 +967,13 @@ def menu_moderadores(arreglo_usuarios, MODERADORES_INDEX, ESTUDIANTES_INDEX, arr
             opc = validar_numero()
 
 """
-PROCEDIMIENTO gestionar_usuarios
+PROCEDIMIENTO gestionar_usuarios_moderador
 ESTUDIANTES_INDEX: enteros
 opc: string
 
 arreglo_usuarios:   arreglo unidimesional de enteros
 """
-def gestionar_usuarios(arreglo_usuarios, ESTUDIANTES_INDEX):
+def gestionar_usuarios_moderador(arreglo_usuarios, ESTUDIANTES_INDEX):
     os.system("cls")
     print("\nGestionar usuarios\n")
     print("a. Desactivar usuario")  
@@ -1007,13 +1008,13 @@ def desactivar_usuario(arreglo_usuarios, ESTUDIANTES_INDEX):
             arreglo_de_estudiantes[i][9] = "inactivo"
 
 """
-PROCEDIMIENTO gestionar_reportes
+PROCEDIMIENTO gestionar_reportes_moderador
 opc: string
 
 arreglo_reportes:           arreglo bidimensional de 8x8 de strings
 arreglo_informe_reportes:   arreglo bidimensional de 8x8 de caracteres
 """
-def gestionar_reportes(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX):
+def gestionar_reportes_moderador(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX):
     os.system("cls")
     print("\nGestionar reportes\n")
     print("a. Ver reportes")  
@@ -1074,11 +1075,218 @@ def ver_reportes(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, E
             print("No hay reportes pendientes")
 
 """
-PROCEDIMIENTO mostrar_menu_reportes_estadisticos
+PROCEDIMIENTO mostrar_menu_reportes_estadisticos_moderador
 opc: enteros
 
 """
-def mostrar_menu_reportes_estadisticos():
+def mostrar_menu_reportes_estadisticos_moderador():
+    print("\nReportes estadisticos\n")
+    print("En construcción")  
+    print("a. Volver\n") 
+    opc = str(input("Ingrese su opción: "))
+
+    while opc != "a":
+        print("\nReportes estadisticos\n")
+        print("En construcción")  
+        print("a. Volver\n") 
+        opc = str(input("Ingrese de nuevo: "))
+
+def mostrar_menu_administradores():
+        print("\nMenu Administradores\n")
+        print("1. Gestionar usuarios")
+        print("2. Gestionar reportes")
+        print("3. Reportes estadísticos")
+        print("0. Salir\n")
+
+def menu_administradores(arreglo_usuarios, ADMINISTRADOR_INDEX, ESTUDIANTES_INDEX, arreglo_reportes, arreglo_informe_reportes):
+    mostrar_menu_administradores()
+    opc = validar_numero()
+    while opc < 0 and opc > 3:
+        print("Opción inválida")
+        opc = validar_numero()
+
+    while opc != 0:
+        match opc:
+            case 1:
+                gestionar_usuarios_administrador(arreglo_usuarios, ESTUDIANTES_INDEX)
+            case 2:
+                gestionar_reportes_administrador(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX)
+            case 3:
+                mostrar_menu_reportes_estadisticos_administrador()
+
+        os.system("cls")
+        mostrar_menu_administradores()
+        opc = validar_numero()
+        while opc < 0 and opc > 3:
+            print("Opción inválida")
+            opc = validar_numero()
+
+def gestionar_usuarios_administrador(arreglo_usuarios, ESTUDIANTES_INDEX):
+    os.system("cls")
+    print("\nGestionar usuarios\n")
+    print("a. Eliminar un usuario")  
+    print("b. Dar de alta a un moderador")  
+    print("c. Desactivar usuario")  
+    print("d. Volver\n") 
+    opc = str(input("Ingrese su opción: "))
+
+    while opc != "d":
+        match opc:
+            case "a":
+                os.system("cls")
+                eliminar_usuario()
+            case "b":
+                dar_alta_moderador()
+            case "c":
+                desactivar_usuario(arreglo_usuarios, ESTUDIANTES_INDEX)
+
+        os.system("cls")
+        print("\nGestionar usuarios\n")
+        print("a. Eliminar un usuario")  
+        print("b. Dar de alta a un moderador")  
+        print("c. Desactivar usuario")  
+        print("d. Volver\n") 
+        opc = str(input("Ingrese de nuevo: "))
+
+def eliminar_usuario():
+    print("\nEliminar un usuario\n")
+    print("a. Eliminar un estudiante")
+    print("b. Eliminar un moderador")
+    print("c. Volver\n")
+    opc = str(input("Ingrese su opción: "))
+
+    while opc != "c":
+        match opc:
+            case "a":
+                os.system("cls")
+                eliminar_usuario_estudiante()
+            case "b":
+                os.system("cls")
+                eliminar_usuario_moderador()
+
+        os.system("cls")
+        print("\nEliminar un usuario\n")
+        print("a. Eliminar un estudiante")
+        print("b. Eliminar un moderador")
+        print("c. Volver\n")
+        opc = str(input("Ingrese de nuevo: "))
+
+def eliminar_usuario_estudiante():
+    global arLoEst
+    print("\nEliminar un estudiante\n")
+    id = int(input("Ingrese el ID del estudiante a eliminar: "))
+    estPos = buscar_estudiante("id_estudiante", id)
+    if estPos != -1:
+        arLoEst.seek(estPos, 0)
+        est = pickle.load(arLoEst)                      
+        est.estado = True
+        est.baja = "S"
+        arLoEst.seek(estPos, 0)
+        pickle.dump(est, arLoEst)
+        arLoEst.flush()
+        print("\nEl estudiante con el ID ", id, " se ha eliminado exitosamente.\n")
+    else:
+        os.system("cls")
+        print("\nEl ID de estudiante no se ha encontrado\n")
+
+
+def eliminar_usuario_moderador():
+    global arLoMod
+    print("\nEliminar un moderador\n")
+    id = int(input("Ingrese el ID del moderador a eliminar: "))
+    modPos = buscar_moderadores("id", id)
+    if modPos != -1:
+        arLoMod.seek(modPos, 0)
+        mod = pickle.load(arLoMod)                      
+        mod.estado = True
+        mod.baja = "S"
+        arLoMod.seek(modPos, 0)
+        pickle.dump(mod, arLoMod)
+        arLoEst.flush()
+        print("\nEl moderador con el ID ", id, " se ha eliminado exitosamente.\n")
+    else:
+        os.system("cls")
+        print("\nEl ID de moderador no se ha encontrado\n")
+
+
+
+def dar_alta_moderador():
+    global arFiMod, arLoMod
+    os.system("cls")
+    print("\nCrear un moderador\n")
+    mod = Moderador()
+    continuar = str(input("Seguro deasea crear un moderador (S/N)?: "))
+    continuar = continuar.upper()
+    while continuar != "S" and continuar != "N":
+        print("Por favor, ingrese una opción válida (S/N)")
+        continuar = str(input("Seguro deasea crear un moderador (S/N)?: "))
+        continuar.upper()
+    while continuar == "S":
+        if os.path.getsize(arFiMod) == 0:
+            mod.id = 1
+        else:
+            arLoMod.seek(0,0)
+            mod = pickle.load(arLoMod)
+            tamReg = arLoEst.tell()
+            tamArc = os.path.getsize(arFiMod)
+            cantReg = tamArc // tamReg
+            mod.id = cantReg + 1
+        # Ingreso y formateo campo email
+        email = str(input("Ingrese email: "))
+        while len(email) > 32:
+            print("El email no puede tener más de 32 caracteres")
+            email = str(input("Ingrese email: "))
+        if len(email) < 32:
+            mod.email = email.ljust(32, " ")
+        elif len(email) == 32:
+            mod.email = email
+        # Ingreso y formateo campo contraseña
+        contraseña = str(input("Ingrese contraseña: "))
+        while len(contraseña) > 32:
+            print("La contraseña no puede tener más de 32 caracteres")
+            contraseña = str(input("Ingrese contraseña: "))
+        if len(contraseña) < 32:
+            mod.contrasena = contraseña.ljust(32, " ")
+        elif len(contraseña) == 32:
+            mod.contrasena = contraseña
+        mod.estado = True
+        mod.baja = "N"
+
+        arLoMod.seek(0, 2) 
+        #u = arLoMod.tell()
+        pickle.dump(mod, arLoMod)
+        arLoMod.flush()
+        #arLoMod.seek(u, 0)  
+        #moderador = pickle.load(arLoMod)
+
+        continuar = str(input("Desea crear otro moderador (S/N)?: "))
+        continuar = continuar.upper()
+        while continuar != "S" and continuar != "N":
+            print("Por favor, ingrese una opción válida (S/N)")
+            continuar = str(input("Desea crear otro moderador (S/N)?: "))
+            continuar = continuar.upper()
+    os.system("cls")
+    print("Moderador creado\n")
+
+
+
+def gestionar_reportes_administrador(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX):
+    os.system("cls")
+    print("\nGestionar reportes\n")
+    print("a. Ver reportes")  
+    print("b. Volver") 
+    opc = str(input("Ingrese su opción: "))
+
+    while opc != "b":
+        match opc:
+            case "a":
+                ver_reportes(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX)
+        print("\nGestionar reportes\n")
+        print("a. Ver reportes")  
+        print("b. Volver") 
+        opc = str(input("Ingrese de nuevo: "))
+
+def mostrar_menu_reportes_estadisticos_administrador():
     print("\nReportes estadisticos\n")
     print("En construcción")  
     print("a. Volver\n") 
@@ -1122,6 +1330,18 @@ def buscar_moderadores(param, busqueda):
             return pos
     return -1
 
+def buscar_administradores(param, busqueda):
+    global arLoAdmin, arFiAdmin
+    admin = Admin()
+    tamArc = os.path.getsize(arFiAdmin)
+    arLoAdmin.seek(0, 0)    
+    while arLoAdmin.tell() < tamArc:
+        pos = arLoAdmin.tell()
+        admin = pickle.load(arLoAdmin)
+        if getattr(admin, param) == busqueda:
+            return pos
+    return -1
+
 """
 PROCEDIMIENTO validar_ingreso
 ESTUDIANTES_INDEX, USUARIO_INDEX, MODERADORES_INDEX, intentos, i: enteros
@@ -1133,8 +1353,8 @@ arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 arreglo_de_moderadores:     arreglo bidimensional de 8*8 de strings
 arreglo_me_gusta:           arreglo bidimensional de 8*8 de enteros
 """
-def validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_sesion, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX):
-    global arLoEst 
+def validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, ADMINISTRADOR_INDEX, arreglo_sesion, arreglo_me_gusta, USUARIO_INDEX):
+    global arLoEst, arLoAdmin, arLoMod
     intentos = 3
 
     email = str(input("Ingrese email: "))
@@ -1147,21 +1367,62 @@ def validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arre
         email = email
     
     estPos = buscar_estudiante("email", email)
+    modPos = buscar_moderadores("email", email)
+    adminPos = buscar_administradores("email", email)
+    print(estPos, modPos, adminPos)
     
         
     contraseña = getpass.getpass("Ingrese su contraseña: ")
 
     while len(contraseña) > 32:
         print("La contraseña no puede tener más de 32 caracteres")
-        email = str(input("Ingrese contraseña: "))
+        contraseña = getpass.getpass("Ingrese contraseña: ")
     if len(contraseña) < 32:
         contraseña = contraseña.ljust(32, " ")
     elif len(contraseña) == 32:
         contraseña = contraseña
+    print(contraseña)
 
-    while intentos > 1 and (not arreglo_sesion[ESTUDIANTES_INDEX] and not arreglo_sesion[MODERADORES_INDEX]):
+    if estPos != -1:
+        arLoEst.seek(estPos, 0)
+        estudiante = Estudiante()
+        estudiante = pickle.load(arLoEst)
 
-        while intentos > 1 and (not arreglo_sesion[ESTUDIANTES_INDEX] and not arreglo_sesion[MODERADORES_INDEX]) and estPos == -1:
+        if ((contraseña == estudiante.contrasena and estudiante.baja == "N")):
+            arreglo_sesion[ESTUDIANTES_INDEX] = True
+            arreglo_usuarios[USUARIO_INDEX] = estPos
+            
+            os.system("cls")
+            print("Sesión iniciada correctamente")
+            menu_estudiante(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, USUARIO_INDEX)
+    elif modPos != -1:
+        arLoMod.seek(modPos, 0)
+        moderador = Moderador()
+        moderador = pickle.load(arLoMod)
+
+        if ((contraseña == moderador.contrasena and moderador.baja == "N")):
+            arreglo_sesion[MODERADORES_INDEX] = True
+            arreglo_usuarios[USUARIO_INDEX] = modPos
+            
+            os.system("cls")
+            print("Sesión iniciada correctamente")
+            menu_moderadores(arreglo_usuarios, MODERADORES_INDEX, arreglo_de_moderadores, arreglo_me_gusta, USUARIO_INDEX)
+    elif adminPos != -1:
+        arLoAdmin.seek(adminPos, 0)
+        admin = Admin()
+        admin = pickle.load(arLoAdmin)
+
+        if (contraseña == admin.contrasena):
+            arreglo_sesion[ADMINISTRADOR_INDEX] = True
+            arreglo_usuarios[USUARIO_INDEX] = adminPos
+            
+            os.system("cls")
+            print("Sesión iniciada correctamente")
+            menu_administradores(arreglo_usuarios, MODERADORES_INDEX, arreglo_de_moderadores, arreglo_me_gusta, USUARIO_INDEX)
+
+    while intentos > 1 and (not arreglo_sesion[ESTUDIANTES_INDEX] and not arreglo_sesion[MODERADORES_INDEX] and not arreglo_sesion[ADMINISTRADOR_INDEX]):
+
+        while intentos > 1 and (not arreglo_sesion[ESTUDIANTES_INDEX] and not arreglo_sesion[MODERADORES_INDEX] and not arreglo_sesion[ADMINISTRADOR_INDEX]) and (estPos == -1 or modPos == -1 or adminPos == -1):
             os.system("cls")
             print("Email o contraseña incorrectos")
             intentos -= 1
@@ -1175,39 +1436,57 @@ def validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arre
                 email = email.ljust(32, " ")
             elif len(email) == 32:
                 email = email
+
             
             estPos = buscar_estudiante("email", email)
+            modPos = buscar_moderadores("email", email)
+            adminPos = buscar_administradores("email", email)
 
             contraseña = getpass.getpass("Ingrese su contraseña: ")
             while len(contraseña) > 32:
                 print("La contraseña no puede tener más de 32 caracteres")
-                email = str(input("Ingrese contraseña: "))
+                contraseña = getpass.getpass("Ingrese contraseña: ")
             if len(contraseña) < 32:
                 contraseña = contraseña.ljust(32, " ")
             elif len(contraseña) == 32:
                 contraseña = contraseña
 
-        arLoEst.seek(estPos, 0)
-        estudiante = Estudiante()
-        estudiante = pickle.load(arLoEst)
+        if estPos != -1:
+            arLoEst.seek(estPos, 0)
+            estudiante = Estudiante()
+            estudiante = pickle.load(arLoEst)
 
-        if ((contraseña == estudiante.contrasena and estudiante.baja == "N")):
-            arreglo_sesion[ESTUDIANTES_INDEX] = True
-            arreglo_usuarios[USUARIO_INDEX] = estPos
-            
-           # os.system("cls")
-            print("Sesión iniciada correctamente")
-            print("Usuario sesionado", estPos)
-            menu_estudiante(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, USUARIO_INDEX)
+            if ((contraseña == estudiante.contrasena and estudiante.baja == "N")):
+                arreglo_sesion[ESTUDIANTES_INDEX] = True
+                arreglo_usuarios[USUARIO_INDEX] = estPos
+                
+                os.system("cls")
+                print("Sesión iniciada correctamente")
+                menu_estudiante(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, USUARIO_INDEX)
+        elif modPos != -1:
+            arLoMod.seek(modPos, 0)
+            moderador = Moderador()
+            moderador = pickle.load(arLoMod)
 
-        # if (email == arreglo_de_moderadores and contraseña == arreglo_de_moderadores[i][4]):
-        #         arreglo_sesion[MODERADORES_INDEX] = True
-        #         os.system("cls")
-        #         print("Sesión iniciada correctamente")
-        #         menu_moderadores(arreglo_usuarios, MODERADORES_INDEX, ESTUDIANTES_INDEX, arreglo_reportes, arreglo_informe_reportes)
+            if ((contraseña == moderador.contrasena and moderador.baja == "N")):
+                arreglo_sesion[MODERADORES_INDEX] = True
+                arreglo_usuarios[USUARIO_INDEX] = modPos
+                
+                os.system("cls")
+                print("Sesión iniciada correctamente")
+                menu_moderadores(arreglo_usuarios, MODERADORES_INDEX, arreglo_de_moderadores, arreglo_me_gusta, USUARIO_INDEX)
+        elif adminPos != -1:
+            arLoAdmin.seek(adminPos, 0)
+            admin = Admin()
+            admin = pickle.load(arLoAdmin)
 
-        
-
+            if (contraseña == admin.contrasena):
+                arreglo_sesion[ADMINISTRADOR_INDEX] = True
+                arreglo_usuarios[USUARIO_INDEX] = adminPos
+                
+                os.system("cls")
+                print("Sesión iniciada correctamente")
+                menu_administradores(arreglo_usuarios, MODERADORES_INDEX, arreglo_de_moderadores, arreglo_me_gusta, USUARIO_INDEX)
     os.system("cls")
 
 """
@@ -1220,12 +1499,13 @@ arreglo_reportes
 arreglo_informe_reportes
 arreglo_me_gusta:           arreglo bidimensional de 8*8 de enteros
 """
-def ingresar(MIN_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, arreglo_sesion, arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX):
+def ingresar(MIN_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, arreglo_sesion, arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, ADMINISTRADOR_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX):
     os.system("cls")
     # if(MIN_CANT_ESTUDIANTES <= arreglo_usuarios[ESTUDIANTES_INDEX] and MIN_CANT_MODERADORES <= arreglo_usuarios[MODERADORES_INDEX]):        
     arreglo_sesion[MODERADORES_INDEX] = False
     arreglo_sesion[ESTUDIANTES_INDEX] = False
-    validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_sesion, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX)
+    arreglo_sesion[ADMINISTRADOR_INDEX] = False
+    validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, ADMINISTRADOR_INDEX, arreglo_sesion, arreglo_me_gusta, USUARIO_INDEX)
     # else:        
     #     print("No se puede ingresar, cantidad de estudiantes y moderadores insuficientes")
 
@@ -1267,7 +1547,8 @@ arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 """
 def registrar_estudiante(arreglo_usuarios, MAX_CANT_ESTUDIANTES, ESTUDIANTES_INDEX, arreglo_de_estudiantes):
     global arFiEst, arLoEst
-
+    os.system("cls")
+    print("\nRegistrar estudiante\n")
     estudiante = Estudiante()
     continuar = str(input("Seguro deasea registrar un estudiante (S/N)?: "))
     continuar = continuar.upper()
@@ -1309,7 +1590,7 @@ def registrar_estudiante(arreglo_usuarios, MAX_CANT_ESTUDIANTES, ESTUDIANTES_IND
         contraseña = str(input("Ingrese contraseña: "))
         while len(contraseña) > 32:
             print("La contraseña no puede tener más de 32 caracteres")
-            email = str(input("Ingrese contraseña: "))
+            contraseña = str(input("Ingrese contraseña: "))
         if len(contraseña) < 32:
             estudiante.contrasena = contraseña.ljust(32, " ")
         elif len(contraseña) == 32:
@@ -1319,6 +1600,7 @@ def registrar_estudiante(arreglo_usuarios, MAX_CANT_ESTUDIANTES, ESTUDIANTES_IND
         estudiante.biografia = empty.ljust(255, " ")
         estudiante.hobbies = empty.ljust(255, " ")
         estudiante.fecha_nacimiento = "00-00-0000"
+        estudiante.baja = "N"
 
         arLoEst.seek(0, 2) 
         #u = arLoEst.tell()
@@ -1334,23 +1616,8 @@ def registrar_estudiante(arreglo_usuarios, MAX_CANT_ESTUDIANTES, ESTUDIANTES_IND
             continuar = str(input("Seguro deasea registrar un estudiante (S/N)?: "))
             continuar = continuar.upper()
     os.system("cls")
-    print("Estudiante registrado")
+    print("Estudiante registrado\n")
 
-"""
-PROCEDIMIENTO registrar_moderador
-MAX_CANT_MODERADORES, MODERADORES_INDEX: enteros
-
-arreglo_usuarios:   arreglo unidimesional de enteros
-arreglo_de_moderadores:     arreglo bidimensional de 8*8 de strings
-"""
-def registrar_moderador(arreglo_usuarios, MAX_CANT_MODERADORES, MODERADORES_INDEX, arreglo_de_moderadores):
-    if (arreglo_usuarios[MODERADORES_INDEX] < MAX_CANT_MODERADORES):
-        ingresar_datos_moderadores(arreglo_usuarios, MODERADORES_INDEX, arreglo_de_moderadores)
-        os.system("cls")
-        arreglo_usuarios[MODERADORES_INDEX] = arreglo_usuarios[MODERADORES_INDEX]+1
-        print("Moderador registrado")
-    else:
-        print("Todos los moderadores fueron cargados")
 
 """
 PROCEDIMIENTO registrar
@@ -1364,12 +1631,10 @@ def registrar(MAX_CANT_ESTUDIANTES, MAX_CANT_MODERADORES, arreglo_usuarios, ESTU
     mostrar_menu_registrar()
 
     opc = str(input("Ingrese su opción: "))
-    while opc != "c":
+    while opc != "b":
         match opc:
             case "a": 
-                registrar_estudiante(arreglo_usuarios, MAX_CANT_ESTUDIANTES, ESTUDIANTES_INDEX, arreglo_de_estudiantes) # type: ignore            
-            case "b": 
-                registrar_moderador(arreglo_usuarios, MAX_CANT_MODERADORES, MODERADORES_INDEX, arreglo_de_moderadores) # type: ignore            
+                registrar_estudiante(arreglo_usuarios, MAX_CANT_ESTUDIANTES, ESTUDIANTES_INDEX, arreglo_de_estudiantes) # type: ignore                     
            
         mostrar_menu_registrar()
         opc = str(input("Ingrese su opción: "))
@@ -1393,8 +1658,7 @@ def mostrar_menu_registrar():
     os.system("cls")
     print("\nRegistrar usuario\n")
     print(" a. Registrar estudiante")
-    print(" b. Registrar moderador")
-    print(" c. Volver\n")
+    print(" b. Volver\n")
 
 """
 PROCEDIMIENTO mostrar_menu_principal
@@ -1459,6 +1723,20 @@ def cerrar_archivos():
     arLoMod.close()
     print("Archivos cerrados")
 
+def crearadmin():
+    global arFiAdmin, arLoAdmin
+    if os.path.getsize(arFiAdmin) == 0: 
+        admin = Admin()
+
+        admin.id_admin = 999
+        email = "admin"
+        admin.email = email.ljust(32, " ")
+        contraseña = "admin"
+        admin.contrasena = contraseña.ljust(32, " ")
+        pickle.dump(admin, arLoAdmin)
+        arLoAdmin.flush()
+
+
 
 """
 PROCEDIMIENTO ejecutar_programa_principal
@@ -1472,12 +1750,14 @@ arreglo_informe_reportes:   arreglo bidimensional de 8x8 de caracteres
 arreglo_reportes:           arreglo bidimensional de 8x8 de strings
 arreglo_me_gusta:           arreglo bidimensional de 8*8 de enteros
 """
-def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, MAX_CANT_MODERADORES, arreglo_sesion, arreglo_usuarios, arreglo_de_estudiantes, arreglo_de_moderadores, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX):
+def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, MAX_CANT_MODERADORES, arreglo_sesion, arreglo_usuarios, arreglo_de_estudiantes, arreglo_de_moderadores, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX, ADMINISTRADOR_INDEX):
     
     ## iniciar archivos
     abrir_archivos()
-    #popular_likes_aleatorios()
-    mostrar_menu_principal()     
+    popular_likes_aleatorios()
+    crearadmin()
+    mostrar_menu_principal()
+
     opc = validar_numero()
     while opc < 0 and opc > 4:
         print("Opción inválida")
@@ -1486,9 +1766,9 @@ def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_
     while opc != 0:
         match opc:
             case 1:
-                registrar(MAX_CANT_ESTUDIANTES, MAX_CANT_MODERADORES, arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_de_estudiantes, arreglo_de_moderadores)
+                registrar_estudiante(arreglo_usuarios, MAX_CANT_ESTUDIANTES, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
             case 2:
-                ingresar(MIN_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, arreglo_sesion, arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX)
+                ingresar(MIN_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, arreglo_sesion, arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, ADMINISTRADOR_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX)
             case 3:
                 #encontrar_huecos([21, 18, 20, 19, 23, 24])
                 pass
@@ -1507,4 +1787,4 @@ def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_
     print("\nPrograma finalizado, esperamos tu regreso...\n")
 
 
-ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, MAX_CANT_MODERADORES, arreglo_sesion, arreglo_usuarios, arreglo_de_estudiantes, arreglo_de_moderadores, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX)
+ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, MAX_CANT_MODERADORES, arreglo_sesion, arreglo_usuarios, arreglo_de_estudiantes, arreglo_de_moderadores, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX, ADMINISTRADOR_INDEX)
