@@ -39,7 +39,7 @@ class Moderador:
     def __init__(self):
         self.id = 0             #int
         self.email = ""         #string 32
-        self.contraseña = ""    #string 32
+        self.contrasena = ""    #string 32
         self.estado = False     #boolean
 
 """ MODELO ESTUDIANTE
@@ -986,6 +986,10 @@ def gestionar_usuarios_administrador(arreglo_usuarios, ESTUDIANTES_INDEX):
 
     while opc != "d":
         match opc:
+            case "a":
+                eliminiar_usuario()
+            case "b":
+                dar_alta_moderador()
             case "c":
                 desactivar_usuario(arreglo_usuarios, ESTUDIANTES_INDEX)
 
@@ -996,6 +1000,72 @@ def gestionar_usuarios_administrador(arreglo_usuarios, ESTUDIANTES_INDEX):
         print("c. Desactivar usuario")  
         print("d. Volver\n") 
         opc = str(input("Ingrese de nuevo: "))
+
+def eliminiar_usuario():
+    global arFiEst, arLoEst, arFiMod, arLoMod
+    os.system("cls")
+    print("\nEliminar un usuario\n")
+    estudiante = Estudiante()
+    moderador = Moderador()
+
+
+def dar_alta_moderador():
+    global arFiMod, arLoMod
+    os.system("cls")
+    print("\nCrear un moderador\n")
+    moderador = Moderador()
+    continuar = str(input("Seguro deasea crear un moderador (S/N)?: "))
+    continuar = continuar.upper()
+    while continuar != "S" and continuar != "N":
+        print("Por favor, ingrese una opción válida (S/N)")
+        continuar = str(input("Seguro deasea crear un moderador (S/N)?: "))
+        continuar.upper()
+    while continuar == "S":
+        if os.path.getsize(arFiMod) == 0:
+            moderador.id = 1
+        else:
+            arLoMod.seek(0,0)
+            moderador = pickle.load(arLoMod)
+            tamReg = arLoEst.tell()
+            tamArc = os.path.getsize(arFiMod)
+            cantReg = tamArc // tamReg
+            moderador.id = cantReg + 1
+        # Ingreso y formateo campo email
+        email = str(input("Ingrese email: "))
+        while len(email) > 32:
+            print("El email no puede tener más de 32 caracteres")
+            email = str(input("Ingrese email: "))
+        if len(email) < 32:
+            moderador.email = email.ljust(32, " ")
+        elif len(email) == 32:
+            moderador.email = email
+        # Ingreso y formateo campo contraseña
+        contraseña = str(input("Ingrese contraseña: "))
+        while len(contraseña) > 32:
+            print("La contraseña no puede tener más de 32 caracteres")
+            contraseña = str(input("Ingrese contraseña: "))
+        if len(contraseña) < 32:
+            moderador.contrasena = contraseña.ljust(32, " ")
+        elif len(contraseña) == 32:
+            moderador.contrasena = contraseña
+
+        arLoMod.seek(0, 2) 
+        #u = arLoMod.tell()
+        pickle.dump(moderador, arLoMod)
+        arLoMod.flush()
+        #arLoMod.seek(u, 0)  
+        #moderador = pickle.load(arLoMod)
+
+        continuar = str(input("Desea crear otro moderador (S/N)?: "))
+        continuar = continuar.upper()
+        while continuar != "S" and continuar != "N":
+            print("Por favor, ingrese una opción válida (S/N)")
+            continuar = str(input("Desea crear otro moderador (S/N)?: "))
+            continuar = continuar.upper()
+    os.system("cls")
+    print("Moderador creado\n")
+
+
 
 def gestionar_reportes_administrador(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX):
     os.system("cls")
@@ -1243,7 +1313,7 @@ def registrar_estudiante(arreglo_usuarios, MAX_CANT_ESTUDIANTES, ESTUDIANTES_IND
         contraseña = str(input("Ingrese contraseña: "))
         while len(contraseña) > 32:
             print("La contraseña no puede tener más de 32 caracteres")
-            email = str(input("Ingrese contraseña: "))
+            contraseña = str(input("Ingrese contraseña: "))
         if len(contraseña) < 32:
             estudiante.contrasena = contraseña.ljust(32, " ")
         elif len(contraseña) == 32:
@@ -1268,7 +1338,7 @@ def registrar_estudiante(arreglo_usuarios, MAX_CANT_ESTUDIANTES, ESTUDIANTES_IND
             continuar = str(input("Seguro deasea registrar un estudiante (S/N)?: "))
             continuar = continuar.upper()
     os.system("cls")
-    print("Estudiante registrado")
+    print("Estudiante registrado\n")
 
 """
 PROCEDIMIENTO registrar_moderador
