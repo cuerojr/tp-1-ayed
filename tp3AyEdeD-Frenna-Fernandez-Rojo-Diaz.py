@@ -989,6 +989,18 @@ def gestionar_reportes(arreglo_reportes, arreglo_informe_reportes, arreglo_usuar
         print("b. Volver") 
         opc = str(input("Ingrese de nuevo: "))
 
+def buscar_si_hay_reporte():
+    global arLoRep, arFiRep
+    rep = Reportes()
+    tamArc = os.path.getsize(arFiRep)
+    arLoRep.seek(0, 0)    
+    while arLoRep.tell() < tamArc:
+        pos = arLoRep.tell()
+        rep = pickle.load(arLoRep)
+        if rep.estado == 1 or rep.estado == 2:
+            return pos
+    return -1
+
 """
 PROCEDIMIENTO ver_reportes
 i, j, k: enteros
@@ -998,40 +1010,72 @@ arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 arreglo_reportes:           arreglo bidimensional de 8x8 de strings
 arreglo_informe_reportes:   arreglo bidimensional de 8x8 de caracteres
 """
-def ver_reportes(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX):
-    
-    for i in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
-        os.system("cls")
-        print("\nReportes\n")
-        for j in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
-            if i != j:
-                if  arreglo_reportes[i][j][0] == "0":                    
-                    if arreglo_reportes[i][j][0] == "0":
-                        print("\nReporte")
-                        print("ID de reportante: ", arreglo_de_estudiantes[i][0])
-                        print("ID de reportado: ", arreglo_de_estudiantes[j][0])
-                        print("Motivo: ", arreglo_reportes[i][j][1])
-                        print("\n¿Que acción desea tomar?\n")
-                        print("a. Ignorar reporte")
-                        print("b. Desactivar usuario")
-                        opc = str(input("Ingrese su opción:"))
-                        while opc != "a" and opc != "b":
-                            print("ID de reportante: ", arreglo_de_estudiantes[i][0])
-                            print("ID de reportado: ", arreglo_de_estudiantes[j][0])
-                            print("Motivo: ", arreglo_reportes[i][j][1])
-                            print("\n¿Que acción desea tomar?\n")
-                            print("a. Ignorar reporte")
-                            print("b. Desactivar usuario")
-                            opc = str(input("Ingrese de nuevo: "))
-                        match opc:
-                            case "a":
-                                arreglo_reportes[i][j][0] = "2"
-                            case "b":
-                                arreglo_reportes[i][j][0] = "1"
-                                arreglo_de_estudiantes[j][9] = "inactivo"
-                        print("\nEl reporte ha sido tomado\n")
-        else:
-            print("No hay reportes pendientes")
+def ver_reportes(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX, USUARIO_INDEX):
+    global arFiRep, arFiMod, arFiEst
+    global arLoRep, arLoMod, arLoEst
+    rep = Reportes()
+    mod = Moderador()
+    est = Estudiante()
+    pos = buscar_si_hay_reporte()
+    arLoRep.seek(0,0)
+    if pos != -1:
+        while pos != -1 and os.path.getsize(arFiRep) >= arLoRep.tell():
+            arLoRep.seek(pos,0)
+            rep = pickle.load(arLoRep)
+            pos_est = buscar_estudiante("id_estudiante",rep.id_reportante)
+            arLoEst.seek(pos_est,0)
+            est = pickle.load(arLoEst)
+            print("\nReporte")
+            print("ID de reportante: ", rep.id_reportante)
+            print("ID de reportado: ", rep.id_reportado)
+            print("Motivo: ", rep.motivo)
+            print("\n¿Que acción desea tomar?\n")
+            print("a. Ignorar reporte")
+            print("b. Desactivar usuario")
+            opc = str(input("Ingrese su opción: "))
+            while opc != "a" and opc != "b":
+                print("\nReporte")
+                print("ID de reportante: ", rep.id_reportante)
+                print("ID de reportado: ", rep.id_reportado)
+                print("Motivo: ", rep.motivo)
+                print("\n¿Que acción desea tomar?\n")
+                print("a. Ignorar reporte")
+                print("b. Desactivar usuario")
+                opc = str(input("Ingrese de nuevo: "))
+            match opc:
+                case "a":
+                    pos_mod = buscar_moderadores("id",arreglo_usuarios[USUARIO_INDEX])
+                    arLoMod.seek(pos_mod,0)
+                    mod = pickle.load(arLoMod)
+                    mod.ignorado += 1
+                    arLoMod.seek(pos_mod,0)
+                    pickle.dump(mod,arLoMod)
+                    arLoMod.flush()
+                    rep.estado = "2"
+                    arLoRep.seek(pos,0)
+                    pickle.dump(rep,arLoRep)
+                    arLoRep.flush()
+                case "b":
+                    pos_mod = buscar_moderadores("id",arreglo_usuarios[USUARIO_INDEX])
+                    arLoMod.seek(pos_mod,0)
+                    mod = pickle.load(arLoMod)
+                    mod.aceptado += 1
+                    arLoMod.seek(pos_mod,0)
+                    pickle.dump(mod,arLoMod)
+                    arLoMod.flush()
+                    rep.estado = "1"
+                    arLoRep.seek(pos,0)
+                    pickle.dump(rep,arLoRep)
+                    arLoRep.flush()
+                    est.baja = "S"
+                    arLoEst.seek(pos_est,0)
+                    pickle.dump(est,arLoEst)
+                    arLoEst.flush()
+            print("\nEl reporte ha sido tomado\n")
+            pos = buscar_si_hay_reporte()
+            print("Ya revisaste todos los reportes")
+    else:
+        print("No hay reportes pendientes")
 
 """
 PROCEDIMIENTO mostrar_menu_reportes_estadisticos
@@ -1081,6 +1125,47 @@ def buscar_moderadores(param, busqueda):
         if getattr(moderador, param) == busqueda:
             return pos
     return -1
+
+def reportes_estadisticos(arreglo_usuarios,USUARIO_INDEX):
+    global arFiMod, arFiRep
+    global arLoRep, arLoMod
+    rep = Reportes()
+    mod = Moderador()
+    arLoRep.seek(0,0)
+    tamArch = os.path.getsize(arFiRep)
+    rep = pickle.load(arLoRep)
+    tamReg = arLoRep.tell()
+    cant = tamArch//tamReg
+    cont1 = 0
+    cont2 = 0
+    while arLoRep.tell() <= os.path.getssize(arFiRep):
+        if rep.estado == 1:
+            cont1 += 1
+        elif rep.estado == 2:
+            cont2 += 1
+        rep = pickle.load(arLoRep)
+    print(f'La cantidad de reportes hechos es: {cant}')
+    print(f'El porcentaje de reportes ignorados es: {(cont2*100)/cant}')
+    print(f'El porcentaje de reportes aceptados es: {(cont1*100)/cant}')
+    arLoMod.seek(0,0)
+    mod = pickle.load(arLoMod)
+    aux_ignorado = 0
+    aux_aceptado = 0
+    aux_total = 0
+    while os.path.getsize(arFiMod) >= arLoMod.tell():
+        if mod.ignorado > aux_ignorado:
+            aux_ignorado = mod.ignorado
+            id_ignorado = mod.id
+        elif mod.aceptado > aux_aceptado:
+            aux_aceptado = mod.aceptado
+            id_aceptado = mod.id
+        elif mod.aceptado+mod.ignorado > aux_total:
+            aux_total = mod.aceptado+mod.ignorado
+            id_total = mod.id
+        mod = pickle.load(arLoMod)
+    print(f"El moderador {id_ignorado} fue el que más reportes ignoró: {aux_ignorado}")
+    print(f"El moderador {id_aceptado} fue el que más reportes aceptó: {aux_aceptado}")
+    print(f"El moderador {id_total} fue el que más reportes revisó en total: {aux_total}")
 
 """
 PROCEDIMIENTO validar_ingreso
