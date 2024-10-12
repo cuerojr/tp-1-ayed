@@ -681,11 +681,12 @@ def mostrar_si_dio_like(remitente, destinatario):
 
 """
 PROCEDIMIENTO reportar_candidato
-ESTUDIANTES_INDEX: enteros
+ESTUDIANTES_INDEX, estPos: enteros
 nombre_reportado, motivo: string
 
 arreglo_usuarios: arreglo unidimesional de enteros
 reporte: Reportes
+arLoEst, arLoRep: BufferedRandom
 """
 def reportar_candidato(arreglo_usuarios, USUARIO_INDEX):
     global arLoEst, arLoRep
