@@ -1129,6 +1129,18 @@ def buscar_moderadores(param, busqueda):
             return pos
     return -1
 
+def buscar_administradores(param, busqueda):
+    global arLoAdmin, arFiAdmin
+    admin = Admin()
+    tamArc = os.path.getsize(arFiAdmin)
+    arLoMod.seek(0, 0)    
+    while arLoMod.tell() < tamArc:
+        pos = arLoMod.tell()
+        admin = pickle.load(arLoAdmin)
+        if getattr(admin, param) == busqueda:
+            return pos
+    return -1
+
 """
 PROCEDIMIENTO validar_ingreso
 ESTUDIANTES_INDEX, USUARIO_INDEX, MODERADORES_INDEX, intentos, i: enteros
@@ -1141,7 +1153,7 @@ arreglo_de_moderadores:     arreglo bidimensional de 8*8 de strings
 arreglo_me_gusta:           arreglo bidimensional de 8*8 de enteros
 """
 def validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_sesion, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX):
-    global arLoEst 
+    global arLoEst, arLoAdmin, arLoMod
     intentos = 3
 
     email = str(input("Ingrese email: "))
