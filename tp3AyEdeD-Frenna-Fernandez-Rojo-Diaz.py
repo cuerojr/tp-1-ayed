@@ -37,10 +37,11 @@ class Admin:
 """
 class Moderador:
     def __init__(self):
-        self.id = 0             #int
+        self.id_ = 0             #int
         self.email = ""         #string 32
         self.contrasena = ""    #string 32
         self.estado = False     #boolean
+        self.baja = "N"         #char
 
 """ MODELO ESTUDIANTE
 # 0 ID: string
@@ -987,7 +988,8 @@ def gestionar_usuarios_administrador(arreglo_usuarios, ESTUDIANTES_INDEX):
     while opc != "d":
         match opc:
             case "a":
-                eliminiar_usuario()
+                os.system("cls")
+                eliminar_usuario()
             case "b":
                 dar_alta_moderador()
             case "c":
@@ -1001,12 +1003,64 @@ def gestionar_usuarios_administrador(arreglo_usuarios, ESTUDIANTES_INDEX):
         print("d. Volver\n") 
         opc = str(input("Ingrese de nuevo: "))
 
-def eliminiar_usuario():
-    global arFiEst, arLoEst, arFiMod, arLoMod
-    os.system("cls")
+def eliminar_usuario():
     print("\nEliminar un usuario\n")
-    estudiante = Estudiante()
-    mod = Moderador()
+    print("a. Eliminar un estudiante")
+    print("b. Eliminar un moderador")
+    print("c. Volver\n")
+    opc = str(input("Ingrese su opción: "))
+
+    while opc != "c":
+        match opc:
+            case "a":
+                os.system("cls")
+                eliminar_usuario_estudiante()
+            case "b":
+                os.system("cls")
+                eliminar_usuario_moderador()
+
+        os.system("cls")
+        print("\nEliminar un usuario\n")
+        print("a. Eliminar un estudiante")
+        print("b. Eliminar un moderador")
+        print("c. Volver\n")
+        opc = str(input("Ingrese de nuevo: "))
+
+def eliminar_usuario_estudiante():
+    global arLoEst
+    print("\nEliminar un estudiante\n")
+    id = int(input("Ingrese el ID del estudiante a eliminar: "))
+    estPos = buscar_estudiante("id_estudiante", id)
+    if estPos != -1:
+        arLoEst.seek(estPos, 0)
+        est = pickle.load(arLoEst)                      
+        est.estado = True
+        est.baja = "S"
+        arLoEst.seek(estPos, 0)
+        pickle.dump(est, arLoEst)
+        arLoEst.flush()
+        print("\nEl estudiante con el ID ", id, " se ha eliminado exitosamente.\n")
+    else:
+        os.system("cls")
+        print("\nEl ID de estudiante no se ha encontrado\n")
+
+
+def eliminar_usuario_moderador():
+    global arLoMod
+    print("\nEliminar un moderador\n")
+    id = int(input("Ingrese el ID del moderador a eliminar: "))
+    modPos = buscar_moderadores("id_moderador", id)
+    if modPos != -1:
+        arLoMod.seek(modPos, 0)
+        mod = pickle.load(arLoMod)                      
+        mod.estado = True
+        arLoMod.seek(modPos, 0)
+        pickle.dump(mod, arLoMod)
+        arLoEst.flush()
+        print("\nEl moderador con el ID ", id, " se ha eliminado exitosamente.\n")
+    else:
+        os.system("cls")
+        print("\nEl ID de moderador no se ha encontrado\n")
 
 
 
@@ -1050,6 +1104,7 @@ def dar_alta_moderador():
         elif len(contraseña) == 32:
             mod.contrasena = contraseña
         mod.estado = True
+        mod.baja = "S"
 
         arLoMod.seek(0, 2) 
         #u = arLoMod.tell()
