@@ -87,6 +87,9 @@ class Reportes:
         self.id_reportado = 0       #int
         self.motivo = ""            #string 255
         self.estado = 0             #int 0 reportado por ver, 1 usuario baneado, 2 omitido
+        self.cantidad = 0           #int
+        self.ignorados = 0          #int
+        self.aceptados = 0          #int
 
 # Constantes
 MIN_CANT_ESTUDIANTES  = 4   # enteros
@@ -647,23 +650,77 @@ arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 arreglo_informe_reportes:   arreglo bidimensional de 8x8 de caracteres
 arreglo_reportes:           arreglo bidimensional de 8x8 de strings
 """
+def busquedaDico(ref):
+    global arFiEst
+    global arLoEst
+    arLoEst.seek(0,0)
+    con = pickle.load(arLoEst)
+    tamReg = arLoEst.tell()
+    tamArch = os.path.getsize(arFiEst)
+    cantReg = tamArch//tamReg
+    prim = 0
+    ult = cantReg
+    med = (ult+prim)//2
+    arLoEst.seek(med*tamReg,0)
+    p = arLoEst.tell()
+    con = pickle.load(arLoEst)
+    id = con.id_estudiante
+    while id != ref and prim < ult:
+        if id > ref:
+            ult = med - 1
+        else:
+            prim = med + 1
+        med = (ult+prim)//2
+        arLoEst.seek(med*tamReg,0)
+        p = arLoEst.tell()
+        con = pickle.load(arLoEst)
+        id = con.id_estudiante
+    if id == ref:
+        return p
+    else:
+        return -1
+
 def reportar_candidato(arreglo_usuarios, ESTUDIANTES_INDEX):
     os.system("cls")
-    print("\nReportar candidatos")
+    global arFiEst, arLoEst, arFiRep, arLoRep
+    rep = Reportes()
+    val = input('¿Está seguro que quiere eliminar a un usuario? (Ingrese S <Sí> o N <No>): ')
+    val = val.uppper()
+    while val != 'S' or val != 'N':
+        val = input('¿Está seguro que quiere eliminar a un usuario? (Ingrese S <Sí> o N <No>): ')
+        val = val.uppper()
+    while val != "N":
+        print("\nReportar candidatos")
 
-    reportado = str(input("Ingrese nombre o ID de usuario a reportar: "))
-    reporte = str(input("Ingrese su reporte: "))
-    for j in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
-        if reportado == str(arreglo_de_estudiantes[j][1]) or reportado == str(arreglo_de_estudiantes[j][0]):
-            arreglo_reportes[arreglo_usuarios[USUARIO_INDEX]][j][0] = "0"
-            arreglo_reportes[arreglo_usuarios[USUARIO_INDEX]][j][1] = reporte
-            print("\nReporte exitoso.")
-                    
+        reportado = str(input("Ingrese el ID del usuario a reportar: "))
+        reporte = str(input("Ingrese su reporte: "))
+
+        pos = busquedaDico(reportado)
+        if pos != -1:
+            arLoRep.seek(pos,0)
+            rep = pickle.load(arLoRep)
+            rep.id_reportado = reportado
+            rep.motivo = reporte
+            pickle.dump(rep,arLoRep)
+            arLoRep.flush()
+        val = input('¿Quiere seguir eliminando usuarios? (Ingrese S <Sí> o N <No>): ')
+        val = val.uppper()
+        while val != 'S' or val != 'N':
+            val = input('¿Quiere seguir eliminando usuarios? (Ingrese S <Sí> o N <No>): ')
+            val = val.uppper()
+
+
+    # for j in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
+    #     if reportado == str(arreglo_de_estudiantes[j][1]) or reportado == str(arreglo_de_estudiantes[j][0]):
+    #         arreglo_reportes[arreglo_usuarios[USUARIO_INDEX]][j][0] = "0"
+    #         arreglo_reportes[arreglo_usuarios[USUARIO_INDEX]][j][1] = reporte
+    #         print("\nReporte exitoso.")
+
 """
 PROCEDIMIENTO matcheos
 opc: string
-
 """
+
 def matcheos():
     os.system("cls")
     print("\nMatcheos\n")
