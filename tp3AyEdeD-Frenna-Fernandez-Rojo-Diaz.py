@@ -12,6 +12,7 @@ import getpass
 from datetime import datetime
 import random
 import pickle
+import emoji
 
 """ MODELO ADMIN
 # 0 ID: string
@@ -311,9 +312,9 @@ def editar_mis_datos_personales(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_
             case "c":
                 editar_mis_hobbies(arreglo_usuarios, USUARIO_INDEX, arreglo_de_estudiantes)  
             case "d":
-                eliminar_mis_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
+                eliminar_mis_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, USUARIO_INDEX)
 
-        os.system("cls")
+        #os.system("cls")
         mostrar_menu_de_mis_datos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, USUARIO_INDEX)
 
         print("\nEditar mis datos personales\n")
@@ -374,7 +375,7 @@ def editar_mi_fecha_de_nacimiento(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_d
     elif len(nueva_fecha_de_nacimiento) == 10:
         arLoEst.seek(usuarioPos, 0)
         est.fecha_nacimiento = nueva_fecha_de_nacimiento
-    print(est)
+
     pickle.dump(est, arLoEst)
     arLoEst.flush()
 
@@ -439,14 +440,81 @@ eliminar_me_gusta: string
 arreglo_usuarios:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 """
-def eliminar_mis_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes):
-    mostrar_mis_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta)
-    eliminar_me_gusta = str(input("Ingrese nombre de usuario para eliminar de la lista: "))
-    for j in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
-        if eliminar_me_gusta == arreglo_de_estudiantes[j][1]:
-            arreglo_me_gusta[arreglo_usuarios[USUARIO_INDEX]][j] = 0
+def eliminar_mis_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, USUARIO_INDEX):
+    global arLoLi, arLoEst, arFiLi
+
+    #mostrar_mis_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, USUARIO_INDEX)
+    
+    tamArc = os.path.getsize(arFiLi)
+    if tamArc > 0:
+        print("\nMis me gusta")
+
+        arLoLi.seek(0, 0)
+        like = Likes()
+        like = pickle.load(arLoLi)
+        arLoEst.seek(arreglo_usuarios[USUARIO_INDEX], 0)
+        estudiante = Estudiante()
+        estudiante = pickle.load(arLoEst)
+
+        arLoLi.seek(0, 0)
+        
+        cantMegustaDados = 0
+        while arLoLi.tell() < tamArc:
+            like = pickle.load(arLoLi)
+            if (estudiante.id_estudiante == like.id_remitente) and like.activo == "S":                
+                estPos = buscar_estudiante("id_estudiante", int(like.id_destinatario))
+                arLoEst.seek(estPos, 0)
+                estudiante_destinatario = pickle.load(arLoEst)
+                print("- ", estudiante_destinatario.nombre, emoji.emojize(':red_heart:'))
+                cantMegustaDados = cantMegustaDados +1
+            
+        if cantMegustaDados != 0:
+            nombre_estudiante = str(input("Ingresar nombre y apellido de estudiante para eliminar el me gusta: "))
+            while len(nombre_estudiante) > 32:
+                print("El nombre y apellido no puede tener más de 32 caracteres")
+                nombre_estudiante = str(input("Ingresar nombre y apellido de estudiante para eliminar el me gusta: "))
+            if len(nombre_estudiante) < 32:
+                nombre_estudiante = nombre_estudiante.ljust(32, " ")
+            elif len(nombre_estudiante) == 32:
+                nombre_estudiante = nombre_estudiante
+            estPos = buscar_estudiante("nombre", nombre_estudiante)
+            
+            if estPos != -1:
+                arLoEst.seek(estPos, 0)
+                arLoLi.seek(0, 0)
+                estudiante = pickle.load(arLoEst)
+                while arLoLi.tell() < tamArc:
+                    likePos = arLoLi.tell()
+                    like = pickle.load(arLoLi)
+                    if like.id_destinatario == estudiante.id_estudiante:
+                        like.activo = "N"
+                        arLoLi.seek(likePos, 0)
+                        pickle.dump(like, arLoLi)
+                        arLoLi.flush()
+                        print("Me gusta eliminado exitosamente")      
+                mostrar_mis_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, USUARIO_INDEX)
+                
+            else:
+                print("Estudiante no encontrado")
         else:
-            print("Error")
+            print("No tienes ningún like registrado\n")
+            print("s. Volver") 
+            opc = str(input("Ingrese su opción: "))
+            while opc != "s":
+                print("s. Volver") 
+                opc = str(input("Ingrese su opción: "))
+            os.system("cls")
+    else:
+        print("\nNo hay ningún like registrado\n")
+        print("s. Volver") 
+        opc = str(input("Ingrese su opción: "))
+        while opc != "s":
+            print("s. Volver") 
+            opc = str(input("Ingrese su opción: "))
+        os.system("cls")
+        
+
+
 
 """
 PROCEDIMIENTO mostrar_me_gusta
@@ -456,11 +524,37 @@ arreglo_usuarios:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 arreglo_me_gusta:           arreglo bidimensional de 8x8 de enteros
 """
-def mostrar_mis_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta):
-    print("\nMis me gusta\n")
-    for j in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
-        if arreglo_me_gusta[arreglo_usuarios[USUARIO_INDEX]][j] == 1 and arreglo_de_estudiantes[j][1] != "":
-            print (arreglo_de_estudiantes[j][1])
+def mostrar_mis_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, USUARIO_INDEX):
+    global arLoLi, arLoEst, arFiLi
+
+    tamArc = os.path.getsize(arFiLi)
+    if tamArc > 0:
+        print("\nMis me gusta")
+
+        arLoLi.seek(0, 0)
+        like = Likes()
+        like = pickle.load(arLoLi)
+        arLoEst.seek(arreglo_usuarios[USUARIO_INDEX], 0)
+        estudiante = Estudiante()
+        estudiante = pickle.load(arLoEst)
+
+        arLoLi.seek(0, 0)
+        
+        cantMegustaDados = 0
+        while arLoLi.tell() < tamArc:
+            like = pickle.load(arLoLi)
+            if (estudiante.id_estudiante == like.id_remitente) and like.activo == "S":                
+                estPos = buscar_estudiante("id_estudiante", int(like.id_destinatario))
+                arLoEst.seek(estPos, 0)
+                estudiante_destinatario = pickle.load(arLoEst)
+                print("- ", estudiante_destinatario.nombre, emoji.emojize(':red_heart:'))
+                cantMegustaDados = cantMegustaDados +1
+            
+        if cantMegustaDados == 0:
+            print("No tienes ningún like registrado\n")
+    else:
+        print("\nNo hay ningún like registrado\n")
+
 
 def mostrar_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, i):
     print("\nMis me gusta\n")
@@ -520,33 +614,49 @@ def mostrar_datos_otros_usuarios(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de
 
 """
 PROCEDIMIENTO dar_me_gusta
-ESTUDIANTES_INDEX, i, j: enteros
-megusta: string
-
+ESTUDIANTES_INDEX: entero
+arLoEst, arLoLi:    BufferedRandom
+arFiEst, arFiLi:    str
 arreglo_usuarios:   arreglo unidimesional de enteros
-arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
-arreglo_me_gusta:
 """
-def dar_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta):
+def dar_me_gusta(arreglo_usuarios, USUARIO_INDEX):
     global arLoEst, arFiEst, arLoLi, arFiLi
 
     print("\nDar me gusta\n")
-    nombre_usuario = str(input("Ingresar nombre y apellido de estudiante o ID: "))
+    nombre_usuario = str(input("Ingresar nombre y apellido de estudiante: "))
     while len(nombre_usuario) > 32:
         print("El nombre y apellido no puede tener más de 32 caracteres")
-        nombre_usuario = str(input("Ingresar nombre y apellido de estudiante o ID: "))
+        nombre_usuario = str(input("Ingresar nombre y apellido de estudiante: "))
     if len(nombre_usuario) < 32:
         nombre_usuario = nombre_usuario.ljust(32, " ")
     elif len(nombre_usuario) == 32:
         nombre_usuario = nombre_usuario
 
-    estudiante_id = buscar_estudiante("id_estudiante", int(nombre_usuario))
-    estudiante_nombre = buscar_estudiante("nombre", nombre_usuario)
+    posCandPorNombre = buscar_estudiante("nombre", nombre_usuario)
 
-    if estudiante_id != -1 or estudiante_nombre != -1:
+    if posCandPorNombre != -1:
         print("Estudiante encontrado!")
-        print("pos: ", estudiante_nombre)
-        print("pos: ", estudiante_id)
+        print("pos: ", posCandPorNombre)
+        like = Likes()
+        destinatario = Estudiante()
+        remitente = Estudiante()
+
+        arLoEst.seek(posCandPorNombre, 0)
+        destinatario = pickle.load(arLoEst)        
+        like.id_destinatario = destinatario.id_estudiante 
+
+        arLoEst.seek(arreglo_usuarios[USUARIO_INDEX], 0)
+        remitente = pickle.load(arLoEst)
+        like.id_remitente = remitente.id_estudiante
+
+        if not mostrar_si_dio_like(remitente.id_estudiante, destinatario.id_estudiante):
+            arLoLi.seek(0, 2)
+            pickle.dump(like, arLoLi)
+            arLoLi.flush()
+            print("El like ha sido entregado!")   
+        else:
+            print("El like ya fue entregado!") 
+        
     else:
         print("Estudiante no encontrado!")
               
@@ -604,9 +714,9 @@ def gestionar_candidatos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudia
             case "a":
                 ver_candidatos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, USUARIO_INDEX)
             case "b":
-                reportar_candidato(arreglo_usuarios, ESTUDIANTES_INDEX)
+                reportar_candidato(arreglo_usuarios, USUARIO_INDEX)
 
-        os.system("cls")
+        #os.system("cls")
         print("\nGestionar candidatos\n")
         print("a. Ver candidatos")
         print("b. Reportar candidato")    
@@ -633,7 +743,7 @@ def ver_candidatos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, 
     while opc != "c":
         match opc:
             case "a":
-                dar_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta)
+                dar_me_gusta(arreglo_usuarios, USUARIO_INDEX)
             case "b":
                 #dar_super_like()
                 pass
@@ -641,12 +751,15 @@ def ver_candidatos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, 
         print("\nCandidatos\n")
         mostrar_datos_otros_usuarios(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, USUARIO_INDEX)
         print("\n\na. Dar me gusta")
-        print("b. Volver")
+        print("c. Volver")
         opc = str(input("Ingrese de nuevo: "))
 
 """
 FUNCION mostrar_si_dio_like
-remitente, destinatario: enteros
+remitente, destinatario, tamArc: enteros
+arFiLi: str
+arLoLi: BufferedRandom
+like: Likes
 return boolean
 """
 def mostrar_si_dio_like(remitente, destinatario):
@@ -655,36 +768,68 @@ def mostrar_si_dio_like(remitente, destinatario):
     like = Likes()
     tamArc = os.path.getsize(arFiLi)
     arLoLi.seek(0,0)
-    like = pickle.load(arLoLi)
-    tamReg = arLoLi.tell()
-    while tamReg < tamArc:
+    while arLoLi.tell() < tamArc:
         like = pickle.load(arLoLi)
-        if like.remitente == remitente and like.destinatario == destinatario:
+        if (like.id_remitente == remitente and like.id_destinatario == destinatario) and like.activo == "S":
             return True
-        tamReg = arLoLi.tell()
     return False
 
 """
 PROCEDIMIENTO reportar_candidato
-ESTUDIANTES_INDEX, i, j: enteros
-reportado, reporte: string
+ESTUDIANTES_INDEX, estPos: enteros
+nombre_reportado, motivo: string
 
-arreglo_usuarios:   arreglo unidimesional de enteros
-arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
-arreglo_informe_reportes:   arreglo bidimensional de 8x8 de caracteres
-arreglo_reportes:           arreglo bidimensional de 8x8 de strings
+arreglo_usuarios: arreglo unidimesional de enteros
+reporte: Reportes
+arLoEst, arLoRep: BufferedRandom
 """
-def reportar_candidato(arreglo_usuarios, ESTUDIANTES_INDEX):
+def reportar_candidato(arreglo_usuarios, USUARIO_INDEX):
+    global arLoEst, arLoRep
     os.system("cls")
     print("\nReportar candidatos")
 
-    reportado = str(input("Ingrese nombre o ID de usuario a reportar: "))
-    reporte = str(input("Ingrese su reporte: "))
-    for j in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
-        if reportado == str(arreglo_de_estudiantes[j][1]) or reportado == str(arreglo_de_estudiantes[j][0]):
-            arreglo_reportes[arreglo_usuarios[USUARIO_INDEX]][j][0] = "0"
-            arreglo_reportes[arreglo_usuarios[USUARIO_INDEX]][j][1] = reporte
-            print("\nReporte exitoso.")
+    nombre_reportado = str(input("Ingrese nombre o ID de usuario a reportar: "))
+    while len(nombre_reportado) > 32:
+        print("El nombre y apellido no puede tener más de 32 caracteres")
+        nombre_reportado = str(input("Ingresar nombre y apellido de estudiante: "))
+    if len(nombre_reportado) < 32:
+        nombre_reportado = nombre_reportado.ljust(32, " ")
+    elif len(nombre_reportado) == 32:
+        nombre_reportado = nombre_reportado
+    
+    estPos = buscar_estudiante("nombre", nombre_reportado)
+    
+    if estPos != -1:
+        if estPos != arreglo_usuarios[USUARIO_INDEX]:
+            reporte = Reportes()
+            motivo_reporte = str(input("Ingrese su reporte: "))
+            while len(motivo_reporte) > 255:
+                print("El motivo no puede tener más de 255 caracteres")
+                motivo_reporte = str(input("Ingresar motivo de estudiante: "))
+            if len(motivo_reporte) < 255:
+                motivo_reporte = motivo_reporte.ljust(255, " ")
+            elif len(motivo_reporte) == 255:
+                motivo_reporte = motivo_reporte        
+
+            estudiante1 = Estudiante()
+            arLoEst.seek(arreglo_usuarios[USUARIO_INDEX], 0)
+            estudiante1 = pickle.load(arLoEst)
+            reporte.id_remitente = estudiante1.id_estudiante
+
+            estudiante2 = Estudiante()
+            arLoEst.seek(estPos, 0)
+            estudiante2 = pickle.load(arLoEst)
+            reporte.id_destinatario = estudiante2.id_estudiante
+            reporte.estado = 0
+
+            arLoRep.seek(0, 2)
+            pickle.dump(reporte, arLoRep)
+            arLoRep.flush()
+            print("\nReporte fue enviado exitosamente.")
+        else:
+            print("\nNo puedes reportarte a ti mismo.")
+    else:        
+        print("\nEl usuario no existe.")
                     
 """
 PROCEDIMIENTO matcheos
@@ -1164,7 +1309,7 @@ def buscar_estudiante(param, busqueda):
     arLoEst.seek(0, 0)    
     while arLoEst.tell() < tamArc:
         pos = arLoEst.tell()
-        estudiante = pickle.load(arLoEst)
+        estudiante = pickle.load(arLoEst)        
         if getattr(estudiante, param) == busqueda:
             return pos
     return -1
