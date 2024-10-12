@@ -807,11 +807,11 @@ def menu_moderadores(arreglo_usuarios, MODERADORES_INDEX, ESTUDIANTES_INDEX, arr
     while opc != 0:
         match opc:
             case 1:
-                gestionar_usuarios(arreglo_usuarios, ESTUDIANTES_INDEX)
+                gestionar_usuarios_moderador(arreglo_usuarios, ESTUDIANTES_INDEX)
             case 2:
-                gestionar_reportes(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX)
+                gestionar_reportes_moderador(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX)
             case 3:
-                mostrar_menu_reportes_estadisticos()
+                mostrar_menu_reportes_estadisticos_moderador()
 
         os.system("cls")
         mostrar_menu_moderadores()
@@ -821,13 +821,13 @@ def menu_moderadores(arreglo_usuarios, MODERADORES_INDEX, ESTUDIANTES_INDEX, arr
             opc = validar_numero()
 
 """
-PROCEDIMIENTO gestionar_usuarios
+PROCEDIMIENTO gestionar_usuarios_moderador
 ESTUDIANTES_INDEX: enteros
 opc: string
 
 arreglo_usuarios:   arreglo unidimesional de enteros
 """
-def gestionar_usuarios(arreglo_usuarios, ESTUDIANTES_INDEX):
+def gestionar_usuarios_moderador(arreglo_usuarios, ESTUDIANTES_INDEX):
     os.system("cls")
     print("\nGestionar usuarios\n")
     print("a. Desactivar usuario")  
@@ -862,13 +862,13 @@ def desactivar_usuario(arreglo_usuarios, ESTUDIANTES_INDEX):
             arreglo_de_estudiantes[i][9] = "inactivo"
 
 """
-PROCEDIMIENTO gestionar_reportes
+PROCEDIMIENTO gestionar_reportes_moderador
 opc: string
 
 arreglo_reportes:           arreglo bidimensional de 8x8 de strings
 arreglo_informe_reportes:   arreglo bidimensional de 8x8 de caracteres
 """
-def gestionar_reportes(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX):
+def gestionar_reportes_moderador(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX):
     os.system("cls")
     print("\nGestionar reportes\n")
     print("a. Ver reportes")  
@@ -929,11 +929,91 @@ def ver_reportes(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, E
             print("No hay reportes pendientes")
 
 """
-PROCEDIMIENTO mostrar_menu_reportes_estadisticos
+PROCEDIMIENTO mostrar_menu_reportes_estadisticos_moderador
 opc: enteros
 
 """
-def mostrar_menu_reportes_estadisticos():
+def mostrar_menu_reportes_estadisticos_moderador():
+    print("\nReportes estadisticos\n")
+    print("En construcción")  
+    print("a. Volver\n") 
+    opc = str(input("Ingrese su opción: "))
+
+    while opc != "a":
+        print("\nReportes estadisticos\n")
+        print("En construcción")  
+        print("a. Volver\n") 
+        opc = str(input("Ingrese de nuevo: "))
+
+def mostrar_menu_administradores():
+        print("\nMenu Administradores\n")
+        print("1. Gestionar usuarios")
+        print("2. Gestionar reportes")
+        print("3. Reportes estadísticos")
+        print("0. Salir\n")
+
+def menu_administradores(arreglo_usuarios, ADMINISTRADOR_INDEX, ESTUDIANTES_INDEX, arreglo_reportes, arreglo_informe_reportes):
+    mostrar_menu_administradores()
+    opc = validar_numero()
+    while opc < 0 and opc > 3:
+        print("Opción inválida")
+        opc = validar_numero()
+
+    while opc != 0:
+        match opc:
+            case 1:
+                gestionar_usuarios_administrador(arreglo_usuarios, ESTUDIANTES_INDEX)
+            case 2:
+                gestionar_reportes_administrador(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX)
+            case 3:
+                mostrar_menu_reportes_estadisticos_administrador()
+
+        os.system("cls")
+        mostrar_menu_administradores()
+        opc = validar_numero()
+        while opc < 0 and opc > 3:
+            print("Opción inválida")
+            opc = validar_numero()
+
+def gestionar_usuarios_administrador(arreglo_usuarios, ESTUDIANTES_INDEX):
+    os.system("cls")
+    print("\nGestionar usuarios\n")
+    print("a. Eliminar un usuario")  
+    print("b. Dar de alta a un moderador")  
+    print("c. Desactivar usuario")  
+    print("d. Volver\n") 
+    opc = str(input("Ingrese su opción: "))
+
+    while opc != "d":
+        match opc:
+            case "c":
+                desactivar_usuario(arreglo_usuarios, ESTUDIANTES_INDEX)
+
+        os.system("cls")
+        print("\nGestionar usuarios\n")
+        print("a. Eliminar un usuario")  
+        print("b. Dar de alta a un moderador")  
+        print("c. Desactivar usuario")  
+        print("d. Volver\n") 
+        opc = str(input("Ingrese de nuevo: "))
+
+def gestionar_reportes_administrador(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX):
+    os.system("cls")
+    print("\nGestionar reportes\n")
+    print("a. Ver reportes")  
+    print("b. Volver") 
+    opc = str(input("Ingrese su opción: "))
+
+    while opc != "b":
+        match opc:
+            case "a":
+                ver_reportes(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX)
+        print("\nGestionar reportes\n")
+        print("a. Ver reportes")  
+        print("b. Volver") 
+        opc = str(input("Ingrese de nuevo: "))
+
+def mostrar_menu_reportes_estadisticos_administrador():
     print("\nReportes estadisticos\n")
     print("En construcción")  
     print("a. Volver\n") 
