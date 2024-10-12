@@ -519,33 +519,49 @@ def mostrar_datos_otros_usuarios(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de
 
 """
 PROCEDIMIENTO dar_me_gusta
-ESTUDIANTES_INDEX, i, j: enteros
-megusta: string
-
+ESTUDIANTES_INDEX: entero
+arLoEst, arLoLi:    BufferedRandom
+arFiEst, arFiLi:    str
 arreglo_usuarios:   arreglo unidimesional de enteros
-arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
-arreglo_me_gusta:
 """
-def dar_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta):
+def dar_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX):
     global arLoEst, arFiEst, arLoLi, arFiLi
 
     print("\nDar me gusta\n")
-    nombre_usuario = str(input("Ingresar nombre y apellido de estudiante o ID: "))
+    nombre_usuario = str(input("Ingresar nombre y apellido de estudiante: "))
     while len(nombre_usuario) > 32:
         print("El nombre y apellido no puede tener más de 32 caracteres")
-        nombre_usuario = str(input("Ingresar nombre y apellido de estudiante o ID: "))
+        nombre_usuario = str(input("Ingresar nombre y apellido de estudiante: "))
     if len(nombre_usuario) < 32:
         nombre_usuario = nombre_usuario.ljust(32, " ")
     elif len(nombre_usuario) == 32:
         nombre_usuario = nombre_usuario
 
-    estudiante_id = buscar_estudiante("id_estudiante", int(nombre_usuario))
-    estudiante_nombre = buscar_estudiante("nombre", nombre_usuario)
+    posCandPorNombre = buscar_estudiante("nombre", nombre_usuario)
 
-    if estudiante_id != -1 or estudiante_nombre != -1:
+    if posCandPorNombre != -1:
         print("Estudiante encontrado!")
-        print("pos: ", estudiante_nombre)
-        print("pos: ", estudiante_id)
+        print("pos: ", posCandPorNombre)
+        like = Likes()
+        destinatario = Estudiante()
+        remitente = Estudiante()
+
+        arLoEst.seek(posCandPorNombre, 0)
+        destinatario = pickle.load(arLoEst)        
+        like.id_destinatario = destinatario.id_estudiante 
+
+        arLoEst.seek(arreglo_usuarios[ESTUDIANTES_INDEX], 0)
+        remitente = pickle.load(arLoEst)
+        like.id_remitente = remitente.id_estudiante
+
+        if not mostrar_si_dio_like(remitente.id_estudiante, destinatario.id_estudiante):
+            arLoLi.seek(0, 2)
+            pickle.dump(like, arLoLi)
+            arLoLi.flush()
+            print("El like ha sido entregado!")   
+        else:
+            print("El like ya fue entregado!") 
+        
     else:
         print("Estudiante no encontrado!")
               
@@ -632,7 +648,7 @@ def ver_candidatos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, 
     while opc != "c":
         match opc:
             case "a":
-                dar_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta)
+                dar_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX)
             case "b":
                 #dar_super_like()
                 pass
@@ -654,13 +670,13 @@ def mostrar_si_dio_like(remitente, destinatario):
     like = Likes()
     tamArc = os.path.getsize(arFiLi)
     arLoLi.seek(0,0)
-    like = pickle.load(arLoLi)
-    tamReg = arLoLi.tell()
-    while tamReg < tamArc:
+    #like = pickle.load(arLoLi)
+    #tamReg = arLoLi.tell()
+    while arLoLi.tell() < tamArc:
         like = pickle.load(arLoLi)
-        if like.remitente == remitente and like.destinatario == destinatario:
+        if like.id_remitente == remitente and like.id_destinatario == destinatario:
             return True
-        tamReg = arLoLi.tell()
+        #tamReg = arLoLi.tell()
     return False
 
 """
@@ -956,7 +972,7 @@ def buscar_estudiante(param, busqueda):
     arLoEst.seek(0, 0)    
     while arLoEst.tell() < tamArc:
         pos = arLoEst.tell()
-        estudiante = pickle.load(arLoEst)
+        estudiante = pickle.load(arLoEst)        
         if getattr(estudiante, param) == busqueda:
             return pos
     return -1
@@ -1330,7 +1346,7 @@ def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_
     
     ## iniciar archivos
     abrir_archivos()
-    popular_likes_aleatorios()
+    #popular_likes_aleatorios()
     mostrar_menu_principal()     
     opc = validar_numero()
     while opc < 0 and opc > 4:
