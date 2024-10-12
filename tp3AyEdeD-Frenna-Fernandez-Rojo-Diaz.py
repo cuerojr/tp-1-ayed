@@ -299,11 +299,11 @@ def editar_mis_datos_personales(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_
     print("a. Editar mi fecha de nacimiento")
     print("b. Editar mi biografía")
     print("c. Editar mis hobbies")
-    #print("d. Eliminar mis me gusta")
-    print("d. Volver\n")  
+    print("d. Eliminar mis me gusta")
+    print("e. Volver\n")  
     opc = str(input("Ingrese su opción: "))
 
-    while opc != "d":
+    while opc != "e":
         match opc:    
             case "a": 
                 editar_mi_fecha_de_nacimiento(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
@@ -311,8 +311,8 @@ def editar_mis_datos_personales(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_
                 editar_mi_biografia(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes)          
             case "c":
                 editar_mis_hobbies(arreglo_usuarios, USUARIO_INDEX, arreglo_de_estudiantes)  
-            #case "d":
-            #    eliminar_mis_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
+            case "d":
+                eliminar_mis_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, USUARIO_INDEX)
 
         os.system("cls")
         mostrar_menu_de_mis_datos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, USUARIO_INDEX)
@@ -321,8 +321,8 @@ def editar_mis_datos_personales(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_
         print("a. Editar mi fecha de nacimiento")
         print("b. Editar mi biografía")
         print("c. Editar mis hobbies")  
-        #print("d. Eliminar mis me gusta")
-        print("d. Volver\n")   
+        print("d. Eliminar mis me gusta")
+        print("e. Volver\n")   
         opc = str(input("Ingrese de nuevo: "))
 
 """
@@ -440,14 +440,11 @@ eliminar_me_gusta: string
 arreglo_usuarios:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 """
-def eliminar_mis_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes):
-    mostrar_mis_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta)
+def eliminar_mis_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, USUARIO_INDEX):
+    mostrar_mis_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, USUARIO_INDEX)
+    
     eliminar_me_gusta = str(input("Ingrese nombre de usuario para eliminar de la lista: "))
-    for j in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
-        if eliminar_me_gusta == arreglo_de_estudiantes[j][1]:
-            arreglo_me_gusta[arreglo_usuarios[USUARIO_INDEX]][j] = 0
-        else:
-            print("Error")
+    
 
 """
 PROCEDIMIENTO mostrar_me_gusta
@@ -457,11 +454,28 @@ arreglo_usuarios:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 arreglo_me_gusta:           arreglo bidimensional de 8x8 de enteros
 """
-def mostrar_mis_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta):
+def mostrar_mis_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, USUARIO_INDEX):
+    global arLoLi, arLoEst, arFiLi
     print("\nMis me gusta\n")
-    for j in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
-        if arreglo_me_gusta[arreglo_usuarios[USUARIO_INDEX]][j] == 1 and arreglo_de_estudiantes[j][1] != "":
-            print (arreglo_de_estudiantes[j][1])
+
+    tamArc = os.path.getsize(arFiLi)
+    arLoLi.seek(0, 0)
+    like = Likes()
+    like = pickle.load(arLoLi)
+    arLoEst.seek(arreglo_usuarios[USUARIO_INDEX], 0)
+    estudiante = Estudiante()
+    estudiante = pickle.load(arLoEst)
+    print("🚀 ~ estudiante:", estudiante.id_estudiante, like.id_remitente)
+    arLoLi.seek(0, 0)
+
+    bulletPoint = 1
+    while arLoLi.tell() < tamArc:
+        if estudiante.id_estudiante == like.id_remitente:
+            print(bulletPoint,"- ",estudiante.nombre)
+        like = pickle.load(arLoLi)
+        print(bulletPoint, estudiante.id_estudiante, like.id_remitente)
+        bulletPoint = bulletPoint+1
+
 
 def mostrar_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, i):
     print("\nMis me gusta\n")
@@ -658,7 +672,7 @@ def ver_candidatos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, 
         print("\nCandidatos\n")
         mostrar_datos_otros_usuarios(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, USUARIO_INDEX)
         print("\n\na. Dar me gusta")
-        print("b. Volver")
+        print("c. Volver")
         opc = str(input("Ingrese de nuevo: "))
 
 """
@@ -683,11 +697,12 @@ def mostrar_si_dio_like(remitente, destinatario):
 
 """
 PROCEDIMIENTO reportar_candidato
-ESTUDIANTES_INDEX: enteros
+ESTUDIANTES_INDEX, estPos: enteros
 nombre_reportado, motivo: string
 
 arreglo_usuarios: arreglo unidimesional de enteros
 reporte: Reportes
+arLoEst, arLoRep: BufferedRandom
 """
 def busquedaDico(ref):
     global arFiEst
