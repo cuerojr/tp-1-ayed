@@ -41,6 +41,8 @@ class Moderador:
         self.email = ""         #string 32
         self.contraseña = ""    #string 32
         self.estado = False     #boolean
+        self.ignorado = 0       #int
+        self.aceptado = 0       #int
 
 """ MODELO ESTUDIANTE
 # 0 ID: string
@@ -75,11 +77,16 @@ class Estudiante:
         self.ciudad = ""            #string 32        
         self.fecha_nacimiento = ""  #string 10
 
+""" MODELO LIKES
+# 0 remitente: int
+# 1 destinatario: int
+# 2 activo: char
+"""
 class Likes:
     def __init__(self):
         self.id_remitente = 0       #int
         self.id_destinatario = 0    #int
-        self.estado = "S"           #char
+        self.activo = "S"           #char
 
 class Reportes:
     def __init__(self):
@@ -87,11 +94,11 @@ class Reportes:
         self.id_reportado = 0       #int
         self.motivo = ""            #string 255
         self.estado = 0             #int 0 reportado por ver, 1 usuario baneado, 2 omitido
-        self.cantidad = 0           #int
-        self.ignorados = 0          #int
-        self.aceptados = 0          #int
 
 # Constantes
+
+global arFiAdmin, arLoAdmin, arFiMod, arLoMod, arFiEst, arLoEst, arFiLi, arLoLi, arFiRep, arLoRep
+
 MIN_CANT_ESTUDIANTES  = 4   # enteros
 MAX_CANT_ESTUDIANTES  = 8   # enteros
 MIN_CANT_MODERADORES  = 1   # enteros
@@ -109,22 +116,33 @@ arreglo_me_gusta            = [[0]*8    for i in range(8)]  # Arreglo bidimensio
 arreglo_sesion              = [False]*2                     # Arreglo unidimensional de booleanos
 arreglo_usuarios            = [0]*3                         # Arreglo unidimensional de enteros
 
-arreglo_usuarios = [11,12,300]
 
 """"
 PROCEDIMIENTO popular_likes_aleatorios
 i, j: enteros
 arreglo_me_gusta:    arreglo bidimensional de 8*8 de enteros
 """
-def popular_likes_aleatorios(arreglo_me_gusta):
-    for i in range(8):
-        for j in range(8):
-            if i != j:
-                arreglo_me_gusta[i][j] = random.randint(0, 1)
-            else:
-                arreglo_me_gusta[i][j] = 0
+def popular_likes_aleatorios():
+    global arLoLi, arFiLi
 
-popular_likes_aleatorios(arreglo_me_gusta)
+    like = Likes()
+    likePos = 0
+    if os.path.getsize(arFiLi) == 0:        
+        for i in range(4):
+            arLoLi.seek(likePos, 0)
+            like.id_remitente = i
+            like.id_destinatario = random.randint(i+1, 4)
+            like.activo = "S"
+
+            pickle.dump(like, arLoLi)
+            arLoLi.flush()
+
+            arLoLi.seek(likePos, 0)
+            like = pickle.load(arLoLi)
+            likePos = arLoLi.tell()
+            print("🚀 ~ likePos:", like.id_remitente)
+            print("🚀 ~ likePos:", like.id_destinatario)
+
 
 """
 PROCEDIMIENTO popular_db_estudiantes
@@ -148,20 +166,6 @@ def popular_db_estudiantes(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estud
 
 #popular_db_estudiantes(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
 
-
-"""
-FUNCIÓN
-arr: arreglo unidimensional de enteros
-i, j, aux: enteros
-"""
-def ordenar_arreglo(arr):
-    for i in range(0, 6):
-        for j in range(0, 6-i-1):
-            if arr[j] > arr[j+1]:
-                aux = arr[j]
-                arr[j] = arr[j+1]
-                arr[j+1] = aux
-    return arr
 """
 FUNCIÓN
 izquierda, derecha, medio: enteros
@@ -179,23 +183,6 @@ def busqueda_dicotomica(arr, x):
         else:
             derecha = medio - 1
     return izquierda
-
-"""
-PROCEDIMIENTO
-edades : enteros
-"""
-def encontrar_huecos(edades):
-    edades = ordenar_arreglo(edades)
-    huecos = 0
-    actual = edades[0]
-    fin = edades[-1]
-
-    for i in range(actual, fin):
-        idx = busqueda_dicotomica(edades, i)
-        if idx >= 6 or edades[idx] != i:
-            huecos += 1
-    os.system("cls")
-    print("Huecos encontrados:", huecos)
 
 """
 PROCEDIMIENTO
@@ -312,11 +299,11 @@ def editar_mis_datos_personales(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_
     print("a. Editar mi fecha de nacimiento")
     print("b. Editar mi biografía")
     print("c. Editar mis hobbies")
-    print("d. Eliminar mis me gusta")
-    print("e. Volver\n")  
+    #print("d. Eliminar mis me gusta")
+    print("d. Volver\n")  
     opc = str(input("Ingrese su opción: "))
 
-    while opc != "e":
+    while opc != "d":
         match opc:    
             case "a": 
                 editar_mi_fecha_de_nacimiento(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
@@ -324,8 +311,8 @@ def editar_mis_datos_personales(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_
                 editar_mi_biografia(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes)          
             case "c":
                 editar_mis_hobbies(arreglo_usuarios, USUARIO_INDEX, arreglo_de_estudiantes)  
-            case "d":
-                eliminar_mis_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
+            #case "d":
+            #    eliminar_mis_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
 
         os.system("cls")
         mostrar_menu_de_mis_datos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, USUARIO_INDEX)
@@ -334,8 +321,8 @@ def editar_mis_datos_personales(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_
         print("a. Editar mi fecha de nacimiento")
         print("b. Editar mi biografía")
         print("c. Editar mis hobbies")  
-        print("d. Eliminar mis me gusta")
-        print("e. Volver\n")   
+        #print("d. Eliminar mis me gusta")
+        print("d. Volver\n")   
         opc = str(input("Ingrese de nuevo: "))
 
 """
@@ -351,17 +338,19 @@ def mostrar_menu_de_mis_datos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_es
     arLoEst.seek(usuarioPos, 0)
     est = pickle.load(arLoEst)
     
+    print("\n==============================================================")
     print("\nMi ID: ", est.id_estudiante)
     print("Mi nombre: ", est.nombre)
     print("Mi email: ", est.email)
     print("Mi sexo: ", est.sexo)
     print("Mi fecha de nacimiento: ", est.fecha_nacimiento)
     print("Mi biografia: ", est.biografia)
-    print("Mi edad: ", mostrar_edad(est.fecha_nacimiento or ""), "años")
+    print("Mi edad: ", mostrar_edad(est.fecha_nacimiento), "años")
     print("Mis hobbies: ", est.hobbies)
     #mostrar_mis_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta)
     print("Mi estado: ", est.estado)
     print("Mi baja: ", est.baja)
+    print("==============================================================")
 
 """
 PROCEDIMIENTO editar_mi_fecha_de_nacimiento
@@ -389,7 +378,6 @@ def editar_mi_fecha_de_nacimiento(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_d
     print(est)
     pickle.dump(est, arLoEst)
     arLoEst.flush()
-     
 
 """
 PROCEDIMIENTO editar_mi_biografia
@@ -500,14 +488,14 @@ def mostrar_edad(fecha):
     return edad
 
 """
-PROCEDIMIENTO mostrar_datos
+PROCEDIMIENTO mostrar_datos_otros_usuarios
 ESTUDIANTES_INDEX, i: enteros
 
 arreglo_usuarios:   arreglo unidimesional de enteros
 arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 arreglo_me_gusta:           arreglo unidimensional de 8*8 de enteros
 """
-def mostrar_datos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, USUARIO_INDEX):   
+def mostrar_datos_otros_usuarios(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, USUARIO_INDEX):   
     global arFiEst, arLoEst
     pos = 0    
     tamArc = os.path.getsize(arFiEst)
@@ -526,27 +514,59 @@ def mostrar_datos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, a
             print("Biografia: ", estudiante.biografia)
             print("Edad: ", mostrar_edad(estudiante.fecha_nacimiento), "años")
             print("Hobbies: ", estudiante.hobbies)
-            mostrar_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, 0)
+            #mostrar_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, 0)
             print("Estado: ", estudiante.estado)
             print("Baja: ", estudiante.baja)
             print("==============================================================")
 
 """
 PROCEDIMIENTO dar_me_gusta
-ESTUDIANTES_INDEX, i, j: enteros
-megusta: string
-
+ESTUDIANTES_INDEX: entero
+arLoEst, arLoLi:    BufferedRandom
+arFiEst, arFiLi:    str
 arreglo_usuarios:   arreglo unidimesional de enteros
-arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
-arreglo_me_gusta:
 """
-def dar_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta):
+def dar_me_gusta(arreglo_usuarios, USUARIO_INDEX):
+    global arLoEst, arFiEst, arLoLi, arFiLi
+
     print("\nDar me gusta\n")
-    megusta = str(input("Ingresar nombre de estudiante: "))
-    for j in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
-        if arreglo_usuarios[USUARIO_INDEX] != j:
-            if megusta == arreglo_de_estudiantes[j][1]:
-                arreglo_me_gusta[arreglo_usuarios[USUARIO_INDEX]][j] = 1           
+    nombre_usuario = str(input("Ingresar nombre y apellido de estudiante: "))
+    while len(nombre_usuario) > 32:
+        print("El nombre y apellido no puede tener más de 32 caracteres")
+        nombre_usuario = str(input("Ingresar nombre y apellido de estudiante: "))
+    if len(nombre_usuario) < 32:
+        nombre_usuario = nombre_usuario.ljust(32, " ")
+    elif len(nombre_usuario) == 32:
+        nombre_usuario = nombre_usuario
+
+    posCandPorNombre = buscar_estudiante("nombre", nombre_usuario)
+
+    if posCandPorNombre != -1:
+        print("Estudiante encontrado!")
+        print("pos: ", posCandPorNombre)
+        like = Likes()
+        destinatario = Estudiante()
+        remitente = Estudiante()
+
+        arLoEst.seek(posCandPorNombre, 0)
+        destinatario = pickle.load(arLoEst)        
+        like.id_destinatario = destinatario.id_estudiante 
+
+        arLoEst.seek(arreglo_usuarios[USUARIO_INDEX], 0)
+        remitente = pickle.load(arLoEst)
+        like.id_remitente = remitente.id_estudiante
+
+        if not mostrar_si_dio_like(remitente.id_estudiante, destinatario.id_estudiante):
+            arLoLi.seek(0, 2)
+            pickle.dump(like, arLoLi)
+            arLoLi.flush()
+            print("El like ha sido entregado!")   
+        else:
+            print("El like ya fue entregado!") 
+        
+    else:
+        print("Estudiante no encontrado!")
+              
 
 """
 PROCEDIMIENTO eliminar_mi_perfil
@@ -572,9 +592,9 @@ def eliminar_mi_perfil(arreglo_usuarios, USUARIO_INDEX):
             usuarioPos = arreglo_usuarios[USUARIO_INDEX]
             arLoEst.seek(usuarioPos, 0)
             est = pickle.load(arLoEst)                      
-            arLoEst.seek(usuarioPos, 0)
             est.estado = True
             est.baja = "S"
+            arLoEst.seek(usuarioPos, 0)
             pickle.dump(est, arLoEst)
             arLoEst.flush()
 
@@ -601,9 +621,9 @@ def gestionar_candidatos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudia
             case "a":
                 ver_candidatos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, USUARIO_INDEX)
             case "b":
-                reportar_candidato(arreglo_usuarios, ESTUDIANTES_INDEX)
+                reportar_candidato(arreglo_usuarios, USUARIO_INDEX)
 
-        os.system("cls")
+        #os.system("cls")
         print("\nGestionar candidatos\n")
         print("a. Ver candidatos")
         print("b. Reportar candidato")    
@@ -621,34 +641,53 @@ arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 """
 def ver_candidatos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, USUARIO_INDEX):
     print("\nCandidatos\n")
-    mostrar_datos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, USUARIO_INDEX)
+    mostrar_datos_otros_usuarios(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, USUARIO_INDEX)
     print("\n\na. Dar me gusta")
-    print("b. Volver")
+    print("b. Dar Super Like")
+    print("c. Volver")
 
     opc = str(input("Ingrese su opción: "))
     while opc != "c":
         match opc:
             case "a":
-                dar_me_gusta(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta)
+                dar_me_gusta(arreglo_usuarios, USUARIO_INDEX)
             case "b":
                 #dar_super_like()
                 pass
-        os.system("cls")
+        #os.system("cls")
         print("\nCandidatos\n")
-        mostrar_datos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, USUARIO_INDEX)
+        mostrar_datos_otros_usuarios(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, USUARIO_INDEX)
         print("\n\na. Dar me gusta")
         print("b. Volver")
         opc = str(input("Ingrese de nuevo: "))
 
 """
-PROCEDIMIENTO reportar_candidato
-ESTUDIANTES_INDEX, i, j: enteros
-reportado, reporte: string
+FUNCION mostrar_si_dio_like
+remitente, destinatario, tamArc: enteros
+arFiLi: str
+arLoLi: BufferedRandom
+like: Likes
+return boolean
+"""
+def mostrar_si_dio_like(remitente, destinatario):
+    global arLoLi, arFiLi
 
-arreglo_usuarios:   arreglo unidimesional de enteros
-arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
-arreglo_informe_reportes:   arreglo bidimensional de 8x8 de caracteres
-arreglo_reportes:           arreglo bidimensional de 8x8 de strings
+    like = Likes()
+    tamArc = os.path.getsize(arFiLi)
+    arLoLi.seek(0,0)
+    while arLoLi.tell() < tamArc:
+        like = pickle.load(arLoLi)
+        if like.id_remitente == remitente and like.id_destinatario == destinatario:
+            return True
+    return False
+
+"""
+PROCEDIMIENTO reportar_candidato
+ESTUDIANTES_INDEX: enteros
+nombre_reportado, motivo: string
+
+arreglo_usuarios: arreglo unidimesional de enteros
+reporte: Reportes
 """
 def busquedaDico(ref):
     global arFiEst
@@ -680,7 +719,9 @@ def busquedaDico(ref):
     else:
         return -1
 
-def reportar_candidato(arreglo_usuarios, ESTUDIANTES_INDEX):
+
+def reportar_candidato(arreglo_usuarios, USUARIO_INDEX):
+    global arLoEst, arLoRep
     os.system("cls")
     global arFiEst, arLoEst, arFiRep, arLoRep
     rep = Reportes()
@@ -692,35 +733,53 @@ def reportar_candidato(arreglo_usuarios, ESTUDIANTES_INDEX):
     while val != "N":
         print("\nReportar candidatos")
 
-        reportado = str(input("Ingrese el ID del usuario a reportar: "))
-        reporte = str(input("Ingrese su reporte: "))
+    nombre_reportado = str(input("Ingrese nombre o ID de usuario a reportar: "))
+    while len(nombre_reportado) > 32:
+        print("El nombre y apellido no puede tener más de 32 caracteres")
+        nombre_reportado = str(input("Ingresar nombre y apellido de estudiante: "))
+    if len(nombre_reportado) < 32:
+        nombre_reportado = nombre_reportado.ljust(32, " ")
+    elif len(nombre_reportado) == 32:
+        nombre_reportado = nombre_reportado
+    
+    estPos = buscar_estudiante("nombre", nombre_reportado)
+    
+    if estPos != -1:
+        if estPos != arreglo_usuarios[USUARIO_INDEX]:
+            reporte = Reportes()
+            motivo_reporte = str(input("Ingrese su reporte: "))
+            while len(motivo_reporte) > 255:
+                print("El motivo no puede tener más de 255 caracteres")
+                motivo_reporte = str(input("Ingresar motivo de estudiante: "))
+            if len(motivo_reporte) < 255:
+                motivo_reporte = motivo_reporte.ljust(255, " ")
+            elif len(motivo_reporte) == 255:
+                motivo_reporte = motivo_reporte        
 
-        pos = busquedaDico(reportado)
-        if pos != -1:
-            arLoRep.seek(pos,0)
-            rep = pickle.load(arLoRep)
-            rep.id_reportado = reportado
-            rep.motivo = reporte
-            pickle.dump(rep,arLoRep)
+            estudiante1 = Estudiante()
+            arLoEst.seek(arreglo_usuarios[USUARIO_INDEX], 0)
+            estudiante1 = pickle.load(arLoEst)
+            reporte.id_remitente = estudiante1.id_estudiante
+
+            estudiante2 = Estudiante()
+            arLoEst.seek(estPos, 0)
+            estudiante2 = pickle.load(arLoEst)
+            reporte.id_destinatario = estudiante2.id_estudiante
+            reporte.estado = 0
+
+            arLoRep.seek(0, 2)
+            pickle.dump(reporte, arLoRep)
             arLoRep.flush()
-        val = input('¿Quiere seguir eliminando usuarios? (Ingrese S <Sí> o N <No>): ')
-        val = val.uppper()
-        while val != 'S' or val != 'N':
-            val = input('¿Quiere seguir eliminando usuarios? (Ingrese S <Sí> o N <No>): ')
-            val = val.uppper()
-
-
-    # for j in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
-    #     if reportado == str(arreglo_de_estudiantes[j][1]) or reportado == str(arreglo_de_estudiantes[j][0]):
-    #         arreglo_reportes[arreglo_usuarios[USUARIO_INDEX]][j][0] = "0"
-    #         arreglo_reportes[arreglo_usuarios[USUARIO_INDEX]][j][1] = reporte
-    #         print("\nReporte exitoso.")
-
+            print("\nReporte fue enviado exitosamente.")
+        else:
+            print("\nNo puedes reportarte a ti mismo.")
+    else:        
+        print("\nEl usuario no existe.")
+                    
 """
 PROCEDIMIENTO matcheos
 opc: string
 """
-
 def matcheos():
     os.system("cls")
     print("\nMatcheos\n")
@@ -924,8 +983,8 @@ arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 arreglo_reportes:           arreglo bidimensional de 8x8 de strings
 arreglo_informe_reportes:   arreglo bidimensional de 8x8 de caracteres
 """
-def ver_reportes(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX):   
-
+def ver_reportes(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX):
+    
     for i in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
         os.system("cls")
         print("\nReportes\n")
@@ -987,7 +1046,7 @@ def buscar_estudiante(param, busqueda):
     arLoEst.seek(0, 0)    
     while arLoEst.tell() < tamArc:
         pos = arLoEst.tell()
-        estudiante = pickle.load(arLoEst)
+        estudiante = pickle.load(arLoEst)        
         if getattr(estudiante, param) == busqueda:
             return pos
     return -1
@@ -1034,7 +1093,7 @@ def validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arre
     
     estPos = buscar_estudiante("email", email)
     
-    estudiante = Estudiante()    
+        
     contraseña = getpass.getpass("Ingrese su contraseña: ")
 
     while len(contraseña) > 32:
@@ -1045,25 +1104,9 @@ def validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arre
     elif len(contraseña) == 32:
         contraseña = contraseña
 
-    while intentos > 1 and (not arreglo_sesion[ESTUDIANTES_INDEX] and not arreglo_sesion[MODERADORES_INDEX]) and estPos != -1:
-        arLoEst.seek(estPos, 0)
-        estudiante = pickle.load(arLoEst)
+    while intentos > 1 and (not arreglo_sesion[ESTUDIANTES_INDEX] and not arreglo_sesion[MODERADORES_INDEX]):
 
-        if ((contraseña == estudiante.contrasena and estudiante.baja == "N")):
-            arreglo_sesion[ESTUDIANTES_INDEX] = True
-            arreglo_usuarios[USUARIO_INDEX] = estPos
-            
-           # os.system("cls")
-            print("Sesión iniciada correctamente")
-            menu_estudiante(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, USUARIO_INDEX)
-
-        # if (email == arreglo_de_moderadores and contraseña == arreglo_de_moderadores[i][4]):
-        #         arreglo_sesion[MODERADORES_INDEX] = True
-        #         os.system("cls")
-        #         print("Sesión iniciada correctamente")
-        #         menu_moderadores(arreglo_usuarios, MODERADORES_INDEX, ESTUDIANTES_INDEX, arreglo_reportes, arreglo_informe_reportes)
-
-        if(not arreglo_sesion[ESTUDIANTES_INDEX] and not arreglo_sesion[MODERADORES_INDEX]):
+        while intentos > 1 and (not arreglo_sesion[ESTUDIANTES_INDEX] and not arreglo_sesion[MODERADORES_INDEX]) and estPos == -1:
             os.system("cls")
             print("Email o contraseña incorrectos")
             intentos -= 1
@@ -1078,9 +1121,37 @@ def validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arre
             elif len(email) == 32:
                 email = email
             
-            buscar_estudiante("email", email)
+            estPos = buscar_estudiante("email", email)
 
             contraseña = getpass.getpass("Ingrese su contraseña: ")
+            while len(contraseña) > 32:
+                print("La contraseña no puede tener más de 32 caracteres")
+                email = str(input("Ingrese contraseña: "))
+            if len(contraseña) < 32:
+                contraseña = contraseña.ljust(32, " ")
+            elif len(contraseña) == 32:
+                contraseña = contraseña
+
+        arLoEst.seek(estPos, 0)
+        estudiante = Estudiante()
+        estudiante = pickle.load(arLoEst)
+
+        if ((contraseña == estudiante.contrasena and estudiante.baja == "N")):
+            arreglo_sesion[ESTUDIANTES_INDEX] = True
+            arreglo_usuarios[USUARIO_INDEX] = estPos
+            
+           # os.system("cls")
+            print("Sesión iniciada correctamente")
+            print("Usuario sesionado", estPos)
+            menu_estudiante(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, USUARIO_INDEX)
+
+        # if (email == arreglo_de_moderadores and contraseña == arreglo_de_moderadores[i][4]):
+        #         arreglo_sesion[MODERADORES_INDEX] = True
+        #         os.system("cls")
+        #         print("Sesión iniciada correctamente")
+        #         menu_moderadores(arreglo_usuarios, MODERADORES_INDEX, ESTUDIANTES_INDEX, arreglo_reportes, arreglo_informe_reportes)
+
+        
 
     os.system("cls")
 
@@ -1133,36 +1204,6 @@ def ingresar_datos_moderadores(arreglo_usuarios, MODERADORES_INDEX, arreglo_de_m
         arreglo_de_moderadores[arreglo_usuarios[MODERADORES_INDEX]][4] = contraseña
 
 """
-PROCEDIMIENTO ingresar_datos_de_estudiantes
-ESTUDIANTES_INDEX: enteros
-nombre, apellido, email, contraseña, confirmar_contraseña: string
-
-arreglo_usuarios:   arreglo unidimesional de enteros
-arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
-"""
-def ingresar_datos_de_estudiantes(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes ):
-    os.system("cls")
-    nombre = input("Ingrese el nombre del estudiante: ")
-    apellido = input("Ingrese el apellido del estudiante: ")
-    email = input("Ingrese el email del estudiante: ")
-    arreglo_de_estudiantes[arreglo_usuarios[ESTUDIANTES_INDEX]][0] = str(arreglo_usuarios[ESTUDIANTES_INDEX])
-    arreglo_de_estudiantes[arreglo_usuarios[ESTUDIANTES_INDEX]][1] = nombre
-    arreglo_de_estudiantes[arreglo_usuarios[ESTUDIANTES_INDEX]][2] = apellido
-    arreglo_de_estudiantes[arreglo_usuarios[ESTUDIANTES_INDEX]][3] = email
-    arreglo_de_estudiantes[arreglo_usuarios[ESTUDIANTES_INDEX]][5] = "estudiante"
-    arreglo_de_estudiantes[arreglo_usuarios[ESTUDIANTES_INDEX]][9] = "activo"
-
-    contraseña = input("Ingrese su contraseña: ")
-    confirmar_contraseña = input("Vuelva a ingresar su contraseña: ")    
-    while contraseña != confirmar_contraseña:
-        print("La contraseña no coincide, vuelva a intentar: ")
-        contraseña = input("Ingrese su contraseña: ")
-        confirmar_contraseña = input("Vuelva a ingresar su contraseña: ")
-
-    if contraseña == confirmar_contraseña:
-        arreglo_de_estudiantes[arreglo_usuarios[ESTUDIANTES_INDEX]][4] = contraseña
-
-"""
 PROCEDIMIENTO registrar_estudiante
 MAX_CANT_ESTUDIANTES, ESTUDIANTES_INDEX: enteros
 
@@ -1174,7 +1215,6 @@ def registrar_estudiante(arreglo_usuarios, MAX_CANT_ESTUDIANTES, ESTUDIANTES_IND
 
     estudiante = Estudiante()
     continuar = str(input("Seguro deasea registrar un estudiante (S/N)?: "))
-    # ingresar_datos_de_estudiantes(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
     continuar = continuar.upper()
     while continuar != "S" and continuar != "N":
         print("Por favor, ingrese una opción válida (S/N)")
@@ -1381,6 +1421,7 @@ def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_
     
     ## iniciar archivos
     abrir_archivos()
+    #popular_likes_aleatorios()
     mostrar_menu_principal()     
     opc = validar_numero()
     while opc < 0 and opc > 4:
@@ -1394,9 +1435,11 @@ def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_
             case 2:
                 ingresar(MIN_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, arreglo_sesion, arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX)
             case 3:
-                encontrar_huecos([21, 18, 20, 19, 23, 24])
+                #encontrar_huecos([21, 18, 20, 19, 23, 24])
+                pass
             case 4:
-                matcheos_posibles()
+                #matcheos_posibles()
+                pass
 
         mostrar_menu_principal()
         opc = validar_numero()
@@ -1408,6 +1451,5 @@ def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_
     cerrar_archivos()
     print("\nPrograma finalizado, esperamos tu regreso...\n")
 
-global arFiAdmin, arLoAdmin, arFiMod, arLoMod, arFiEst, arLoEst, arFiLi, arLoLi, arFiRep, arLoRep
 
 ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, MAX_CANT_MODERADORES, arreglo_sesion, arreglo_usuarios, arreglo_de_estudiantes, arreglo_de_moderadores, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX)
