@@ -525,7 +525,6 @@ def mostrar_mis_me_gusta(arreglo_usuarios, USUARIO_INDEX):
     else:
         print("\nNo hay ningún like registrado\n")
 
-
 """
 PROCEDIMIENTO mostrar_me_gusta
 tamArc,: enteros
@@ -563,8 +562,6 @@ def mostrar_me_gusta(pos):
             print("No tienes ningún like registrado\n")
     else:
         print("\nNo hay ningún like registrado\n")
-
-
 
 """
 FUNCION mostrar_edad
@@ -968,22 +965,6 @@ def mostrar_reporte_matcheos(arreglo_usuarios, USUARIO_INDEX):
     print(emoji.emojize(":two_hearts:"), "~ Matcheos:", matcheos)
     porcentaje = (matcheos * 100) // (cantEst - 1)
     print(" ~ Matcheos sobre el total posible: ", porcentaje, "%\n")
-
-"""
-PROCEDIMIENTO mostrar_likes_recibidos
-ESTUDIANTES_INDEX, USUARIO_INDEX, contador: enteros
-
-arreglo_usuarios:   arreglo unidimesional de enteros
-"""
-def mostrar_likes_recibidos(arreglo_usuarios, USUARIO_INDEX):
-    contador = 0
-   
-    for j in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
-        pass
-        #if arreglo_me_gusta[arreglo_usuarios[USUARIO_INDEX]][j] == 0 and arreglo_me_gusta[j][arreglo_usuarios[USUARIO_INDEX]] == 1:
-        #    contador = contador + 1
-    
-    print("Likes recibidos y no respondidos: ", contador)
 
 """
 PROCEDIMIENTO
