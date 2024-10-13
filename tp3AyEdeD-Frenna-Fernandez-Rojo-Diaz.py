@@ -143,29 +143,6 @@ def popular_likes_aleatorios():
             print("🚀 ~ likePos:", like.id_remitente)
             print("🚀 ~ likePos:", like.id_destinatario)
 
-
-"""
-PROCEDIMIENTO popular_db_estudiantes
-ESTUDIANTES_INDEX, i: enteros
-
-arreglo_usuarios:   arreglo unidimesional de enteros
-arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
-"""
-def popular_db_estudiantes(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes):
-    for i in range(4):        
-        arreglo_de_estudiantes[i][0] = str(i)
-        arreglo_de_estudiantes[i][1] = "est" + str(i+1)
-        arreglo_de_estudiantes[i][2] = "est" + str(i+1)
-        arreglo_de_estudiantes[i][3] = "est" + str(i+1) + "@ayed.com"
-        arreglo_de_estudiantes[i][4] = "est" + str(i+1)
-        arreglo_de_estudiantes[i][5] = "estudiante"
-        arreglo_de_estudiantes[i][8] = str(random.randint(1,30))+"-"+str(random.randint(1, 12))+"-"+"19"+str(random.randint(80, 99))
-        arreglo_de_estudiantes[i][9] = "activo"
-
-    arreglo_usuarios[ESTUDIANTES_INDEX] = 4
-
-#popular_db_estudiantes(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes)
-
 """
 FUNCIÓN
 izquierda, derecha, medio: enteros
@@ -196,17 +173,9 @@ def matcheos_posibles():
 
 """
 PROCEDIMIENTO mostrar_menu_estudiante
-MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, MAX_CANT_MODERADORES, ESTUDIANTES_INDEX, MODERADORES_INDEX, opc: enteros
-
-arreglo_sesion:    arreglo unidimensional de booleanos
-arreglo_usuarios:   arreglo unidimesional de enteros
-arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
-arreglo_de_moderadores:     arreglo bidimensional de 8*8 de strings
-arreglo_informe_reportes:   arreglo bidimensional de 8x8 de caracteres
-arreglo_reportes:           arreglo bidimensional de 8x8 de strings
 """
 def mostrar_menu_estudiante():
-    print("\nMenu ")
+    print("\nMenu Estudiante")
     print("\n1. Gestionar mi perfil")
     print("2. Gestionar candidatos")
     print("3. Matcheos")
@@ -238,7 +207,7 @@ def menu_estudiante(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes,
             case 3:
                 matcheos()
             case 4:
-                mostrar_reportes_estadisticos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_me_gusta, arreglo_de_estudiantes)
+                mostrar_reportes_estadisticos(arreglo_usuarios, USUARIO_INDEX)
 
         os.system("cls")
         mostrar_menu_estudiante()
@@ -358,7 +327,6 @@ ESTUDIANTES_INDEX, i: enteros
 nueva_fecha_de_nacimiento: string
 
 arreglo_usuarios:   arreglo unidimesional de enteros
-arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 """
 def editar_mi_fecha_de_nacimiento(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes):
     usuarioPos = arreglo_usuarios[USUARIO_INDEX]
@@ -385,7 +353,6 @@ ESTUDIANTES_INDEX, i: enteros
 nueva_biografia: string
 
 arreglo_usuarios:   arreglo unidimesional de enteros
-arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 """
 def editar_mi_biografia(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes):
     usuarioPos = arreglo_usuarios[USUARIO_INDEX]
@@ -412,7 +379,6 @@ ESTUDIANTES_INDEX, MODERADORES_INDEX, i: enteros
 nuevos_hobbies: string
 
 arreglo_usuarios:   arreglo unidimesional de enteros
-arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 """
 def editar_mis_hobbies(arreglo_usuarios, USUARIO_INDEX, arreglo_de_estudiantes):
     usuarioPos = arreglo_usuarios[USUARIO_INDEX]
@@ -851,72 +817,94 @@ def matcheos():
         opc = str(input("Ingrese de nuevo: "))
 
 """
+FUNCION mostrar_cantidad_registros_estudiantes
+
+"""
+def mostrar_cantidad_registros_estudiantes(arreglo_usuarios, USUARIO_INDEX):
+    global arLoEst, arFiEst
+
+    tamArc = os.path.getsize(arFiEst)
+    if tamArc > 0:
+        arLoEst.seek(0, 0)
+        est = pickle.load(arLoEst)
+        tamReg = arLoEst.tell()
+        cantReg = tamArc // tamReg
+        return cantReg
+    else:
+        return 0
+
+"""
 PROCEDIMIENTO mostrar_reportes_estadisticos
-ESTUDIANTES_INDEX: enteros
+USUARIO_INDEX: enteros
 opc: string
 
 arreglo_usuarios:   arreglo unidimesional de enteros
 """
-def mostrar_reportes_estadisticos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_me_gusta, arreglo_de_estudiantes):
+def mostrar_reportes_estadisticos(arreglo_usuarios, USUARIO_INDEX):
     os.system("cls")
     print("\nReportes estadísticos\n")
-    mostrar_porcentaje_matcheos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_me_gusta)
-    mostrar_likes_dados(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_me_gusta, arreglo_de_estudiantes)
-    mostrar_likes_recibidos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_me_gusta, arreglo_de_estudiantes)
+    mostrar_reporte_matcheos(arreglo_usuarios, USUARIO_INDEX)
     print("a. Volver")
     opc = str(input("Ingrese su opción: "))
 
     while opc != "a":
         os.system("cls")
         print("\nReportes estadísticos\n")
-        mostrar_porcentaje_matcheos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_me_gusta)
-        mostrar_likes_dados(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_me_gusta, arreglo_de_estudiantes)
-        mostrar_likes_recibidos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_me_gusta, arreglo_de_estudiantes)
+        mostrar_reporte_matcheos(arreglo_usuarios, USUARIO_INDEX)
         print("a. Volver")  
         opc = str(input("Ingrese de nuevo: "))
 
 """
-PROCEDIMIENTO mostrar_porcentaje_matcheos
-ESTUDIANTES_INDEX, i, j, matcheos: enteros
+PROCEDIMIENTO mostrar_reporte_matcheos
+ESTUDIANTES_INDEX, USUARIO_INDEX, matcheos: enteros
 porcentaje: float
 
 arreglo_usuarios:   arreglo unidimesional de enteros
-arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 """
-def mostrar_porcentaje_matcheos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_me_gusta):
+def mostrar_reporte_matcheos(arreglo_usuarios, USUARIO_INDEX):
+    global arLoEst, arFiEst, arLoLi, arFiLi
+
     matcheos = 0
-    for j in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
-        if arreglo_me_gusta[arreglo_usuarios[USUARIO_INDEX]][j] == 1 and arreglo_me_gusta[j][arreglo_usuarios[USUARIO_INDEX]] == 1:
-            matcheos = matcheos + 1
-
-    porcentaje = (matcheos * 100)//arreglo_usuarios[ESTUDIANTES_INDEX]
-    print("Matcheados sobre el % posible: ", porcentaje, "%")
-
-"""
-PROCEDIMIENTO mostrar_likes_dados
-ESTUDIANTES_INDEX, i, j, contador: enteros
-
-arreglo_usuarios:   arreglo unidimesional de enteros
-arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
-arreglo_me_gusta:     arreglo bidimensional de 8*8 de enteros
-"""
-def mostrar_likes_dados(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_me_gusta, arreglo_de_estudiantes):
-    contador = 0
-    for j in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
-        if arreglo_me_gusta[arreglo_usuarios[USUARIO_INDEX]][j] == 1 and arreglo_me_gusta[j][arreglo_usuarios[USUARIO_INDEX]] == 0:
-            contador = contador + 1
+    cantEst = mostrar_cantidad_registros_estudiantes(arreglo_usuarios, USUARIO_INDEX)
+    tamArc = os.path.getsize(arFiEst)
+    tamReg = tamArc // cantEst
     
-    print("Likes dados y no recibidos: ", contador)
+    arLoEst.seek(arreglo_usuarios[USUARIO_INDEX], 0)
+    est = pickle.load(arLoEst)
+    miId = est.id_estudiante
+    arLoEst.seek(0, 0)
+
+    accu = 0
+    cantMeGustaDados = 0
+    cantMeGustaRecibidos = 0
+    matcheos = 0
+    porcentaje = 0
+    for _ in range(cantEst):
+        arLoEst.seek(accu, 0)
+        est2 = pickle.load(arLoEst)
+        diLike = mostrar_si_dio_like(miId, est2.id_estudiante)
+        meDioLike = mostrar_si_dio_like(est2.id_estudiante, miId)
+        matching = mostrar_si_dio_like(miId, est2.id_estudiante) and mostrar_si_dio_like(est2.id_estudiante, miId)
+        if diLike:
+            cantMeGustaDados = cantMeGustaDados + 1
+        if meDioLike:
+            cantMeGustaRecibidos = cantMeGustaRecibidos + 1
+        if matching:
+            matcheos = matcheos + 1
+        accu = accu + tamReg
+    print(emoji.emojize(":red_heart:"), " ~ Me gusta dados:", cantMeGustaDados)
+    print(emoji.emojize(":red_heart:"), " ~ Me gusta recibidos:", cantMeGustaRecibidos)
+    print(emoji.emojize(":two_hearts:"), "~ Matcheos:", matcheos)
+    porcentaje = (matcheos * 100) // (cantEst - 1)
+    print(" ~ Matcheos sobre el total posible: ", porcentaje, "%\n")
 
 """
 PROCEDIMIENTO mostrar_likes_recibidos
-ESTUDIANTES_INDEX, i, j, contador: enteros
+ESTUDIANTES_INDEX, USUARIO_INDEX, contador: enteros
 
 arreglo_usuarios:   arreglo unidimesional de enteros
-arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
-arreglo_me_gusta:     arreglo bidimensional de 8*8 de enteros
 """
-def mostrar_likes_recibidos(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_me_gusta, arreglo_de_estudiantes):
+def mostrar_likes_recibidos(arreglo_usuarios, USUARIO_INDEX):
     contador = 0
    
     for j in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
@@ -1189,7 +1177,6 @@ def eliminar_usuario_estudiante():
         os.system("cls")
         print("\nEl ID de estudiante no se ha encontrado\n")
 
-
 def eliminar_usuario_moderador():
     global arLoMod
     print("\nEliminar un moderador\n")
@@ -1207,8 +1194,6 @@ def eliminar_usuario_moderador():
     else:
         os.system("cls")
         print("\nEl ID de moderador no se ha encontrado\n")
-
-
 
 def dar_alta_moderador():
     global arFiMod, arLoMod
@@ -1267,8 +1252,6 @@ def dar_alta_moderador():
             continuar = continuar.upper()
     os.system("cls")
     print("Moderador creado\n")
-
-
 
 def gestionar_reportes_administrador(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX):
     os.system("cls")
@@ -1566,6 +1549,7 @@ def registrar_estudiante(arreglo_usuarios, MAX_CANT_ESTUDIANTES, ESTUDIANTES_IND
             tamArc = os.path.getsize(arFiEst)
             cantReg = tamArc // tamReg
             estudiante.id_estudiante = cantReg + 1
+            
         # Ingreso y formateo campo nombre
         nomYApe = str(input("Ingrese nombre y apellido: "))
         while len(nomYApe) > 32:
@@ -1602,12 +1586,9 @@ def registrar_estudiante(arreglo_usuarios, MAX_CANT_ESTUDIANTES, ESTUDIANTES_IND
         estudiante.fecha_nacimiento = "00-00-0000"
         estudiante.baja = "N"
 
-        arLoEst.seek(0, 2) 
-        #u = arLoEst.tell()
+        arLoEst.seek(0, 2)
         pickle.dump(estudiante, arLoEst)
         arLoEst.flush()
-        #arLoEst.seek(u, 0)  
-        #estudiante = pickle.load(arLoEst)
 
         continuar = str(input("Seguro deasea registrar otro estudiante (S/N)?: "))
         continuar = continuar.upper()
@@ -1617,7 +1598,6 @@ def registrar_estudiante(arreglo_usuarios, MAX_CANT_ESTUDIANTES, ESTUDIANTES_IND
             continuar = continuar.upper()
     os.system("cls")
     print("Estudiante registrado\n")
-
 
 """
 PROCEDIMIENTO registrar
@@ -1672,10 +1652,7 @@ def mostrar_menu_principal():
 """
 PROCEDIMIENTO abrir_archivos
 arFiAdmin, arFiMod, arFiEst: string
-
-arLoAdmin: 
-arLoMod: 
-arLoEst: 
+arLoAdmin, arLoMod, arLoEst: BufferedRandom 
 """
 def abrir_archivos():
     global arFiAdmin, arLoAdmin, arFiMod, arLoMod, arFiEst, arLoEst, arFiLi, arLoLi, arLoRep, arFiRep
@@ -1716,11 +1693,17 @@ def abrir_archivos():
         print(f"El archivo {arFiRep} se creo")
         arLoRep = open(arFiRep, "w+b")   
 
+"""
+PROCEDIMIENTO cerrar_archivos
+arLoAdmin, arLoMod, arLoEst: BufferedRandom 
+"""
 def cerrar_archivos():
-    global arFiAdmin, arLoAdmin, arFiMod, arLoMod, arFiEst, arLoEst, arFiLi, arLoLi, arLoRep, arFiRep
+    global arLoAdmin, arLoMod, arLoEst, arLoLi, arLoRep
     arLoEst.close()
     arLoAdmin.close()
     arLoMod.close()
+    arLoRep.close()
+    arLoLi.close()
     print("Archivos cerrados")
 
 def crearadmin():
@@ -1735,8 +1718,6 @@ def crearadmin():
         admin.contrasena = contraseña.ljust(32, " ")
         pickle.dump(admin, arLoAdmin)
         arLoAdmin.flush()
-
-
 
 """
 PROCEDIMIENTO ejecutar_programa_principal
@@ -1785,6 +1766,5 @@ def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_
     os.system("cls")
     cerrar_archivos()
     print("\nPrograma finalizado, esperamos tu regreso...\n")
-
 
 ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, MAX_CANT_MODERADORES, arreglo_sesion, arreglo_usuarios, arreglo_de_estudiantes, arreglo_de_moderadores, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX, ADMINISTRADOR_INDEX)
