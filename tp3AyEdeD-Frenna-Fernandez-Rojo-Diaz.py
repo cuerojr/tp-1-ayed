@@ -38,9 +38,9 @@ class Admin:
 """
 class Moderador:
     def __init__(self):
-        self.id = 1             #int
-        self.email = "mod"         #string 32
-        self.contrasena = "mod"    #string 32
+        self.id = 0             #int
+        self.email = ""         #string 32
+        self.contrasena = ""    #string 32
         self.estado = False     #boolean
         self.ignorado = 0       #int
         self.aceptado = 0       #int
@@ -785,36 +785,6 @@ arreglo_usuarios: arreglo unidimesional de enteros
 reporte: Reportes
 arLoEst, arLoRep: BufferedRandom
 """
-def busquedaDico(ref):
-    global arFiEst
-    global arLoEst
-    arLoEst.seek(0,0)
-    con = pickle.load(arLoEst)
-    tamReg = arLoEst.tell()
-    tamArch = os.path.getsize(arFiEst)
-    cantReg = tamArch//tamReg
-    prim = 0
-    ult = cantReg
-    med = (ult+prim)//2
-    arLoEst.seek(med*tamReg,0)
-    p = arLoEst.tell()
-    con = pickle.load(arLoEst)
-    id = con.id_estudiante
-    while id != ref and prim < ult:
-        if id > ref:
-            ult = med - 1
-        else:
-            prim = med + 1
-        med = (ult+prim)//2
-        arLoEst.seek(med*tamReg,0)
-        p = arLoEst.tell()
-        con = pickle.load(arLoEst)
-        id = con.id_estudiante
-    if id == ref:
-        return p
-    else:
-        return -1
-
 
 def reportar_candidato(arreglo_usuarios, USUARIO_INDEX):
     global arLoEst, arLoRep
@@ -983,7 +953,7 @@ arreglo_usuarios:   arreglo unidimesional de enteros
 arreglo_informe_reportes:   arreglo bidimensional de 8x8 de caracteres
 arreglo_reportes:           arreglo bidimensional de 8x8 de strings
 """
-def menu_moderadores(arreglo_usuarios, MODERADORES_INDEX, ESTUDIANTES_INDEX, arreglo_reportes, arreglo_informe_reportes):
+def menu_moderadores(arreglo_usuarios, MODERADORES_INDEX, ESTUDIANTES_INDEX, arreglo_reportes, arreglo_informe_reportes, USUARIO_INDEX):
     mostrar_menu_moderadores()
     opc = validar_numero()
     while opc < 0 and opc > 3:
@@ -995,7 +965,7 @@ def menu_moderadores(arreglo_usuarios, MODERADORES_INDEX, ESTUDIANTES_INDEX, arr
             case 1:
                 gestionar_usuarios_moderador(arreglo_usuarios, ESTUDIANTES_INDEX)
             case 2:
-                gestionar_reportes_moderador(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX)
+                gestionar_reportes_moderador(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX, USUARIO_INDEX)
             case 3:
                 mostrar_menu_reportes_estadisticos_moderador()
 
@@ -1054,7 +1024,7 @@ opc: string
 arreglo_reportes:           arreglo bidimensional de 8x8 de strings
 arreglo_informe_reportes:   arreglo bidimensional de 8x8 de caracteres
 """
-def gestionar_reportes_moderador(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX):
+def gestionar_reportes_moderador(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX, USUARIO_INDEX):
     print("\nGestionar reportes\n")
     print("a. Ver reportes")  
     print("b. Volver") 
@@ -1063,79 +1033,64 @@ def gestionar_reportes_moderador(arreglo_reportes, arreglo_informe_reportes, arr
     while opc != "b":
         match opc:
             case "a":
-                ver_reportes(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX)
+                ver_reportes(arreglo_usuarios, USUARIO_INDEX)
         print("\nGestionar reportes\n")
         print("a. Ver reportes")  
         print("b. Volver") 
         opc = str(input("Ingrese de nuevo: "))
 
-def buscar_si_hay_reporte():
+"""
+FUNCION BUSCAR_REPORTEs_pendientes
+TAMARC: INT
+pos: int
+"""
+
+def buscar_reportes_pendientes():
     global arLoRep, arFiRep
     rep = Reportes()
     tamArc = os.path.getsize(arFiRep)
-    arLoRep.seek(0, 0)    
+    arLoRep.seek(0,0)
+    cont = 0
     while arLoRep.tell() < tamArc:
-        pos = arLoRep.tell()
         rep = pickle.load(arLoRep)
+        print(rep.estado)
         if rep.estado == 0:
-            return pos
-    return -1
+            cont = cont + 1
+    arLoRep.seek(0,0)
+    if cont == 0:
+        return False
+    else:
+        return True
 
 """
-PROCEDIMIENTO ver_reportes
-i, j, k: enteros
+FUNCION INTERFAZ_REPORTE
 opc: string
-
-arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
-arreglo_reportes:           arreglo bidimensional de 8x8 de strings
-arreglo_informe_reportes:   arreglo bidimensional de 8x8 de caracteres
+pos: int
 """
+
 def interfaz_reporte(pos):
     global arFiRep, arLoRep
     rep = Reportes()
     arLoRep.seek(pos,0)
     rep = pickle.load(arLoRep)
-    motivo = rep.motivo.rstrip()
+    # motivo = rep.motivo.rstrip()
 
     print("\nReporte")
     print("ID de reportante: ", rep.id_reportante)
     print("ID de reportado: ", rep.id_reportado)
-    print("Motivo: ", motivo)
+    print("Motivo: ", rep.motivo)
     print("\n¿Que acción desea tomar?\n")
     print("a. Ignorar reporte")
     print("b. Desactivar usuario")
     opc = str(input("Ingrese su opción: "))
     return opc
 
-def busqueda_secuencial(ref):
-    global arLoEst, arFiEst
-    est = Estudiante()
-    arLoEst.seek(0,0)
-    pos = arLoEst.tell()
-    est = pickle.load(arLoEst)
-    while est.id_estudiante != ref and os.path.getsize(arFiEst) > arLoEst.tell():
-        pos = arLoEst.tell()
-        est = pickle.load(arLoEst)
-    if est.id_estudiante == ref:
-        return pos
-    else:
-        return -1
-
-def busqueda_secuencial_moderadores(ref):
-    global arLoMod, arFiMod
-    mod = Moderador()
-    arLoMod.seek(0,0)
-    pos = arLoMod.tell()
-    mod = pickle.load(arLoMod)
-    while mod.id != ref and os.path.getsize(arFiMod) > arLoMod.tell():
-        pos = arLoMod.tell()
-        mod = pickle.load(arLoMod)
-    if mod.id == ref:
-        return pos
-    else:
-        return -1
-
-def ver_reportes(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, ESTUDIANTES_INDEX, USUARIO_INDEX):
+"""
+PROCEDIMIENTO PARA ANALIZAR LOS REPORTES ver_reportes
+arreglo_usuarios: array of int
+USUARIO_INDEX: int
+"""
+def ver_reportes(arreglo_usuarios, USUARIO_INDEX):
     os.system('cls')
     global arFiRep, arFiMod, arFiEst
     global arLoRep, arLoMod, arLoEst
@@ -1143,59 +1098,59 @@ def ver_reportes(arreglo_reportes, arreglo_informe_reportes, arreglo_usuarios, E
     mod = Moderador()
     est = Estudiante()
     tamArch = os.path.getsize(arFiRep)
-    arLoRep.seek(0,0)
     if tamArch > 0:
-        while tamArch > arLoRep.tell():
-            pos = arLoRep.tell()
-            arLoRep.seek(0,0)
-            rep = pickle.load(arLoRep)
-            arLoEst.seek(0,0)
-            est = pickle.load(arLoEst)
-            pos_est = busqueda_secuencial(rep.id_reportante)
-            arLoEst.seek(pos_est,0)
-            est = pickle.load(arLoEst)
-            opc = interfaz_reporte(pos)
-            while opc != "a" and opc != "b":
+        if buscar_reportes_pendientes():
+            while tamArch > arLoRep.tell():
+                pos = arLoRep.tell()
+                rep = pickle.load(arLoRep)
+                arLoEst.seek(0,0)
+                est = pickle.load(arLoEst)
+                pos_est = buscar_estudiante("id_estudiante", int(rep.id_reportado))
+                arLoEst.seek(pos_est,0)
+                est = pickle.load(arLoEst)
                 opc = interfaz_reporte(pos)
-            match opc:
-                case "a":
-                    pos_mod = busqueda_secuencial_moderadores(arreglo_usuarios[USUARIO_INDEX])
-                    arLoMod.seek(pos_mod,0)
-                    mod = pickle.load(arLoMod)
-                    mod.ignorado += 1
-                    arLoMod.seek(pos_mod,0)
-                    pickle.dump(mod,arLoMod)
-                    arLoMod.flush()
-                    rep.estado = "2"
-                    arLoRep.seek(pos,0)
-                    pickle.dump(rep,arLoRep)
-                    arLoRep.flush()
-                case "b":
-                    pos_mod = busqueda_secuencial_moderadores(arreglo_usuarios[USUARIO_INDEX])
-                    arLoMod.seek(pos_mod,0)
-                    mod = pickle.load(arLoMod)
-                    mod.aceptado += 1
-                    arLoMod.seek(pos_mod,0)
-                    pickle.dump(mod,arLoMod)
-                    arLoMod.flush()
-                    rep.estado = "1"
-                    arLoRep.seek(pos,0)
-                    pickle.dump(rep,arLoRep)
-                    arLoRep.flush()
-                    est.baja = "S"
-                    arLoEst.seek(pos_est,0)
-                    pickle.dump(est,arLoEst)
-                    arLoEst.flush()
-            print("\nEl reporte ha sido tomado\n")
-            pos = os.path.getsize()
+                while opc != "a" and opc != "b":
+                    opc = interfaz_reporte(pos)
+                match opc:
+                    case "a":
+                        pos_mod = arreglo_usuarios[USUARIO_INDEX]
+                        arLoMod.seek(pos_mod,0)
+                        mod = pickle.load(arLoMod)
+                        mod.ignorado += 1
+                        arLoMod.seek(pos_mod,0)
+                        pickle.dump(mod,arLoMod)
+                        arLoMod.flush()
+                        rep.estado = 2
+                        arLoRep.seek(pos,0)
+                        pickle.dump(rep,arLoRep)
+                        arLoRep.flush()
+                    case "b":
+                        pos_mod = arreglo_usuarios[USUARIO_INDEX]
+                        arLoMod.seek(pos_mod,0)
+                        mod = pickle.load(arLoMod)
+                        mod.aceptado += 1
+                        arLoMod.seek(pos_mod,0)
+                        pickle.dump(mod,arLoMod)
+                        arLoMod.flush()
+                        rep.estado = 1
+                        arLoRep.seek(pos,0)
+                        pickle.dump(rep,arLoRep)
+                        arLoRep.flush()
+                        arLoEst.seek(pos_est,0)
+                        est = pickle.load(arLoEst)
+                        est.baja = "S"
+                        pickle.dump(est,arLoEst)
+                        arLoEst.flush()
+                print("\nEl reporte ha sido tomado\n")
             print("Ya revisaste todos los reportes")
+        else:
+            print("No hay reportes pendientes")
     else:
-        print("No hay reportes pendientes")
+        print("No hay ningún reporte hecho")
 
 """
 PROCEDIMIENTO mostrar_menu_reportes_estadisticos_moderador
 opc: enteros
-
 """
 def mostrar_menu_reportes_estadisticos_moderador():
     print("\nReportes estadisticos\n")
@@ -1457,36 +1412,58 @@ def reportes_estadisticos(arreglo_usuarios,USUARIO_INDEX):
         rep = pickle.load(arLoRep)
         tamReg = arLoRep.tell()
         cant = tamArch//tamReg
+        arLoRep.seek(0,0)
         cont1 = 0
         cont2 = 0
-        while arLoRep.tell() < os.path.getssize(arFiRep):
-            if rep.estado == 1:
-                cont1 += 1
-            elif rep.estado == 2:
-                cont2 += 1
+        print(tamArch)
+        print(tamReg)
+        while arLoRep.tell() < tamArch:
+            print(rep.estado)
             rep = pickle.load(arLoRep)
+            if rep.estado == 1:
+                cont1 = cont1 + 1
+            elif rep.estado == 2:
+                cont2 = cont2 + 1
         print(f'La cantidad de reportes hechos es: {cant}')
-        print(f'El porcentaje de reportes ignorados es: {(cont2*100)/cant}')
-        print(f'El porcentaje de reportes aceptados es: {(cont1*100)/cant}')
-        arLoMod.seek(0,0)
-        mod = pickle.load(arLoMod)
+        print(f'El porcentaje de reportes ignorados es: {(cont2*100)//cant}')
+        print(f'El porcentaje de reportes aceptados es: {(cont1*100)//cant}')
+        pos = arreglo_usuarios[USUARIO_INDEX]
+        arLoMod.seek(pos,0)
         aux_ignorado = 0
         aux_aceptado = 0
         aux_total = 0
-        while os.path.getsize(arFiMod) >= arLoMod.tell():
+        id_ignorado = 0
+        id_aceptado = 0
+        id_total = 0
+        while os.path.getsize(arFiMod) > arLoMod.tell():
+            mod = pickle.load(arLoMod)
+
             if mod.ignorado > aux_ignorado:
                 aux_ignorado = mod.ignorado
                 id_ignorado = mod.id
-            elif mod.aceptado > aux_aceptado:
+
+            if mod.aceptado > aux_aceptado:
                 aux_aceptado = mod.aceptado
                 id_aceptado = mod.id
-            elif mod.aceptado+mod.ignorado > aux_total:
+
+            if mod.aceptado+mod.ignorado > aux_total:
                 aux_total = mod.aceptado+mod.ignorado
                 id_total = mod.id
-            mod = pickle.load(arLoMod)
-        print(f"El moderador {id_ignorado} fue el que más reportes ignoró: {aux_ignorado}")
-        print(f"El moderador {id_aceptado} fue el que más reportes aceptó: {aux_aceptado}")
-        print(f"El moderador {id_total} fue el que más reportes revisó en total: {aux_total}")
+
+        if id_ignorado > 0:
+            print(f"El moderador {id_ignorado} fue el que más reportes ignoró: {aux_ignorado}")
+        else:
+            print("No hubo reportes ignorados")
+
+        if id_aceptado > 0:
+            print(f"El moderador {id_aceptado} fue el que más reportes aceptó: {aux_aceptado}")
+        else:
+            print("No hubo reportes aceptados")
+
+        if id_total > 0:
+            print(f"El moderador {id_total} fue el que más reportes revisó en total: {aux_total}")
+        else:
+            print("No hubo reportes revisados")
     else:
         print("No hay reportes que analizar")
 
@@ -1566,7 +1543,7 @@ def validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, ADMI
             
             os.system("cls")
             print("Sesión iniciada correctamente")
-            menu_moderadores(arreglo_usuarios, MODERADORES_INDEX, arreglo_de_moderadores, arreglo_me_gusta, USUARIO_INDEX)
+            menu_moderadores(arreglo_usuarios, MODERADORES_INDEX, ESTUDIANTES_INDEX, arreglo_reportes, arreglo_informe_reportes, USUARIO_INDEX)
     elif adminPos != -1:
         arLoAdmin.seek(adminPos, 0)
         admin = Admin()
@@ -1634,7 +1611,7 @@ def validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, ADMI
                 
                 os.system("cls")
                 print("Sesión iniciada correctamente")
-                menu_moderadores(arreglo_usuarios, MODERADORES_INDEX, arreglo_de_moderadores, arreglo_me_gusta, USUARIO_INDEX)
+                menu_moderadores(arreglo_usuarios, MODERADORES_INDEX, ESTUDIANTES_INDEX, arreglo_reportes, arreglo_informe_reportes, USUARIO_INDEX)
         elif adminPos != -1:
             arLoAdmin.seek(adminPos, 0)
             admin = Admin()
