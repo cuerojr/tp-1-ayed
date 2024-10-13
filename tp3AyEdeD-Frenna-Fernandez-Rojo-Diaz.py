@@ -1798,7 +1798,10 @@ def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_
                 #encontrar_huecos([21, 18, 20, 19, 23, 24])
                 pass
             case 4:
-                #matcheos_posibles()
+                ################################
+                #ESTO LO AGREGUE PARA PROBAR, PERO NO EXISTE LA OPCIÓN EN EL MOSTRAR MENU P
+                ################################
+                calcular_puntaje_candidatos()
                 pass
 
         mostrar_menu_principal()
@@ -1811,5 +1814,58 @@ def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_
     cerrar_archivos()
     print("\nPrograma finalizado, esperamos tu regreso...\n")
 
+
+####################################
+#ESTO SOLO LO DEBEN VER LOS ADMINISTRADORES
+####################################
+"""
+####################################
+            BONUS TRACK 1
+####################################
+            
+PROCEDIMIENTO calcular_puntaje_candidatos
+"""
+def calcular_puntaje_candidatos():
+    global arLoLi, arLoEst, arFiLi, arFiEst
+
+    tamArcLikes = os.path.getsize(arFiLi)
+    tamArcEst = os.path.getsize(arFiEst)
+    
+    if tamArcLikes == 0 or tamArcEst == 0:
+        print("No hay likes o estudiantes registrados.")
+        return
+    
+    print("\nPuntajes de todos los estudiantes:")
+    
+    arLoEst.seek(0, 0)  # Asegurarse de que estamos al comienzo del archivo de estudiantes
+    while arLoEst.tell() < tamArcEst:
+        estudiante = pickle.load(arLoEst)  # Leer cada estudiante
+        puntaje = 0
+        racha = 0
+        
+        if estudiante.baja == "N":  # Solo procesar estudiantes activos
+            # Recorrer el archivo de likes para calcular los puntos de este estudiante
+            arLoLi.seek(0, 0)  # Reiniciar el puntero de likes para cada estudiante
+            while arLoLi.tell() < tamArcLikes:
+                like = pickle.load(arLoLi)
+                
+                # Verificar si el estudiante es el remitente del like y si es activo
+                if like.id_remitente == estudiante.id_estudiante and like.activo == "S":
+                    if mostrar_si_dio_like(like.id_destinatario, like.id_remitente):
+                        puntaje += 1  # Sumar 1 punto por match
+                        racha += 1  # Aumentar racha
+                    else:
+                        puntaje -= 1  # Restar 1 punto por like no correspondido
+                        racha = 0  # Resetear la racha si no hay match
+            
+            # Sumar puntos adicionales por racha de 3 o más likes correspondidos
+            if racha >= 3:
+                puntaje += 1
+            
+            # Mostrar el puntaje del estudiante actual
+            print(f"{estudiante.nombre.strip()}: {puntaje} puntos")
+    
+    # Resetear la posición de lectura de estudiantes
+    arLoEst.seek(0, 0)
 
 ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, MAX_CANT_MODERADORES, arreglo_sesion, arreglo_usuarios, arreglo_de_estudiantes, arreglo_de_moderadores, ESTUDIANTES_INDEX, MODERADORES_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX, ADMINISTRADOR_INDEX)
