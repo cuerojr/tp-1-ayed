@@ -1000,38 +1000,37 @@ arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
 arreglo_usuarios    arreglo unidimensional de enteros
 """
 def desactivar_usuario(arreglo_usuarios, ESTUDIANTES_INDEX):
+    global arLoEst
+
     os.system("cls")
     print("\nDesactivar usuario\n")
 
-    nombre_usuario = str(input("Ingresar nombre y apellido de estudiante o ID a desactivar: "))
-    while len(nombre_usuario) > 32:
-        print("El nombre y apellido no puede tener más de 32 caracteres")
-        nombre_usuario = str(input("Ingresar nombre y apellido de estudiante o ID a desactivar: "))
-    if len(nombre_usuario) < 32:
-        nombre_usuario = nombre_usuario.ljust(32, " ")
-    elif len(nombre_usuario) == 32:
-        nombre_usuario = nombre_usuario
-
-    usuario_id = buscar_estudiante("id_estudiante", int(nombre_usuario))
-    usuario_nombre = buscar_estudiante("nombre", nombre_usuario)
-
-    if usuario_id != -1 or usuario_nombre != -1:
-        print("Usuario encontrado!")
-        print("pos: ", usuario_nombre)
-        print("pos: ", usuario_id)
-
-        confirmar = input(f"¿Está seguro que desea desactivar al usuario {usuario_nombre['nombre']}? (si/no): ")
-        if confirmar.lower() == 'si':
-            for i in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
-                if nombre_usuario == arreglo_de_estudiantes[i][0] or nombre_usuario == arreglo_de_estudiantes[i][1]:
-                    arreglo_de_estudiantes[i][9] = "inactivo"
-            # usuario_nombre['estado'] = False  # Cambiar estado del usuario a inactivo
-            # print(f"El usuario {usuario_nombre['nombre']} ha sido desactivado.")
+    id = int(input("Ingrese el ID del estudiante a desactivar: "))
+    estPos = buscar_estudiante("id_estudiante", id)
+    if estPos != -1:
+        confirmar = str(input("Está seguro desea desactivar al estudiante? [S/N]: "))
+        confirmar = confirmar.upper()
+        while confirmar != "S" and confirmar != "N":
+            print("Por favor, ingrese una opción válida (S/N)")
+            confirmar = str(input("Está seguro desea desactivar al estudiante? (S/N): "))
+            confirmar.upper()
+        if confirmar == "S":
+            arLoEst.seek(estPos, 0)
+            est = pickle.load(arLoEst)
+            if est.estado != False:
+                est.estado = False
+                arLoEst.seek(estPos, 0)
+                pickle.dump(est, arLoEst)
+                arLoEst.flush()
+                print("\nEl estudiante con el ID ", id, " se ha desactivado exitosamente.\n")
+            else:
+                print("\nEl estudiante con el ID ", id, " ya se encuentra inactivo.\n")
         else:
             print("Operación cancelada.")
-
+        
     else:
-        print("Usuario no encontrado!")
+        os.system("cls")
+        print("\nEl ID de estudiante no se ha encontrado\n")
 
 """
 PROCEDIMIENTO gestionar_reportes_moderador
