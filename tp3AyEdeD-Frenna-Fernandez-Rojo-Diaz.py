@@ -118,11 +118,7 @@ arreglo_me_gusta            = [[0]*8    for i in range(8)]  # Arreglo bidimensio
 arreglo_sesion              = [False]*4                     # Arreglo unidimensional de booleanos
 arreglo_usuarios            = [0]*3                         # Arreglo unidimensional de enteros
 
-"""
-####################################
-            BONUS TRACK 1
-####################################
-            
+"""            
 PROCEDIMIENTO calcular_puntaje_candidatos
 arLoLi, arLoEst: BufferedRandom
 arFiLi, arFiEst: str
