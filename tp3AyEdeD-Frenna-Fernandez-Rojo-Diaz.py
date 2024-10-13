@@ -131,35 +131,30 @@ def calcular_puntaje_candidatos():
     
     print("\nPuntajes de todos los estudiantes:")
     
-    arLoEst.seek(0, 0)  # Asegurarse de que estamos al comienzo del archivo de estudiantes
+    arLoEst.seek(0, 0)
     while arLoEst.tell() < tamArcEst:
-        estudiante = pickle.load(arLoEst)  # Leer cada estudiante
+        estudiante = pickle.load(arLoEst)
         puntaje = 0
         racha = 0
         
-        if estudiante.baja == "N":  # Solo procesar estudiantes activos
-            # Recorrer el archivo de likes para calcular los puntos de este estudiante
-            arLoLi.seek(0, 0)  # Reiniciar el puntero de likes para cada estudiante
+        if estudiante.baja == "N":            
+            arLoLi.seek(0, 0)
             while arLoLi.tell() < tamArcLikes:
                 like = pickle.load(arLoLi)
-                
-                # Verificar si el estudiante es el remitente del like y si es activo
+                                
                 if like.id_remitente == estudiante.id_estudiante and like.activo == "S":
                     if mostrar_si_dio_like(like.id_destinatario, like.id_remitente):
-                        puntaje += 1  # Sumar 1 punto por match
-                        racha += 1  # Aumentar racha
+                        puntaje += 1
+                        racha += 1
                     else:
-                        puntaje -= 1  # Restar 1 punto por like no correspondido
-                        racha = 0  # Resetear la racha si no hay match
-            
-            # Sumar puntos adicionales por racha de 3 o más likes correspondidos
+                        puntaje -= 1
+                        racha = 0
+
             if racha >= 3:
                 puntaje += 1
-            
-            # Mostrar el puntaje del estudiante actual
+
             print(f"{estudiante.nombre.strip()}: {puntaje} puntos")
-    
-    # Resetear la posición de lectura de estudiantes
+
     arLoEst.seek(0, 0)
 
 """"
@@ -750,7 +745,7 @@ def reportar_candidato(arreglo_usuarios, USUARIO_INDEX):
         continuar = str(input('¿Está seguro que quiere reportar a un usuario? (S/N): '))
         continuar = continuar.upper()
 
-    nombre_reportado = str(input("Ingrese nombre o ID de usuario a reportar: "))
+    nombre_reportado = str(input("Ingrese nombre de usuario a reportar: "))
     while len(nombre_reportado) > 32:
         print("El nombre y apellido no puede tener más de 32 caracteres")
         nombre_reportado = str(input("Ingresar nombre y apellido de estudiante: "))
@@ -885,10 +880,11 @@ def mostrar_reportes_estadisticos(arreglo_usuarios, USUARIO_INDEX):
 
 """
 PROCEDIMIENTO mostrar_reporte_matcheos
-ESTUDIANTES_INDEX, USUARIO_INDEX, matcheos: enteros
-porcentaje: float
-
+ESTUDIANTES_INDEX, USUARIO_INDEX, matcheos, cantEst, tamArc, tamReg, porcentaje, miId, accu, cantMeGustaDados, cantMeGustaRecibidos: enteros
+arFiEst, arFiLi: str
+arLoEst, arLoLi: BufferedRandom
 arreglo_usuarios:   arreglo unidimesional de enteros
+diLike, meDioLike, matching: boolean
 """
 def mostrar_reporte_matcheos(arreglo_usuarios, USUARIO_INDEX):
     global arLoEst, arFiEst, arLoLi, arFiLi
