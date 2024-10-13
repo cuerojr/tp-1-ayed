@@ -856,10 +856,41 @@ arreglo_usuarios    arreglo unidimensional de enteros
 def desactivar_usuario(arreglo_usuarios, ESTUDIANTES_INDEX):
     os.system("cls")
     print("\nDesactivar usuario\n")
-    desactivar = str(input("Ingresar nombre o ID de usuario a desactivar: "))
-    for i in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
-        if desactivar == arreglo_de_estudiantes[i][0] or desactivar == arreglo_de_estudiantes[i][1]:
-            arreglo_de_estudiantes[i][9] = "inactivo"
+
+    nombre_usuario = str(input("Ingresar nombre y apellido de estudiante o ID a desactivar: "))
+    while len(nombre_usuario) > 32:
+        print("El nombre y apellido no puede tener más de 32 caracteres")
+        nombre_usuario = str(input("Ingresar nombre y apellido de estudiante o ID a desactivar: "))
+    if len(nombre_usuario) < 32:
+        nombre_usuario = nombre_usuario.ljust(32, " ")
+    elif len(nombre_usuario) == 32:
+        nombre_usuario = nombre_usuario
+
+    usuario_id = buscar_estudiante("id_estudiante", int(nombre_usuario))
+    usuario_nombre = buscar_estudiante("nombre", nombre_usuario)
+
+    if usuario_id != -1 or usuario_nombre != -1:
+        print("Usuario encontrado!")
+        print("pos: ", usuario_nombre)
+        print("pos: ", usuario_id)
+
+        confirmar = input(f"¿Está seguro que desea desactivar al usuario {usuario_nombre['nombre']}? (si/no): ")
+        if confirmar.lower() == 'si':
+            for i in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
+                if nombre_usuario == arreglo_de_estudiantes[i][0] or nombre_usuario == arreglo_de_estudiantes[i][1]:
+                    arreglo_de_estudiantes[i][9] = "inactivo"
+            # usuario_nombre['estado'] = False  # Cambiar estado del usuario a inactivo
+            # print(f"El usuario {usuario_nombre['nombre']} ha sido desactivado.")
+        else:
+            print("Operación cancelada.")
+
+    else:
+        print("Usuario no encontrado!")
+
+    # desactivar = str(input("Ingresar nombre o ID de usuario a desactivar: "))
+    # for i in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
+    #     if desactivar == arreglo_de_estudiantes[i][0] or desactivar == arreglo_de_estudiantes[i][1]:
+    #         arreglo_de_estudiantes[i][9] = "inactivo"
 
 """
 PROCEDIMIENTO gestionar_reportes
@@ -1003,6 +1034,7 @@ def validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arre
     
     estPos = buscar_estudiante("email", email)
     
+    modPos = buscar_moderadores("email", email)
         
     contraseña = getpass.getpass("Ingrese su contraseña: ")
 
@@ -1033,6 +1065,8 @@ def validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arre
             
             estPos = buscar_estudiante("email", email)
 
+            modPos = buscar_moderadores("email", email)
+
             contraseña = getpass.getpass("Ingrese su contraseña: ")
             while len(contraseña) > 32:
                 print("La contraseña no puede tener más de 32 caracteres")
@@ -1046,6 +1080,11 @@ def validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arre
         estudiante = Estudiante()
         estudiante = pickle.load(arLoEst)
 
+        arLoMod.seek(modPos, 0)
+        moderador = Moderador()
+        moderador = pickle.load(arLoMod)
+
+
         if ((contraseña == estudiante.contrasena and estudiante.baja == "N")):
             arreglo_sesion[ESTUDIANTES_INDEX] = True
             arreglo_usuarios[USUARIO_INDEX] = estPos
@@ -1054,11 +1093,11 @@ def validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, arre
             print("Sesión iniciada correctamente")
             menu_estudiante(arreglo_usuarios, ESTUDIANTES_INDEX, arreglo_de_estudiantes, arreglo_me_gusta, USUARIO_INDEX)
 
-        # if (email == arreglo_de_moderadores and contraseña == arreglo_de_moderadores[i][4]):
-        #         arreglo_sesion[MODERADORES_INDEX] = True
-        #         os.system("cls")
-        #         print("Sesión iniciada correctamente")
-        #         menu_moderadores(arreglo_usuarios, MODERADORES_INDEX, ESTUDIANTES_INDEX, arreglo_reportes, arreglo_informe_reportes)
+        if (contraseña == moderador.contrasena ):
+                arreglo_sesion[MODERADORES_INDEX] = True
+                os.system("cls")
+                print("Sesión iniciada correctamente")
+                menu_moderadores(arreglo_usuarios, MODERADORES_INDEX, ESTUDIANTES_INDEX, arreglo_reportes, arreglo_informe_reportes)
 
         
 
