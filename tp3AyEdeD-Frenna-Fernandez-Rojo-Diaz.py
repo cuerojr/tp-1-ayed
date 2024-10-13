@@ -1500,7 +1500,6 @@ def validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, ADMI
     estPos = buscar_estudiante("email", email)
     modPos = buscar_moderador("email", email)
     adminPos = buscar_administrador("email", email)
-    #print(estPos, modPos, adminPos)
           
     contraseña = getpass.getpass("Ingrese su contraseña: ")
 
