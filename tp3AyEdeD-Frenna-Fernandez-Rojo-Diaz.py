@@ -1038,13 +1038,37 @@ opc, desactivar: string
 arreglo_usuarios    arreglo unidimensional de enteros
 """
 def desactivar_usuario(arreglo_usuarios, ESTUDIANTES_INDEX):
+    global arLoEst
+
     os.system("cls")
     print("\nDesactivar usuario\n")
-    desactivar = str(input("Ingresar nombre o ID de usuario a desactivar: "))
-    for i in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
-        pass
-        #if desactivar == arreglo_de_estudiantes[i][0] or desactivar == arreglo_de_estudiantes[i][1]:
-        #    arreglo_de_estudiantes[i][9] = "inactivo"
+
+    id = int(input("Ingrese el ID del estudiante a desactivar: "))
+    estPos = buscar_estudiante("id_estudiante", id)
+    if estPos != -1:
+        confirmar = str(input("Está seguro desea desactivar al estudiante? [S/N]: "))
+        confirmar = confirmar.upper()
+        while confirmar != "S" and confirmar != "N":
+            print("Por favor, ingrese una opción válida (S/N)")
+            confirmar = str(input("Está seguro desea desactivar al estudiante? (S/N): "))
+            confirmar.upper()
+        if confirmar == "S":
+            arLoEst.seek(estPos, 0)
+            est = pickle.load(arLoEst)
+            if est.estado != False:
+                est.estado = False
+                arLoEst.seek(estPos, 0)
+                pickle.dump(est, arLoEst)
+                arLoEst.flush()
+                print("\nEl estudiante con el ID ", id, " se ha desactivado exitosamente.\n")
+            else:
+                print("\nEl estudiante con el ID ", id, " ya se encuentra inactivo.\n")
+        else:
+            print("Operación cancelada.")
+        
+    else:
+        os.system("cls")
+        print("\nEl ID de estudiante no se ha encontrado\n")
 
 """
 PROCEDIMIENTO gestionar_reportes_moderador
