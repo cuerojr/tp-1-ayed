@@ -1603,6 +1603,18 @@ def registrar_estudiante(arreglo_usuarios, MAX_CANT_ESTUDIANTES, ESTUDIANTES_IND
         elif len(email) == 32:
             estudiante.email = email
 
+        #validar email
+        while buscar_administrador("email", estudiante.email) != -1 or buscar_moderador("email", estudiante.email) != -1 or buscar_estudiante("email", estudiante.email) != -1:
+            print("Email inválido, intente de nuevo")
+            email = str(input("Ingrese un mail valido: "))
+            while len(email) > 32:
+                print("El email no puede tener más de 32 caracteres")
+                email = str(input("Ingrese email: "))
+            if len(email) < 32:
+                estudiante.email = email.ljust(32, " ")
+            elif len(email) == 32:
+                estudiante.email = email
+
         # Ingreso y formateo campo contraseña
         contraseña = str(input("Ingrese contraseña: "))
         while len(contraseña) > 32:
@@ -1612,7 +1624,7 @@ def registrar_estudiante(arreglo_usuarios, MAX_CANT_ESTUDIANTES, ESTUDIANTES_IND
             estudiante.contrasena = contraseña.ljust(32, " ")
         elif len(contraseña) == 32:
             estudiante.contrasena = contraseña
-
+        
         empty = ""
         estudiante.biografia = empty.ljust(255, " ")
         estudiante.hobbies = empty.ljust(255, " ")
