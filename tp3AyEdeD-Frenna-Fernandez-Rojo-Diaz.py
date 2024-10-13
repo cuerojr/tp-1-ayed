@@ -757,13 +757,11 @@ def reportar_candidato(arreglo_usuarios, USUARIO_INDEX):
     os.system("cls")
     global arFiEst, arLoEst, arFiRep, arLoRep
     rep = Reportes()
-    val = input('¿Está seguro que quiere eliminar a un usuario? (Ingrese S <Sí> o N <No>): ')
+    val = input('¿Está seguro que quiere reportar a un usuario? (Ingrese S <Sí> o N <No>): ')
     val = val.upper()
     while val != 'S' and val != 'N':
-        val = input('¿Está seguro que quiere eliminar a un usuario? (Ingrese S <Sí> o N <No>): ')
+        val = input('¿Está seguro que quiere reportar a un usuario? (Ingrese S <Sí> o N <No>): ')
         val = val.upper()
-    # while val != "N":
-    #     print("\nReportar candidatos")
 
     nombre_reportado = str(input("Ingrese nombre o ID de usuario a reportar: "))
     while len(nombre_reportado) > 32:
