@@ -1070,7 +1070,6 @@ FUNCION BUSCAR_REPORTEs_pendientes
 TAMARC: INT
 pos: int
 """
-
 def buscar_reportes_pendientes():
     global arLoRep, arFiRep
     rep = Reportes()
@@ -1093,7 +1092,6 @@ FUNCION INTERFAZ_REPORTE
 opc: string
 pos: int
 """
-
 def interfaz_reporte(pos):
     global arFiRep, arLoRep
     rep = Reportes()
