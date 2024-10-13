@@ -1002,10 +1002,36 @@ arreglo_usuarios    arreglo unidimensional de enteros
 def desactivar_usuario(arreglo_usuarios, ESTUDIANTES_INDEX):
     os.system("cls")
     print("\nDesactivar usuario\n")
-    desactivar = str(input("Ingresar nombre o ID de usuario a desactivar: "))
-    for i in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
-        if desactivar == arreglo_de_estudiantes[i][0] or desactivar == arreglo_de_estudiantes[i][1]:
-            arreglo_de_estudiantes[i][9] = "inactivo"
+
+    nombre_usuario = str(input("Ingresar nombre y apellido de estudiante o ID a desactivar: "))
+    while len(nombre_usuario) > 32:
+        print("El nombre y apellido no puede tener más de 32 caracteres")
+        nombre_usuario = str(input("Ingresar nombre y apellido de estudiante o ID a desactivar: "))
+    if len(nombre_usuario) < 32:
+        nombre_usuario = nombre_usuario.ljust(32, " ")
+    elif len(nombre_usuario) == 32:
+        nombre_usuario = nombre_usuario
+
+    usuario_id = buscar_estudiante("id_estudiante", int(nombre_usuario))
+    usuario_nombre = buscar_estudiante("nombre", nombre_usuario)
+
+    if usuario_id != -1 or usuario_nombre != -1:
+        print("Usuario encontrado!")
+        print("pos: ", usuario_nombre)
+        print("pos: ", usuario_id)
+
+        confirmar = input(f"¿Está seguro que desea desactivar al usuario {usuario_nombre['nombre']}? (si/no): ")
+        if confirmar.lower() == 'si':
+            for i in range(arreglo_usuarios[ESTUDIANTES_INDEX]):
+                if nombre_usuario == arreglo_de_estudiantes[i][0] or nombre_usuario == arreglo_de_estudiantes[i][1]:
+                    arreglo_de_estudiantes[i][9] = "inactivo"
+            # usuario_nombre['estado'] = False  # Cambiar estado del usuario a inactivo
+            # print(f"El usuario {usuario_nombre['nombre']} ha sido desactivado.")
+        else:
+            print("Operación cancelada.")
+
+    else:
+        print("Usuario no encontrado!")
 
 """
 PROCEDIMIENTO gestionar_reportes_moderador
