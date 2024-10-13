@@ -1556,10 +1556,11 @@ def ingresar_datos_moderadores(arreglo_usuarios, MODERADORES_INDEX, arreglo_de_m
 
 """
 PROCEDIMIENTO registrar_estudiante
-MAX_CANT_ESTUDIANTES, ESTUDIANTES_INDEX: enteros
-
+tamReg, tamArc, cantReg: enteros
+arFiEst, nomYApe, email, continuar: str
+estudiante: Estudiante
 arreglo_usuarios:   arreglo unidimesional de enteros
-arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
+arLoEst: BufferedRandom
 """
 def registrar_estudiante(arreglo_usuarios, MAX_CANT_ESTUDIANTES, ESTUDIANTES_INDEX, arreglo_de_estudiantes):
     global arFiEst, arLoEst
@@ -1643,27 +1644,6 @@ def registrar_estudiante(arreglo_usuarios, MAX_CANT_ESTUDIANTES, ESTUDIANTES_IND
             continuar = continuar.upper()
     os.system("cls")
     print("Estudiante registrado\n")
-
-"""
-PROCEDIMIENTO registrar
-MAX_CANT_ESTUDIANTES, MAX_CANT_MODERADORES, ESTUDIANTES_INDEX, MODERADORES_INDEX, opc: enteros
-
-arreglo_usuarios:   arreglo unidimesional de enteros
-arreglo_de_estudiantes:     arreglo bidimensional de 8*12 de strings
-"""
-def registrar(MAX_CANT_ESTUDIANTES, MAX_CANT_MODERADORES, arreglo_usuarios, ESTUDIANTES_INDEX , MODERADORES_INDEX, arreglo_de_estudiantes, arreglo_de_moderadores):
-    
-    mostrar_menu_registrar()
-
-    opc = str(input("Ingrese su opción: "))
-    while opc != "b":
-        match opc:
-            case "a": 
-                registrar_estudiante(arreglo_usuarios, MAX_CANT_ESTUDIANTES, ESTUDIANTES_INDEX, arreglo_de_estudiantes) # type: ignore                     
-           
-        mostrar_menu_registrar()
-        opc = str(input("Ingrese su opción: "))
-    os.system("cls")
 
 """
 FUNCION validar_numero
