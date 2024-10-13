@@ -526,44 +526,6 @@ def mostrar_mis_me_gusta(arreglo_usuarios, USUARIO_INDEX):
         print("\nNo hay ningún like registrado\n")
 
 """
-PROCEDIMIENTO mostrar_me_gusta
-tamArc,: enteros
-arLoLi, arLoEst: BufferedRandom
-arFiLi: str
-arreglo_usuarios:   arreglo unidimesional de enteros
-"""
-def mostrar_me_gusta(pos):
-    global arLoLi, arLoEst, arFiLi
-
-    tamArc = os.path.getsize(arFiLi)
-    if tamArc > 0:
-        print("\nMis me gusta")
-
-        arLoLi.seek(0, 0)
-        like = Likes()
-        like = pickle.load(arLoLi)
-        arLoEst.seek(pos, 0)
-        estudiante = Estudiante()
-        estudiante = pickle.load(arLoEst)
-
-        arLoLi.seek(0, 0)
-        
-        cantMegustaDados = 0
-        while arLoLi.tell() < tamArc:
-            like = pickle.load(arLoLi)
-            if (estudiante.id_estudiante == like.id_remitente) and like.activo == "S":                
-                estPos = buscar_estudiante("id_estudiante", int(like.id_destinatario))
-                arLoEst.seek(estPos, 0)
-                estudiante_destinatario = pickle.load(arLoEst)
-                print("- ", estudiante_destinatario.nombre, emoji.emojize(':red_heart:'))
-                cantMegustaDados = cantMegustaDados +1
-            
-        if cantMegustaDados == 0:
-            print("No tienes ningún like registrado\n")
-    else:
-        print("\nNo hay ningún like registrado\n")
-
-"""
 FUNCION mostrar_edad
 edad: enteros
 fecha: string
@@ -604,7 +566,6 @@ def mostrar_datos_otros_usuarios(arreglo_usuarios, USUARIO_INDEX):
             print("Biografia: ", estudiante.biografia.strip())
             print("Edad: ", mostrar_edad(estudiante.fecha_nacimiento), "años")
             print("Hobbies: ", estudiante.hobbies.strip())
-            mostrar_me_gusta(pos)
             print("Estado: ", estudiante.estado)
             print("Baja: ", estudiante.baja)
             print("==============================================================")
@@ -712,7 +673,7 @@ def gestionar_candidatos(arreglo_usuarios, ESTUDIANTES_INDEX, USUARIO_INDEX):
             case "b":
                 reportar_candidato(arreglo_usuarios, USUARIO_INDEX)
 
-        #os.system("cls")
+        os.system("cls")
         print("\nGestionar candidatos\n")
         print("a. Ver candidatos")
         print("b. Reportar candidato")    
@@ -783,11 +744,11 @@ def reportar_candidato(arreglo_usuarios, USUARIO_INDEX):
     os.system("cls")
     global arFiEst, arLoEst, arFiRep, arLoRep
     rep = Reportes()
-    val = input('¿Está seguro que quiere reportar a un usuario? (S/N): ')
-    val = val.upper()
-    while val != 'S' and val != 'N':
-        val = input('¿Está seguro que quiere reportar a un usuario? (S/N): ')
-        val = val.upper()
+    continuar = str(input('¿Está seguro que quiere reportar a un usuario? (S/N): '))
+    continuar = continuar.upper()
+    while continuar != "S" and continuar != "N":
+        continuar = str(input('¿Está seguro que quiere reportar a un usuario? (S/N): '))
+        continuar = continuar.upper()
 
     nombre_reportado = str(input("Ingrese nombre o ID de usuario a reportar: "))
     while len(nombre_reportado) > 32:
@@ -1022,7 +983,7 @@ def gestionar_usuarios_moderador(arreglo_usuarios, ESTUDIANTES_INDEX):
     while opc != "b":
         match opc:
             case "a":
-                desactivar_usuario(arreglo_usuarios, ESTUDIANTES_INDEX)
+                desactivar_usuario()
 
         os.system("cls")
         print("\nGestionar usuarios\n")
@@ -1037,7 +998,7 @@ opc, desactivar: string
 
 arreglo_usuarios    arreglo unidimensional de enteros
 """
-def desactivar_usuario(arreglo_usuarios, ESTUDIANTES_INDEX):
+def desactivar_usuario():
     global arLoEst
 
     os.system("cls")
@@ -1046,7 +1007,7 @@ def desactivar_usuario(arreglo_usuarios, ESTUDIANTES_INDEX):
     id = int(input("Ingrese el ID del estudiante a desactivar: "))
     estPos = buscar_estudiante("id_estudiante", id)
     if estPos != -1:
-        confirmar = str(input("Está seguro desea desactivar al estudiante? [S/N]: "))
+        confirmar = str(input("Está seguro desea desactivar al estudiante? (S/N): "))
         confirmar = confirmar.upper()
         while confirmar != "S" and confirmar != "N":
             print("Por favor, ingrese una opción válida (S/N)")
@@ -1678,29 +1639,6 @@ def ingresar(MIN_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, arreglo_sesion, arreglo
         validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, ADMINISTRADOR_INDEX, arreglo_sesion, USUARIO_INDEX)
     else:        
         print("No se puede ingresar, cantidad de estudiantes y moderadores insuficientes")
-
-"""
-PROCEDIMIENTO ingresar_datos_moderadores
-MODERADORES_INDEX: enteros
-nombre, apellido, email, contraseña, confirmar_contraseña: string
-
-arreglo_usuarios:   arreglo unidimesional de enteros
-"""
-def ingresar_datos_moderadores(arreglo_usuarios, MODERADORES_INDEX):
-    os.system("cls")
-    nombre = input("Ingrese el nombre del moderador: ")
-    apellido = input("Ingrese el apellido del moderador: ")
-    email = input("Ingrese el email del moderador: ")
-
-    contraseña = input("Ingrese su contraseña: ")
-    confirmar_contraseña = input("Vuelva a ingresar su contraseña: ")
-    while contraseña != confirmar_contraseña:
-        print("La contraseña no coincide, vuelva a intentar: ")
-        contraseña = input("Ingrese su contraseña: ")
-        confirmar_contraseña = input("Vuelva a ingresar su contraseña: ")
-
-    if contraseña == confirmar_contraseña:
-        pass
 
 """
 PROCEDIMIENTO registrar_estudiante
