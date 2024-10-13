@@ -818,9 +818,9 @@ def matcheos():
 
 """
 FUNCION mostrar_cantidad_registros_estudiantes
-
+return entero
 """
-def mostrar_cantidad_registros_estudiantes(arreglo_usuarios, USUARIO_INDEX):
+def mostrar_cantidad_registros_estudiantes():
     global arLoEst, arFiEst
 
     tamArc = os.path.getsize(arFiEst)
@@ -833,6 +833,40 @@ def mostrar_cantidad_registros_estudiantes(arreglo_usuarios, USUARIO_INDEX):
     else:
         return 0
 
+"""
+FUNCION mostrar_cantidad_registros_moderadores
+return entero
+"""
+def mostrar_cantidad_registros_moderadores():
+    global arLoMod, arFiMod
+
+    tamArc = os.path.getsize(arFiMod)
+    if tamArc > 0:
+        arLoMod.seek(0, 0)
+        mod = pickle.load(arLoMod)
+        tamReg = arLoMod.tell()
+        cantReg = tamArc // tamReg
+        return cantReg
+    else:
+        return 0
+
+"""
+FUNCION mostrar_cantidad_registros_administradores
+return entero
+"""
+def mostrar_cantidad_registros_administradores():
+    global arLoAdmin, arFiAdmin
+
+    tamArc = os.path.getsize(arFiAdmin)
+    if tamArc > 0:
+        arLoAdmin.seek(0, 0)
+        admin = pickle.load(arLoAdmin)
+        tamReg = arLoAdmin.tell()
+        cantReg = tamArc // tamReg
+        return cantReg
+    else:
+        return 0
+     
 """
 PROCEDIMIENTO mostrar_reportes_estadisticos
 USUARIO_INDEX: enteros
@@ -865,7 +899,7 @@ def mostrar_reporte_matcheos(arreglo_usuarios, USUARIO_INDEX):
     global arLoEst, arFiEst, arLoLi, arFiLi
 
     matcheos = 0
-    cantEst = mostrar_cantidad_registros_estudiantes(arreglo_usuarios, USUARIO_INDEX)
+    cantEst = mostrar_cantidad_registros_estudiantes()
     tamArc = os.path.getsize(arFiEst)
     tamReg = tamArc // cantEst
     
@@ -1181,7 +1215,7 @@ def eliminar_usuario_moderador():
     global arLoMod
     print("\nEliminar un moderador\n")
     id = int(input("Ingrese el ID del moderador a eliminar: "))
-    modPos = buscar_moderadores("id", id)
+    modPos = buscar_moderador("id", id)
     if modPos != -1:
         arLoMod.seek(modPos, 0)
         mod = pickle.load(arLoMod)                      
@@ -1298,10 +1332,10 @@ def buscar_estudiante(param, busqueda):
     return -1
 
 """
-FUNCION buscar_moderadores
+FUNCION buscar_moderador
 param, busqueda: string
 """
-def buscar_moderadores(param, busqueda):
+def buscar_moderador(param, busqueda):
     global arLoMod, arFiMod
     moderador = Moderador()
     tamArc = os.path.getsize(arFiMod)
@@ -1313,7 +1347,7 @@ def buscar_moderadores(param, busqueda):
             return pos
     return -1
 
-def buscar_administradores(param, busqueda):
+def buscar_administrador(param, busqueda):
     global arLoAdmin, arFiAdmin
     admin = Admin()
     tamArc = os.path.getsize(arFiAdmin)
@@ -1350,11 +1384,10 @@ def validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, ADMI
         email = email
     
     estPos = buscar_estudiante("email", email)
-    modPos = buscar_moderadores("email", email)
-    adminPos = buscar_administradores("email", email)
-    print(estPos, modPos, adminPos)
-    
-        
+    modPos = buscar_moderador("email", email)
+    adminPos = buscar_administrador("email", email)
+    #print(estPos, modPos, adminPos)
+          
     contraseña = getpass.getpass("Ingrese su contraseña: ")
 
     while len(contraseña) > 32:
@@ -1422,8 +1455,8 @@ def validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, ADMI
 
             
             estPos = buscar_estudiante("email", email)
-            modPos = buscar_moderadores("email", email)
-            adminPos = buscar_administradores("email", email)
+            modPos = buscar_moderador("email", email)
+            adminPos = buscar_administrador("email", email)
 
             contraseña = getpass.getpass("Ingrese su contraseña: ")
             while len(contraseña) > 32:
@@ -1484,13 +1517,13 @@ arreglo_me_gusta:           arreglo bidimensional de 8*8 de enteros
 """
 def ingresar(MIN_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, arreglo_sesion, arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, ADMINISTRADOR_INDEX, arreglo_reportes, arreglo_informe_reportes, arreglo_me_gusta, USUARIO_INDEX):
     os.system("cls")
-    # if(MIN_CANT_ESTUDIANTES <= arreglo_usuarios[ESTUDIANTES_INDEX] and MIN_CANT_MODERADORES <= arreglo_usuarios[MODERADORES_INDEX]):        
-    arreglo_sesion[MODERADORES_INDEX] = False
-    arreglo_sesion[ESTUDIANTES_INDEX] = False
-    arreglo_sesion[ADMINISTRADOR_INDEX] = False
-    validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, ADMINISTRADOR_INDEX, arreglo_sesion, arreglo_me_gusta, USUARIO_INDEX)
-    # else:        
-    #     print("No se puede ingresar, cantidad de estudiantes y moderadores insuficientes")
+    if(MIN_CANT_ESTUDIANTES <= mostrar_cantidad_registros_estudiantes() and MIN_CANT_MODERADORES <= mostrar_cantidad_registros_moderadores()):        
+        arreglo_sesion[MODERADORES_INDEX] = False
+        arreglo_sesion[ESTUDIANTES_INDEX] = False
+        arreglo_sesion[ADMINISTRADOR_INDEX] = False
+        validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, ADMINISTRADOR_INDEX, arreglo_sesion, arreglo_me_gusta, USUARIO_INDEX)
+    else:        
+        print("No se puede ingresar, cantidad de estudiantes y moderadores insuficientes")
 
 """
 PROCEDIMIENTO ingresar_datos_moderadores
@@ -1720,6 +1753,27 @@ def crearadmin():
         arLoAdmin.flush()
 
 """
+PROCEDIMIENTO crear_moderador
+
+arFiMod, email, contraseña: str
+arLoMod: BufferedRandom
+moderador: Moderador
+"""
+def crear_moderardor():
+    global arFiMod, arLoMod
+
+    if os.path.getsize(arFiMod) == 0: 
+        moderador = Moderador()
+
+        moderador.id = 1
+        email = "mod@ayed.com"
+        moderador.email = email.ljust(32, " ")
+        contraseña = "mod"
+        moderador.contrasena = contraseña.ljust(32, " ")
+        pickle.dump(moderador, arLoMod)
+        arLoMod.flush()
+
+"""
 PROCEDIMIENTO ejecutar_programa_principal
 MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_CANT_MODERADORES, MAX_CANT_MODERADORES, USUARIO_INDEX, ESTUDIANTES_INDEX, MODERADORES_INDEX, opc: enteros
 
@@ -1737,6 +1791,7 @@ def ejecutar_programa_principal(MIN_CANT_ESTUDIANTES, MAX_CANT_ESTUDIANTES, MIN_
     abrir_archivos()
     popular_likes_aleatorios()
     crearadmin()
+    crear_moderardor()
     mostrar_menu_principal()
 
     opc = validar_numero()
