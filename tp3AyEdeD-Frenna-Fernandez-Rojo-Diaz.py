@@ -624,7 +624,7 @@ arFiEst, arFiLi:    str
 arreglo_usuarios:   arreglo unidimesional de enteros
 """
 
-def dar_super_like():
+def dar_super_like(arreglo_usuarios, USUARIO_INDEX):
     global arLoEst, arFiEst, arLoLi, arFiLi
 
     print("\nDar super like\n")
@@ -648,14 +648,13 @@ def dar_super_like():
 
         arLoEst.seek(posCandPorNombre, 0)
         destinatario = pickle.load(arLoEst)        
-        like.id_destinatario = destinatario.id_estudiante
-        like.id_remitente = remitente.id_estudiante
+        like.id_destinatario = remitente.id_estudiante
+        like.id_remitente = destinatario.id_estudiante
         
-
         arLoEst.seek(arreglo_usuarios[USUARIO_INDEX], 0)
         remitente = pickle.load(arLoEst)
-        like.id_remitente = remitente.id_estudiante
         like.id_destinatario = destinatario.id_estudiante
+        like.id_remitente = remitente.id_estudiante
 
         if not mostrar_si_dio_like(remitente.id_estudiante, destinatario.id_estudiante) and remitente.superlike == "S":
             arLoLi.seek(0, 2)
@@ -750,8 +749,7 @@ def ver_candidatos(arreglo_usuarios, ESTUDIANTES_INDEX, USUARIO_INDEX):
             case "a":
                 dar_me_gusta(arreglo_usuarios, USUARIO_INDEX)
             case "b":
-                #dar_super_like()
-                pass
+                dar_super_like(arreglo_usuarios, USUARIO_INDEX)
         #os.system("cls")
         print("\nCandidatos\n")
         mostrar_datos_otros_usuarios(arreglo_usuarios, USUARIO_INDEX)
