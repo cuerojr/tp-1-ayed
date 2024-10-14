@@ -1004,7 +1004,7 @@ def menu_moderadores(arreglo_usuarios, MODERADORES_INDEX, ESTUDIANTES_INDEX, USU
             case 1:
                 gestionar_usuarios_moderador(arreglo_usuarios, ESTUDIANTES_INDEX)
             case 2:
-                gestionar_reportes_moderador(arreglo_usuarios, ESTUDIANTES_INDEX, USUARIO_INDEX)
+                gestionar_reportes_moderador(arreglo_usuarios, ESTUDIANTES_INDEX, USUARIO_INDEX, MODERADORES_INDEX)
             case 3:
                 mostrar_menu_reportes_estadisticos_moderador()
 
@@ -1084,7 +1084,7 @@ def desactivar_usuario():
 PROCEDIMIENTO gestionar_reportes_moderador
 opc: string
 """
-def gestionar_reportes_moderador(arreglo_usuarios, ESTUDIANTES_INDEX, USUARIO_INDEX):
+def gestionar_reportes_moderador(arreglo_usuarios, ESTUDIANTES_INDEX, USUARIO_INDEX, MODERADORES_INDEX):
     print("\nGestionar reportes\n")
     print("a. Ver reportes")  
     print("b. Volver") 
@@ -1093,7 +1093,7 @@ def gestionar_reportes_moderador(arreglo_usuarios, ESTUDIANTES_INDEX, USUARIO_IN
     while opc != "b":
         match opc:
             case "a":
-                ver_reportes(arreglo_usuarios, USUARIO_INDEX)
+                ver_reportes(arreglo_usuarios, USUARIO_INDEX, MODERADORES_INDEX, arreglo_sesion)
         print("\nGestionar reportes\n")
         print("a. Ver reportes")  
         print("b. Volver") 
@@ -1148,7 +1148,7 @@ PROCEDIMIENTO PARA ANALIZAR LOS REPORTES ver_reportes
 arreglo_usuarios: array of int
 USUARIO_INDEX: int
 """
-def ver_reportes(arreglo_usuarios, USUARIO_INDEX):
+def ver_reportes(arreglo_usuarios, USUARIO_INDEX, MODERADORES_INDEX, arreglo_sesion):
     os.system('cls')
     global arFiRep, arFiMod, arFiEst
     global arLoRep, arLoMod, arLoEst
@@ -1169,36 +1169,56 @@ def ver_reportes(arreglo_usuarios, USUARIO_INDEX):
                 opc = interfaz_reporte(pos)
                 while opc != "a" and opc != "b":
                     opc = interfaz_reporte(pos)
-                match opc:
-                    case "a":
-                        pos_mod = arreglo_usuarios[USUARIO_INDEX]
-                        arLoMod.seek(pos_mod,0)
-                        mod = pickle.load(arLoMod)
-                        mod.ignorado += 1
-                        arLoMod.seek(pos_mod,0)
-                        pickle.dump(mod,arLoMod)
-                        arLoMod.flush()
-                        rep.estado = 2
-                        arLoRep.seek(pos,0)
-                        pickle.dump(rep,arLoRep)
-                        arLoRep.flush()
-                    case "b":
-                        pos_mod = arreglo_usuarios[USUARIO_INDEX]
-                        arLoMod.seek(pos_mod,0)
-                        mod = pickle.load(arLoMod)
-                        mod.aceptado += 1
-                        arLoMod.seek(pos_mod,0)
-                        pickle.dump(mod,arLoMod)
-                        arLoMod.flush()
-                        rep.estado = 1
-                        arLoRep.seek(pos,0)
-                        pickle.dump(rep,arLoRep)
-                        arLoRep.flush()
-                        arLoEst.seek(pos_est,0)
-                        est = pickle.load(arLoEst)
-                        est.baja = "S"
-                        pickle.dump(est,arLoEst)
-                        arLoEst.flush()
+                
+                if arreglo_sesion[MODERADORES_INDEX]:
+                    match opc:
+                        case "a":
+                            pos_mod = arreglo_usuarios[USUARIO_INDEX]
+                            arLoMod.seek(pos_mod,0)
+                            mod = pickle.load(arLoMod)
+                            mod.ignorado += 1
+                            arLoMod.seek(pos_mod,0)
+                            pickle.dump(mod,arLoMod)
+                            arLoMod.flush()
+                            rep.estado = 2
+                            arLoRep.seek(pos,0)
+                            pickle.dump(rep,arLoRep)
+                            arLoRep.flush()
+                        case "b":
+                            pos_mod = arreglo_usuarios[USUARIO_INDEX]
+                            arLoMod.seek(pos_mod,0)
+                            mod = pickle.load(arLoMod)
+                            mod.aceptado += 1
+                            arLoMod.seek(pos_mod,0)
+                            pickle.dump(mod,arLoMod)
+                            arLoMod.flush()
+                            rep.estado = 1
+                            arLoRep.seek(pos,0)
+                            pickle.dump(rep,arLoRep)
+                            arLoRep.flush()
+                            arLoEst.seek(pos_est,0)
+                            est = pickle.load(arLoEst)
+                            est.baja = "S"
+                            pickle.dump(est,arLoEst)
+                            arLoEst.flush()
+                   
+                if arreglo_sesion[ADMINISTRADOR_INDEX]:
+                    match opc:                    
+                        case "a":                        
+                            rep.estado = 2
+                            arLoRep.seek(pos,0)
+                            pickle.dump(rep,arLoRep)
+                            arLoRep.flush()
+                        case "b":                        
+                            rep.estado = 1
+                            arLoRep.seek(pos,0)
+                            pickle.dump(rep,arLoRep)
+                            arLoRep.flush()
+                            arLoEst.seek(pos_est,0)
+                            est = pickle.load(arLoEst)
+                            est.baja = "S"
+                            pickle.dump(est,arLoEst)
+                            arLoEst.flush()
                 print("\nEl reporte ha sido tomado\n")
             print("Ya revisaste todos los reportes")
         else:
@@ -1229,7 +1249,7 @@ def mostrar_menu_administradores():
         print("3. Reportes estadísticos")
         print("0. Salir\n")
 
-def menu_administradores(arreglo_usuarios, ADMINISTRADOR_INDEX, ESTUDIANTES_INDEX):
+def menu_administradores(arreglo_usuarios, ADMINISTRADOR_INDEX, ESTUDIANTES_INDEX, MODERADORES_INDEX):
     mostrar_menu_administradores()
     opc = validar_numero()
     while opc < 0 and opc > 3:
@@ -1241,7 +1261,7 @@ def menu_administradores(arreglo_usuarios, ADMINISTRADOR_INDEX, ESTUDIANTES_INDE
             case 1:
                 gestionar_usuarios_administrador(arreglo_usuarios, ESTUDIANTES_INDEX)
             case 2:
-                gestionar_reportes_administrador(arreglo_usuarios, ESTUDIANTES_INDEX)
+                gestionar_reportes_administrador(arreglo_usuarios, USUARIO_INDEX, MODERADORES_INDEX, arreglo_sesion)
             case 3:
                 mostrar_menu_reportes_estadisticos_administrador()
 
@@ -1269,7 +1289,7 @@ def gestionar_usuarios_administrador(arreglo_usuarios, ESTUDIANTES_INDEX):
             case "b":
                 dar_alta_moderador()
             case "c":
-                desactivar_usuario(arreglo_usuarios, ESTUDIANTES_INDEX)
+                desactivar_usuario()
 
         os.system("cls")
         print("\nGestionar usuarios\n")
@@ -1393,7 +1413,7 @@ def dar_alta_moderador():
     os.system("cls")
     print("Moderador creado\n")
 
-def gestionar_reportes_administrador(arreglo_usuarios, ESTUDIANTES_INDEX):
+def gestionar_reportes_administrador(arreglo_usuarios, USUARIO_INDEX, MODERADORES_INDEX, arreglo_sesion):
     os.system("cls")
     print("\nGestionar reportes\n")
     print("a. Ver reportes")  
@@ -1403,7 +1423,7 @@ def gestionar_reportes_administrador(arreglo_usuarios, ESTUDIANTES_INDEX):
     while opc != "b":
         match opc:
             case "a":
-                ver_reportes(arreglo_usuarios, ESTUDIANTES_INDEX, USUARIO_INDEX)
+                ver_reportes(arreglo_usuarios, USUARIO_INDEX, MODERADORES_INDEX, arreglo_sesion)
         print("\nGestionar reportes\n")
         print("a. Ver reportes")  
         print("b. Volver") 
@@ -1617,7 +1637,7 @@ def validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, ADMI
             
             os.system("cls")
             print("Sesión iniciada correctamente")
-            menu_administradores(arreglo_usuarios, MODERADORES_INDEX, USUARIO_INDEX)
+            menu_administradores(arreglo_usuarios, ADMINISTRADOR_INDEX, ESTUDIANTES_INDEX, MODERADORES_INDEX)
 
     while intentos > 1 and (not arreglo_sesion[ESTUDIANTES_INDEX] and not arreglo_sesion[MODERADORES_INDEX] and not arreglo_sesion[ADMINISTRADOR_INDEX]):
 
@@ -1685,7 +1705,7 @@ def validar_ingreso(arreglo_usuarios, ESTUDIANTES_INDEX, MODERADORES_INDEX, ADMI
                 
                 os.system("cls")
                 print("Sesión iniciada correctamente")
-                menu_administradores(arreglo_usuarios, MODERADORES_INDEX, USUARIO_INDEX)
+                menu_administradores(arreglo_usuarios, ADMINISTRADOR_INDEX, ESTUDIANTES_INDEX, MODERADORES_INDEX)
     os.system("cls")
 
 """
