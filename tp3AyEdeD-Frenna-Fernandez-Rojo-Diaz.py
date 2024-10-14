@@ -78,6 +78,7 @@ class Estudiante:
         self.pais = ""              #string 32
         self.ciudad = ""            #string 32        
         self.fecha_nacimiento = ""  #string 10
+        self.superlike = "S"        #char
 
 """ MODELO LIKES
 # 0 remitente: int
@@ -614,6 +615,59 @@ def dar_me_gusta(arreglo_usuarios, USUARIO_INDEX):
         
     else:
         print("Estudiante no encontrado!")
+              
+"""
+PROCEDIMIENTO dar_super_like
+ESTUDIANTES_INDEX: entero
+arLoEst, arLoLi:    BufferedRandom
+arFiEst, arFiLi:    str
+arreglo_usuarios:   arreglo unidimesional de enteros
+"""
+
+def dar_super_like(arreglo_usuarios, USUARIO_INDEX):
+    global arLoEst, arFiEst, arLoLi, arFiLi
+
+    print("\nDar super like\n")
+    nombre_usuario = str(input("Ingresar nombre y apellido de estudiante: "))
+    while len(nombre_usuario) > 32:
+        print("El nombre y apellido no puede tener más de 32 caracteres")
+        nombre_usuario = str(input("Ingresar nombre y apellido de estudiante: "))
+    if len(nombre_usuario) < 32:
+        nombre_usuario = nombre_usuario.ljust(32, " ")
+    elif len(nombre_usuario) == 32:
+        nombre_usuario = nombre_usuario
+
+    posCandPorNombre = buscar_estudiante("nombre", nombre_usuario)
+
+    if posCandPorNombre != -1:
+        print("Estudiante encontrado!")
+        print("pos: ", posCandPorNombre)
+        like = Likes()
+        destinatario = Estudiante()
+        remitente = Estudiante()
+
+        arLoEst.seek(posCandPorNombre, 0)
+        destinatario = pickle.load(arLoEst)        
+        like.id_destinatario = remitente.id_estudiante
+        like.id_remitente = destinatario.id_estudiante
+        
+        arLoEst.seek(arreglo_usuarios[USUARIO_INDEX], 0)
+        remitente = pickle.load(arLoEst)
+        like.id_destinatario = destinatario.id_estudiante
+        like.id_remitente = remitente.id_estudiante
+
+        if not mostrar_si_dio_like(remitente.id_estudiante, destinatario.id_estudiante) and remitente.superlike == "S":
+            arLoLi.seek(0, 2)
+            pickle.dump(like, arLoLi)
+            arLoLi.flush()
+            print("El super like ha sido entregado!")
+            remitente.superlike = "N"
+        elif not mostrar_si_dio_like(remitente.id_estudiante, destinatario.id_estudiante) and remitente.superlike == "N":
+            print("Ya no tienes super like para utilizar!")
+        else:
+            print("El like ya fue entregado")
+    else:
+        print("Estudiante no encontrado!")
 
 """
 PROCEDIMIENTO eliminar_mi_perfil
@@ -695,8 +749,7 @@ def ver_candidatos(arreglo_usuarios, ESTUDIANTES_INDEX, USUARIO_INDEX):
             case "a":
                 dar_me_gusta(arreglo_usuarios, USUARIO_INDEX)
             case "b":
-                #dar_super_like()
-                pass
+                dar_super_like(arreglo_usuarios, USUARIO_INDEX)
         #os.system("cls")
         print("\nCandidatos\n")
         mostrar_datos_otros_usuarios(arreglo_usuarios, USUARIO_INDEX)
@@ -1365,6 +1418,23 @@ def mostrar_menu_reportes_estadisticos_administrador():
     while opc != "a":
         print("a. Volver\n") 
         opc = str(input("Ingrese de nuevo: "))
+
+"""
+FUNCION buscar_likes
+param, busqueda: string
+"""
+
+def buscar_likes(param, busqueda):
+    global arLoLi, arFiLi
+    likes = Likes()
+    tamArc = os.path.getsize(arFiLi)
+    arLoLi.seek(0, 0)    
+    while arLoLi.tell() < tamArc:
+        pos = arLoLi.tell()
+        likes = pickle.load(arLoLi)        
+        if getattr(likes, param) == busqueda:
+            return pos
+    return -1
 
 """
 FUNCION buscar_estudiante
