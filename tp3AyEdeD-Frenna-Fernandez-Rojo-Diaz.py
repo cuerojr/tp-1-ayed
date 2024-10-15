@@ -77,7 +77,7 @@ class Estudiante:
         self.biografia = ""         #string 255
         self.pais = ""              #string 32
         self.ciudad = ""            #string 32        
-        self.fecha_nacimiento = ""  #string 10
+        self.fecha_nacimiento = "00-00-0000"  #string 10
         self.superlike = "S"        #char
 
 """ MODELO LIKES
