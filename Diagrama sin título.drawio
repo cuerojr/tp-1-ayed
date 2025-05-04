@@ -62,11 +62,14 @@
         <mxCell id="WocVs_nFNmPU2-qUiD_d-8" value="cargarDatos" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="WocVs_nFNmPU2-qUiD_d-1" vertex="1">
           <mxGeometry y="86" width="160" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="4O37cZlF4Homk0dJ1W0X-21" value="liquidarHaberes" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="WocVs_nFNmPU2-qUiD_d-1">
+        <mxCell id="4O37cZlF4Homk0dJ1W0X-23" value="asignarCausa" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="WocVs_nFNmPU2-qUiD_d-1">
           <mxGeometry y="112" width="160" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="4O37cZlF4Homk0dJ1W0X-23" value="asignarCausa" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="WocVs_nFNmPU2-qUiD_d-1">
+        <mxCell id="4O37cZlF4Homk0dJ1W0X-26" value="cerrarCausa" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="WocVs_nFNmPU2-qUiD_d-1">
           <mxGeometry y="138" width="160" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="4O37cZlF4Homk0dJ1W0X-21" value="liquidarHaberes" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="WocVs_nFNmPU2-qUiD_d-1">
+          <mxGeometry y="164" width="160" height="26" as="geometry" />
         </mxCell>
         <mxCell id="WocVs_nFNmPU2-qUiD_d-58" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="WocVs_nFNmPU2-qUiD_d-19" target="WocVs_nFNmPU2-qUiD_d-2" edge="1">
           <mxGeometry relative="1" as="geometry" />
