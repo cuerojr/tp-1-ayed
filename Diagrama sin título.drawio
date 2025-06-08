@@ -1,16 +1,16 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36" version="27.1.4">
   <diagram id="nPrbaPytp_9vwMqdARKt" name="Página-1">
-    <mxGraphModel dx="879" dy="1506" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2158" dy="2181" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="4O37cZlF4Homk0dJ1W0X-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;startFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="zkfFHV4jXpPFQw0GAbJ--19" target="WocVs_nFNmPU2-qUiD_d-23" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="392" y="520" />
-              <mxPoint x="392" y="483" />
+              <mxPoint x="392" y="550" />
+              <mxPoint x="392" y="513" />
             </Array>
-            <mxPoint x="342" y="510" as="targetPoint" />
+            <mxPoint x="342" y="540" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="4O37cZlF4Homk0dJ1W0X-20" value="1...1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="4O37cZlF4Homk0dJ1W0X-19" vertex="1" connectable="0">
@@ -21,9 +21,9 @@
         <mxCell id="4O37cZlF4Homk0dJ1W0X-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;startFill=0;exitX=0.996;exitY=0.254;exitDx=0;exitDy=0;exitPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="zkfFHV4jXpPFQw0GAbJ--19" target="WocVs_nFNmPU2-qUiD_d-14" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="582" y="514" />
-              <mxPoint x="596" y="514" />
-              <mxPoint x="596" y="586" />
+              <mxPoint x="582" y="544" />
+              <mxPoint x="596" y="544" />
+              <mxPoint x="596" y="616" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -33,7 +33,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="zkfFHV4jXpPFQw0GAbJ--17" value="Fuero" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=2;fillColor=#FFFFFF;perimeterSpacing=0;swimlaneLine=1;swimlaneFillColor=#FFFFFF;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="406" y="455" width="160" height="138" as="geometry">
+          <mxGeometry x="406" y="485" width="160" height="138" as="geometry">
             <mxRectangle x="550" y="140" width="160" height="26" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
@@ -53,10 +53,10 @@
           <mxGeometry y="112" width="160" height="26" as="geometry" />
         </mxCell>
         <mxCell id="WocVs_nFNmPU2-qUiD_d-0" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Un estudio jurídico desea desarrollar un sistema que le permita administrar las causas que&lt;br&gt;lleva adelante y liquidar los haberes a los abogados que trabajan en dichas causas, en&lt;br&gt;función de los fallos que obtengan en las mismas.&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;br&gt;Cuenta con un staff de abogados de los cuales maneja los siguientes datos: un código de&lt;br&gt;identificación (número correlativo asignado automáticamente por el sistema), apellido,&lt;br&gt;nombres, tipo y nro. de documento, domicilio, teléfono, dirección de e-mail, su especialidad&lt;br&gt;(fuero) y las causas que tiene asignadas. Algunos abogados cobran un monto fijo por cada&lt;br&gt;causa con fallo favorable y otros un porcentaje del monto obtenido. Estos montos fijos y&lt;br&gt;porcentuales NO son iguales para todos los abogados.&lt;br&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;Las causas se abren por la acción del demandante que se presenta en el estudio y decide,&lt;br&gt;con el asesoramiento de los abogados, iniciar una demanda en uno de los fueros&lt;br&gt;procesales. Los fueros están cargados en el sistema y se conoce su código y descripción&lt;br&gt;(ejemplos de fueron son: civil, penal, comercial, laboral, etc.). Cada causa iniciada tendrá:&lt;br&gt;número de expediente, fecha de inicio, juzgado de radicación, fuero, nombre y apellido del&lt;br&gt;demandante, nombre y apellido del demandado, detalle de los motivos que originan la&lt;br&gt;demanda y el abogado asignado.&lt;br&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;El estudio decide que abogado llevará la causa adelante considerando: que debe dedicarse&lt;br&gt;a la misma especialidad (fuero) de la causa y sea aquel que menos causas abiertas tenga al&lt;br&gt;momento (en caso de existir más de uno se le asignará a cualquiera de ellos).&lt;br&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;Las causas siguen su curso y al finalizar, se registra su cierre indicando la fecha del mismo,&lt;br&gt;sentencia obtenida (favorable o no favorable) y en caso de corresponder el monto obtenido.&lt;br&gt;Periódicamente, el estudio realiza la liquidación de los haberes de los abogados, en función&lt;br&gt;de los fallos favorables obtenidos en causas cerradas en un periodo determinado. El listado&lt;br&gt;debe contener: número de expediente, fecha de inicio, fecha de cierre, fuero, nombre y&lt;br&gt;apellido del abogado, monto obtenido en la causa y monto a liquidar al abogado.&lt;/font&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="34" y="-990" width="770" height="680" as="geometry" />
+          <mxGeometry x="40" y="-1001" width="770" height="680" as="geometry" />
         </mxCell>
         <mxCell id="WocVs_nFNmPU2-qUiD_d-1" value="Estudio" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=2;swimlaneFillColor=#FFFFFF;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="386" y="40" width="160" height="324" as="geometry">
+          <mxGeometry x="386" y="70" width="160" height="324" as="geometry">
             <mxRectangle x="550" y="140" width="160" height="26" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
@@ -105,7 +105,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="WocVs_nFNmPU2-qUiD_d-19" value="Abogado" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=2;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="146" y="340" width="160" height="586" as="geometry">
+          <mxGeometry x="146" y="370" width="160" height="586" as="geometry">
             <mxRectangle x="550" y="140" width="160" height="26" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
@@ -177,13 +177,13 @@
         </mxCell>
         <mxCell id="WocVs_nFNmPU2-qUiD_d-72" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;startFill=0;exitX=0.375;exitY=0.003;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.999;entryY=0.265;entryDx=0;entryDy=0;entryPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="WocVs_nFNmPU2-qUiD_d-10" target="WocVs_nFNmPU2-qUiD_d-3" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="572" y="90" as="targetPoint" />
+            <mxPoint x="572" y="120" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="696" y="302" />
-              <mxPoint x="696" y="105" />
-              <mxPoint x="546" y="105" />
+              <mxPoint x="696" y="332" />
+              <mxPoint x="696" y="135" />
+              <mxPoint x="546" y="135" />
             </Array>
-            <mxPoint x="696" y="450" as="sourcePoint" />
+            <mxPoint x="696" y="480" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="WocVs_nFNmPU2-qUiD_d-73" value="1...N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="WocVs_nFNmPU2-qUiD_d-72" vertex="1" connectable="0">
@@ -192,7 +192,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="WocVs_nFNmPU2-qUiD_d-10" value="Causa" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=2;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="632" y="300" width="160" height="646" as="geometry">
+          <mxGeometry x="632" y="330" width="160" height="646" as="geometry">
             <mxRectangle x="550" y="140" width="160" height="26" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
@@ -269,7 +269,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="4O37cZlF4Homk0dJ1W0X-7" value="AbogadoMonto" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=2;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="36" y="980" width="160" height="112" as="geometry">
+          <mxGeometry x="36" y="1010" width="160" height="112" as="geometry">
             <mxRectangle x="550" y="140" width="160" height="26" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
@@ -287,15 +287,15 @@
         </mxCell>
         <mxCell id="4O37cZlF4Homk0dJ1W0X-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.929;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.572;exitY=0.008;exitDx=0;exitDy=0;exitPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="4O37cZlF4Homk0dJ1W0X-12" target="WocVs_nFNmPU2-qUiD_d-40" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="351.0000000000002" y="779" as="sourcePoint" />
-            <mxPoint x="341" y="630" as="targetPoint" />
+            <mxPoint x="351.0000000000002" y="809" as="sourcePoint" />
+            <mxPoint x="341" y="660" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="348" y="656" />
+              <mxPoint x="348" y="686" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="4O37cZlF4Homk0dJ1W0X-12" value="AbogadoPorcentaje" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=2;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="256" y="980" width="160" height="112" as="geometry">
+          <mxGeometry x="256" y="1010" width="160" height="112" as="geometry">
             <mxRectangle x="550" y="140" width="160" height="26" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
@@ -313,12 +313,12 @@
         </mxCell>
         <mxCell id="wk-J22gKXtRtqj58cMsg-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;startFill=0;entryX=0.552;entryY=0.969;entryDx=0;entryDy=0;entryPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="zkfFHV4jXpPFQw0GAbJ--17" target="_gNwSuhdFXTQbb97_CQj-10" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="442" y="390" as="targetPoint" />
+            <mxPoint x="442" y="420" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="474" y="390" />
-              <mxPoint x="474" y="390" />
+              <mxPoint x="474" y="420" />
+              <mxPoint x="474" y="420" />
             </Array>
-            <mxPoint x="511" y="380" as="sourcePoint" />
+            <mxPoint x="511" y="410" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="wk-J22gKXtRtqj58cMsg-5" value="1...N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="wk-J22gKXtRtqj58cMsg-4" vertex="1" connectable="0">
@@ -328,13 +328,13 @@
         </mxCell>
         <mxCell id="wk-J22gKXtRtqj58cMsg-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;startFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.992;entryY=0.991;entryDx=0;entryDy=0;entryPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="4O37cZlF4Homk0dJ1W0X-0" target="WocVs_nFNmPU2-qUiD_d-39" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="330" y="630" as="targetPoint" />
+            <mxPoint x="330" y="660" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="632" y="716" />
-              <mxPoint x="471" y="716" />
-              <mxPoint x="471" y="630" />
+              <mxPoint x="632" y="746" />
+              <mxPoint x="471" y="746" />
+              <mxPoint x="471" y="660" />
             </Array>
-            <mxPoint x="561" y="874" as="sourcePoint" />
+            <mxPoint x="561" y="904" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="wk-J22gKXtRtqj58cMsg-9" value="1...N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="wk-J22gKXtRtqj58cMsg-8" vertex="1" connectable="0">
@@ -344,6 +344,12 @@
         </mxCell>
         <mxCell id="_gNwSuhdFXTQbb97_CQj-21" value="package |&#xa;package := Package name: &#39;estudio juridico luca&#39;.&#xa;package paxVersion: 1;&#xa;    basicComment: &#39;&#39;.&#xa;&#xa;&#xa;package classNames&#xa;    add: #Abogado;&#xa;    add: #AbogadoMontoFijo;&#xa;    add: #AbogadoPorcentaje;&#xa;    add: #Causa;&#xa;    add: #Estudio;&#xa;    add: #Fuero;&#xa;    yourself.&#xa;&#xa;&#xa;package binaryGlobalNames: (Set new&#xa;    yourself).&#xa;&#xa;&#xa;package globalAliases: (Set new&#xa;    yourself).&#xa;&#xa;&#xa;package setPrerequisites: #(&#xa;    &#39;..\Documents\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin&#39;&#xa;    &#39;..\Documents\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin Legacy Date &amp; Time&#39;&#xa;    &#39;..\Documents\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\MVP\Presenters\Prompters\Dolphin Prompter&#39;).&#xa;&#xa;&#xa;package!&#xa;&#xa;&#xa;&quot;Class Definitions&quot;!&#xa;&#xa;&#xa;Object subclass: #Abogado&#xa;    instanceVariableNames: &#39;id apellido nombre dniNumero dniTipo domicilio telefono email fuero causasAbiertas&#39;&#xa;    classVariableNames: &#39;UltimoId&#39;&#xa;    poolDictionaries: &#39;&#39;&#xa;    classInstanceVariableNames: &#39;&#39;!&#xa;&#xa;&#xa;Object subclass: #Causa&#xa;    instanceVariableNames: &#39;numeroDeExpediente fuero fechaDeInicio juzgado motivosDemanda demandante demandado abogado sentencia montoObtenido fechaDeCierre&#39;&#xa;    classVariableNames: &#39;&#39;&#xa;    poolDictionaries: &#39;&#39;&#xa;    classInstanceVariableNames: &#39;&#39;!&#xa;&#xa;&#xa;Object subclass: #Estudio&#xa;    instanceVariableNames: &#39;abogados causas fueros&#39;&#xa;    classVariableNames: &#39;&#39;&#xa;    poolDictionaries: &#39;&#39;&#xa;    classInstanceVariableNames: &#39;&#39;!&#xa;&#xa;&#xa;Object subclass: #Fuero&#xa;    instanceVariableNames: &#39;codigo descripcion&#39;&#xa;    classVariableNames: &#39;&#39;&#xa;    poolDictionaries: &#39;&#39;&#xa;    classInstanceVariableNames: &#39;&#39;!&#xa;&#xa;&#xa;Abogado subclass: #AbogadoMontoFijo&#xa;    instanceVariableNames: &#39;montoFijo&#39;&#xa;    classVariableNames: &#39;&#39;&#xa;    poolDictionaries: &#39;&#39;&#xa;    classInstanceVariableNames: &#39;&#39;!&#xa;&#xa;&#xa;Abogado subclass: #AbogadoPorcentaje&#xa;    instanceVariableNames: &#39;porcentaje&#39;&#xa;    classVariableNames: &#39;&#39;&#xa;    poolDictionaries: &#39;&#39;&#xa;    classInstanceVariableNames: &#39;&#39;!&#xa;&#xa;&#xa;&quot;End of package definition&quot;!&#xa;&#xa;&#xa;&quot;Source Globals&quot;!&#xa;&#xa;&#xa;&quot;Classes&quot;!&#xa;&#xa;&#xa;Abogado guid: (GUID fromString: &#39;{63bc1454-3444-49b9-bd18-7459bc1df023}&#39;)!&#xa;&#xa;&#xa;Abogado comment: &#39;&#39;!&#xa;&#xa;&#xa;!Abogado categoriesForClass!Kernel-Objects! !&#xa;&#xa;&#xa;!Abogado methodsFor!&#xa;&#xa;&#xa;apellido&#xa;^apellido.!&#xa;&#xa;&#xa;asignarCausa: unaCausa&#xa;&#xa;&#xa;causasAbiertas add: unaCausa.!&#xa;&#xa;&#xa;asignarFuero: unFuero&#xa;&#xa;&#xa;fuero := unFuero.&#xa;!&#xa;&#xa;&#xa;calcularMontos: unMonto&#xa;self subclassResponsibility.&#xa;!&#xa;&#xa;&#xa;cargarDatos&#xa;&#xa;&#xa;Abogado siguienteID.&#xa;&#xa;&#xa;id := UltimoId.&#xa;apellido := Prompter prompt: &#39;Ingrese apellido del abogado&#39;.&#xa;nombre := Prompter prompt: &#39;Ingrese nombre del abogado&#39;.&#xa;dniNumero := Prompter prompt: &#39;Ingrese numero de dni&#39;.&#xa;dniTipo := Prompter prompt: &#39;Ingrese tipo de dni&#39;.&#xa;domicilio := Prompter prompt: &#39;Ingrese domicilio del abogado&#39;.&#xa;telefono := Prompter prompt: &#39;Ingrese telefono del abogado&#39;.&#xa;email := Prompter prompt: &#39;Ingrese email del abogado&#39;.&#xa;&#xa;&#xa;self inicializador.&#xa;&#xa;&#xa;&#xa;&#xa;!&#xa;&#xa;&#xa;causasAbiertas&#xa;^causasAbiertas.!&#xa;&#xa;&#xa;cerrarCausa: causaID&#xa;&#xa;&#xa;causasAbiertas remove: causaID ifAbsent: [].!&#xa;&#xa;&#xa;fuero&#xa;^ fuero !&#xa;&#xa;&#xa;inicializador&#xa;&#xa;&#xa;causasAbiertas := OrderedCollection new.!&#xa;&#xa;&#xa;nombre&#xa;^nombre.! !&#xa;&#xa;&#xa;!Abogado categoriesForMethods!&#xa;apellido!public! !&#xa;asignarCausa:!public! !&#xa;asignarFuero:!public! !&#xa;calcularMontos:!public! !&#xa;cargarDatos!public! !&#xa;causasAbiertas!public! !&#xa;cerrarCausa:!public! !&#xa;fuero!public! !&#xa;inicializador!public! !&#xa;nombre!public! !&#xa;!&#xa;&#xa;&#xa;!Abogado class methodsFor!&#xa;&#xa;&#xa;siguienteID &#xa;&#xa;&#xa;UltimoId ifNil: [UltimoId := 0 ].&#xa;UltimoId := UltimoId + 1.&#xa;UltimoId.! !&#xa;&#xa;&#xa;!Abogado class categoriesForMethods!&#xa;siguienteID!public! !&#xa;!&#xa;&#xa;&#xa;Causa guid: (GUID fromString: &#39;{603a1948-f3b9-4642-819d-093bf981c078}&#39;)!&#xa;&#xa;&#xa;Causa comment: &#39;&#39;!&#xa;&#xa;&#xa;!Causa categoriesForClass!Kernel-Objects! !&#xa;&#xa;&#xa;!Causa methodsFor!&#xa;&#xa;&#xa;abogadoAsignado&#xa;^abogado!&#xa;&#xa;&#xa;asignarAbogado: unAbogado&#xa;&#xa;&#xa;abogado := unAbogado.!&#xa;&#xa;&#xa;cargaDatos&#xa;&#xa;&#xa;numeroDeExpediente := Prompter prompt: &#39;Cargar número de expediente&#39;.&#xa;fuero := Prompter prompt: &#39;Cargar fuero&#39;.&#xa;fechaDeInicio := Date fromString: (Prompter prompt: &#39;Ingrese la fecha de inicio (dd/mm/aaaa)&#39;) format: &#39;dd/mm/yyyy&#39;.&#xa;juzgado := Prompter prompt: &#39;Cargar juzgado&#39;.&#xa;motivosDemanda := Prompter prompt: &#39;Cargar motivo de demanda&#39;.&#xa;demandante := Prompter prompt: &#39;Cargar nombre y apellido de demandante&#39;.&#xa;demandado := Prompter prompt: &#39;Cargar nombre y apellido de demandado&#39;.&#xa;!&#xa;&#xa;&#xa;cerrarCausa&#xa;| fecha resolucion pago |&#xa;&#xa;&#xa;fecha := Date fromString: (Prompter prompt: &#39;Ingrese la fecha de cierre (dd/mm/aaaa)&#39;) format: &#39;dd/mm/yyyy&#39;.&#xa;resolucion := Prompter prompt: &#39;Ingrese la resolución (favorable, no favorable)&#39;.&#xa;pago := (Prompter prompt: &#39;Ingrese el monto obtenido&#39;) asNumber.&#xa;&#xa;&#xa;fechaDeCierre := fecha.&#xa;sentencia := resolucion.&#xa;montoObtenido := pago.!&#xa;&#xa;&#xa;fechaDeCierre&#xa;^fechaDeCierre.!&#xa;&#xa;&#xa;fechaDeInicio&#xa;^fechaDeInicio.!&#xa;&#xa;&#xa;fuero&#xa;^fuero!&#xa;&#xa;&#xa;montoObtenido&#xa;^montoObtenido.!&#xa;&#xa;&#xa;numeroDeExpediente&#xa;^numeroDeExpediente.!&#xa;&#xa;&#xa;sentencia&#xa;^sentencia.! !&#xa;&#xa;&#xa;!Causa categoriesForMethods!&#xa;abogadoAsignado!public! !&#xa;asignarAbogado:!public! !&#xa;cargaDatos!public! !&#xa;cerrarCausa!public! !&#xa;fechaDeCierre!public! !&#xa;fechaDeInicio!public! !&#xa;fuero!public! !&#xa;montoObtenido!public! !&#xa;numeroDeExpediente!public! !&#xa;sentencia!public! !&#xa;!&#xa;&#xa;&#xa;Estudio guid: (GUID fromString: &#39;{5f6983a0-63d1-452e-8433-478fb6ec4f51}&#39;)!&#xa;&#xa;&#xa;Estudio comment: &#39;&#39;!&#xa;&#xa;&#xa;!Estudio categoriesForClass!Kernel-Objects! !&#xa;&#xa;&#xa;!Estudio methodsFor!&#xa;&#xa;&#xa;asignarFuero: abogado&#xa;| unFuero opcion |&#xa;&#xa;&#xa;opcion := Prompter prompt: &#39;Ingrese el fuero o especialidad del abogado penal, civil, laboral, comercial.&#39;.&#xa;unFuero := fueros detect: [:fuero | fuero descripcion = opcion].&#xa;&#xa;&#xa;abogado asignarFuero: unFuero descripcion.!&#xa;&#xa;&#xa;buscarAbogado: unFuero&#xa;| abos abogado ordenados |&#xa;&#xa;&#xa;abos := abogados select: [:each | each fuero = unFuero].&#xa;&#xa;&#xa;ordenados := SortedCollection sortBlock: [:a :b | a causasAbiertas size &lt; b causasAbiertas size ].&#xa;ordenados addAll: abos.&#xa;&#xa;&#xa;abogado := ordenados first.&#xa;&#xa;&#xa;^abogado.&#xa;&#xa;&#xa;&#xa;&#xa;&#xa;&#xa;!&#xa;&#xa;&#xa;cargarAbogado&#xa;| opcion abogado |&#xa;&#xa;&#xa;opcion := Prompter prompt: &#39;Ingrese tipo de abogado P o M&#39;.&#xa;&#xa;&#xa;abogado := (opcion = &#39;P&#39;) &#xa;            ifTrue: [ AbogadoPorcentaje new]&#xa;            ifFalse: [ AbogadoMontoFijo new].&#xa;&#xa;&#xa;abogado cargaDatos.&#xa;&#xa;&#xa;self asignarFuero: abogado.&#xa;&#xa;&#xa;abogados add: abogado.!&#xa;&#xa;&#xa;cargarFuero&#xa;| nuevoFuero |&#xa;&#xa;&#xa;nuevoFuero := Fuero new.&#xa;nuevoFuero cargaDatos.&#xa;&#xa;&#xa;fueros add: nuevoFuero.&#xa;!&#xa;&#xa;&#xa;cerrarCausa&#xa;| causa opcion abogado |&#xa;&#xa;&#xa;opcion := Prompter prompt: &#39;Ingrese numero de expediente&#39;.&#xa;causa := causas detect: [:each | each numeroDeExpediente = opcion]. &#xa;causa cerrarCausa.&#xa;&#xa;&#xa;abogado := causa abogadoAsignado.&#xa;abogado cerrarCausa: causa.&#xa;&#xa;&#xa;Transcript show: &#39;Causa cerrada y removida de causas abiertas del abogado.&#39;; cr.!&#xa;&#xa;&#xa;inicializador&#xa;&#xa;&#xa;fueros := OrderedCollection new.&#xa;abogados:= OrderedCollection new.&#xa;causas:= OrderedCollection new.!&#xa;&#xa;&#xa;iniciarCausa&#xa;| causa abogado |&#xa;&#xa;&#xa;causa := Causa new.&#xa;causa cargaDatos.&#xa;&#xa;&#xa;abogado := self buscarAbogado: causa  fuero.&#xa;&#xa;&#xa;causa asignarAbogado: abogado.&#xa;abogado asignarCausa: causa.&#xa;&#xa;&#xa;causas add: causa.!&#xa;&#xa;&#xa;liquidarHaberes&#xa;| minDate maxDate causasFiltradas  |&#xa;&quot; &#xa;los fallos favorables obtenidos en causas cerradas &#xa;en un periodo determinado&#xa;&quot;&#xa;minDate := Date fromString: (Prompter prompt: &#39;Ingrese la fecha de inicio (dd/mm/aaaa)&#39;) format: &#39;dd/mm/yyyy&#39;.&#xa;maxDate := Date fromString: (Prompter prompt: &#39;Ingrese la fecha de finalizado (dd/mm/aaaa)&#39;) format: &#39;dd/mm/yyyy&#39;.&#xa;&#xa;&#xa;causasFiltradas := causas select: [:each | &#xa;    (each sentencia notNil and: [each sentencia ~= &#39;no favorable&#39;]) and: [each fechaDeInicio &gt;= minDate and: [each fechaDeInicio &lt;= maxDate]]&#xa;].&#xa;&#xa;&#xa;Transcript show: &#39;#############&#39;; cr.&#xa;causasFiltradas do: [:each | &#xa;    Transcript show: &#39;Expediente nro.: &#39;, each numeroDeExpediente; cr.&#xa;    Transcript show: &#39;Desde: &#39;, each fechaDeInicio printString; cr.&#xa;    Transcript show: &#39;Hasta: &#39;, each fechaDeCierre printString; cr.&#xa;    Transcript show: &#39;Nombre y apellido del abogado: &#39;, each abogadoAsignado nombre; show:  &#39; &#39;, each abogadoAsignado apellido; cr.&#xa;    Transcript show: &#39;Fuero: &#39;, each fuero; cr.&#xa;    Transcript show: &#39;Monto obtenido: $&#39;, each montoObtenido printString; cr.&#xa;    Transcript show: &#39;Monto para el abogado: $&#39;, (each abogadoAsignado calcularMontos: each montoObtenido) printString; cr.&#xa;    Transcript show: &#39;--------------------&#39;; cr.&#xa;].&#xa;Transcript show: &#39;#############&#39;; cr.&#xa;! !&#xa;&#xa;&#xa;!Estudio categoriesForMethods!&#xa;asignarFuero:!public! !&#xa;buscarAbogado:!public! !&#xa;cargarAbogado!public! !&#xa;cargarFuero!public! !&#xa;cerrarCausa!public! !&#xa;inicializador!public! !&#xa;iniciarCausa!public! !&#xa;liquidarHaberes!public! !&#xa;!&#xa;&#xa;&#xa;Fuero guid: (GUID fromString: &#39;{418ff57a-bdea-42e3-be25-3c22dade0d49}&#39;)!&#xa;&#xa;&#xa;Fuero comment: &#39;&#39;!&#xa;&#xa;&#xa;!Fuero categoriesForClass!Kernel-Objects! !&#xa;&#xa;&#xa;!Fuero methodsFor!&#xa;&#xa;&#xa;cargaDatos&#xa;&#xa;&#xa;codigo := Prompter prompt: &#39;Ingresa el código del fuero&#39;.&#xa;descripcion := Prompter prompt: &#39;Ingresa la descripción del fuero&#39;.!&#xa;&#xa;&#xa;descripcion&#xa;&#xa;&#xa;^descripcion.! !&#xa;&#xa;&#xa;!Fuero categoriesForMethods!&#xa;cargaDatos!public! !&#xa;descripcion!public! !&#xa;!&#xa;&#xa;&#xa;AbogadoMontoFijo guid: (GUID fromString: &#39;{ecb7b9d7-0852-4699-89b1-109541801d75}&#39;)!&#xa;&#xa;&#xa;AbogadoMontoFijo comment: &#39;&#39;!&#xa;&#xa;&#xa;!AbogadoMontoFijo categoriesForClass!Kernel-Objects! !&#xa;&#xa;&#xa;!AbogadoMontoFijo methodsFor!&#xa;&#xa;&#xa;calcularMontos: unMonto&#xa;^(montoFijo).!&#xa;&#xa;&#xa;cargaDatos&#xa;super cargarDatos.&#xa;&#xa;&#xa;montoFijo := (Prompter prompt: &#39;Ingresar monto fijo que cobra el abogado&#39;) asNumber.! !&#xa;&#xa;&#xa;!AbogadoMontoFijo categoriesForMethods!&#xa;calcularMontos:!public! !&#xa;cargaDatos!public! !&#xa;!&#xa;&#xa;&#xa;AbogadoPorcentaje guid: (GUID fromString: &#39;{410c3fe2-c229-4a72-b5ec-de8ec173f4ec}&#39;)!&#xa;&#xa;&#xa;AbogadoPorcentaje comment: &#39;&#39;!&#xa;&#xa;&#xa;!AbogadoPorcentaje categoriesForClass!Kernel-Objects! !&#xa;&#xa;&#xa;!AbogadoPorcentaje methodsFor!&#xa;&#xa;&#xa;calcularMontos: unMonto&#xa;^(porcentaje * unMonto).!&#xa;&#xa;&#xa;cargaDatos&#xa;super cargarDatos.&#xa;&#xa;&#xa;porcentaje := (Prompter prompt: &#39;Ingresar el porcentaje que cobra el abogado en DECIMALES&#39;) asNumber.! !&#xa;&#xa;&#xa;!AbogadoPorcentaje categoriesForMethods!&#xa;calcularMontos:!public! !&#xa;cargaDatos!public! !&#xa;!&#xa;&#xa;&#xa;&quot;Binary Globals&quot;!" style="text;whiteSpace=wrap;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="56" y="1220" width="604" height="7970" as="geometry" />
+        </mxCell>
+        <mxCell id="_gNwSuhdFXTQbb97_CQj-22" value="&lt;b&gt;&lt;font style=&quot;font-size: 36px;&quot;&gt;ENUNCIADO&lt;/font&gt;&lt;/b&gt;" style="text;strokeColor=none;align=left;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="40" y="-1088" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="_gNwSuhdFXTQbb97_CQj-23" value="&lt;b&gt;&lt;font style=&quot;font-size: 36px;&quot;&gt;DIAGRAMA&lt;/font&gt;&lt;/b&gt;" style="text;strokeColor=none;align=left;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="40" y="32" width="280" height="70" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
